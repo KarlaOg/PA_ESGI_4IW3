@@ -21,6 +21,9 @@ To run this project, install it locally using:
 
 ```
 $ composer install
+$ php bin/console doctrine:database:create
+$ php bin/console make:migration
+$ php bin/console doctrine:migrations:migrate
 to completed ...
 ```
 
