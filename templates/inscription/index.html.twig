@@ -1,11 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Inscription
+{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 
 {% block body %}
-    <h3>Page d'inscription ...</h3>
-    <hr>
+	<h3>Page d'inscription ...</h3>
+	<hr>
 
-    <button type="button" class="btn btn-success" href="/connexion">Se connecter</button>
+	<div class="row">
+		<div class="column large-12 tab-12">
+			{% for message in app.flashes('success') %}
+				<div class="flash-notice">
+					{{ message }}
+				</div>
+			{% endfor %}
+			{{ form_start(form) }}
+			{{ form_row(form) }}
+			<button type="submit" class="btn btn-success">Envoyer</button>
+			{{ form_end(form) }}
+		</div>
+	</div>
+	<br>
+
+	{# {{ form_start(form) }}
+				{{ form_rest(form) }}
+				<button type="submit" class="btn btn-success" href="/connexion">Valider</button>
+				{{ form_end(form) }} #}
 
 {% endblock %}
