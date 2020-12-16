@@ -55,11 +55,10 @@ class InscriptionController extends AbstractController
             // $user->setPassword(
             //     $this->passwordEncoder->encodePassword($user, $form->get("password")->getData())
             // );
-            $user->setToken($this->generateToken());
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            $this->addFlash("success", "Inscription réussie !");
+            //$this->addFlash("success", "Inscription réussie !");
             return $this->redirectToRoute('connexion/index.html.twig');
         }
 
@@ -67,14 +66,5 @@ class InscriptionController extends AbstractController
         return $this->render('inscription/index.html.twig', [
             'form' => $form->createView()
         ]);
-    }
-
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    private function generateToken()
-    {
-        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 }
