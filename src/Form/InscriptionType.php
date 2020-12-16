@@ -9,20 +9,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class InscriptionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
+            // ->add('username')
             ->add('firstname')
-            ->add('age')
+            ->add('lastname')
+            ->add('age', BirthdayType::class, [
+                'placeholder' => 'Select a value',
+            ])
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'h-full-width',
-                    "placeholder" => "Emain de confirmation vous sera envoyer"
+                    "placeholder" => "Email de confirmation vous sera envoyer"
                 ],
                 'label' => "Email"
             ])
