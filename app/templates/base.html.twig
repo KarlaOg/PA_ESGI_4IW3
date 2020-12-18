@@ -17,18 +17,29 @@
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarColor01">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="{{path('inscription_index')}}">Inscription</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/connexion">Connexion</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/Apropos">A propos</a>
-					</li>
+				{% if not app.user %}
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('inscription_index')}}">Inscription</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/Apropos">A propos</a>
+						</li>
 
-				</ul>
+					</ul>
+				{% else %}
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="/monProfil">Mon profil</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
+						</li>
+					</ul>
+				{% endif %}
 			</div>
 		</nav>
 

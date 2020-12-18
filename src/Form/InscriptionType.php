@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class InscriptionType extends AbstractType
@@ -16,7 +17,6 @@ class InscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('username')
             ->add('firstname')
             ->add('lastname')
             ->add('age', BirthdayType::class, [
@@ -25,15 +25,14 @@ class InscriptionType extends AbstractType
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'h-full-width',
-                    "placeholder" => "Email de confirmation vous sera envoyer"
+                    // "placeholder" => "Email de confirmation vous sera envoyer"
                 ],
                 'label' => "Email"
             ])
-            ->add('password', PasswordType::class, [
-                'attr' => [
-                    "class" => "h-full-width"
-                ],
-                'label' => "Mot de passe"
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat Password'],
             ]);
     }
 
