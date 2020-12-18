@@ -6,6 +6,6 @@ index:
 #   path: /inscription
 #   controller: App\Controller\InscriptionController::index
 
-# connexion:
-#   path: /connexion
-#     controller: App\Controller\ConnexionController::index
+# security:
+#   path: /login
+#     controller: App\Controller\SecurityController::index

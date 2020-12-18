@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 /**
@@ -16,16 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class InscriptionController extends AbstractController
 {
-
-    // /**
-    //  * @Route("/", name="index")
-    //  */
-    // public function index(): Response
-    // {
-    //     return $this->render('inscription/index.html.twig', [
-    //         'controller_name' => 'InscriptionController',
-    //     ]);
-    // }
 
     /**
      * @param $id
@@ -39,6 +30,12 @@ class InscriptionController extends AbstractController
         ]);
     }
 
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
 
     /**
      * @Route("/", name="index")
@@ -52,14 +49,16 @@ class InscriptionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $user->setPassword(
-            //     $this->passwordEncoder->encodePassword($user, $form->get("password")->getData())
-            // );
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+
+            // Set their role
+            $user->setRoles(['ROLE_USER']);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            //$this->addFlash("success", "Inscription réussie !");
-            return $this->redirectToRoute('connexion/index.html.twig');
+            $this->addFlash("success", "Inscription réussie !");
+            return $this->redirectToRoute('app_login');
         }
 
         // afficher le formulaire s'il n'est pas déjà rempli
