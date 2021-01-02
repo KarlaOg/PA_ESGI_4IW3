@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Données personnelles de
+	{{ app.user.firstname }}
+	{{ app.user.lastname }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="mt-4 mb-2">
+
+		<ul class="list-group mb-8">
+			<li class="list-group-item active">Données personnelles de
+				<b>{{ app.user.firstname }}
+					{{ app.user.lastname }}</b>
+			</li>
+			<li class="list-group-item">Nom :
+				<i>{{ app.user.lastname }}</i>
+			</li>
+			<li class="list-group-item">Prénom :
+				<i>{{ app.user.firstname }}</i>
+			</li>
+			<li class="list-group-item">Email :
+				<i>{{ app.user.email }}</i>
+			</li>
+		</ul>
+
+		<button type="button" class="btn btn-outline-success m-4">
+			<a class="nav-link" href="{{path('users_profil_modifier')}}">Modifier mon profil</a>
+		</button>
+	</li>
+</div>{% endblock %}
