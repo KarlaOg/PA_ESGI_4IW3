@@ -24,7 +24,8 @@ $ composer install
 $ php bin/console doctrine:database:create
 $ php bin/console make:migration
 $ php bin/console doctrine:migrations:migrate
-to completed ...
+
+$ php bin/console doctrine:fixtures:load
 ```
 
 ## Authors
