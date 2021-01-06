@@ -5,9 +5,7 @@ namespace App\Tests\Entity;
 require('vendor/autoload.php');
 
 use App\Entity\User;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\Persistence\ObjectRepository;
-use Monolog\Test\TestCase as TestTestCase;
+
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -71,9 +69,9 @@ class UserTest extends TestCase
     public function testUserNotValidPasswordLengthMin()
     {
         $user = (new User())
-            ->setFirstname('Maxime')
-            ->setLastname('Huet')
-            ->setEmail('mhuet1@myges.fr')
+            ->setFirstname('Big')
+            ->setLastname('House')
+            ->setEmail('bigHouse@myges.fr')
             ->setPassword('12')
             ->setAge(new \DateTime('11-11-1998'));
 
@@ -84,10 +82,22 @@ class UserTest extends TestCase
     {
         $long = str_repeat("tropLong", 10);
         $user = (new User())
-            ->setFirstname('Maxime')
-            ->setLastname('Huet')
-            ->setEmail('mhuet1@myges.fr')
+            ->setFirstname('Big')
+            ->setLastname('House')
+            ->setEmail('bigHouse@myges.fr')
             ->setPassword($long)
+            ->setAge(new \DateTime('11-11-1998'));
+
+        $this->assertFalse($user->isValid());
+    }
+
+    public function testUserNotValidEmail()
+    {
+        $user = (new User())
+            ->setFirstname('Big')
+            ->setLastname('House')
+            ->setEmail('bigHouse')
+            ->setPassword('password123')
             ->setAge(new \DateTime('11-11-1998'));
 
         $this->assertFalse($user->isValid());
