@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1bf4736c0b664bf3f133a4e5c748575",
+    "content-hash": "18da658cec47ce1ea66f1058bfc21055",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -392,10 +392,13 @@
                 "doctrine",
                 "php"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "issues": "https://github.com/doctrine/common/issues",
                 "source": "https://github.com/doctrine/common/tree/3.1.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -410,7 +413,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD:app/composer.lock
             "time": "2020-12-03T21:02:31+00:00"
+=======
+            "time": "2020-06-05T16:59:53+00:00"
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
         },
         {
             "name": "doctrine/dbal",
@@ -613,10 +620,13 @@
                 "orm",
                 "persistence"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "issues": "https://github.com/doctrine/DoctrineBundle/issues",
                 "source": "https://github.com/doctrine/DoctrineBundle/tree/2.2.2"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -631,7 +641,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD:app/composer.lock
             "time": "2020-12-05T15:07:10+00:00"
+=======
+            "time": "2020-11-10T20:42:15+00:00"
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
@@ -701,10 +715,13 @@
                 "migrations",
                 "schema"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "issues": "https://github.com/doctrine/DoctrineMigrationsBundle/issues",
                 "source": "https://github.com/doctrine/DoctrineMigrationsBundle/tree/3.0.x"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -890,10 +907,13 @@
                 "uppercase",
                 "words"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "issues": "https://github.com/doctrine/inflector/issues",
                 "source": "https://github.com/doctrine/inflector/tree/2.0.x"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -908,7 +928,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD:app/composer.lock
             "time": "2020-05-29T15:13:26+00:00"
+=======
+            "time": "2020-05-29T07:19:59+00:00"
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
         },
         {
             "name": "doctrine/instantiator",
@@ -1142,10 +1166,13 @@
                 "migrations",
                 "php"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "issues": "https://github.com/doctrine/migrations/issues",
                 "source": "https://github.com/doctrine/migrations/tree/3.0.1"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -1451,10 +1478,13 @@
                 "validation",
                 "validator"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "issues": "https://github.com/egulias/EmailValidator/issues",
                 "source": "https://github.com/egulias/EmailValidator/tree/2.1.24"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://github.com/egulias",
@@ -1464,8 +1494,91 @@
             "time": "2020-11-14T15:56:27+00:00"
         },
         {
+<<<<<<< HEAD:app/composer.lock
             "name": "monolog/monolog",
             "version": "2.2.0",
+=======
+            "name": "friendsofphp/proxy-manager-lts",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfPHP/proxy-manager-lts.git",
+                "reference": "aa76978a8feaf7ddffaf346ba4f409efbfe5f9a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfPHP/proxy-manager-lts/zipball/aa76978a8feaf7ddffaf346ba4f409efbfe5f9a9",
+                "reference": "aa76978a8feaf7ddffaf346ba4f409efbfe5f9a9",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-code": "^3.4.1|^4.0",
+                "php": ">=7.1",
+                "symfony/filesystem": "^4.4.17|^5.0"
+            },
+            "conflict": {
+                "laminas/laminas-stdlib": "<3.2.1",
+                "zendframework/zend-stdlib": "<3.2.1"
+            },
+            "replace": {
+                "ocramius/proxy-manager": "^2.1"
+            },
+            "require-dev": {
+                "ext-phar": "*",
+                "symfony/phpunit-bridge": "^5.2"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "name": "ocramius/proxy-manager",
+                    "url": "https://github.com/Ocramius/ProxyManager"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ProxyManager\\": "src/ProxyManager"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.io/"
+                },
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                }
+            ],
+            "description": "Adding support for a wider range of PHP versions to ocramius/proxy-manager",
+            "homepage": "https://github.com/FriendsOfPHP/proxy-manager-lts",
+            "keywords": [
+                "aop",
+                "lazy loading",
+                "proxy",
+                "proxy pattern",
+                "service proxies"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/Ocramius",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/ocramius/proxy-manager",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-12-28T10:50:10+00:00"
+        },
+        {
+            "name": "laminas/laminas-code",
+            "version": "3.5.1",
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
@@ -1557,7 +1670,17 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD:app/composer.lock
             "time": "2020-12-14T13:15:25+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2020-11-30T20:16:31+00:00"
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
         },
         {
             "name": "ocramius/proxy-manager",
@@ -1658,6 +1781,141 @@
             },
             "autoload": {
                 "psr-4": {
+<<<<<<< HEAD:app/composer.lock
+=======
+                    "Laminas\\ZendFrameworkBridge\\": "src//"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Alias legacy ZF class names to Laminas Project equivalents.",
+            "keywords": [
+                "ZendFramework",
+                "autoloading",
+                "laminas",
+                "zf"
+            ],
+            "time": "2020-09-14T14:23:00+00:00"
+        },
+        {
+            "name": "monolog/monolog",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "f9eee5cec93dfb313a38b6b288741e84e53f02d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f9eee5cec93dfb313a38b6b288741e84e53f02d5",
+                "reference": "f9eee5cec93dfb313a38b6b288741e84e53f02d5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "psr/log": "^1.0.1"
+            },
+            "provide": {
+                "psr/log-implementation": "1.0.0"
+            },
+            "require-dev": {
+                "aws/aws-sdk-php": "^2.4.9 || ^3.0",
+                "doctrine/couchdb": "~1.0@dev",
+                "elasticsearch/elasticsearch": "^6.0",
+                "graylog2/gelf-php": "^1.4.2",
+                "php-amqplib/php-amqplib": "~2.4",
+                "php-console/php-console": "^3.1.3",
+                "php-parallel-lint/php-parallel-lint": "^1.0",
+                "phpspec/prophecy": "^1.6.1",
+                "phpunit/phpunit": "^8.5",
+                "predis/predis": "^1.1",
+                "rollbar/rollbar": "^1.3",
+                "ruflin/elastica": ">=0.90 <3.0",
+                "swiftmailer/swiftmailer": "^5.3|^6.0"
+            },
+            "suggest": {
+                "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
+                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+                "ext-mbstring": "Allow to work properly with unicode symbols",
+                "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
+                "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
+                "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
+                "php-console/php-console": "Allow sending log messages to Google Chrome",
+                "rollbar/rollbar": "Allow sending log messages to Rollbar",
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Monolog\\": "src/Monolog"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+            "homepage": "http://github.com/Seldaek/monolog",
+            "keywords": [
+                "log",
+                "logging",
+                "psr-3"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/Seldaek",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-07-23T08:41:23+00:00"
+        },
+        {
+            "name": "phpdocumentor/reflection-common",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
+                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/1d01c49d4ed62f25aa84a747ad35d5a16924662b",
+                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
                     "phpDocumentor\\Reflection\\": "src/"
                 }
             },
@@ -2175,9 +2433,12 @@
             ],
             "description": "Symfony Asset Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/asset/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2270,9 +2531,12 @@
                 "caching",
                 "psr6"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/cache/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2427,9 +2691,12 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/config/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2524,9 +2791,12 @@
                 "console",
                 "terminal"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/console/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2611,9 +2881,12 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/dependency-injection/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2791,9 +3064,12 @@
             ],
             "description": "Symfony Doctrine Bridge",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/doctrine-bridge/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2861,9 +3137,12 @@
                 "env",
                 "environment"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/dotenv/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2930,9 +3209,12 @@
             ],
             "description": "Symfony ErrorHandler Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/error-handler/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3015,9 +3297,12 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/event-dispatcher/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3158,9 +3443,12 @@
             ],
             "description": "Symfony ExpressionLanguage Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/expression-language/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3220,9 +3508,12 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/filesystem/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3281,9 +3572,12 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/finder/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3450,9 +3744,12 @@
             ],
             "description": "Symfony Form Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/form/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3596,9 +3893,12 @@
             ],
             "description": "Symfony FrameworkBundle",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/framework-bundle/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3682,9 +3982,12 @@
             ],
             "description": "Symfony HttpClient component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/http-client/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3834,9 +4137,12 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/http-foundation/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3946,9 +4252,12 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/http-kernel/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4034,9 +4343,12 @@
                 "l10n",
                 "localization"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/intl/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4115,9 +4427,12 @@
             ],
             "description": "Symfony Mailer Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/mailer/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4195,9 +4510,12 @@
                 "mime",
                 "mime-type"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/mime/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4277,9 +4595,12 @@
             ],
             "description": "Symfony Monolog Bridge",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/monolog-bridge/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4442,9 +4763,12 @@
                 "notification",
                 "notifier"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/notifier/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4511,9 +4835,12 @@
                 "configuration",
                 "options"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/options-resolver/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5146,9 +5473,12 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/process/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5227,9 +5557,12 @@
                 "property path",
                 "reflection"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/property-access/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5317,9 +5650,12 @@
                 "type",
                 "validator"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/property-info/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5407,9 +5743,12 @@
                 "uri",
                 "url"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/routing/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5505,9 +5844,12 @@
             ],
             "description": "Symfony SecurityBundle",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/security-bundle/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5594,9 +5936,12 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/security-core/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5665,9 +6010,12 @@
             ],
             "description": "Symfony Security Component - CSRF Library",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/security-csrf/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5732,9 +6080,12 @@
             ],
             "description": "Symfony Security Component - Guard",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/security-guard/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5815,9 +6166,12 @@
             ],
             "description": "Symfony Security Component - HTTP Integration",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/security-http/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5916,9 +6270,12 @@
             ],
             "description": "Symfony Serializer Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/serializer/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6057,9 +6414,12 @@
             ],
             "description": "Symfony Stopwatch Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/stopwatch/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6140,9 +6500,12 @@
                 "utf-8",
                 "utf8"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/string/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6233,9 +6596,12 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/translation/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6428,9 +6794,12 @@
             ],
             "description": "Symfony Twig Bridge",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/twig-bridge/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6515,9 +6884,12 @@
             ],
             "description": "Symfony TwigBundle",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/twig-bundle/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6626,9 +6998,12 @@
             ],
             "description": "Symfony Validator Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/validator/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6714,9 +7089,12 @@
                 "debug",
                 "dump"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/var-dumper/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6787,9 +7165,12 @@
                 "instantiate",
                 "serialize"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/var-exporter/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6874,9 +7255,12 @@
                 "psr13",
                 "push"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/web-link/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6949,9 +7333,12 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/yaml/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7100,6 +7487,7 @@
             "keywords": [
                 "templating"
             ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
                 "source": "https://github.com/twigphp/Twig/tree/v3.1.1"
@@ -7114,6 +7502,8 @@
                     "type": "tidelift"
                 }
             ],
+            "time": "2020-10-27T19:28:23+00:00"
+=======
             "time": "2020-10-27T19:28:23+00:00"
         },
         {
@@ -7163,6 +7553,150 @@
                 "check",
                 "validate"
             ],
+            "time": "2020-07-08T17:02:28+00:00"
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "doctrine/data-fixtures",
+            "version": "1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/data-fixtures.git",
+                "reference": "16a03fadb5473f49aad70384002dfd5012fe680e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/16a03fadb5473f49aad70384002dfd5012fe680e",
+                "reference": "16a03fadb5473f49aad70384002dfd5012fe680e",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "^2.13|^3.0",
+                "doctrine/persistence": "^1.3.3|^2.0",
+                "php": "^7.2 || ^8.0"
+            },
+            "conflict": {
+                "doctrine/phpcr-odm": "<1.3.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^6.0",
+                "doctrine/dbal": "^2.5.4",
+                "doctrine/mongodb-odm": "^1.3.0 || ^2.0.0",
+                "doctrine/orm": "^2.7.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "suggest": {
+                "alcaeus/mongo-php-adapter": "For using MongoDB ODM 1.3 with PHP 7 (deprecated)",
+                "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
+                "doctrine/orm": "For loading ORM fixtures",
+                "doctrine/phpcr-odm": "For loading PHPCR ODM fixtures"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Common\\DataFixtures\\": "lib/Doctrine/Common/DataFixtures"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                }
+            ],
+            "description": "Data Fixtures for all Doctrine Object Managers",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database"
+            ],
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdata-fixtures",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-09-01T07:13:28+00:00"
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
+        },
+        {
+            "name": "doctrine/doctrine-fixtures-bundle",
+            "version": "3.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
+                "reference": "870189619a7770f468ffb0b80925302e065a3b34"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/870189619a7770f468ffb0b80925302e065a3b34",
+                "reference": "870189619a7770f468ffb0b80925302e065a3b34",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/data-fixtures": "^1.3",
+                "doctrine/doctrine-bundle": "^1.11|^2.0",
+                "doctrine/orm": "^2.6.0",
+                "doctrine/persistence": "^1.3.7|^2.0",
+                "php": "^7.1 || ^8.0",
+                "symfony/config": "^3.4|^4.3|^5.0",
+                "symfony/console": "^3.4|^4.3|^5.0",
+                "symfony/dependency-injection": "^3.4|^4.3|^5.0",
+                "symfony/doctrine-bridge": "^3.4|^4.1|^5.0",
+                "symfony/http-kernel": "^3.4|^4.3|^5.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^6.0",
+                "phpunit/phpunit": "^7.4 || ^8.0 || ^9.2",
+                "symfony/phpunit-bridge": "^4.1|^5.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Bundle\\FixturesBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Doctrine Project",
+                    "homepage": "http://www.doctrine-project.org"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony DoctrineFixturesBundle",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "Fixture",
+                "persistence"
+            ],
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "issues": "https://github.com/webmozart/assert/issues",
                 "source": "https://github.com/webmozart/assert/tree/master"
@@ -7296,6 +7830,24 @@
         }
     ],
     "packages-dev": [
+=======
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdoctrine-fixtures-bundle",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-11-14T09:36:49+00:00"
+        },
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
         {
             "name": "nikic/php-parser",
             "version": "v4.10.3",
@@ -7404,9 +7956,12 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/browser-kit/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7469,9 +8024,12 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/css-selector/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7547,9 +8105,12 @@
             ],
             "description": "Symfony DebugBundle",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/debug-bundle/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7621,9 +8182,12 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/dom-crawler/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7795,9 +8359,12 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/phpunit-bridge/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7873,9 +8440,12 @@
             ],
             "description": "Symfony WebProfilerBundle",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD:app/composer.lock
             "support": {
                 "source": "https://github.com/symfony/web-profiler-bundle/tree/v5.2.0"
             },
+=======
+>>>>>>> ajout de fausses données (UsersFixtures) pour les users:composer.lock
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7891,6 +8461,61 @@
                 }
             ],
             "time": "2020-10-28T21:46:03+00:00"
+        },
+        {
+            "name": "webimpress/safe-writer",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webimpress/safe-writer.git",
+                "reference": "5cfafdec5873c389036f14bf832a5efc9390dcdd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webimpress/safe-writer/zipball/5cfafdec5873c389036f14bf832a5efc9390dcdd",
+                "reference": "5cfafdec5873c389036f14bf832a5efc9390dcdd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.8 || ^9.3.7",
+                "vimeo/psalm": "^3.14.2",
+                "webimpress/coding-standard": "^1.1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev",
+                    "dev-develop": "2.2.x-dev",
+                    "dev-release-1.0": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webimpress\\SafeWriter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "Tool to write files safely, to avoid race conditions",
+            "keywords": [
+                "concurrent write",
+                "file writer",
+                "race condition",
+                "safe writer",
+                "webimpress"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/michalbundyra",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-25T07:21:11+00:00"
         }
     ],
     "aliases": [],
