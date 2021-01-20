@@ -45,7 +45,7 @@ use App\Form\OfferType;
 
     {
 
-        return $this->render('back/book/index.html.twig', [
+        return $this->render('offer/new_offer.html.twig', [
 
             'offer' => $offerRepository->findAll()
 
@@ -87,7 +87,7 @@ use App\Form\OfferType;
 
             //return $this->redirectToRoute('back_book_show', ['id' => $book->getId()]);
 
-            return $this->render('Offer/new_offer.html.twig', [
+            return $this->render('offer/new_offer.html.twig', [
 
                 'form' => $form->createView()
 
@@ -97,7 +97,7 @@ use App\Form\OfferType;
 
         var_dump('non fait');
 
-        return $this->render('Offer/new_offer.html.twig', [
+        return $this->render('offer/new_offer.html.twig', [
 
             'form' => $form->createView()
 
