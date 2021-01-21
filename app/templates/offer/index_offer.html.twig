@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+ 
+
+{% block title %}Liste des offres {% endblock %}
+ 
+
+{% block body %}
+
+    <h1>Liste des offres</h1>
+ 
+    {% for offer in offers  %}
+        Title : {{ offer.name|capitalize }} <br>
+        Description : {{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}} <br>
+        Date de début : {{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}} <br>
+        Date de fin : {{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}} <br>
+        <a href="{{ path('edit') }}" class="btn">Modifier l'offre</a> <br>
+        <br>
+    {% endfor %}
+{% endblock %}

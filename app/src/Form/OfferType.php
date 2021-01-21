@@ -29,8 +29,6 @@ class OfferType extends AbstractType
 
             ->add('brandId')
 
-            ->add('dateCreation')
-
             ->add('dateStart')
 
             ->add('dateEnd')
