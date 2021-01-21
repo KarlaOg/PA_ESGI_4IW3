@@ -55,9 +55,9 @@ class User implements UserInterface
     private $age;
 
     /**
-     * @ORM\Column(type="json", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $type = [];
+    private $type ;
 
     /**
      * @ORM\OneToMany(targetEntity=Influencer::class, mappedBy="userId")
@@ -210,12 +210,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getType(): ?array
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(?array $type): self
+    public function setType(?string $type): self
     {
         $this->type = $type;
 
