@@ -79,9 +79,7 @@ use App\Form\OfferType;
 
             $em->flush();
  
-
-            var_dump('fait');
-            var_dump($offer) ; 
+            $this->addFlash('success', 'Création réussie');
  
 
             //return $this->redirectToRoute('back_book_show', ['id' => $book->getId()]);
@@ -94,7 +92,7 @@ use App\Form\OfferType;
 
         }
 
-        var_dump('non fait');
+        // var_dump('non fait');
 
         return $this->render('offer/new_offer.html.twig', [
 
@@ -102,6 +100,30 @@ use App\Form\OfferType;
 
         ]);
 
+    }
+
+    /**
+     * @Route("/edit/{id}", name="edit", methods={"GET", "POST"})
+     */
+    public function edit(Offer $offer, Request $request)
+    {
+        $form = $this->createForm(OfferType::class, $offer);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->addFlash('success', 'Modification réussie');
+
+            return $this->redirectToRoute('offer_edit', ['id' => $offer->getId()]);
+        }
+
+        return $this->render('offer/edit_offer.html.twig', [
+            'offer' => $offer,
+            'form' => $form->createView()
+        ]);
     }
 
   }
