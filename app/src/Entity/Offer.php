@@ -105,7 +105,7 @@ class Offer
 
     public function setDateCreation(\DateTimeInterface $dateCreation): self
     {
-        $this->dateCreation = $dateCreation;
+        $this->dateCreation = date('Y-m-d');
 
         return $this;
     }

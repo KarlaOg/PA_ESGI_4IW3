@@ -62,6 +62,12 @@ services:
     ports:
       - '8082:80'
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+    - 8080:8080
+
 volumes:
   db-data: {}
   app-sf-cache: {}

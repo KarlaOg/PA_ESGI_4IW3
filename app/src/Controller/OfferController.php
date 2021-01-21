@@ -44,10 +44,9 @@ use App\Form\OfferType;
     public function index(OfferRepository $offerRepository): Response
 
     {
+        return $this->render('offer/index_offer.html.twig', [
 
-        return $this->render('offer/new_offer.html.twig', [
-
-            'offer' => $offerRepository->findAll()
+            'offers' => $offerRepository->findBy(array(), array('name' => 'ASC'))
 
         ]);
 
@@ -73,8 +72,7 @@ use App\Form\OfferType;
 
         if ($form->isSubmitted() && $form->isValid())
 
-        {
-
+        { 
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($offer);
@@ -83,6 +81,7 @@ use App\Form\OfferType;
  
 
             var_dump('fait');
+            var_dump($offer) ; 
  
 
             //return $this->redirectToRoute('back_book_show', ['id' => $book->getId()]);
