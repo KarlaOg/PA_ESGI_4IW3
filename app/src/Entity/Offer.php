@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Offer
 {
@@ -103,11 +104,14 @@ class Offer
         return $this->dateCreation;
     }
 
-    public function setDateCreation(\DateTimeInterface $dateCreation): self
-    {
-        $this->dateCreation = date('Y-m-d');
+   /**
+     * Gets triggered only on insert
 
-        return $this;
+     * @ORM\PrePersist
+     */
+    public function setDateCreation(): void
+    {
+        $this->dateCreation = new \DateTime("now");
     }
 
     public function getDateStart(): ?\DateTimeInterface

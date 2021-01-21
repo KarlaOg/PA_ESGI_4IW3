@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
  
 
-{% block title %}Ajouter une offre {% endblock %}
+{% block title %} Editer une offre {% endblock %}
  
 
 {% block body %}
 
-    <h1>Ajouter une offre</h1>
+    <h1> Editer une offre</h1>
  
 
     {{ form_start(form) }}
 
         {{ form_rest(form) }}
 
-        <button type="submit" class="btn">Créer</button>
+        <button type="submit" class="btn">Sauvegarder</button>
 
     {{ form_end(form) }}
         <a href="{{path('offer_index')}}" class="btn">Annuler</a>
