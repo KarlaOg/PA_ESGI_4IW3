@@ -10,8 +10,8 @@ security:
             anonymous: true
             lazy: true
             provider: users_in_memory
-    encoders:
-        App\Entity\User: 'sha512'
+        encoders:
+            App\Entity\User: 'sha512'
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
