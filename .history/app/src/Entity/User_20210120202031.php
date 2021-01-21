@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="user_account")
+ * @ORM\Table
  */
 class User implements UserInterface
 {

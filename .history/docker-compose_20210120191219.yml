@@ -22,7 +22,7 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=pwd
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
+      - db-data:/var/lib/mysql/data:rw
     ports:
       - '5432:5432'
 
