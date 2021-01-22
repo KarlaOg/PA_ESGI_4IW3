@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
  
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class OfferType extends AbstractType
 
@@ -29,9 +30,9 @@ class OfferType extends AbstractType
 
             ->add('brandId')
 
-            ->add('dateStart')
+            ->add('dateStart', DateType::class)
 
-            ->add('dateEnd')
+            ->add('dateEnd', DateType::class)
 
             ->add('status')
 
