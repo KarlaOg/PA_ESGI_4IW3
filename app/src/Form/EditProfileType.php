@@ -14,10 +14,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class EditProfileType extends AbstractType
 {
 
-    const YOUTUBER = 'Youtuber';
-    const INFLUENCER = 'Influencer';
-    const GAMER = 'Gamer';
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
@@ -26,9 +22,9 @@ class EditProfileType extends AbstractType
             ->add('firstname', TextType::class)
             ->add('type', ChoiceType::class, [
                 'choices' => array(
-                    'Youtuber' => self::YOUTUBER,
-                    'Influencer' => self::INFLUENCER,
-                    'Gamer' => self::GAMER,
+                    'Youtubeur' => 'Youtubeur',
+                    'Influenceur' => 'Influenceur',
+                    'Gamer' => 'Gamer',
                 ),
                 'multiple'  => true,
                 'expanded' => true,
