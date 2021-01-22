@@ -82,17 +82,10 @@ use App\Form\OfferType;
             $this->addFlash('success', 'Création réussie');
  
 
-            //return $this->redirectToRoute('back_book_show', ['id' => $book->getId()]);
-
-            return $this->render('offer/new.html.twig', [
-
-                'form' => $form->createView()
-
-            ]);
+            return $this->redirectToRoute('offer_index', ['id' => $offer->getId()]);
 
         }
 
-        // var_dump('non fait');
 
         return $this->render('offer/new.html.twig', [
 
