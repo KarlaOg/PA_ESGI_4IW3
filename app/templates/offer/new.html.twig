@@ -15,9 +15,9 @@
 			{{ form_start(form) }}
 			{{ form_row(form) }}
 			<button type="submit" class="btn btn-success">Créer</button>
+		 	<a href="{{path('offer_index')}}" class="btn btn-danger">Annuler</a>
 			{{ form_end(form) }}
 		</div>
 	</div>
-        <a href="{{path('offer_index')}}" class="btn btn-danger">Annuler</a>
 
 {% endblock %}
