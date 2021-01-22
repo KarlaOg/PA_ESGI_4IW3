@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+ 
+
+{% block title %} Editer une offre {% endblock %}
+ 
+
+{% block body %}
+
+    <h1> Editer une offre</h1>
+ 
+
+<div class="row">
+		<div
+			class="column large-12 tab-12">
+			{{ form_start(form) }}
+			{{ form_row(form) }}
+			<button type="submit" class="btn btn-success">Sauvegarder</button>
+			{{ form_end(form) }}
+            <a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn btn-danger">Retour</a> 
+		</div>
+	</div>
+
+{% endblock %}
