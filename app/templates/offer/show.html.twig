@@ -1,20 +1,25 @@
 {% extends 'base.html.twig' %}
- 
 
 {% block title %}Offre {% endblock %}
  
 
 {% block body %}
 
-    <h1>Offre</h1>
- 
-        Title : {{ offer.name|capitalize }} <br>
-        Description : {{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}} <br>
-        Date de début : {{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}} <br>
-        Date de fin : {{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}} <br>
+    <h1>{{ offer.name|capitalize }}</h1>
+
+<div class = "table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <td>Dates : {{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}} - {{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}} </td>
+        </tr>
+        <tr>
+            <td>Description : {{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}} </td>
+        </tr>
+    </table>
+ </div>  
         <a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-warning">Modifier l'offre</a> 
-        <a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a> 
-        <a href="{{ path('offer_index') }}" class="btn btn-primary">Retour sur toutes les offres</a> <br>
+        <a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>   
+        <a href="{{ path('offer_index') }}" class="btn btn-primary">Toutes les offres</a> <br>
 
         <br>
 {% endblock %}
