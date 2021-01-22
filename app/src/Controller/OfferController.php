@@ -44,7 +44,7 @@ use App\Form\OfferType;
     public function index(OfferRepository $offerRepository): Response
 
     {
-        return $this->render('offer/index_offer.html.twig', [
+        return $this->render('offer/index.html.twig', [
 
             'offers' => $offerRepository->findBy(array(), array('name' => 'ASC'))
 
@@ -84,7 +84,7 @@ use App\Form\OfferType;
 
             //return $this->redirectToRoute('back_book_show', ['id' => $book->getId()]);
 
-            return $this->render('offer/new_offer.html.twig', [
+            return $this->render('offer/new.html.twig', [
 
                 'form' => $form->createView()
 
@@ -94,13 +94,24 @@ use App\Form\OfferType;
 
         // var_dump('non fait');
 
-        return $this->render('offer/new_offer.html.twig', [
+        return $this->render('offer/new.html.twig', [
 
             'form' => $form->createView()
 
         ]);
 
     }
+
+    /**
+     * @Route("/show/{id}", name="show", methods={"GET"})
+     */
+    public function show(Offer $offer): Response
+    {
+        return $this->render('offer/show.html.twig', [
+            'offer' => $offer
+        ]);
+    }
+
 
     /**
      * @Route("/edit/{id}", name="edit", methods={"GET", "POST"})
@@ -120,10 +131,28 @@ use App\Form\OfferType;
             return $this->redirectToRoute('offer_edit', ['id' => $offer->getId()]);
         }
 
-        return $this->render('offer/edit_offer.html.twig', [
+        return $this->render('offer/edit.html.twig', [
             'offer' => $offer,
             'form' => $form->createView()
         ]);
+    }
+
+     /**
+     * @Route("/delete/{id}/{token}", name="delete", methods={"GET"})
+     */
+    public function delete(Offer $offer, $token)
+    {
+        if (!$this->isCsrfTokenValid('delete_offer' . $offer->getId(), $token)) {
+            throw new Exception('Token CSRF invalid');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($offer);
+        $em->flush();
+
+        $this->addFlash('success', 'Suppression réussie');
+
+        return $this->redirectToRoute('offer_index');
     }
 
   }

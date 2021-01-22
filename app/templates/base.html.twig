@@ -26,6 +26,9 @@
 							<a class="nav-link" href="{{path('app_login')}}">Connexion</a>
 						</li>
 						<li class="nav-item">
+							<a class="nav-link" href="{{path('offer_index')}}">Offres</a>
+						</li>
+						<li class="nav-item">
 							<a class="nav-link" href="/Apropos">A propos</a>
 						</li>
 
@@ -53,5 +56,14 @@
 			<div class="container"> {% block body %}{% endblock %}
 				</div>
 				{% block javascripts %}{% endblock %}
+				        <script>
+							document.addEventListener('DOMContentLoaded', function() {
+								{% for label, messages in app.flashes('success') %}
+									{% for message in messages %}
+										M.toast({html: '{{ message }}', classes: '{{ label }} rounded'});
+									{% endfor %}
+								{% endfor %}
+							});
+						</script>
 			</body>
 		</html>
