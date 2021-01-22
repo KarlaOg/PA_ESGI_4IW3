@@ -65,12 +65,14 @@ use App\Form\OfferType;
 
         $offer = new Offer();
 
-        $form = $this->createForm(OfferType::class, $offer);
- 
+        $dateStart = $offer->getDateStart() ;
+        $dateEnd = $offer->getDateEnd() ;
 
+        $form = $this->createForm(OfferType::class, $offer);
+        
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
+        if ($form->isSubmitted() && $form->isValid() && $dateEnd < $dateStart)
 
         { 
             $em = $this->getDoctrine()->getManager();
@@ -111,10 +113,12 @@ use App\Form\OfferType;
      */
     public function edit(Offer $offer, Request $request)
     {
+        $dateStart = $offer->getDateStart() ;
+        $dateEnd = $offer->getDateEnd() ;
         $form = $this->createForm(OfferType::class, $offer);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
+        if ($form->isSubmitted() && $form->isValid() && $dateEnd > $dateStart)
         {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
