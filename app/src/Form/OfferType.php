@@ -30,9 +30,15 @@ class OfferType extends AbstractType
 
             ->add('brandId')
 
-            ->add('dateStart', DateType::class)
+            ->add('dateStart', DateType::class, array(
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y')+10),
+                ))
 
-            ->add('dateEnd', DateType::class)
+            ->add('dateEnd', DateType::class, array(
+                    'widget' => 'choice',
+                    'years' => range(date('Y'), date('Y')+10),
+                    ))
 
             ->add('status')
 
