@@ -72,7 +72,7 @@ use App\Form\OfferType;
         
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $dateEnd < $dateStart)
+        if ($form->isSubmitted() && $form->isValid())
 
         { 
             $em = $this->getDoctrine()->getManager();
@@ -81,7 +81,7 @@ use App\Form\OfferType;
 
             $em->flush();
  
-            $this->addFlash('success', 'Création réussie');
+            $this->addFlash('blue', 'Création réussie');
  
 
             return $this->redirectToRoute('offer_index', ['id' => $offer->getId()]);
@@ -118,12 +118,12 @@ use App\Form\OfferType;
         $form = $this->createForm(OfferType::class, $offer);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() && $dateEnd > $dateStart)
+        if ($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $this->addFlash('success', 'Modification réussie');
+            $this->addFlash('blue', 'Modification réussie');
 
             return $this->redirectToRoute('offer_edit', ['id' => $offer->getId()]);
         }
@@ -147,7 +147,7 @@ use App\Form\OfferType;
         $em->remove($offer);
         $em->flush();
 
-        $this->addFlash('success', 'Suppression réussie');
+        $this->addFlash('blue', 'Suppression réussie');
 
         return $this->redirectToRoute('offer_index');
     }

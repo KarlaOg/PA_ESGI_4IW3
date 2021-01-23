@@ -58,12 +58,12 @@
 				{% block javascripts %}{% endblock %}
 				        <script>
 							document.addEventListener('DOMContentLoaded', function() {
-								{% for label, messages in app.flashes('success') %}
+								{% for label, messages in app.flashes %}
 									{% for message in messages %}
 										M.toast({html: '{{ message }}', classes: '{{ label }} rounded'});
 									{% endfor %}
 								{% endfor %}
 							});
-						</script>
+        				</script>
 			</body>
 		</html>
