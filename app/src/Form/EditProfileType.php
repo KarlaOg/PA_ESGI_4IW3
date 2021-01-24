@@ -38,3 +38,6 @@ class EditProfileType extends AbstractType
     //     ]);
     // }
 }
+
+}
+

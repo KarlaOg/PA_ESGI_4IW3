@@ -57,6 +57,7 @@ class InscriptionController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+            
             $this->addFlash("success", "Inscription réussie !");
             return $this->redirectToRoute('app_login');
         }
