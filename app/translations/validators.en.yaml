@@ -1,2 +1,3 @@
 # translations/validators.en.yaml
 email.validate.bd: Please enter an autre email.
+image.notnull: l'image ne peux pas etre vide.
