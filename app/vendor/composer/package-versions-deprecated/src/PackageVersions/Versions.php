@@ -145,7 +145,7 @@ final class Versions
   'symfony/polyfill-php71' => '*@',
   'symfony/polyfill-php70' => '*@',
   'symfony/polyfill-php56' => '*@',
-  '__root__' => '1.0.0+no-version-set@',
+  '__root__' => 'No version set (parsed as 1.0.0)@',
 );
 
     private function __construct()
