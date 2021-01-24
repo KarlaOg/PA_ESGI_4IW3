@@ -3,65 +3,157 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!
+			{% block title %}Likey
 			{% endblock %}
 		</title>
-		<link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
-		<link rel="shortcut icon" href="{{ absolute_url('app.css') }}"> {% block stylesheets %}{% endblock %}
-		</head>
-
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<a class="navbar-brand" href="/">NomDuSite</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarColor01">
-				{% if not app.user %}
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('inscription_index')}}">Inscription</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('app_login')}}">Connexion</a>
-						</li>
-						<li class="nav-item">
-<<<<<<< HEAD
-							<a class="nav-link" href="/Apropos">À propos</a>
-=======
-							<a class="nav-link" href="{{path('offer_index')}}">Offres</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/Apropos">A propos</a>
->>>>>>> changes design form and buttons and add creation button on index
-						</li>
-
-					</ul>
-				{% else %}
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('users_data')}}">Mon profil</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
-						</li>
-					</ul>
-				{% endif %}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	</head>
+	<nav class="grey lighten-5">
+		<div class="container">
+			<div class="col s12">
+				<div class="navbar-fixed ">
+					<div class="nav-wrapper">
+						<a class="pink-text" href="{{path('home')}}" class="brand-logo">LIKEY</a>
+						<ul id="nav-mobile" class="right hide-on-med-and-down">
+							{% if not app.user %}
+								<li>
+									<a class="black-text nav-buttons" href="{{path('inscription_index')}}">Inscription</a>
+								</li>
+								<li>
+									<a class="black-text nav-buttons" href="{{path('app_login')}}">Connexion</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="black-text nav-buttons" href="{{path('users_data')}}">Mon profil</a>
+								</li>
+								<li>
+									<a class="black-text nav-buttons" href="{{path('offer_index')}}">Liste des offres</a>
+								</li>
+								<li>
+									<a class="black-text nav-buttons" href="{{path('app_logout')}}">Déconnexion</a>
+								</li>
+								<li class="nav-item">
+									<div>
+										<form method="post" id="search" action="{{path('search_data')}}">
+											<label for="tags">Recherche:
+											</label>
+											<select name="searchSelect" id="tag-select">
+												<option value="none">Choisissez</option>
+												<option value="influencer">Influenceur</option>
+												<option value="brand">Marque</option>
+												<option value="domain">Domaine</option>
+											</select>
+											<input id="keywords" name="keywords">
+											<input type="submit" value="VALIDER" class="btn search_btn">
+										</form>
+									</div>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
 			</div>
-		</nav>
-
-		<body>
+		</div>
+	</nav>
+	<body>
+		<main>
 			<div class="container"> {% block body %}{% endblock %}
 				</div>
-				{% block javascripts %}{% endblock %}
-				        <script>
-							document.addEventListener('DOMContentLoaded', function() {
-								{% for label, messages in app.flashes %}
-									{% for message in messages %}
-										M.toast({html: '{{ message }}', classes: '{{ label }} rounded'});
-									{% endfor %}
-								{% endfor %}
-							});
-        				</script>
-			</body>
-		</html>
+			</main>
+			{# <footer class="page-footer brown lighten-5">
+							<div class="container">
+								<div class="row">
+									<div class="col l6 s12">
+										<h5 class="black-text">Footer Content</h5>
+										<p class="black-text">You can use rows and columns here to organize your footer content.</p>
+									</div>
+									<div class="col l4 offset-l2 s12">
+										<h5 class="black-text">Links</h5>
+										<ul>
+											<li><a class="black-text" href="#!">Link 1</a></li>
+											<li><a class="black-text" href="#!">Link 2</a></li>
+											<li><a class="black-text" href="#!">Link 3</a></li>
+											<li><a class="black-text" href="#!">Link 4</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="footer-copyright">
+								<div class="container black-text ">
+									© 2021 Copyright Text 
+									<a class="black-text right" href="#!">More Links</a>
+								</div>
+							</div>
+						</footer> #}
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock %}
+			<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@8.3.0/dist/js/autoComplete.min.js"></script>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+			<script type="text/javascript" src="{{ asset('js/autocomplete.js') }}"></script>
+
+			<script>
+				// document.addEventListener('DOMContentLoaded', function() {
+// {% for label, messages in app.flashes %}
+// {% for message in messages %}
+// M.toast({html: '{{ message }}', classes: '{{ label }} rounded'});
+// {% endfor %}
+// {% endfor %}
+// });
+$('select').change(function () {
+var donnees = {
+'searchSelector': $(this).children('option:selected').val()
+};
+$.ajax({
+url: '/search/keyworddata',
+type: 'POST',
+dataType: 'json',
+data: donnees,
+async: true,
+success: function (data, status) {
+var tab = [];
+for (var i = 0; i < data.length; i++) {
+tab[i] = data[i].firstname + ' ' + data[i].lastname;
+// tab[i]['val'] = data[i].firstname + '_' + data[i].lastname;
+}
+autocomplete(document.getElementById("keywords"), tab);
+},
+error: function (xhr, textStatus, errorThrown) {
+console.log('Ajax request failed. ' + errorThrown);
+}
+});
+});
+$('#keywords').keyup(function () {
+var keywords = $('#keywords').val();
+var tagselect = $('#tag-select').val();
+$('#asb').attr("href", "/search/data?keywords=" + keywords + "&searchfilter=" + tagselect);
+});
+// $('.search_btn').click(function(){
+// var keywords = $("#tags").val();
+// var tag = $("#tag-select").val();
+
+// var donnees = {'tag': tag, 'keywords': keywords};
+// console.log(donnees);
+
+// $.ajax({
+// url:        '/search/data',
+// type:       'POST',
+// dataType:   'json',
+// data: donnees,
+// async:      true,
+// success: function(data, status) {
+// console.log(data);
+
+// },
+// error : function(xhr, textStatus, errorThrown) {
+// console.log('Ajax request 2 failed. '+errorThrown);
+// }
+// });
+// });
+			</script>
+		</body>
+	</html>
