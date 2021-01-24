@@ -98,10 +98,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
        
         
          // get the user
-            $user = $this->securityContext->getToken()->getUser();
-            if (!$user instanceof User) {
-            return;
-            }
+            // $user = $this->securityContext->getToken()->getUser();
+            // if (!$user instanceof User) {
+            // return;
+            // }
 
 
 
