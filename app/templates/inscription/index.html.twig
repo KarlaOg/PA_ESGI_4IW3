@@ -13,11 +13,6 @@
 	<div class="row">
 		<div
 			class="column large-12 tab-12">
-			{# {% for message in app.flashes('success') %}
-							<div class="flash-notice">
-								{{ message }}
-							</div>
-						{% endfor %} #}
 			{{ form_start(form) }}
 			{{ form_row(form) }}
 			<button type="submit" class="btn btn-success">Envoyer</button>
@@ -25,10 +20,5 @@
 		</div>
 	</div>
 	<br>
-
-	{# {{ form_start(form) }}
-						{{ form_rest(form) }}
-						<button type="submit" class="btn btn-success" href="/connexion">Valider</button>
-						{{ form_end(form) }} #}
 
 {% endblock %}
