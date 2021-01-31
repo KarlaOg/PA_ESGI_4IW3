@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Entity\User;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use App\Repository\OfferRepository;
@@ -138,25 +140,24 @@ class OfferController extends AbstractController
 
     /**
      * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
-     *  
+     *  Postuler à une offre
+     * 
+     * 
      */
-    public function apply(Offer $offer, Request $request)
+    public function apply(Offer $offer, Request $request, User $user)
     {   
-        $form = $this->createForm(ApplicationType::class, $offer);
 
-        $form->handleRequest($request);
-    
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($offer);
+        //inserer dans bd
+        $em = $this->getDoctrine()->getManager();
+       // $em->persist($offer);
 
-            $em->flush();
-            
+       $userId = $user->getId(); 
+       var_dump($userId);
+      //  $id = $request->get('id');
 
-            return $this->render('offer/apply.html.twig', [
-                'offer' => $offer,
-                'form' => $form->createView()
-            ]);        
-            var_dump($em); 
+      //  var_dump($id);
+       // $em->flush();
+        return ;
 
     }
 
