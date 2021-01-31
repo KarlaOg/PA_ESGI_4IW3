@@ -45,8 +45,8 @@ class InscriptionType extends AbstractType
                     
                 ),
                 'multiple'  => true,
-                'expanded' => true,
                 'required' => true,
+                'mapped' => false,
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
