@@ -2,7 +2,13 @@
   "entrypoints": {
     "app": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.js",
+        "/build/vendors-node_modules_materialize-css_dist_js_materialize_js-node_modules_material-icons_iconf-eb6ba3.js",
+        "/build/app.js"
+      ],
+      "css": [
+        "/build/vendors-node_modules_materialize-css_dist_js_materialize_js-node_modules_material-icons_iconf-eb6ba3.css",
+        "/build/app.css"
       ]
     }
   }

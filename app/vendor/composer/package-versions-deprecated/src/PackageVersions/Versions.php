@@ -33,6 +33,7 @@ final class Versions
      * @internal
      */
     const VERSIONS          = array (
+  'behat/transliterator' => 'v1.3.0@3c4ec1d77c3d05caa1f0bf8fb3aae4845005c7fc',
   'composer/package-versions-deprecated' => '1.11.99.1@7413f0b55a051e89485c5cb9f765fe24bb02a7b6',
   'doctrine/annotations' => '1.11.1@ce77a7ba1770462cd705a91a151b6c3746f9c6ad',
   'doctrine/cache' => '1.10.2@13e3381b25847283a91948d04640543941309727',
@@ -51,6 +52,7 @@ final class Versions
   'doctrine/sql-formatter' => '1.1.1@56070bebac6e77230ed7d306ad13528e60732871',
   'egulias/email-validator' => '2.1.25@0dbf5d78455d4d6a41d186da50adc1122ec066f4',
   'friendsofphp/proxy-manager-lts' => 'v1.0.3@121af47c9aee9c03031bdeca3fac0540f59aa5c3',
+  'gedmo/doctrine-extensions' => 'v3.0.3@b4302ede2e247a6cc884b302a5f7146e08bd1b18',
   'jms/metadata' => '2.4.0@491917b66b44deff7d1c320d35c1b92237083f67',
   'laminas/laminas-code' => '4.0.0@28a6d70ea8b8bca687d7163300e611ae33baf82a',
   'laminas/laminas-eventmanager' => '3.3.0@1940ccf30e058b2fd66f5a9d696f1b5e0027b082',
@@ -65,6 +67,7 @@ final class Versions
   'psr/link' => '1.0.0@eea8e8662d5cd3ae4517c9b864493f59fca95562',
   'psr/log' => '1.1.3@0f73288fd15629204f9d42b7055f72dacbe811fc',
   'sensio/framework-extra-bundle' => 'v5.6.1@430d14c01836b77c28092883d195a43ce413ee32',
+  'stof/doctrine-extensions-bundle' => 'v1.5.0@c01e73e49cee5eac3353b6c4ebdbb0a151348c85',
   'symfony/asset' => 'v5.1.10@d254631bc20fb82a5827602dc2fa84a3118ec3f5',
   'symfony/cache' => 'v5.1.10@f4faa7bfe3ca46891febf603291274047d3f62fe',
   'symfony/cache-contracts' => 'v2.2.0@8034ca0b61d4dd967f3698aaa1da2507b631d0cb',
@@ -122,10 +125,11 @@ final class Versions
   'symfony/var-dumper' => 'v5.1.10@c96198ea2cff11f61a3fcc9c97ddc2f74f9950bd',
   'symfony/var-exporter' => 'v5.1.10@fbc3507f23d263d75417e09a12d77c009f39676c',
   'symfony/web-link' => 'v5.1.10@e805314ad8c4298d9bfc75335e35f83d6db2f43f',
+  'symfony/webpack-encore-bundle' => 'v1.9.0@ea80d29e82da32942dc796c02b48e83b98665aaa',
   'symfony/yaml' => 'v5.1.10@290ea5e03b8cf9b42c783163123f54441fb06939',
   'twig/extra-bundle' => 'v3.2.1@07c94c7dcfe7e49abd45d4083ca5544a34969714',
   'twig/twig' => 'v3.2.1@f795ca686d38530045859b0350b5352f7d63447d',
-  'vich/uploader-bundle' => '1.16.0@efc28aed393c1a2cf5ab9fadc9f3183b19cd25ba',
+  'vich/uploader-bundle' => '1.16.1@781dd64bf278e924971a35d38ef6c690e35de6e1',
   'webmozart/assert' => '1.9.1@bafc69caeb4d49c39fd0779086c03a3738cbb389',
   'doctrine/data-fixtures' => '1.4.4@16a03fadb5473f49aad70384002dfd5012fe680e',
   'doctrine/doctrine-fixtures-bundle' => '3.4.0@870189619a7770f468ffb0b80925302e065a3b34',

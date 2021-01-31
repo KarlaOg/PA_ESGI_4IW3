@@ -33,6 +33,15 @@ private static $installed = array (
       ),
       'reference' => NULL,
     ),
+    'behat/transliterator' => 
+    array (
+      'pretty_version' => 'v1.3.0',
+      'version' => '1.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3c4ec1d77c3d05caa1f0bf8fb3aae4845005c7fc',
+    ),
     'composer/package-versions-deprecated' => 
     array (
       'pretty_version' => '1.11.99.1',
@@ -221,6 +230,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '848d8125239d7dbf8ab25cb7f054f1a630e68c2e',
+    ),
+    'gedmo/doctrine-extensions' => 
+    array (
+      'pretty_version' => 'v3.0.3',
+      'version' => '3.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b4302ede2e247a6cc884b302a5f7146e08bd1b18',
     ),
     'jms/metadata' => 
     array (
@@ -441,6 +459,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '430d14c01836b77c28092883d195a43ce413ee32',
+    ),
+    'stof/doctrine-extensions-bundle' => 
+    array (
+      'pretty_version' => 'v1.5.0',
+      'version' => '1.5.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c01e73e49cee5eac3353b6c4ebdbb0a151348c85',
     ),
     'symfony/asset' => 
     array (
@@ -1095,6 +1122,15 @@ private static $installed = array (
       ),
       'reference' => '732ee96548d64ac1aeed3952b45792127ced2ae8',
     ),
+    'symfony/webpack-encore-bundle' => 
+    array (
+      'pretty_version' => 'v1.9.0',
+      'version' => '1.9.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ea80d29e82da32942dc796c02b48e83b98665aaa',
+    ),
     'symfony/yaml' => 
     array (
       'pretty_version' => 'v5.1.10',
@@ -1124,12 +1160,12 @@ private static $installed = array (
     ),
     'vich/uploader-bundle' => 
     array (
-      'pretty_version' => '1.16.0',
-      'version' => '1.16.0.0',
+      'pretty_version' => '1.16.1',
+      'version' => '1.16.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'efc28aed393c1a2cf5ab9fadc9f3183b19cd25ba',
+      'reference' => '781dd64bf278e924971a35d38ef6c690e35de6e1',
     ),
     'webmozart/assert' => 
     array (
