@@ -102,10 +102,20 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             // if (!$user instanceof User) {
             // return;
             // }
+        // $user = $this->getUser();
 
+        // var_dump($user);
 
+        //$user = $token->getUser();
+        // if ($this->nombre_abonnes){
+        //     return new RedirectResponse($this->urlGenerator->generate('users_profil_modifier'));
+        // }
+        // else{
+        //     return new RedirectResponse($this->urlGenerator->generate('home'));
+        // }
+        return new RedirectResponse($this->urlGenerator->generate('users_profil_modifier'));
 
-        return new RedirectResponse($this->urlGenerator->generate('home'));
+      
         #throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

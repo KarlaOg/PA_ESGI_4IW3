@@ -11,8 +11,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
- 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class OfferType extends AbstractType
 
@@ -26,7 +27,9 @@ class OfferType extends AbstractType
 
             ->add('name')
 
-            ->add('decription')
+            ->add('decription',  TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+            ])
 
             ->add('brandId')
 
@@ -40,7 +43,9 @@ class OfferType extends AbstractType
                     'years' => range(date('Y'), date('Y')+10),
                     ))
 
-            ->add('status')
+            ->add('status', HiddenType::class, [
+                'data' => 'abcdef',
+            ])
 
             ->add('application')
 

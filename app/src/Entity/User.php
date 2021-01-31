@@ -78,6 +78,16 @@ class User implements UserInterface
      */
     private $payments;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nombreAbonnes;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $liens = [];
+
     // Pour les test unitaire (pas complet)
     public function isValid(): bool
     {
@@ -309,6 +319,30 @@ class User implements UserInterface
         if ($this->payments->removeElement($payment)) {
             $payment->removeUserId($this);
         }
+
+        return $this;
+    }
+
+    public function getNombreAbonnes(): ?string
+    {
+        return $this->nombreAbonnes;
+    }
+
+    public function setNombreAbonnes(string $nombreAbonnes): self
+    {
+        $this->nombreAbonnes = $nombreAbonnes;
+
+        return $this;
+    }
+
+    public function getLiens(): ?array
+    {
+        return $this->liens;
+    }
+
+    public function setLiens(array $liens): self
+    {
+        $this->liens = $liens;
 
         return $this;
     }
