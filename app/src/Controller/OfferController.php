@@ -4,21 +4,23 @@ namespace App\Controller;
  
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Routing\Annotation\Route;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use App\Repository\OfferRepository;
 
 use App\Entity\Offer;
+use App\Entity\Tag;
+use App\Entity\Application;
 
+use App\Form\ApplicationType;
 use App\Form\OfferType;
- 
 
-  /**
+
+/**
 
    * Class OfferController
 
@@ -30,10 +32,10 @@ use App\Form\OfferType;
 
    */
 
-  class OfferController extends AbstractController
+class OfferController extends AbstractController
 
-  {
- 
+{
+
 
     /**
 
@@ -51,7 +53,7 @@ use App\Form\OfferType;
         ]);
 
     }
- 
+
 
     /**
 
@@ -80,9 +82,9 @@ use App\Form\OfferType;
             $em->persist($offer);
 
             $em->flush();
- 
+
             $this->addFlash('blue', 'Création réussie');
- 
+
 
             return $this->redirectToRoute('offer_index', ['id' => $offer->getId()]);
 
@@ -134,13 +136,39 @@ use App\Form\OfferType;
         ]);
     }
 
-     /**
+    /**
+     * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
+     *  
+     */
+    public function apply(Offer $offer, Request $request)
+    {   
+        $form = $this->createForm(ApplicationType::class, $offer);
+
+        $form->handleRequest($request);
+    
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($offer);
+
+            $em->flush();
+            
+
+            return $this->render('offer/apply.html.twig', [
+                'offer' => $offer,
+                'form' => $form->createView()
+            ]);        
+            var_dump($em); 
+
+    }
+
+
+
+    /**
      * @Route("/delete/{id}/{token}", name="delete", methods={"GET"})
      */
     public function delete(Offer $offer, $token)
     {
         if (!$this->isCsrfTokenValid('delete_offer' . $offer->getId(), $token)) {
-            throw new Exception('Token CSRF invalid');
+        // throw new Exception('Token CSRF invalid');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -152,6 +180,4 @@ use App\Form\OfferType;
         return $this->redirectToRoute('offer_index');
     }
 
-  }
-
- ?>
+}

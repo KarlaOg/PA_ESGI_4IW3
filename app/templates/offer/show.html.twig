@@ -17,9 +17,15 @@
         </tr>
     </table>
  </div>  
+    
+        <a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-info">Postuler à l'offre</a> 
+        <a href="{{ path('offer_index') }}" class="btn btn-primary">Toutes les offres</a> <br>
+         
+         {# Conditionner le rendu visible seulement quand on est l'auteur de l'offre #}
         <a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-warning">Modifier l'offre</a> 
         <a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>   
-        <a href="{{ path('offer_index') }}" class="btn btn-primary">Toutes les offres</a> <br>
+
+      
 
         <br>
 {% endblock %}

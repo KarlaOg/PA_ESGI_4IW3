@@ -104,7 +104,7 @@ class Offer
         return $this->dateCreation;
     }
 
-   /**
+    /**
      * Gets triggered only on insert
 
      * @ORM\PrePersist
