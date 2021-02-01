@@ -44,7 +44,7 @@ class OfferType extends AbstractType
                     ))
 
             ->add('status', HiddenType::class, [
-                'data' => 'abcdef',
+                'data' => 'Libre',
             ])
 
             ->add('application')

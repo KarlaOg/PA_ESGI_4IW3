@@ -9,6 +9,9 @@
 
 <div class = "table-responsive">
     <table class="table table-striped">
+     <tr>
+            <td>Titre : {{ offer.name ? offer.name|slice(0, 50) : 'NC'}}</td>
+        </tr>
         <tr>
             <td>Dates : {{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}} - {{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}} </td>
         </tr>
@@ -18,12 +21,12 @@
     </table>
  </div>  
     
-        <a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-info">Postuler à l'offre</a> 
+        <a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn green">Postuler à l'offre</a> 
         <a href="{{ path('offer_index') }}" class="btn btn-primary">Toutes les offres</a> <br>
          
          {# Conditionner le rendu visible seulement quand on est l'auteur de l'offre #}
-        <a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-warning">Modifier l'offre</a> 
-        <a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>   
+        <a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn blue">Modifier l'offre</a> 
+        <a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn red">Supprimer l'offre</a>   
 
       
 

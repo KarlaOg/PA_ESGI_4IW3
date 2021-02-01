@@ -9,15 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\User;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
 use App\Repository\OfferRepository;
-
 use App\Entity\Offer;
 use App\Entity\Tag;
 use App\Entity\Application;
-
 use App\Form\ApplicationType;
 use App\Form\OfferType;
 
@@ -46,7 +42,6 @@ class OfferController extends AbstractController
      */
 
     public function index(OfferRepository $offerRepository): Response
-
     {
         return $this->render('offer/index.html.twig', [
 
@@ -80,13 +75,10 @@ class OfferController extends AbstractController
 
         { 
             $em = $this->getDoctrine()->getManager();
-
             $em->persist($offer);
-
             $em->flush();
 
-            $this->addFlash('blue', 'Création réussie');
-
+            $this->addFlash('green', 'Création réussie');
 
             return $this->redirectToRoute('offer_index', ['id' => $offer->getId()]);
 
@@ -107,7 +99,8 @@ class OfferController extends AbstractController
     public function show(Offer $offer): Response
     {
         return $this->render('offer/show.html.twig', [
-            'offer' => $offer
+            'offer' => $offer,
+            'status' => "Libre"
         ]);
     }
 
@@ -146,15 +139,30 @@ class OfferController extends AbstractController
      */
     public function apply(Offer $offer, Request $request)
     {   
-        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(ApplicationType::class, $offer);
-       
-       $user = $this->getUser();
-       dump($user);
- 
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $user = $this->getUser();
+
+
+
+        $offer->setStatus($this->status = "En attente de validation");
+        $offer->setApplication($this->application_id = $user->getId);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->addFlash('blue', 'Postuler à l\'offre en cours');
+
+            return $this->redirectToRoute('offer_index');
+        }
+
        return $this->render('offer/apply.html.twig', [
         'offer' => $offer,
-        'user' => $user,
+  
         'form' => $form->createView()
         ]);
 
@@ -168,14 +176,14 @@ class OfferController extends AbstractController
     public function delete(Offer $offer, $token)
     {
         if (!$this->isCsrfTokenValid('delete_offer' . $offer->getId(), $token)) {
-        // throw new Exception('Token CSRF invalid');
+            throw new Exception('Token CSRF invalid');
         }
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($offer);
         $em->flush();
 
-        $this->addFlash('blue', 'Suppression réussie');
+        $this->addFlash('red', 'Suppression réussie');
 
         return $this->redirectToRoute('offer_index');
     }

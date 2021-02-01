@@ -45,7 +45,7 @@ class UsersController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('message', 'Profil mis à jour');
+            $this->addFlash('blue', 'Profil mis à jour');
             return $this->redirectToRoute('users');
         }
 
@@ -69,11 +69,11 @@ class UsersController extends AbstractController
             if ($request->request->get('pass') == $request->request->get('pass2')) {
                 $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('pass')));
                 $em->flush();
-                $this->addFlash('message', 'Mot de passe mis à jour avec succès');
+                $this->addFlash('blue', 'Mot de passe mis à jour avec succès');
 
                 //return $this->redirectToRoute('users');
             } else {
-                $this->addFlash('error', 'Les deux mots de passe ne sont pas identiques');
+                $this->addFlash('red', 'Les deux mots de passe ne sont pas identiques');
             }
         }
 
