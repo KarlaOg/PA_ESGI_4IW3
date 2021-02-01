@@ -11,9 +11,7 @@ class ApplicationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('status')
-        ;
+       
     }
 
     // public function configureOptions(OptionsResolver $resolver)
