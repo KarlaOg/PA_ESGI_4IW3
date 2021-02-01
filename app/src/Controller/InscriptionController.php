@@ -52,7 +52,7 @@ class InscriptionController extends AbstractController
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
 
             // Set their role
-        //    $user->setRoles(['ROLE_USER']);
+         // $user->setRoles(['ROLE_USER']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

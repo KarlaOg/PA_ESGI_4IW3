@@ -144,20 +144,19 @@ class OfferController extends AbstractController
      * 
      * 
      */
-    public function apply(Offer $offer, Request $request, User $user)
+    public function apply(Offer $offer, Request $request)
     {   
-
-        //inserer dans bd
         $em = $this->getDoctrine()->getManager();
-       // $em->persist($offer);
-
-       $userId = $user->getId(); 
-       var_dump($userId);
-      //  $id = $request->get('id');
-
-      //  var_dump($id);
-       // $em->flush();
-        return ;
+        $form = $this->createForm(ApplicationType::class, $offer);
+       
+       $user = $this->getUser();
+       dump($user);
+ 
+       return $this->render('offer/apply.html.twig', [
+        'offer' => $offer,
+        'user' => $user,
+        'form' => $form->createView()
+        ]);
 
     }
 

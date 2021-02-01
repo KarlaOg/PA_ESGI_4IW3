@@ -82,9 +82,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     */
+
     public function getPassword($credentials): ?string
     {
         return $credentials['password'];
@@ -96,27 +94,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
     
-        
-            // get the user
-            // $user = $this->securityContext->getToken()->getUser();
-            // if (!$user instanceof User) {
-            // return;
-            // }
-        // $user = $this->getUser();
-
-        // var_dump($user);
-
-        //$user = $token->getUser();
-        // if ($this->nombre_abonnes){
-        //     return new RedirectResponse($this->urlGenerator->generate('users_profil_modifier'));
-        // }
-        // else{
-        //     return new RedirectResponse($this->urlGenerator->generate('home'));
-        // }
-        return new RedirectResponse($this->urlGenerator->generate('users_profil_modifier'));
-
-      
-        #throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('users_data'));
     }
 
     protected function getLoginUrl()
