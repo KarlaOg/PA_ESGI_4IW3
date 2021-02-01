@@ -11,7 +11,7 @@
     <table class="table">
         {% for offer in offers  %}
             <tr>
-                <td> Titre : {{ offer.name|capitalize }} </td>
+                <td> Propriétaire de l'offre : {{ offer.name|capitalize }} </td>
             </tr>
             <tr>
                 <td>Dates : {{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}} - {{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}} </td>
