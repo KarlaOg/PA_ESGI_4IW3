@@ -21,6 +21,7 @@ class InscriptionType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
+                'label' => 'Nom',
                 'required' => true,
                 'constraints' => [
                     new Length(['min' => 3]), 
@@ -29,6 +30,7 @@ class InscriptionType extends AbstractType
                 ] 
             ])
             ->add('lastname',TextType::class, [
+                'label' => 'Prénom',
                 'required' => true,
                 'constraints' => [
                     new Length(['min' => 2]), 
@@ -36,9 +38,11 @@ class InscriptionType extends AbstractType
                 ]
             ])
             ->add('age', BirthdayType::class, [
+                'label' => 'Age',
                 'placeholder' => 'Select a value',
             ])
             ->add('roles', ChoiceType::class, [
+                'label' => 'Vous êtes',
                 'choices' => array(
                     'Marque' => "Marque",
                     'Influenceur' => 'Influenceur',
@@ -49,14 +53,15 @@ class InscriptionType extends AbstractType
                 'mapped' => false,
             ])
             ->add('email', EmailType::class, [
+                'label' => 'Email',
                 'attr' => [
                     'class' => 'h-full-width',
-                    // "placeholder" => "Email de confirmation vous sera envoyer"
                 ],
                 'label' => "Email",
             ])
 
             ->add('password', RepeatedType::class, [
+                'label' => 'Mot de passe',
                 'type' => PasswordType::class,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
