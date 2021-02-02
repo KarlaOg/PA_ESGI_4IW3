@@ -31,7 +31,6 @@ use App\Form\OfferType;
    */
 
 class OfferController extends AbstractController
-
 {
 
 
@@ -43,12 +42,12 @@ class OfferController extends AbstractController
 
     public function index(OfferRepository $offerRepository): Response
     {
-        return $this->render('offer/index.html.twig', [
-
-            'offers' => $offerRepository->findBy(array(), array('name' => 'ASC'))
-
-        ]);
-
+      //  if( $offer->setStatus($this->status = "En attente de validation");){
+            return $this->render('offer/index.html.twig', [
+                //'offers' => $offerRepository->findBy(array(), array('status' => 'Libre')),
+                'offers' => $offerRepository->findBy(array(), array('name' => 'ASC'))
+            ]);
+      //  }
     }
 
 
@@ -59,7 +58,6 @@ class OfferController extends AbstractController
      */
 
     public function new(Request $request)
-
     {
 
         $offer = new Offer();
@@ -99,8 +97,7 @@ class OfferController extends AbstractController
     public function show(Offer $offer): Response
     {
         return $this->render('offer/show.html.twig', [
-            'offer' => $offer,
-            'status' => "Libre"
+            'offer' => $offer
         ]);
     }
 
@@ -143,13 +140,13 @@ class OfferController extends AbstractController
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
+      //  $userid = $this->getUser()->getId();
         
-        $user = $this->getUser();
-
-
+        // $user = $this->getUser();
+        // $user->getId();
 
         $offer->setStatus($this->status = "En attente de validation");
-        $offer->setApplication($this->application_id = $user->getId);
+        //$offer->setApplication($this->application_id =  $categoryName);
 
         if ($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
@@ -162,7 +159,6 @@ class OfferController extends AbstractController
 
        return $this->render('offer/apply.html.twig', [
         'offer' => $offer,
-  
         'form' => $form->createView()
         ]);
 
