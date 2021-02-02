@@ -41,8 +41,6 @@ class UsersController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-<<<<<<< Updated upstream
-=======
            
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('image')->getData();
@@ -69,7 +67,6 @@ class UsersController extends AbstractController
                 // au lieu de son contenu
                 $product->setBrochureFilename($newFilename);
             }
->>>>>>> Stashed changes
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
