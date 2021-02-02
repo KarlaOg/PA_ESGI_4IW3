@@ -50,26 +50,22 @@ class InscriptionController extends AbstractController
         $form = $this->createForm(InscriptionType::class, $user);
         $form->handleRequest($request);
 
-
-
-        var_dump("->>>>>>>>>>>" . $user->getId());
-
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
-            
+
             if( array_search("ROLE_INFLUENCEUR", $user->getRoles()) !== false ){
                 $influencer = new Influencer();
-                $influencer->setUserId($user->getId());
-                $om = $this->getDoctrine()->getManager();
-                $om->persist($influencer);
-                $om->flush();
+                $influencer->setUserId($user);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($influencer);
             }
             else if (array_search("ROLE_MARQUE", $user->getRoles()) !== false){
                 $brand = new Brand();
-                $brand->setUserId = $user->getId();
-                $marque = $this->getDoctrine()->getManager();
-                $marque->persist($brand);
-                $marque->flush();
+                $brand->setUserId($user);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($brand);
             }
 
             $em = $this->getDoctrine()->getManager();
