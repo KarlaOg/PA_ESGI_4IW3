@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Brand;
+use App\Entity\Influencer;
 use App\Form\InscriptionType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,22 +53,27 @@ class InscriptionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
 
-            // Set their role
-         // $user->setRoles(['ROLE_USER']);
+            if( $user->getRoles() == "ROLE_INFLUENCEUR"){
+                $influencer = new Influencer();
+                $influencer->setUserId = $user->getId();
+         
+                $save = $this->getDoctrine()->getManager();
+                $save->persist($influencer);
+                $save->flush();
+             }
+             else if ($user->getRoles() == "ROLE_MARQUE"){
+                $brand = new Brand();
+                $brand->setUserId = $user->getId();
+               
+                $marque = $this->getDoctrine()->getManager();
+                $marque->persist($brand);
+                $marque->flush();
+             }
 
-            if( $user->getRoles() == "Influenceur"){
-               $influenceur = new Influenceur();
-               $influenceur->setUserId = "111"; 
-               $influenceur->setType = "instagram"; 
-               $influenceur->setSiret = "1234567890"; 
-            }
-            else{
-
-            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            
+
             $this->addFlash("green", "Inscription réussie !");
             return $this->redirectToRoute('app_login');
         }
