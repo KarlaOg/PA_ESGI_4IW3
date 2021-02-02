@@ -18,11 +18,13 @@
 				<button type="submit" class="btn btn-success">Sauvegarder</button>
 			{{ form_end(form) }}
 			</div>
+			<br/>
+			<br/>
+			<div>
+				<button type="button" class="btn white">
+					<a href="{{path('users_pass_modifier')}}">Edit password</a>
+				</button>
+			</div>
 
-		</div>
-		<div>
-			<button type="button" class="btn white">
-				<a href="{{path('users_pass_modifier')}}">Edit password</a>
-			</button>
 		</div>
 	{% endblock %}
