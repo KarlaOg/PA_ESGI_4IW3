@@ -10,74 +10,47 @@
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 	</head>
+	<nav>
+		<div class="nav-wrapper">
+			<a href="{{path('home')}}" class="brand-logo">Nom du site</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				{% if not app.user %}
+					<li>
+						<a href="{{path('offer_index')}}">Liste des offres</a>
+					</li>
+					<li>
+						<a href="{{path('inscription_index')}}">Inscription</a>
+					</li>
+					<li>
+						<a href="{{path('app_login')}}">Connexion</a>
+					</li>
+				{% else %}
+					<li>
+						<a href="{{path('users_data')}}">Mon profil</a>
+					</li>
+					<li>
+						<a href="{{path('offer_index')}}">Liste des offres</a>
+					</li>
+					<li>
+						<a href="{{path('app_logout')}}">Déconnexion</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	</nav>
 
-	<script>
-		// document.addEventListener('DOMContentLoaded', function() {
-				// {% for label, messages in app.flashes %}
-				// {% for message in messages %}
-				// M.toast({html: '{{ message }}', classes: '{{ label }} rounded'});
-				// {% endfor %}
-				// {% endfor %}
-				// });
-				$('select').change(function () {
-				var donnees = {
-				'searchSelector': $(this).children('option:selected').val()
-				};
-				$.ajax({
-				url: '/search/keyworddata',
-				type: 'POST',
-				dataType: 'json',
-				data: donnees,
-				async: true,
-				success: function (data, status) {
-				var tab = [];
-				for (var i = 0; i < data.length; i++) {
-				tab[i] = data[i].firstname + ' ' + data[i].lastname;
-				// tab[i]['val'] = data[i].firstname + '_' + data[i].lastname;
-				}
-				autocomplete(document.getElementById("keywords"), tab);
-				},
-				error: function (xhr, textStatus, errorThrown) {
-				console.log('Ajax request failed. ' + errorThrown);
-				}
-				});
-				});
-				$('#keywords').keyup(function () {
-				var keywords = $('#keywords').val();
-				var tagselect = $('#tag-select').val();
-				$('#asb').attr("href", "/search/data?keywords=" + keywords + "&searchfilter=" + tagselect);
-				});
-				// $('.search_btn').click(function(){
-				// var keywords = $("#tags").val();
-				// var tag = $("#tag-select").val();
-				
-				// var donnees = {'tag': tag, 'keywords': keywords};
-				// console.log(donnees);
-				
-				// $.ajax({
-				// url:        '/search/data',
-				// type:       'POST',
-				// dataType:   'json',
-				// data: donnees,
-				// async:      true,
-				// success: function(data, status) {
-				// console.log(data);
-				
-						<body>
-							<div class="container"> {% block body %}{% endblock %}
-								</div>
-								{% block javascripts %}
-										{{ encore_entry_script_tags('app') }}
-								{% endblock %}
-									<script>
-										document.addEventListener('DOMContentLoaded', function() {
-											{% for label, messages in app.flashes %}
-												{% for message in messages %}
-													M.toast({html: '{{ message }}', classes: '{{ label }} rounded'});
-												{% endfor %}
-											{% endfor %}
-										});
-										
-									</script>
-							</body>
-						</html>
+	<body>
+		<div class="container"> {% block body %}{% endblock %}
+			</div>
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock %}
+			<script>
+				document.addEventListener('DOMContentLoaded', function () {
+{% for label, messages in app.flashes %}
+{% for message in messages %}
+M.toast({html: '{{ message }}', classes: '{{ label }}rounded'});{% endfor %}{% endfor %}
+});
+			</script>
+		</body>
+	</html>
