@@ -6,7 +6,10 @@ use App\Entity\Users;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+Use Symfony\Component\Form\TheChoiceType;
+
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EditProfileType extends AbstractType
@@ -16,22 +19,6 @@ class EditProfileType extends AbstractType
         $builder
             ->add('lastname', TextType::class)
             ->add('firstname', TextType::class)
-            ->add('image', FileType::class, [
-                'label' => 'image (PDF file)',
-                // mapped signifie que ce champ n'est associé à aucune propriété d'entité
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
-                    ])
-                ],
-            ])
             ->add('type', ChoiceType::class, [
                 'choices' => array(
                     'Youtubeur' => 'Youtubeur',
@@ -40,8 +27,7 @@ class EditProfileType extends AbstractType
                 ),
                 'multiple'  => true,
                 'expanded' => true,
-            ])
-            ->add('Valider', SubmitType::class);
+            ]);
     }
 
 }
