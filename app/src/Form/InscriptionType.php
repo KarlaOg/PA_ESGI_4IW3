@@ -44,13 +44,12 @@ class InscriptionType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'label' => 'Vous êtes',
                 'choices' => array(
-                    'Marque' => "Marque",
-                    'Influenceur' => 'Influenceur',
+                    'Marque' => "ROLE_MARQUE",
+                    'Influenceur' => 'ROLE_INFLUENCEUR',
                     
                 ),
                 'multiple'  => true,
                 'required' => true,
-                'mapped' => false,
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
