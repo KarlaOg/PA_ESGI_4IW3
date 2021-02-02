@@ -4,10 +4,13 @@ namespace App\Form;
 
 use App\Entity\Users;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class EditProfileType extends AbstractType
 {
@@ -22,7 +25,7 @@ class EditProfileType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
-                    new File([
+                    new Assert\File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
                             'application/pdf',
