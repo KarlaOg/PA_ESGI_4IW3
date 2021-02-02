@@ -54,6 +54,15 @@ class InscriptionController extends AbstractController
             // Set their role
          // $user->setRoles(['ROLE_USER']);
 
+            if( $user->getRoles() == "Influenceur"){
+               $influenceur = new Influenceur();
+               $influenceur->setUserId = "111"; 
+               $influenceur->setType = "instagram"; 
+               $influenceur->setSiret = "1234567890"; 
+            }
+            else{
+
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
