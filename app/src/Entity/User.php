@@ -18,6 +18,8 @@ use Carbon\Carbon;
  */
 class User implements UserInterface
 {
+
+    const SERVER_PATH_TO_IMAGE_FOLDER = '/public/uploads';
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
