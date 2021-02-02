@@ -11,11 +11,18 @@
 			<h3>Modification du profil de
 				{{ app.user.firstname }}
 				{{ app.user.lastname }}</h3>
-			{{ form(form) }}
+			
+			
+			{{ form_start(form) }}
+			{{ form_row(form) }}
+				<button type="submit" class="btn btn-success">Sauvegarder</button>
+			{{ form_end(form) }}
 			</div>
 
 		</div>
-	<button type="button" class="btn btn-outline-success m-4">
-		<a class="nav-link" href="{{path('users_pass_modifier')}}">Edit password</a>
-	</button>
+		<div>
+			<button type="button" class="btn white">
+				<a href="{{path('users_pass_modifier')}}">Edit password</a>
+			</button>
+		</div>
 	{% endblock %}
