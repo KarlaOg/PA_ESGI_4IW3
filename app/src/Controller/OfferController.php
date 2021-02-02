@@ -140,13 +140,7 @@ class OfferController extends AbstractController
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-      //  $userid = $this->getUser()->getId();
-        
-        // $user = $this->getUser();
-        // $user->getId();
-
         $offer->setStatus($this->status = "En attente de validation");
-        //$offer->setApplication($this->application_id =  $categoryName);
 
         if ($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
