@@ -16,8 +16,6 @@ class EditProfileType extends AbstractType
         $builder
             ->add('lastname', TextType::class)
             ->add('firstname', TextType::class)
-<<<<<<< Updated upstream
-=======
             ->add('image', FileType::class, [
                 'label' => 'image (PDF file)',
                 // mapped signifie que ce champ n'est associé à aucune propriété d'entité
@@ -43,7 +41,6 @@ class EditProfileType extends AbstractType
                 'multiple'  => true,
                 'expanded' => true,
             ])
->>>>>>> Stashed changes
             ->add('Valider', SubmitType::class);
     }
 
