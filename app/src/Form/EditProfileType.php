@@ -16,6 +16,34 @@ class EditProfileType extends AbstractType
         $builder
             ->add('lastname', TextType::class)
             ->add('firstname', TextType::class)
+<<<<<<< Updated upstream
+=======
+            ->add('image', FileType::class, [
+                'label' => 'image (PDF file)',
+                // mapped signifie que ce champ n'est associé à aucune propriété d'entité
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ],
+            ])
+            ->add('type', ChoiceType::class, [
+                'choices' => array(
+                    'Youtubeur' => 'Youtubeur',
+                    'Influenceur' => 'Influenceur',
+                    'Gamer' => 'Gamer',
+                ),
+                'multiple'  => true,
+                'expanded' => true,
+            ])
+>>>>>>> Stashed changes
             ->add('Valider', SubmitType::class);
     }
 
