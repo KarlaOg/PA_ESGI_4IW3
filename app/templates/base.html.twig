@@ -10,42 +10,22 @@
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 		</head>
-
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<a class="navbar-brand" href="/">NomDuSite</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarColor01">
-				{% if not app.user %}
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('inscription_index')}}">Inscription</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('app_login')}}">Connexion</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('offer_index')}}">Offres</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/Apropos">A propos</a>
-						</li>
-
-					</ul>
-				{% else %}
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('users_data')}}">Mon profil</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
-						</li>
-					</ul>
-				{% endif %}
-			</div>
-		</nav>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="{{path('home')}}" class="brand-logo">Nom du site</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+		{% if not app.user %}
+			<li><a href="{{path('offer_index')}}">Liste des offres</a></li>
+			<li><a href="{{path('inscription_index')}}">Inscription</a></li>
+			<li><a href="{{path('app_login')}}">Connexion</a></li>
+		{% else %}
+			<li><a href="{{path('users_data')}}">Mon profil</a></li>
+			<li><a href="{{path('offer_index')}}">Liste des offres</a></li>
+			<li><a href="{{path('app_logout')}}">Déconnexion</a></li>
+		{% endif %}
+      </ul>
+    </div>
+  </nav>
 
 		<body>
 			<div class="container"> {% block body %}{% endblock %}
