@@ -17,9 +17,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="user_account")
  * @UniqueEntity("email")
- * @Vich\Uploadable()
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
 
     
@@ -105,6 +105,13 @@ class User implements UserInterface
      * @var File
      */
     private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", options={ "default": "NOW()" })
+     * @var \DateTime
+     */
+    private $updatedAt;
+   
 
     // Pour les test unitaire (pas complet)
     public function isValid(): bool
@@ -377,6 +384,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param null|File $imageFile
+    * @return User
+    * @throws Exception
+    */
     public function setImageFile(File $image = null)
     {
         $this->imageFile = $image;
@@ -390,5 +402,37 @@ class User implements UserInterface
     {
         return $this->imageFile;
     }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+   
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+        ));
+    }
+
+    public function unserialize($serialized) {
+
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            ) = unserialize($serialized);
+        }
+        
+        
 
 }

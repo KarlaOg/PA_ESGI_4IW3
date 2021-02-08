@@ -23,7 +23,6 @@ class EditProfileType extends AbstractType
             ->add('lastname', TextType::class)
             ->add('firstname', TextType::class)
             ->add('imageFile', VichImageType::class, [
-                'label' => 'Photo de profil',
                 'required' => false,
                 'allow_delete' => true, //rajouter pr suprimer limage
                 'download_uri' => true, //rajouter un download
