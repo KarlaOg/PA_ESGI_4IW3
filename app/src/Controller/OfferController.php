@@ -40,12 +40,17 @@ class OfferController extends AbstractController
 
      */
 
-    public function index(OfferRepository $offerRepository): Response
+    public function index(): Response
     {
+        $repository = $this->getDoctrine()->getRepository(Offer::class);
+
+        $offer = $repository->findBy([
+            'status' => 'Libre',
+        ]);
       //  if( $offer->setStatus($this->status = "En attente de validation");){
             return $this->render('offer/index.html.twig', [
                 //'offers' => $offerRepository->findBy(array(), array('status' => 'Libre')),
-                'offers' => $offerRepository->findBy(array(), array('name' => 'ASC'))
+                'offers' =>  $offer,
             ]);
       //  }
     }
@@ -166,7 +171,7 @@ class OfferController extends AbstractController
     public function delete(Offer $offer, $token)
     {
         if (!$this->isCsrfTokenValid('delete_offer' . $offer->getId(), $token)) {
-            throw new Exception('Token CSRF invalid');
+            throw new \Exception('Token CSRF invalid');
         }
 
         $em = $this->getDoctrine()->getManager();
