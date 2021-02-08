@@ -45,12 +45,12 @@ class UsersController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('blue', 'Profil mis à jour');
+            $this->addFlash('green', 'Modification effectué');
             return $this->redirectToRoute('users');
         }
 
         return $this->render('users/editprofile.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 
