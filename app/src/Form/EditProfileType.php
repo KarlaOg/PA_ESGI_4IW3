@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class EditProfileType extends AbstractType
 {
@@ -21,21 +22,12 @@ class EditProfileType extends AbstractType
         $builder
             ->add('lastname', TextType::class)
             ->add('firstname', TextType::class)
-            ->add('image', FileType::class, [
-                'label' => 'image (PDF file)',
-                // mapped signifie que ce champ n'est associé à aucune propriété d'entité
-                'mapped' => false,
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Photo de profil',
                 'required' => false,
-                'constraints' => [
-                    new Assert\File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
-                    ])
-                ],
+                'allow_delete' => true, //rajouter pr suprimer limage
+                'download_uri' => true, //rajouter un download
+                'image_uri' => true,
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => array(

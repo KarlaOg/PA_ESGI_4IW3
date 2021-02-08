@@ -56,6 +56,7 @@ class InscriptionController extends AbstractController
             if( array_search("ROLE_INFLUENCEUR", $user->getRoles()) !== false ){
                 $influencer = new Influencer();
                 $influencer->setUserId($user);
+  
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($influencer);
@@ -73,7 +74,7 @@ class InscriptionController extends AbstractController
             $em->flush();
 
             $this->addFlash("green", "Inscription réussie !");
-           // return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_login');
         }
 
         // afficher le formulaire s'il n'est pas déjà rempli
