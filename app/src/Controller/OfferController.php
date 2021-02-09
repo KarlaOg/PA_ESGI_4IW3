@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\Brand;
@@ -19,27 +18,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-
 /**
-
  * Class OfferController
-
  * @package App\Controller
-
  *
-
  * @Route("/offer", name="offer_")
-
  */
 
 class OfferController extends AbstractController
 {
-
-
     /**
-
      * @Route("/", name="index", methods={"GET"})
-
      */
 
     public function index(): Response
@@ -49,34 +38,25 @@ class OfferController extends AbstractController
         $offer = $repository->findBy([
             'status' => 'Libre',
         ]);
-        //  if( $offer->setStatus($this->status = "En attente de validation");){
         return $this->render('offer/index.html.twig', [
-            //'offers' => $offerRepository->findBy(array(), array('status' => 'Libre')),
             'offers' =>  $offer,
         ]);
-        //  }
     }
 
-
     /**
-
      * @Route("/new", name="new", methods={"GET", "POST"})
-
      */
-
     public function new(Request $request)
     {
 
         $offer = new Offer();
 
-        $dateStart = $offer->getDateStart() ;
-        $dateEnd = $offer->getDateEnd() ;
+        $dateStart = $offer->getDateStart();
+        $dateEnd = $offer->getDateEnd();
 
-        $user= $this->getUser(); 
-        
-        if (array_search("ROLE_MARQUE", $user->getRoles()) !== false){
+        $user = $this->getUser();
 
-            
+        if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
         }
         $dateStart = $offer->getDateStart();
         $dateEnd = $offer->getDateEnd();
@@ -95,9 +75,7 @@ class OfferController extends AbstractController
             return $this->redirectToRoute('offer_index', ['id' => $offer->getId()]);
         }
 
-
         return $this->render('offer/new.html.twig', [
-
             'form' => $form->createView()
 
         ]);
@@ -108,7 +86,7 @@ class OfferController extends AbstractController
      */
     public function show(Offer $offer): Response
     {
-       
+
         return $this->render('offer/show.html.twig', [
             'offer' => $offer
         ]);
@@ -142,9 +120,6 @@ class OfferController extends AbstractController
 
     /**
      * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
-     *  Postuler à une offre
-     * 
-     * 
      */
     public function apply(Offer $offer, Request $request)
     {

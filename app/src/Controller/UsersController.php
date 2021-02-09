@@ -2,23 +2,24 @@
 
 namespace App\Controller;
 
-use App\Entity\Brand;
-use App\Entity\Influencer;
 use App\Entity\User;
+use App\Entity\Brand;
+use App\Entity\Offer;
 use App\Form\BrandType;
-use App\Form\EditProfileType;
+use App\Entity\Influencer;
 use App\Form\InfluencerType;
+use App\Form\EditProfileType;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-use App\Entity\Offer;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class UsersController extends AbstractController
@@ -49,17 +50,17 @@ class UsersController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           
+
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('image')->getData();
-            
+
             // cette condition est nécessaire car le champ 'brochure' n'est pas obligatoire
             // donc le fichier PDF ne doit être traité que lorsqu'un fichier est téléchargé
             if ($brochureFile) {
                 $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // cela est nécessaire pour inclure en toute sécurité le nom du fichier dans l'URL
                 $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
 
                 // Déplace le fichier vers le répertoire où les images sont stockées
                 try {

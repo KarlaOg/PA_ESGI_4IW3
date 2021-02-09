@@ -34,14 +34,13 @@ class SearchController extends AbstractController
 
         $searchSelector = $request->request->get('searchSelector');
 
-        //var_dump($searchSelector);
         $res = 0;
-        
-        if($searchSelector == 'influencer'){
+
+        if ($searchSelector == 'influencer') {
             $res = $influencerRepository->findAllWithNames();
         }
 
-        return new JsonResponse($res);//return $this->render('users/editpass.html.twig');
+        return new JsonResponse($res); //return $this->render('users/editpass.html.twig');
     }
 
     /**
@@ -53,19 +52,17 @@ class SearchController extends AbstractController
 
         $searchSelect = $_POST['searchSelect'];
         $keywords = $_POST['keywords'];
-        
-        if($searchSelect == 'influencer'){
+
+        if ($searchSelect == 'influencer') {
             $rechercheRegEx = str_replace(" ", "|", $keywords);
-            $rechercheRegEx = '%'.$rechercheRegEx.'%';
+            $rechercheRegEx = '%' . $rechercheRegEx . '%';
             $prenom = "%Mohand%";
             $query = $em->createQuery(
                 "SELECT u.firstname FROM App\Entity\User u
-                WHERE u.firstname LIKE ':prenom'")
+                WHERE u.firstname LIKE ':prenom'"
+            )
                 ->setParameter('prenom', $prenom);
             $res = $query->getResult();
-
-            //$res = $userRepository->findUser($rechercheRegEx);
-            var_dump($res);
         }
 
         return $this->render('search/searchResult.html.twig', [
