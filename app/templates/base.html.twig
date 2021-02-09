@@ -3,45 +3,82 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!
+			{% block title %}Likey 
 			{% endblock %}
 		</title>
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
-		</head>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="{{path('home')}}" class="brand-logo">Nom du site</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-		{% if not app.user %}
-			<li><a href="{{path('offer_index')}}">Liste des offres</a></li>
-			<li><a href="{{path('inscription_index')}}">Inscription</a></li>
-			<li><a href="{{path('app_login')}}">Connexion</a></li>
-		{% else %}
-			<li><a href="{{path('users_data')}}">Mon profil</a></li>
-			<li><a href="{{path('offer_index')}}">Liste des offres</a></li>
-			<li><a href="{{path('app_logout')}}">Déconnexion</a></li>
-		{% endif %}
-      </ul>
-    </div>
-  </nav>
-
-		<body>
-			<div class="container"> {% block body %}{% endblock %}
+	</head>
+	<nav class="grey lighten-5">
+		<div class="container">
+			<div class="col s12">
+			<div class="navbar-fixed ">
+				<div class="nav-wrapper">
+					<a  class="pink-text"  href="{{path('home')}}" class="brand-logo">LIKEY</a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						{% if not app.user %}
+							<li>
+								<a class="black-text nav-buttons" href="{{path('inscription_index')}}">Inscription</a>
+							</li>
+							<li>
+								<a class="black-text nav-buttons" href="{{path('app_login')}}">Connexion</a>
+							</li>
+						{% else %}
+							<li>
+								<a class="black-text nav-buttons" href="{{path('users_data')}}">Mon profil</a>
+							</li>
+							<li>
+								<a  class="black-text nav-buttons" href="{{path('offer_index')}}">Liste des offres</a>
+							</li>
+							<li>
+								<a class="black-text nav-buttons" href="{{path('app_logout')}}">Déconnexion</a>
+							</li>
+						{% endif %}
+					</ul>
 				</div>
-				{% block javascripts %}
-						{{ encore_entry_script_tags('app') }}
-				{% endblock %}
-					<script>
-						document.addEventListener('DOMContentLoaded', function() {
-							{% for label, messages in app.flashes %}
-								{% for message in messages %}
-									M.toast({html: '{{ message }}', classes: '{{ label }} rounded'});
-								{% endfor %}
-							{% endfor %}
-						});
-						
-					</script>
-			</body>
-		</html>
+			</div>
+			</div>
+		</div>
+	</nav>
+	<body>
+	<main>
+		<div class="container">  {% block body %} {% endblock %} </div>
+	</main>
+			{# <footer class="page-footer brown lighten-5">
+				<div class="container">
+					<div class="row">
+						<div class="col l6 s12">
+							<h5 class="black-text">Footer Content</h5>
+							<p class="black-text">You can use rows and columns here to organize your footer content.</p>
+						</div>
+						<div class="col l4 offset-l2 s12">
+							<h5 class="black-text">Links</h5>
+							<ul>
+								<li><a class="black-text" href="#!">Link 1</a></li>
+								<li><a class="black-text" href="#!">Link 2</a></li>
+								<li><a class="black-text" href="#!">Link 3</a></li>
+								<li><a class="black-text" href="#!">Link 4</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="footer-copyright">
+					<div class="container black-text ">
+						© 2021 Copyright Text 
+						<a class="black-text right" href="#!">More Links</a>
+					</div>
+				</div>
+			</footer> #}
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock %}
+			<script>
+				document.addEventListener('DOMContentLoaded', function () {
+{% for label, messages in app.flashes %}
+{% for message in messages %}
+M.toast({html: '{{ message }}', classes: '{{ label }}rounded'});{% endfor %}{% endfor %}
+});
+			</script>
+		</body>
+	</html>

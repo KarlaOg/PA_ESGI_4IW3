@@ -39,7 +39,7 @@ class InscriptionType extends AbstractType
             ])
             ->add('age', BirthdayType::class, [
                 'label' => 'Age',
-                'placeholder' => 'Select a value',
+                'placeholder' => 'Selectionner une valeur',
             ])
             ->add('roles', ChoiceType::class, [
                 'label' => 'Vous êtes',
