@@ -71,19 +71,13 @@ class OfferController extends AbstractController
 
         $dateStart = $offer->getDateStart() ;
         $dateEnd = $offer->getDateEnd() ;
+
         $user= $this->getUser(); 
         
         if (array_search("ROLE_MARQUE", $user->getRoles()) !== false){
-            $brands = $this->getDoctrine()->getRepository(Brand::class)->findAll();
+
             
-            $em = $this->getDoctrine()->getManager();
-            foreach ( $brands as $value){
-                $offer->setBrandId($value); 
-                $em->persist($offer);
-            }
-     
         }
-        
         $dateStart = $offer->getDateStart();
         $dateEnd = $offer->getDateEnd();
 
