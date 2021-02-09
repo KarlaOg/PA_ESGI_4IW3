@@ -29,7 +29,7 @@ class Offer
     private $decription;
 
     /**
-     * @ORM\OneToOne(targetEntity=Brand::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Brand::class, cascade={"persist", "remove"})
      */
     private $brandId;
 

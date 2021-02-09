@@ -12,6 +12,7 @@ use App\Form\OfferType;
 use App\Entity\Application;
 use App\Form\ApplicationType;
 use App\Repository\OfferRepository;
+use App\Repository\BrandRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,12 +72,15 @@ class OfferController extends AbstractController
         $dateStart = $offer->getDateStart() ;
         $dateEnd = $offer->getDateEnd() ;
         $user= $this->getUser(); 
+        
         if (array_search("ROLE_MARQUE", $user->getRoles()) !== false){
-            $brand = new Brand();
-            $brand->setUserId($user);
-
+            $brands = $this->getDoctrine()->getRepository(Brand::class)->findAll();
+            
             $em = $this->getDoctrine()->getManager();
-            $em->persist($brand);
+            foreach ( $brands as $value){
+                $offer->setBrandId($value); 
+                $em->persist($offer);
+            }
      
         }
         
