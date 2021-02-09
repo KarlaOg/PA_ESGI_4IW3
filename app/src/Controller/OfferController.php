@@ -70,6 +70,17 @@ class OfferController extends AbstractController
 
         $dateStart = $offer->getDateStart();
         $dateEnd = $offer->getDateEnd();
+        $user = $this->getUser();
+        if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
+            $brand = new Brand();
+            $brand->setUserId($user);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($brand);
+        }
+
+        $dateStart = $offer->getDateStart();
+        $dateEnd = $offer->getDateEnd();
 
         $form = $this->createForm(OfferType::class, $offer);
 
@@ -98,7 +109,7 @@ class OfferController extends AbstractController
      */
     public function show(Offer $offer): Response
     {
-        dd($offer);
+
         return $this->render('offer/show.html.twig', [
             'offer' => $offer
         ]);
