@@ -107,7 +107,7 @@ class User implements UserInterface, \Serializable
     private $imageFile;
 
     /**
-     * @ORM\Column(type="datetime", options={ "default": "NOW()" })
+     * @ORM\Column(type="datetime", options={ "default": "NOW()" }, nullable=true)
      * @var \DateTime
      */
     private $updatedAt;
