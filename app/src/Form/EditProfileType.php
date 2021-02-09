@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -34,7 +33,7 @@ class EditProfileType extends AbstractType
                 'allow_delete' => true, //rajouter pr suprimer limage
                 'download_uri' => true, //rajouter un download
                 'image_uri' => true,
-              
+            ])
             ->add('image', FileType::class, [
                 'label' => 'image (PDF file)',
 
@@ -51,7 +50,6 @@ class EditProfileType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
                 ],
-
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => array(
@@ -63,7 +61,6 @@ class EditProfileType extends AbstractType
                 'expanded' => true,
 
             ]);
-
     }
 
     // public function configureOptions(OptionsResolver $resolver)
@@ -73,4 +70,3 @@ class EditProfileType extends AbstractType
     //     ]);
     // }
 }
-
