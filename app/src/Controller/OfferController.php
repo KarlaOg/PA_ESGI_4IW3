@@ -77,7 +77,7 @@ class OfferController extends AbstractController
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($brand);
-            dump($user); 
+     
         }
         
         $dateStart = $offer->getDateStart();
@@ -110,7 +110,7 @@ class OfferController extends AbstractController
      */
     public function show(Offer $offer): Response
     {
-        dd($offer);
+       
         return $this->render('offer/show.html.twig', [
             'offer' => $offer
         ]);
