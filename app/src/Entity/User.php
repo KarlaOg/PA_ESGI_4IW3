@@ -87,6 +87,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+
     private $nombreAbonnes;
 
     /**
@@ -440,4 +441,7 @@ class User implements UserInterface, \Serializable
     {
         return (string) $this->id;
     }
+
+
+
 }

@@ -12,7 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 use Symfony\Component\Validator\Constraints\Length; 
 use Symfony\Component\Validator\Constraints\Regex; 
 class InscriptionType extends AbstractType
@@ -58,6 +60,16 @@ class InscriptionType extends AbstractType
                 ],
                 'label' => "Email",
             ])
+            // ->add('type', ChoiceType::class, [
+            //     'choices' => array(
+            //         'Youtubeur' => "Youtubeu",
+            //         'Influenceur' => 'Influenceur',
+            //         'Gamer' =>  'Gamer',
+            //     ),
+            //     'multiple'  => true,
+            //     'expanded' => true,
+            //     'required' => true,
+            // ])
 
             ->add('password', RepeatedType::class, [
                 'label' => 'Mot de passe',
