@@ -1,39 +1,40 @@
 <?php
 
 namespace App\Controller;
- 
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-use Symfony\Component\HttpFoundation\Request;
-
-use Symfony\Component\HttpFoundation\Response;
-
-use Symfony\Component\Routing\Annotation\Route;
-
-use App\Repository\OfferRepository;
-
+use App\Entity\Tag;
+use App\Entity\User;
+use App\Entity\Brand;
 use App\Entity\Offer;
 
 use App\Form\OfferType;
- 
+use App\Entity\Application;
+use App\Form\ApplicationType;
+use App\Repository\OfferRepository;
+use App\Repository\BrandRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-  /**
 
-   * Class OfferController
+/**
 
-   * @package App\Controller
+ * Class OfferController
 
-   *
+ * @package App\Controller
 
-   * @Route("/offer", name="offer_")
+ *
 
-   */
+ * @Route("/offer", name="offer_")
 
-  class OfferController extends AbstractController
+ */
 
-  {
- 
+class OfferController extends AbstractController
+{
+
 
     /**
 
@@ -41,17 +42,21 @@ use App\Form\OfferType;
 
      */
 
-    public function index(OfferRepository $offerRepository): Response
-
+    public function index(): Response
     {
-        return $this->render('offer/index.html.twig', [
+        $repository = $this->getDoctrine()->getRepository(Offer::class);
 
-            'offers' => $offerRepository->findBy(array(), array('name' => 'ASC'))
-
+        $offer = $repository->findBy([
+            'status' => 'Libre',
         ]);
-
+        //  if( $offer->setStatus($this->status = "En attente de validation");){
+        return $this->render('offer/index.html.twig', [
+            //'offers' => $offerRepository->findBy(array(), array('status' => 'Libre')),
+            'offers' =>  $offer,
+        ]);
+        //  }
     }
- 
+
 
     /**
 
@@ -60,7 +65,6 @@ use App\Form\OfferType;
      */
 
     public function new(Request $request)
-
     {
 
         $offer = new Offer();
@@ -68,24 +72,27 @@ use App\Form\OfferType;
         $dateStart = $offer->getDateStart() ;
         $dateEnd = $offer->getDateEnd() ;
 
-        $form = $this->createForm(OfferType::class, $offer);
+        $user= $this->getUser(); 
         
+        if (array_search("ROLE_MARQUE", $user->getRoles()) !== false){
+
+            
+        }
+        $dateStart = $offer->getDateStart();
+        $dateEnd = $offer->getDateEnd();
+
+        $form = $this->createForm(OfferType::class, $offer);
+
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-
-        { 
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
             $em->persist($offer);
-
             $em->flush();
- 
-            $this->addFlash('blue', 'Création réussie');
- 
+
+            $this->addFlash('green', 'Création réussie');
 
             return $this->redirectToRoute('offer_index', ['id' => $offer->getId()]);
-
         }
 
 
@@ -94,7 +101,6 @@ use App\Form\OfferType;
             'form' => $form->createView()
 
         ]);
-
     }
 
     /**
@@ -102,6 +108,7 @@ use App\Form\OfferType;
      */
     public function show(Offer $offer): Response
     {
+       
         return $this->render('offer/show.html.twig', [
             'offer' => $offer
         ]);
@@ -113,13 +120,12 @@ use App\Form\OfferType;
      */
     public function edit(Offer $offer, Request $request)
     {
-        $dateStart = $offer->getDateStart() ;
-        $dateEnd = $offer->getDateEnd() ;
+        $dateStart = $offer->getDateStart();
+        $dateEnd = $offer->getDateEnd();
         $form = $this->createForm(OfferType::class, $offer);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -134,24 +140,52 @@ use App\Form\OfferType;
         ]);
     }
 
-     /**
+    /**
+     * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
+     *  Postuler à une offre
+     * 
+     * 
+     */
+    public function apply(Offer $offer, Request $request)
+    {
+        $form = $this->createForm(ApplicationType::class, $offer);
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $offer->setStatus($this->status = "En attente de validation");
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->addFlash('blue', 'Postuler à l\'offre en cours');
+
+            return $this->redirectToRoute('offer_index');
+        }
+
+        return $this->render('offer/apply.html.twig', [
+            'offer' => $offer,
+            'form' => $form->createView()
+        ]);
+    }
+
+
+
+    /**
      * @Route("/delete/{id}/{token}", name="delete", methods={"GET"})
      */
     public function delete(Offer $offer, $token)
     {
         if (!$this->isCsrfTokenValid('delete_offer' . $offer->getId(), $token)) {
-            throw new Exception('Token CSRF invalid');
+            throw new \Exception('Token CSRF invalid');
         }
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($offer);
         $em->flush();
 
-        $this->addFlash('blue', 'Suppression réussie');
+        $this->addFlash('red', 'Suppression réussie');
 
         return $this->redirectToRoute('offer_index');
     }
-
-  }
-
- ?>
+}

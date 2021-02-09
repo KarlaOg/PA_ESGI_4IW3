@@ -12,7 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-// use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Symfony\Component\Validator\Constraints\Length; 
 use Symfony\Component\Validator\Constraints\Regex; 
@@ -22,6 +23,7 @@ class InscriptionType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
+                'label' => 'Nom',
                 'required' => true,
                 'constraints' => [
                     new Length(['min' => 3]), 
@@ -30,6 +32,7 @@ class InscriptionType extends AbstractType
                 ] 
             ])
             ->add('lastname',TextType::class, [
+                'label' => 'Prénom',
                 'required' => true,
                 'constraints' => [
                     new Length(['min' => 2]), 
@@ -37,12 +40,23 @@ class InscriptionType extends AbstractType
                 ]
             ])
             ->add('age', BirthdayType::class, [
-                'placeholder' => 'Select a value',
+                'label' => 'Age',
+                'placeholder' => 'Selectionner une valeur',
+            ])
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Vous êtes',
+                'choices' => array(
+                    'Marque' => "ROLE_MARQUE",
+                    'Influenceur' => 'ROLE_INFLUENCEUR',
+                    
+                ),
+                'multiple'  => true,
+                'required' => true,
             ])
             ->add('email', EmailType::class, [
+                'label' => 'Email',
                 'attr' => [
                     'class' => 'h-full-width',
-                    // "placeholder" => "Email de confirmation vous sera envoyer"
                 ],
                 'label' => "Email",
             ])
@@ -58,6 +72,7 @@ class InscriptionType extends AbstractType
             // ])
 
             ->add('password', RepeatedType::class, [
+                'label' => 'Mot de passe',
                 'type' => PasswordType::class,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],

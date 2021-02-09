@@ -10,16 +10,18 @@
 		<div class="col-xs4">
 			<h3>Modification du profil de
 				{{ app.user.firstname }}
-				{{ app.user.lastname }}
-				<h4>Ajouter une photo de profil</h4>
-
-				{{ form_row(form.image) }}
-				</h3>
-			{{ form(form) }}
-			</div>
-
+				{{ app.user.lastname }}</h3>
+			{{ form_start(form) }}
+			{{ form_row(form) }}
+			<button type="submit" class="btn btn-success">Sauvegarder</button>
+			{{ form_end(form) }}
 		</div>
-	<button type="button" class="btn btn-outline-success m-4">
-		<a class="nav-link" href="{{path('users_pass_modifier')}}">Edit password</a>
-	</button>
-	{% endblock %}
+		<br/>
+		<br/>
+		<div>
+			<button type="button" class="btn white">
+				<a href="{{path('users_pass_modifier')}}">Edit password</a>
+			</button>
+		</div>
+	</div>
+{% endblock %}

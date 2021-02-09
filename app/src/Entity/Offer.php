@@ -29,7 +29,7 @@ class Offer
     private $decription;
 
     /**
-     * @ORM\OneToOne(targetEntity=Brand::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Brand::class, cascade={"persist", "remove"})
      */
     private $brandId;
 
@@ -49,7 +49,7 @@ class Offer
     private $dateEnd;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string")
      */
     private $status;
 
@@ -104,7 +104,7 @@ class Offer
         return $this->dateCreation;
     }
 
-   /**
+    /**
      * Gets triggered only on insert
 
      * @ORM\PrePersist
@@ -138,12 +138,12 @@ class Offer
         return $this;
     }
 
-    public function getStatus(): ?bool
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(bool $status): self
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 

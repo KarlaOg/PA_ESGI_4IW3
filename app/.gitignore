@@ -16,6 +16,12 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
+###< VichUploadBundle ###
+/public/uploads/image_user
+###< VichUploadBundle ###
+
+
+
 # macOS Files
 /.DS_Store
 
@@ -26,3 +32,9 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###

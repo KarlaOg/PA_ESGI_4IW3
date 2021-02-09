@@ -11,8 +11,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
- 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class OfferType extends AbstractType
 
@@ -24,23 +26,35 @@ class OfferType extends AbstractType
 
         $builder
 
-            ->add('name')
+            ->add('name', TextType::class, [
+                'label' => 'Nom de l\'offre',
+                'required' => true,
+            ])
 
-            ->add('decription')
+            ->add('decription',  TextareaType::class, [
+                'label' => 'Description',
+                'attr' => ['class' => 'tinymce'],
+            ])
 
-            ->add('brandId')
+            ->add('brandId', HiddenType::class, [
+                'label' => 'Id de l\'offre',
+            ])
 
             ->add('dateStart', DateType::class, array(
+                'label' => "Date de commencement",
                 'widget' => 'choice',
                 'years' => range(date('Y'), date('Y')+10),
                 ))
 
             ->add('dateEnd', DateType::class, array(
+                    'label' => "Date de fin",
                     'widget' => 'choice',
                     'years' => range(date('Y'), date('Y')+10),
                     ))
 
-            ->add('status')
+            ->add('status', HiddenType::class, [
+                'data' => 'Libre',
+            ])
 
             ->add('application')
 

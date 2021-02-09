@@ -2,31 +2,40 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
+use App\Entity\Influencer;
+use App\Entity\User;
+use App\Form\BrandType;
 use App\Form\EditProfileType;
+use App\Form\InfluencerType;
+use App\Repository\InfluencerRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Entity\Offer;
+
+
 class UsersController extends AbstractController
 {
-    /**
-     * @Route("/users", name="users")
-     */
-    public function index(): Response
-    {
-        return $this->render('users/index.html.twig', [
-            'controller_name' => 'UsersController',
-        ]);
-    }
 
     /**
      * @Route("/users/data", name="users_data")
      */
     public function usersData()
     {
-        return $this->render('users/data.html.twig');
+        $repository = $this->getDoctrine()->getRepository(Offer::class);
+        $offers = $repository->findAll();
+
+
+        return $this->render('users/data.html.twig', [
+            'offers' => $offers,
+        ]);
     }
 
     /**
@@ -70,13 +79,64 @@ class UsersController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('message', 'Profil mis à jour');
-            return $this->redirectToRoute('users');
+            $this->addFlash('green', 'Modification effectué');
+            return $this->redirectToRoute('users_data');
         }
 
         return $this->render('users/editprofile.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/users/profil/create", name="users_profil_create")
+     */
+    public function create(Request $request, EntityManagerInterface $em,  FormFactoryInterface $factory, InfluencerRepository $influencerRepository)
+    {
+        if ($this->getUser()->getRoles() == ["ROLE_INFLUENCEUR"]) {
+
+            $user = $this->getUser();
+            $influencer = new Influencer();
+
+            $form = $this->createForm(InfluencerType::class, $influencer);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $influencer->setUserId($user);
+
+                $em->persist($influencer);
+                $em->flush();
+
+                return $this->redirectToRoute('users_data');
+            }
+            $formView = $form->createView();
+
+            return $this->render('influencer/index.html.twig', [
+                'formView' => $formView,
+            ]);
+        } else {
+            $user = $this->getUser();
+            $brand = new Brand();
+            dd($brand);
+            $form = $this->createForm(BrandType::class, $brand);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $brand->setUserId($user);
+
+                $em->persist($brand);
+                $em->flush();
+
+                return $this->redirectToRoute('users_data');
+            }
+            $formView = $form->createView();
+
+            return $this->render('brand/index.html.twig', [
+                'formView' => $formView,
+            ]);
+        }
     }
 
 
@@ -94,11 +154,11 @@ class UsersController extends AbstractController
             if ($request->request->get('pass') == $request->request->get('pass2')) {
                 $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('pass')));
                 $em->flush();
-                $this->addFlash('message', 'Mot de passe mis à jour avec succès');
+                $this->addFlash('blue', 'Mot de passe mis à jour avec succès');
 
                 //return $this->redirectToRoute('users');
             } else {
-                $this->addFlash('error', 'Les deux mots de passe ne sont pas identiques');
+                $this->addFlash('red', 'Les deux mots de passe ne sont pas identiques');
             }
         }
 

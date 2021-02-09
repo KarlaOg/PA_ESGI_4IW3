@@ -11,6 +11,11 @@
 /symfony.lock
 ###< symfony/framework-bundle ###
 
+###< VichUploadBundle ###
+/public/uploads/image_user
+###< VichUploadBundle ###
+
+
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache
