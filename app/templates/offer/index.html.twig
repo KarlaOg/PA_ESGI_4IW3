@@ -4,7 +4,7 @@
 
 
 {% block body %}
-    <h3>Offres</h3>
+    <h3>Listes des Offres</h3>
     <hr>
         {% if app.user.roles[0] == "ROLE_MARQUE" %}
         <a  href="{{ path('offer_new') }}" class="btn btn-success" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">add</i></a>
