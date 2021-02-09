@@ -42,10 +42,15 @@ class OfferController extends AbstractController
 
     public function index(): Response
     {
+        $repository = $this->getDoctrine()->getRepository(Offer::class);
+
+        $offer = $repository->findBy([
+            'status' => 'Libre',
+        ]);
         //  if( $offer->setStatus($this->status = "En attente de validation");){
         return $this->render('offer/index.html.twig', [
             //'offers' => $offerRepository->findBy(array(), array('status' => 'Libre')),
-            'offers' => $offerRepository->findBy(array(), array('name' => 'ASC'))
+            'offers' =>  $offer,
         ]);
         //  }
     }
