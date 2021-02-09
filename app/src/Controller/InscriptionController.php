@@ -56,6 +56,7 @@ class InscriptionController extends AbstractController
             if (array_search("ROLE_INFLUENCEUR", $user->getRoles()) !== false) {
                 $influencer = new Influencer();
                 $influencer->setUserId($user);
+  
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($influencer);

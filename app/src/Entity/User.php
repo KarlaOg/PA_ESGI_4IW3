@@ -10,14 +10,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="user_account")
  * @UniqueEntity("email")
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
+
 
     const SERVER_PATH_TO_IMAGE_FOLDER = '/public/uploads';
     /**
@@ -89,6 +93,25 @@ class User implements UserInterface
      * @ORM\Column(type="array", nullable=true)
      */
     private $liens = [];
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageUser;
+
+    /**
+     * @Vich\UploadableField(mapping="cover_image_user", fileNameProperty="imageUser")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", options={ "default": "NOW()" })
+     * @var \DateTime
+     */
+    private $updatedAt;
+
 
     // Pour les test unitaire (pas complet)
     public function isValid(): bool
@@ -347,6 +370,70 @@ class User implements UserInterface
         $this->liens = $liens;
 
         return $this;
+    }
+
+
+
+    public function getImageUser(): ?string
+    {
+        return $this->imageUser;
+    }
+
+    public function setImageUser(?string $imageUser): self
+    {
+        $this->imageUser = $imageUser;
+
+        return $this;
+    }
+
+    /**
+     * @param null|File $imageFile
+     * @return User
+     * @throws Exception
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        // permet a vich de savoir si l'image est nouvelle ou pas.
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+
+        list(
+            $this->id,
+            $this->email,
+            $this->password,
+        ) = unserialize($serialized);
     }
 
     public function __toString()

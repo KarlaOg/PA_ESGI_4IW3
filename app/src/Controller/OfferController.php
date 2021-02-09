@@ -40,7 +40,7 @@ class OfferController extends AbstractController
 
      */
 
-    public function index(OfferRepository $offerRepository): Response
+    public function index(): Response
     {
         //  if( $offer->setStatus($this->status = "En attente de validation");){
         return $this->render('offer/index.html.twig', [
@@ -161,7 +161,7 @@ class OfferController extends AbstractController
     public function delete(Offer $offer, $token)
     {
         if (!$this->isCsrfTokenValid('delete_offer' . $offer->getId(), $token)) {
-            throw new Exception('Token CSRF invalid');
+            throw new \Exception('Token CSRF invalid');
         }
 
         $em = $this->getDoctrine()->getManager();

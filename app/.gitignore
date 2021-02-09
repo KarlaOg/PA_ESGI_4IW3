@@ -16,6 +16,12 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
+###< VichUploadBundle ###
+/public/uploads/image_user
+###< VichUploadBundle ###
+
+
+
 # macOS Files
 /.DS_Store
 
