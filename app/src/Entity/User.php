@@ -22,7 +22,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class User implements UserInterface, \Serializable
 {
 
-    
+
     const SERVER_PATH_TO_IMAGE_FOLDER = '/public/uploads';
     /**
      * @ORM\Id
@@ -111,7 +111,7 @@ class User implements UserInterface, \Serializable
      * @var \DateTime
      */
     private $updatedAt;
-   
+
 
     // Pour les test unitaire (pas complet)
     public function isValid(): bool
@@ -372,6 +372,8 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+
+
     public function getImageUser(): ?string
     {
         return $this->imageUser;
@@ -386,9 +388,9 @@ class User implements UserInterface, \Serializable
 
     /**
      * @param null|File $imageFile
-    * @return User
-    * @throws Exception
-    */
+     * @return User
+     * @throws Exception
+     */
     public function setImageFile(File $image = null)
     {
         $this->imageFile = $image;
@@ -414,7 +416,7 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-   
+
     public function serialize()
     {
         return serialize(array(
@@ -424,15 +426,18 @@ class User implements UserInterface, \Serializable
         ));
     }
 
-    public function unserialize($serialized) {
+    public function unserialize($serialized)
+    {
 
-        list (
+        list(
             $this->id,
             $this->email,
             $this->password,
-            ) = unserialize($serialized);
-        }
-        
-        
+        ) = unserialize($serialized);
+    }
 
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
 }
