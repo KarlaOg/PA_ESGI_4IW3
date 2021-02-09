@@ -1,8 +1,8 @@
 <?php
- 
+
 
 namespace App\Form;
- 
+
 
 use App\Entity\Offer;
 
@@ -43,25 +43,22 @@ class OfferType extends AbstractType
             ->add('dateStart', DateType::class, array(
                 'label' => "Date de commencement",
                 'widget' => 'choice',
-                'years' => range(date('Y'), date('Y')+10),
-                ))
+                'years' => range(date('Y'), date('Y') + 10),
+            ))
 
             ->add('dateEnd', DateType::class, array(
-                    'label' => "Date de fin",
-                    'widget' => 'choice',
-                    'years' => range(date('Y'), date('Y')+10),
-                    ))
+                'label' => "Date de fin",
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y') + 10),
+            ))
 
             ->add('status', HiddenType::class, [
                 'data' => 'Libre',
             ])
 
-            ->add('application')
-
-        ;
-
+            ->add('application');
     }
- 
+
 
     public function configureOptions(OptionsResolver $resolver)
 
@@ -72,7 +69,5 @@ class OfferType extends AbstractType
             'data_class' => Offer::class,
 
         ]);
-
     }
-
 }
