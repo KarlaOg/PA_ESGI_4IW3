@@ -19,6 +19,46 @@ class InfluencerRepository extends ServiceEntityRepository
         parent::__construct($registry, Influencer::class);
     }
 
+    public function findAll()
+     {
+         return $this->createQueryBuilder('i')
+             ->select('i.id')
+             ->orderBy('i.id', 'ASC')
+             ->getQuery()
+             ->getResult();
+     }
+
+     public function findAllWithNames()
+     {
+         return $this->createQueryBuilder('i')
+             ->leftJoin('App:User', 'u', 'WITH', 'i.userId = u.id')
+             ->select('DISTINCT u.firstname, u.lastname')
+             ->orderBy('u.lastname', 'ASC')
+             ->getQuery()
+             ->getResult();
+     }
+
+     public function findBySearch()
+     {
+         return $this->createQueryBuilder('i')
+             ->leftJoin('App:User', 'u', 'WITH', 'i.userId = u.id')
+             ->select('DISTINCT u.firstname, u.lastname')
+             ->orderBy('u.lastname', 'ASC')
+             ->getQuery()
+             ->getResult();
+     }
+
+     public function index(OfferRepository $offerRepository): Response
+
+     {
+         return $this->render('offer/index.html.twig', [
+
+             'offers' => $offerRepository->findBy(array(), array('dateStart' => 'ASC'))
+
+         ]);
+
+     }
+
     // /**
     //  * @return Influencer[] Returns an array of Influencer objects
     //  */
