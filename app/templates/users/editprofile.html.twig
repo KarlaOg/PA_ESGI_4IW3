@@ -11,20 +11,17 @@
 			<h3>Modification du profil de
 				{{ app.user.firstname }}
 				{{ app.user.lastname }}</h3>
-			
-			
 			{{ form_start(form) }}
 			{{ form_row(form) }}
-				{# <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ app.user.lastname }}" /> #}
-				
-				<button type="submit" class="btn btn-success">Sauvegarder</button>
+			<button type="submit" class="btn btn-success">Sauvegarder</button>
 			{{ form_end(form) }}
-			</div>
-
 		</div>
+		<br/>
+		<br/>
 		<div>
 			<button type="button" class="btn white">
 				<a href="{{path('users_pass_modifier')}}">Edit password</a>
 			</button>
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}

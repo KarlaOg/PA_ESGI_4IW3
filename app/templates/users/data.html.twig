@@ -11,8 +11,10 @@
 				<div class="card-content black-text">
 					{% if  app.user.imageUser %}
 						<div class="card-image">
-							<img src="{{ app.user.imageUser }}">
+							<img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ app.user.imageUser }}"/>
+							{% else %}
 						{% endif %}
+
 					</td>
 				</div>
 				<span class="card-title">{{ app.user.lastname }}
