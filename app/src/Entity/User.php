@@ -22,7 +22,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class User implements UserInterface, \Serializable
 {
 
-    
+
     const SERVER_PATH_TO_IMAGE_FOLDER = '/public/uploads';
     /**
      * @ORM\Id
@@ -111,7 +111,7 @@ class User implements UserInterface, \Serializable
      * @var \DateTime
      */
     private $updatedAt;
-   
+
 
     // Pour les test unitaire (pas complet)
     public function isValid(): bool
@@ -372,67 +372,8 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getImageUser(): ?string
+    public function __toString()
     {
-        return $this->imageUser;
+        return (string) $this->id;
     }
-
-    public function setImageUser(?string $imageUser): self
-    {
-        $this->imageUser = $imageUser;
-
-        return $this;
-    }
-
-    /**
-     * @param null|File $imageFile
-    * @return User
-    * @throws Exception
-    */
-    public function setImageFile(File $image = null)
-    {
-        $this->imageFile = $image;
-        // permet a vich de savoir si l'image est nouvelle ou pas.
-        if ($image) {
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
-
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-   
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->email,
-            $this->password,
-        ));
-    }
-
-    public function unserialize($serialized) {
-
-        list (
-            $this->id,
-            $this->email,
-            $this->password,
-            ) = unserialize($serialized);
-        }
-        
-        
-
 }

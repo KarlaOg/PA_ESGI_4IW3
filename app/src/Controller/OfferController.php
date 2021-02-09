@@ -21,15 +21,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
 
-   * Class OfferController
+ * Class OfferController
 
-   * @package App\Controller
+ * @package App\Controller
 
-   *
+ *
 
-   * @Route("/offer", name="offer_")
+ * @Route("/offer", name="offer_")
 
-   */
+ */
 
 class OfferController extends AbstractController
 {
@@ -43,17 +43,12 @@ class OfferController extends AbstractController
 
     public function index(): Response
     {
-        $repository = $this->getDoctrine()->getRepository(Offer::class);
-
-        $offer = $repository->findBy([
-            'status' => 'Libre',
+        //  if( $offer->setStatus($this->status = "En attente de validation");){
+        return $this->render('offer/index.html.twig', [
+            //'offers' => $offerRepository->findBy(array(), array('status' => 'Libre')),
+            'offers' => $offerRepository->findBy(array(), array('name' => 'ASC'))
         ]);
-      //  if( $offer->setStatus($this->status = "En attente de validation");){
-            return $this->render('offer/index.html.twig', [
-                //'offers' => $offerRepository->findBy(array(), array('status' => 'Libre')),
-                'offers' =>  $offer,
-            ]);
-      //  }
+        //  }
     }
 
 
@@ -68,26 +63,14 @@ class OfferController extends AbstractController
 
         $offer = new Offer();
 
-        $dateStart = $offer->getDateStart() ;
-        $dateEnd = $offer->getDateEnd() ;
-        $user= $this->getUser(); 
-        if (array_search("ROLE_MARQUE", $user->getRoles()) !== false){
-            $brand = new Brand();
-            $brand->setUserId($user);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($brand);
-            dump($user); 
-        }
-        
+        $dateStart = $offer->getDateStart();
+        $dateEnd = $offer->getDateEnd();
 
         $form = $this->createForm(OfferType::class, $offer);
-        
+
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        { 
-            
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($offer);
             $em->flush();
@@ -95,7 +78,6 @@ class OfferController extends AbstractController
             $this->addFlash('green', 'Création réussie');
 
             return $this->redirectToRoute('offer_index', ['id' => $offer->getId()]);
-
         }
 
 
@@ -104,7 +86,6 @@ class OfferController extends AbstractController
             'form' => $form->createView()
 
         ]);
-
     }
 
     /**
@@ -112,6 +93,7 @@ class OfferController extends AbstractController
      */
     public function show(Offer $offer): Response
     {
+        dd($offer);
         return $this->render('offer/show.html.twig', [
             'offer' => $offer
         ]);
@@ -123,13 +105,12 @@ class OfferController extends AbstractController
      */
     public function edit(Offer $offer, Request $request)
     {
-        $dateStart = $offer->getDateStart() ;
-        $dateEnd = $offer->getDateEnd() ;
+        $dateStart = $offer->getDateStart();
+        $dateEnd = $offer->getDateEnd();
         $form = $this->createForm(OfferType::class, $offer);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -151,14 +132,14 @@ class OfferController extends AbstractController
      * 
      */
     public function apply(Offer $offer, Request $request)
-    {   
+    {
         $form = $this->createForm(ApplicationType::class, $offer);
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
         $offer->setStatus($this->status = "En attente de validation");
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -167,11 +148,10 @@ class OfferController extends AbstractController
             return $this->redirectToRoute('offer_index');
         }
 
-       return $this->render('offer/apply.html.twig', [
-        'offer' => $offer,
-        'form' => $form->createView()
+        return $this->render('offer/apply.html.twig', [
+            'offer' => $offer,
+            'form' => $form->createView()
         ]);
-
     }
 
 
@@ -193,5 +173,4 @@ class OfferController extends AbstractController
 
         return $this->redirectToRoute('offer_index');
     }
-
 }
