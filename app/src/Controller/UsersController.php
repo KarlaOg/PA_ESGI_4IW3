@@ -2,9 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
+use App\Entity\Influencer;
+use App\Entity\User;
+use App\Form\BrandType;
 use App\Form\EditProfileType;
-
+use App\Form\InfluencerType;
+use App\Repository\InfluencerRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,6 +60,57 @@ class UsersController extends AbstractController
         return $this->render('users/editprofile.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/users/profil/create", name="users_profil_create")
+     */
+    public function create(Request $request, EntityManagerInterface $em,  FormFactoryInterface $factory, InfluencerRepository $influencerRepository)
+    {
+        if ($this->getUser()->getRoles() == ["ROLE_INFLUENCEUR"]) {
+
+            $user = $this->getUser();
+            $influencer = new Influencer();
+
+            $form = $this->createForm(InfluencerType::class, $influencer);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $influencer->setUserId($user);
+
+                $em->persist($influencer);
+                $em->flush();
+
+                return $this->redirectToRoute('users_data');
+            }
+            $formView = $form->createView();
+
+            return $this->render('influencer/index.html.twig', [
+                'formView' => $formView,
+            ]);
+        } else {
+            $user = $this->getUser();
+            $brand = new Brand();
+            dd($brand);
+            $form = $this->createForm(BrandType::class, $brand);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $brand->setUserId($user);
+
+                $em->persist($brand);
+                $em->flush();
+
+                return $this->redirectToRoute('users_data');
+            }
+            $formView = $form->createView();
+
+            return $this->render('brand/index.html.twig', [
+                'formView' => $formView,
+            ]);
+        }
     }
 
 

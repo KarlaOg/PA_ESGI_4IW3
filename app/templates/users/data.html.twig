@@ -24,10 +24,15 @@
 				<i>{{ app.user.email }}</i>
 			</li>
 			<li class="list-group-item">Rôle :
-			{% if app.user.roles[0] == 'ROLE_INFLUENCEUR'%}
-			<i>Influenceur</i>
-			{% endif %}
+				{% if app.user.roles[0] == 'ROLE_INFLUENCEUR'%}
+					<i>Influenceur</i>
+				{% elseif app.user.roles[0] == 'ROLE_MARQUE'%}
+					<i>Marque</i>
+				{% endif %}
 			</li>
+			<pre>
+				{{ dump(app.user) }}
+			</pre>
 		</ul>
 		<button type="button" class="btn btn-outline-success m-4">
 			<a class="nav-link" href="{{path('users_profil_modifier')}}">Modifier mon profil</a>

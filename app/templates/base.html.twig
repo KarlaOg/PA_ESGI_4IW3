@@ -3,45 +3,54 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!
-			{% endblock %}
+			{% block title %}{% endblock %}
 		</title>
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
-		</head>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="{{path('home')}}" class="brand-logo">Nom du site</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-		{% if not app.user %}
-			<li><a href="{{path('offer_index')}}">Liste des offres</a></li>
-			<li><a href="{{path('inscription_index')}}">Inscription</a></li>
-			<li><a href="{{path('app_login')}}">Connexion</a></li>
-		{% else %}
-			<li><a href="{{path('users_data')}}">Mon profil</a></li>
-			<li><a href="{{path('offer_index')}}">Liste des offres</a></li>
-			<li><a href="{{path('app_logout')}}">Déconnexion</a></li>
-		{% endif %}
-      </ul>
-    </div>
-  </nav>
+	</head>
+	<nav>
+		<div class="nav-wrapper">
+			<a href="{{path('home')}}" class="brand-logo">Nom du site</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				{% if not app.user %}
+					<li>
+						<a href="{{path('offer_index')}}">Liste des offres</a>
+					</li>
+					<li>
+						<a href="{{path('inscription_index')}}">Inscription</a>
+					</li>
+					<li>
+						<a href="{{path('app_login')}}">Connexion</a>
+					</li>
+				{% else %}
+					<li>
+						<a href="{{path('users_data')}}">Mon profil</a>
+					</li>
+					<li>
+						<a href="{{path('offer_index')}}">Liste des offres</a>
+					</li>
+					<li>
+						<a href="{{path('app_logout')}}">Déconnexion</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	</nav>
 
-		<body>
-			<div class="container"> {% block body %}{% endblock %}
-				</div>
-				{% block javascripts %}
-						{{ encore_entry_script_tags('app') }}
-				{% endblock %}
-					<script>
-						document.addEventListener('DOMContentLoaded', function() {
-							{% for label, messages in app.flashes %}
-								{% for message in messages %}
-									M.toast({html: '{{ message }}', classes: '{{ label }} rounded'});
-								{% endfor %}
-							{% endfor %}
-						});
-						
-					</script>
-			</body>
-		</html>
+	<body>
+		<div class="container"> {% block body %}{% endblock %}
+			</div>
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock %}
+			<script>
+				document.addEventListener('DOMContentLoaded', function () {
+{% for label, messages in app.flashes %}
+{% for message in messages %}
+M.toast({html: '{{ message }}', classes: '{{ label }}rounded'});{% endfor %}
+{% endfor %}
+});
+			</script>
+		</body>
+	</html>

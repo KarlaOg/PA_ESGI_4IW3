@@ -24,10 +24,6 @@ class Influencer
      */
     private $userId;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $type;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -68,18 +64,6 @@ class Influencer
     public function setUserId(?User $userId): self
     {
         $this->userId = $userId;
-
-        return $this;
-    }
-
-    public function getType(): ?bool
-    {
-        return $this->type;
-    }
-
-    public function setType(bool $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }

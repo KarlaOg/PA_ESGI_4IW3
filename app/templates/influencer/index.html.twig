@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Informations complémentaires
+{% endblock %}
+
+{% block body %}
+	<h3>
+		Informations complémentaires
+	</h3>
+	{{form_start(formView)}}
+	{{form_errors(formView)}}
+	<div
+		class="row">
+		{# <pre>
+						        {{ dump(formView.type) }}
+						    </pre> #}
+		{{form_row(formView.siret)}}
+		{{form_row(formView.type)}}
+		{# {{form_row(formView.socialNetwork)}} #}
+	</div>
+
+	<button type="submit" class="btn btn-primary">
+		Enregistre</button>
+	{{form_end(formView)}}
+{% endblock %}

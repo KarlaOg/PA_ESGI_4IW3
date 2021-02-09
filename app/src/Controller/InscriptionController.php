@@ -53,14 +53,13 @@ class InscriptionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
 
-            if( array_search("ROLE_INFLUENCEUR", $user->getRoles()) !== false ){
+            if (array_search("ROLE_INFLUENCEUR", $user->getRoles()) !== false) {
                 $influencer = new Influencer();
                 $influencer->setUserId($user);
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($influencer);
-            }
-            else if (array_search("ROLE_MARQUE", $user->getRoles()) !== false){
+            } else if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
                 $brand = new Brand();
                 $brand->setUserId($user);
 
@@ -73,7 +72,7 @@ class InscriptionController extends AbstractController
             $em->flush();
 
             $this->addFlash("green", "Inscription réussie !");
-           // return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_login');
         }
 
         // afficher le formulaire s'il n'est pas déjà rempli
