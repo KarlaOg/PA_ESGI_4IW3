@@ -1,21 +1,22 @@
 <?php
 
 namespace App\Controller;
- 
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use App\Entity\Tag;
+use App\Entity\User;
+use App\Entity\Brand;
+use App\Entity\Offer;
+
+use App\Form\OfferType;
+use App\Entity\Application;
+use App\Form\ApplicationType;
+use App\Repository\OfferRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
-use App\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use App\Repository\OfferRepository;
-use App\Entity\Offer;
-use App\Entity\Tag;
-use App\Entity\Application;
-use App\Form\ApplicationType;
-use App\Form\OfferType;
 
 
 /**
@@ -69,14 +70,24 @@ class OfferController extends AbstractController
 
         $dateStart = $offer->getDateStart() ;
         $dateEnd = $offer->getDateEnd() ;
+        $user= $this->getUser(); 
+        if (array_search("ROLE_MARQUE", $user->getRoles()) !== false){
+            $brand = new Brand();
+            $brand->setUserId($user);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($brand);
+            dump($user); 
+        }
+        
 
         $form = $this->createForm(OfferType::class, $offer);
         
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
-
         { 
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($offer);
             $em->flush();

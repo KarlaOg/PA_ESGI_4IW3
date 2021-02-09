@@ -3,11 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Offer;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -63,5 +64,34 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //         ->getOneOrNullResult()
     //     ;
     // }
+
+    
+    // public function getUsersOffer($value): ?User
+    // {
+    //     $repository = $this->getDoctrine()
+    //     ->getManager()
+    //     ->getRepository(Offer::class);
+
+    //     $qb = $this->createQueryBuilder('u')
+    //         ->where('p.price > :price')
+    //         ->setParameter('price', $price)
+    //         ->orderBy('p.price', 'ASC');
+
+    //     if (!$includeUnavailableProducts) {
+    //         $qb->andWhere('p.available = TRUE');
+    //     }
+
+    //     $query = $qb->getQuery();
+
+    //     return $query->execute();
+
+    //     return $this->createQueryBuilder('u')
+    //         ->andWhere('u.exampleField = :val')
+    //         ->setParameter('val', $value)
+    //         ->getQuery()
+    //         ->getOneOrNullResult()
+    //     ;
+    // }
+    
     
 }

@@ -1,28 +1,27 @@
 {% extends 'base.html.twig' %} 
 
-{% block title %}Liste des offres {% endblock %}
- 
+{% block title %}Offres {% endblock %}
+
 
 {% block body %}
-    <h1>Liste des offres</h1>
- <a href="{{ path('offer_new') }}" class="btn btn-success">Ajouter une offre</a> <br><br>
+    <h3>Offres</h3>
+    <hr>
+        {% if app.user.roles[0] == "ROLE_MARQUE" %}
+        <a  href="{{ path('offer_new') }}" class="btn btn-success" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">add</i></a>
+        {% endif %}
 
-<div class = "table-responsive">
-    <table class="table">
-        {% for offer in offers  %}
-            <tr>
-                <td> Propriétaire de l'offre : {{ offer.name|capitalize }} </td>
-            </tr>
-            <tr>
-                <td>Dates : {{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}} - {{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}} </td>
-            </tr>
-            <tr>
-                <td>Description : {{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}} </td>
-            </tr>
-            <tr>
-            <td><a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn btn-warning">Voir l'offre</a></td>
-            </tr>
+<div> 
+    {% for offer in offers  %}
+        <div class="card brown lighten-5 z-depth-2">
+            <div class="card-content">
+                <span class="card-title">{{ offer.name|capitalize }} </span>
+                <p>Description : {{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}} </p>
+                <p>Dates : {{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}} - {{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}} </p>
+            </div>
+            <div class="card-action">
+                <a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>
+            </div>
+        </div>
         {% endfor %}
-    </table>
- </div>  
+</div>  
 {% endblock %}
