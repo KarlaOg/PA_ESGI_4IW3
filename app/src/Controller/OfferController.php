@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\Brand;
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
+
 /**
  * Class OfferController
  * @package App\Controller
@@ -27,6 +29,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class OfferController extends AbstractController
 {
+
     /**
      * @Route("/", name="index", methods={"GET"})
      */
@@ -43,9 +46,11 @@ class OfferController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/new", name="new", methods={"GET", "POST"})
      */
+
     public function new(Request $request)
     {
 
@@ -75,7 +80,9 @@ class OfferController extends AbstractController
             return $this->redirectToRoute('offer_index', ['id' => $offer->getId()]);
         }
 
+
         return $this->render('offer/new.html.twig', [
+
             'form' => $form->createView()
 
         ]);
@@ -86,7 +93,6 @@ class OfferController extends AbstractController
      */
     public function show(Offer $offer): Response
     {
-
         return $this->render('offer/show.html.twig', [
             'offer' => $offer
         ]);
@@ -119,7 +125,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
+     * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})     * 
      */
     public function apply(Offer $offer, Request $request)
     {
