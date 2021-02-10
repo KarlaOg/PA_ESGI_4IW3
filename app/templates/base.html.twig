@@ -17,7 +17,9 @@
 			<div class="col s12">
 				<div class="navbar-fixed ">
 					<div class="nav-wrapper">
-						<a class="pink-text" href="{{path('home')}}" class="brand-logo">LIKEY</a>
+						<a class="pink-text" href="{{path('home')}}" class="brand-logo">
+							<b>LIKEY</b>
+						</a>
 						<ul id="nav-mobile" class="right hide-on-med-and-down">
 							{% if not app.user %}
 								<li>
@@ -36,22 +38,22 @@
 								<li>
 									<a class="black-text nav-buttons" href="{{path('app_logout')}}">Déconnexion</a>
 								</li>
-								<li class="nav-item">
-									<div display="flex">
-										<form method="post" id="search" action="{{path('search_data')}}">
-											<label for="tags">Recherche:
-											</label>
-											<select name="searchSelect" id="tag-select">
-												<option value="none">Choisissez</option>
-												<option value="influencer">Influenceur</option>
-												<option value="brand">Marque</option>
-												<option value="domain">Domaine</option>
-											</select>
-											<input id="keywords" name="keywords">
-											<input type="submit" value="VALIDER" class="btn search_btn">
-										</form>
-									</div>
-								</li>
+								{# <li class="nav-item">
+																																									<div display="flex">
+																																										<form method="post" id="search" action="{{path('search_data')}}">
+																																											<label for="tags">Recherche:
+																																											</label>
+																																											<select name="searchSelect" id="tag-select">
+																																												<option value="none">Choisissez</option>
+																																												<option value="influencer">Influenceur</option>
+																																												<option value="brand">Marque</option>
+																																												<option value="domain">Domaine</option>
+																																											</select>
+																																											<input id="keywords" name="keywords">
+																																											<input type="submit" value="VALIDER" class="btn search_btn">
+																																										</form>
+																																									</div>
+																																								</li> #}
 							{% endif %}
 						</ul>
 					</div>
