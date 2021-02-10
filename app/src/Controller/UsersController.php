@@ -50,32 +50,6 @@ class UsersController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            /** @var UploadedFile $brochureFile */
-            $brochureFile = $form->get('image')->getData();
-
-            // cette condition est nécessaire car le champ 'brochure' n'est pas obligatoire
-            // donc le fichier PDF ne doit être traité que lorsqu'un fichier est téléchargé
-            if ($brochureFile) {
-                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // cela est nécessaire pour inclure en toute sécurité le nom du fichier dans l'URL
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
-
-                // Déplace le fichier vers le répertoire où les images sont stockées
-                try {
-                    $brochureFile->move(
-                        $this->getParameter('images_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    var_dump('essai');
-                }
-
-                // met à jour la propriété 'brochureFilename' pour stocker le nom du fichier PDF
-                // au lieu de son contenu
-                $product->setBrochureFilename($newFilename);
-            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

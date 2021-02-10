@@ -34,23 +34,6 @@ class EditProfileType extends AbstractType
                 'download_uri' => true, //rajouter un download
                 'image_uri' => true,
             ])
-            ->add('image', FileType::class, [
-                'label' => 'image (PDF file)',
-
-                // non mappé signifie que ce champ n'est associé à aucune propriété d'entité
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
-                    ])
-                ],
-            ])
             ->add('type', ChoiceType::class, [
                 'choices' => array(
                     'Youtubeur' => 'Youtubeur',
