@@ -39,21 +39,21 @@
 									<a class="black-text nav-buttons" href="{{path('app_logout')}}">Déconnexion</a>
 								</li>
 								{# <li class="nav-item">
-																																									<div display="flex">
-																																										<form method="post" id="search" action="{{path('search_data')}}">
-																																											<label for="tags">Recherche:
-																																											</label>
-																																											<select name="searchSelect" id="tag-select">
-																																												<option value="none">Choisissez</option>
-																																												<option value="influencer">Influenceur</option>
-																																												<option value="brand">Marque</option>
-																																												<option value="domain">Domaine</option>
-																																											</select>
-																																											<input id="keywords" name="keywords">
-																																											<input type="submit" value="VALIDER" class="btn search_btn">
-																																										</form>
-																																									</div>
-																																								</li> #}
+									<div display="flex">
+										<form method="post" id="search" action="{{path('search_data')}}">
+											<label for="tags">Recherche:
+											</label>
+											<select name="searchSelect" id="tag-select">
+												<option value="none">Choisissez</option>
+												<option value="influencer">Influenceur</option>
+												<option value="brand">Marque</option>
+												<option value="domain">Domaine</option>
+											</select>
+											<input id="keywords" name="keywords">
+											<input type="submit" value="VALIDER" class="btn search_btn">
+										</form>
+									</div>
+								</li> #}
 							{% endif %}
 						</ul>
 					</div>
@@ -75,34 +75,5 @@
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 			<script type="text/javascript" src="{{ asset('js/autocomplete.js') }}"></script>
 
-			<script>
-				$('select').change(function () {
-var donnees = {
-'searchSelector': $(this).children('option:selected').val()
-};
-$.ajax({
-url: '/search/keyworddata',
-type: 'POST',
-dataType: 'json',
-data: donnees,
-async: true,
-success: function (data, status) {
-var tab = [];
-for (var i = 0; i < data.length; i++) {
-tab[i] = data[i].firstname + ' ' + data[i].lastname;
-}
-autocomplete(document.getElementById("keywords"), tab);
-},
-error: function (xhr, textStatus, errorThrown) {
-console.log('Ajax request failed. ' + errorThrown);
-}
-});
-});
-$('#keywords').keyup(function () {
-var keywords = $('#keywords').val();
-var tagselect = $('#tag-select').val();
-$('#asb').attr("href", "/search/data?keywords=" + keywords + "&searchfilter=" + tagselect);
-});
-			</script>
 		</body>
 	</html>
