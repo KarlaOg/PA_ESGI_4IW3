@@ -63,7 +63,7 @@ class UsersFixtures extends Fixture
             ->setUpdatedAt($faker->dateTime())
             ->setLiens(array(
                 "youtube"  => "youtube.com/$faker->lastName",
-                "instagram" => "youtube.com/$faker->lastName",
+                "instagram" => "instagram.com/$faker->lastName",
             ));
 
 
