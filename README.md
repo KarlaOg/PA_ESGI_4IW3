@@ -41,7 +41,7 @@ $ php bin/phpunit
 # Load fixtures
 
 ```
- docker-compose exec php bin/console d:f:l --no-interactionrea
+ docker-compose exec php bin/console d:f:l --no-interaction
 ```
 
 # Helper
