@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Offre
+{% block title %}Modifier une offre
 {% endblock %}
 
 {% block body %}
@@ -18,9 +18,9 @@
 				-
 				{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
 			</p>
-			<p>Créer par
-				<b>{{brand.name}}</b>
-			</p>
+			{# <p>Créer par
+																																																																<b>{{brand.name}}</b>
+																																																															</p> #}
 
 		</div>
 		<div class="card-action">
@@ -28,8 +28,10 @@
 				<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn green">Postuler</a>
 			{% endif %}
 			{% if app.user.roles[0] == "ROLE_MARQUE" %}
-				<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn blue">Modifier l'offre</a>
-				<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn red">Supprimer l'offre</a>
+				{% if offer.brandId.id == app.user.id  %}
+					<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn blue">Modifier l'offre</a>
+					<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn red">Supprimer l'offre</a>
+				{% endif %}
 			{% endif %}
 		</div>
 	</div>

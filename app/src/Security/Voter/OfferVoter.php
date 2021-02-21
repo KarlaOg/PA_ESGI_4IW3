@@ -2,12 +2,19 @@
 
 namespace App\Security\Voter;
 
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use App\Repository\BrandRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class OfferVoter extends Voter
 {
+    protected $brandRepository;
+
+    public function __construct(BrandRepository $brandRepository)
+    {
+        $this->brandRepository = $brandRepository;
+    }
     protected function supports($attribute, $subject)
     {
         // replace with your own logic
@@ -24,15 +31,15 @@ class OfferVoter extends Voter
             return false;
         }
 
-        // ... (check conditions and return true to grant permission) ...
+        //(check conditions and return true to grant permission) 
+        $id = $subject->getBrandId()->getUserId();
+
         switch ($attribute) {
             case 'CAN_EDIT':
-                // logic to determine if the user can EDIT
-                // return true or false
+                return $id  === $user;
                 break;
             case 'CAN_DELETE':
-                // logic to determine if the user can VIEW
-                // return true or false
+                return $id  === $user;
                 break;
         }
 

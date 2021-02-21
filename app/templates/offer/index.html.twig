@@ -22,6 +22,12 @@
 			{% for offer in offers  %}
 				<div class="card brown lighten-5 z-depth-2">
 					<div class="card-content">
+						{% if offer.brandId.id == app.user.id  %}
+							<p style="margin:10px 0">
+								<mark>VOS OFFRES</mark>
+							</p>
+						{% endif %}
+
 						<span class="card-title">{{ offer.name|capitalize }}
 						</span>
 						<p>Description :
@@ -32,9 +38,9 @@
 							-
 							{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
 						</p>
-						<p>Créer par
-							<b>{{brand.name}}</b>
-						</p>
+						{# <p>Créer par
+																																																																																																																																																							<b>{{brand.name}}</b>
+																																																																																																																																																						</p> #}
 					</div>
 					<div class="card-action">
 						<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>

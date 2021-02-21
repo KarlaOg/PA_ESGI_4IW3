@@ -36,7 +36,6 @@ class UsersFixtures extends Fixture
                 ->setAge(new \DateTime('11-11-1998'))
                 ->setImageUser("http://placeholder.com")
                 ->setNombreAbonnes(rand(50, 9000))
-                ->setType($ranType)
                 ->setUpdatedAt($faker->dateTime())
                 ->setLiens(array(
                     "youtube"  => "youtube.com/$faker->lastName",
@@ -59,7 +58,6 @@ class UsersFixtures extends Fixture
             ->setAge(new \DateTime('11-11-1998'))
             ->setImageUser("http://placeholder.com")
             ->setNombreAbonnes(rand(50, 9000))
-            ->setType(['ROLE_MARQUE'])
             ->setUpdatedAt($faker->dateTime())
             ->setLiens(array(
                 "youtube"  => "youtube.com/$faker->lastName",
