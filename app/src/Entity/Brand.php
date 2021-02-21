@@ -42,6 +42,12 @@ class Brand
      */
     private $application;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +109,18 @@ class Brand
     public function setApplication(?Application $application): self
     {
         $this->application = $application;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

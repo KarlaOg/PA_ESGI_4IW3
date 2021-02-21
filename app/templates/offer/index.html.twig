@@ -14,24 +14,33 @@
 	{% endif %}
 
 	<div>
-		{% for offer in offers  %}
-			<div class="card brown lighten-5 z-depth-2">
-				<div class="card-content">
-					<span class="card-title">{{ offer.name|capitalize }}
-					</span>
-					<p>Description :
-						{{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}}
-					</p>
-					<p>Dates :
-						{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
-						-
-						{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
-					</p>
+		{% if offers is empty %}
+			<p>Pas d'offres pour le moment</p>
+		{% else %}
+
+
+			{% for offer in offers  %}
+				<div class="card brown lighten-5 z-depth-2">
+					<div class="card-content">
+						<span class="card-title">{{ offer.name|capitalize }}
+						</span>
+						<p>Description :
+							{{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}}
+						</p>
+						<p>Dates :
+							{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
+							-
+							{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+						</p>
+						<p>Créer par
+							<b>{{brand.name}}</b>
+						</p>
+					</div>
+					<div class="card-action">
+						<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>
+					</div>
 				</div>
-				<div class="card-action">
-					<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>
-				</div>
-			</div>
-		{% endfor %}
+			{% endfor %}
+		{% endif %}
 	</div>
 {% endblock %}

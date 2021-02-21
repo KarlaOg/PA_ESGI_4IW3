@@ -9,6 +9,7 @@ use App\Form\BrandType;
 use App\Entity\Influencer;
 use App\Form\InfluencerType;
 use App\Form\EditProfileType;
+use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,14 +29,18 @@ class UsersController extends AbstractController
     /**
      * @Route("/users/data", name="users_data")
      */
-    public function usersData()
+    public function usersData(BrandRepository $brandRepository)
     {
         $repository = $this->getDoctrine()->getRepository(Offer::class);
         $offers = $repository->findAll();
 
+        $user = $this->getUser();
+
+        $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
         return $this->render('users/data.html.twig', [
             'offers' => $offers,
+            'brand' => $brand
         ]);
     }
 

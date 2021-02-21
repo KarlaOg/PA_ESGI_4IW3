@@ -34,15 +34,20 @@ class OfferController extends AbstractController
      * @Route("/", name="index", methods={"GET"})
      */
 
-    public function index(): Response
+    public function index(BrandRepository $brandRepository)
     {
         $repository = $this->getDoctrine()->getRepository(Offer::class);
+
+        $user = $this->getUser();
+
+        $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
         $offer = $repository->findBy([
             'status' => 'Libre',
         ]);
         return $this->render('offer/index.html.twig', [
             'offers' =>  $offer,
+            'brand' => $brand
         ]);
     }
 
@@ -51,7 +56,7 @@ class OfferController extends AbstractController
      * @Route("/new", name="new", methods={"GET", "POST"})
      */
 
-    public function new(Request $request)
+    public function new(Request $request, BrandRepository $brandRepository)
     {
 
         $offer = new Offer();
@@ -60,6 +65,8 @@ class OfferController extends AbstractController
         $dateEnd = $offer->getDateEnd();
 
         $user = $this->getUser();
+
+        $brandId = $brandRepository->findOneBy(['UserId' => $user]);
 
         if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
         }
@@ -70,7 +77,10 @@ class OfferController extends AbstractController
 
         $form->handleRequest($request);
 
+        $user = $this->getUser();
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $offer->setBrandId($brandId);
             $em = $this->getDoctrine()->getManager();
             $em->persist($offer);
             $em->flush();
@@ -91,10 +101,15 @@ class OfferController extends AbstractController
     /**
      * @Route("/show/{id}", name="show", methods={"GET"})
      */
-    public function show(Offer $offer): Response
+    public function show(Offer $offer, BrandRepository $brandRepository)
     {
+        $user = $this->getUser();
+
+        $brand = $brandRepository->findOneBy(['UserId' => $user]);
+
         return $this->render('offer/show.html.twig', [
-            'offer' => $offer
+            'offer' => $offer,
+            'brand' => $brand
         ]);
     }
 

@@ -15,6 +15,7 @@ class BrandType extends AbstractType
             ->add('domain')
             ->add('typeBrand')
             ->add('siret')
+            ->add('name')
             // ->add('UserId')
             // ->add('application')
         ;
