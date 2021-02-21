@@ -177,6 +177,7 @@ class OfferController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($offer);
+        $offer->setBrandId(null);
         $em->flush();
 
         $this->addFlash('red', 'Suppression réussie');

@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\OfferRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OfferRepository;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
@@ -29,7 +30,8 @@ class Offer
     private $decription;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Brand::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Brand::class)
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $brandId;
 
