@@ -2,48 +2,71 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
+use Faker\Factory;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UsersFixtures extends Fixture
 {
+    protected $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager)
     {
-        $faker = \Faker\Factory::create('fr_FR');
+        $faker = Factory::create('fr_FR');
+        $influencer = ['ROLE_INFLUENCER'];
+        $marque = ['ROLE_MARQUE'];
+        for ($i = 0; $i < 10; $i++) {
+            $num = rand(1, 100);
+            $ranType = $num > 50 ? $influencer : $marque;
+            $user = (new User());
+            $hash = $this->encoder->encodePassword($user, "password");
 
-        for ($i = 0; $i < 2; $i++) {
-            $user = (new User())
-                ->setLastname($faker->lastName)
+            $user->setLastname($faker->lastName)
                 ->setFirstname($faker->firstName)
                 ->setPassword($faker->password)
                 ->setEmail($faker->safeEmail)
-                ->setRoles(['ROLE_USER'])
-                ->setAge(new \DateTime('11-11-1998'));
+                ->setAge(new \DateTime('11-11-1998'))
+                ->setImageUser("http://placeholder.com")
+                ->setNombreAbonnes(rand(50, 9000))
+                ->setUpdatedAt($faker->dateTime())
+                ->setLiens(array(
+                    "youtube"  => "youtube.com/$faker->lastName",
+                    "instagram" => "instagram.com/$faker->lastName",
+                ));
 
-            $user->setPassword($this->passwordEncoder->encodePassword(
-                $user,
-                'test'
-            ));
+            $user->setPassword($hash);
 
             $manager->persist($user);
         }
 
-        $user = (new User())
-            ->setLastname($faker->lastName)
+        $admin = (new User());
+        $hash = $this->encoder->encodePassword($admin, "password");
+
+        $admin->setLastname($faker->lastName)
             ->setFirstname($faker->firstName)
-            ->setPassword($faker->password)
-            ->setEmail('user@admin')
-            ->setRoles(['ROLE_USER'])
-            ->setAge(new \DateTime('11-11-1998'));
+            ->setPassword($hash)
+            ->setEmail('admin@gmail.com')
+            ->setRoles(['ROLE_ADMIN'])
+            ->setAge(new \DateTime('11-11-1998'))
+            ->setImageUser("http://placeholder.com")
+            ->setNombreAbonnes(rand(50, 9000))
+            ->setUpdatedAt($faker->dateTime())
+            ->setLiens(array(
+                "youtube"  => "youtube.com/$faker->lastName",
+                "instagram" => "instagram.com/$faker->lastName",
+            ));
 
-        $user->setPassword($this->passwordEncoder->encodePassword(
-            $user,
-            'test'
-        ));
 
-        $manager->persist($user);
+        $manager->persist($admin);
+
         $manager->flush();
     }
 }
