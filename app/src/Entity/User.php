@@ -80,7 +80,6 @@ class User implements UserInterface, \Serializable
     private $payments;
 
 
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */

@@ -56,15 +56,15 @@ class Influencer
      */
     private $username;
 
-    /** 
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
-     */
-    private $userId;
-
     /**
      * @ORM\Column(type="json", nullable=true)
      */
     private $type = [];
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $userId;
 
     public function __construct()
     {
@@ -171,18 +171,6 @@ class Influencer
         return $this;
     }
 
-    public function getUserId(): ?User
-    {
-        return $this->userId;
-    }
-
-    public function setUserId(?User $userId): self
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
     public function getType(): ?array
     {
         return $this->type;
@@ -191,6 +179,18 @@ class Influencer
     public function setType(?array $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(?User $userId): self
+    {
+        $this->userId = $userId;
 
         return $this;
     }
