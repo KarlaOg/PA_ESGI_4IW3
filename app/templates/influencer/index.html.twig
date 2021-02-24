@@ -12,8 +12,9 @@
 	{{form_errors(formView)}}
 	<div
 		class="row">
-		{{form_row(formView.siret)}}
-		{{form_row(formView.type)}}
+		{# {{form_row(formView.siret)}}
+				{{form_row(formView.type)}} #}
+		{{form_widget(formView)}}
 		{# {{form_row(formView.socialNetwork)}} #}
 	</div>
 

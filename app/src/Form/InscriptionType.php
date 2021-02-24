@@ -15,8 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-use Symfony\Component\Validator\Constraints\Length; 
-use Symfony\Component\Validator\Constraints\Regex; 
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
+
 class InscriptionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -26,16 +27,16 @@ class InscriptionType extends AbstractType
                 'label' => 'Nom',
                 'required' => true,
                 'constraints' => [
-                    new Length(['min' => 3]), 
+                    new Length(['min' => 3]),
                     new Regex('/^[a-zA-Z]+$/i')
-                    
-                ] 
+
+                ]
             ])
-            ->add('lastname',TextType::class, [
+            ->add('lastname', TextType::class, [
                 'label' => 'Prénom',
                 'required' => true,
                 'constraints' => [
-                    new Length(['min' => 2]), 
+                    new Length(['min' => 2]),
                     new Regex('/^[a-zA-Z]+$/i')
                 ]
             ])
@@ -48,7 +49,7 @@ class InscriptionType extends AbstractType
                 'choices' => array(
                     'Marque' => "ROLE_MARQUE",
                     'Influenceur' => 'ROLE_INFLUENCEUR',
-                    
+
                 ),
                 'multiple'  => true,
                 'required' => true,
@@ -60,17 +61,6 @@ class InscriptionType extends AbstractType
                 ],
                 'label' => "Email",
             ])
-            // ->add('type', ChoiceType::class, [
-            //     'choices' => array(
-            //         'Youtubeur' => "Youtubeu",
-            //         'Influenceur' => 'Influenceur',
-            //         'Gamer' =>  'Gamer',
-            //     ),
-            //     'multiple'  => true,
-            //     'expanded' => true,
-            //     'required' => true,
-            // ])
-
             ->add('password', RepeatedType::class, [
                 'label' => 'Mot de passe',
                 'type' => PasswordType::class,

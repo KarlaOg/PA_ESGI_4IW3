@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
@@ -45,9 +46,9 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/users/profil/modifier", name="users_profil_modifier")
+     * @Route("profile/edit", name="users_edit")
      */
-    public function editProfile(Request $request)
+    public function edit(Request $request)
     {
         $user = $this->getUser();
         $form = $this->createForm(EditProfileType::class, $user);
@@ -69,14 +70,17 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/users/profil/create", name="users_profil_create")
+     * @Route("profile/complete", name="users_complete")
      */
-    public function create(Request $request, EntityManagerInterface $em,  FormFactoryInterface $factory, InfluencerRepository $influencerRepository)
+    public function complete(Request $request, EntityManagerInterface $em,  FormFactoryInterface $factory, InfluencerRepository $influencerRepository)
     {
         if ($this->getUser()->getRoles() == ["ROLE_INFLUENCEUR"]) {
 
             $user = $this->getUser();
+            // $brand = $brandRepository->findOneBy(['UserId' => $user]);
+            // dd($influencerRepository->findAll(), $user);
             $influencer = new Influencer();
+
 
             $form = $this->createForm(InfluencerType::class, $influencer);
 
@@ -85,6 +89,7 @@ class UsersController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $influencer->setUserId($user);
 
+                // $em->merge($influencer);
                 $em->persist($influencer);
                 $em->flush();
 
@@ -98,7 +103,6 @@ class UsersController extends AbstractController
         } else {
             $user = $this->getUser();
             $brand = new Brand();
-            dd($brand);
             $form = $this->createForm(BrandType::class, $brand);
 
             $form->handleRequest($request);
@@ -121,7 +125,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/users/pass/modifier", name="users_pass_modifier")
+     * @Route("profile/change-password", name="users_pass_modifier")
      */
     public function editPass(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
