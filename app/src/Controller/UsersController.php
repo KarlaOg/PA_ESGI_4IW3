@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Brand;
 use App\Entity\Offer;
 use App\Form\BrandType;
@@ -13,14 +12,9 @@ use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
@@ -44,6 +38,7 @@ class UsersController extends AbstractController
             'brand' => $brand
         ]);
     }
+
 
     /**
      * @Route("profile/edit", name="users_edit")
@@ -72,54 +67,91 @@ class UsersController extends AbstractController
     /**
      * @Route("profile/complete", name="users_complete")
      */
-    public function complete(Request $request, EntityManagerInterface $em,  FormFactoryInterface $factory, InfluencerRepository $influencerRepository)
+    public function complete(Request $request, EntityManagerInterface $em, InfluencerRepository $influencerRepository, BrandRepository $brandRepository)
     {
-        if ($this->getUser()->getRoles() == ["ROLE_INFLUENCEUR"]) {
-
-            $user = $this->getUser();
-            // $brand = $brandRepository->findOneBy(['UserId' => $user]);
-            // dd($influencerRepository->findAll(), $user);
-            $influencer = new Influencer();
+        $user = $this->getUser();
+        $influcerInfos = $influencerRepository->findOneBy(['userId' => $user]);
+        $brandInfos = $brandRepository->findOneBy(['UserId' => $user]);
+        // dd($brandInfos);
 
 
-            $form = $this->createForm(InfluencerType::class, $influencer);
+        // Check si l'influencer ou brand entity relier a l'user n'est pas null
+        //Si null alors ca va créer un nouveau form influencer ou brand
+        if ($influcerInfos === null && $brandInfos === null) {
+            dd("null");
 
-            $form->handleRequest($request);
+            if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
+                $influencer = new Influencer();
+                $form = $this->createForm(InfluencerType::class, $influencer);
+                $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $influencer->setUserId($user);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $influencer->setUserId($user);
+                    $em->persist($influencer);
+                    $em->flush();
 
-                // $em->merge($influencer);
-                $em->persist($influencer);
-                $em->flush();
+                    return $this->redirectToRoute('users_data');
+                }
 
-                return $this->redirectToRoute('users_data');
+                $formView = $form->createView();
+
+                return $this->render('influencer/index.html.twig', [
+                    'formView' => $formView,
+                ]);
+            } else {
+                $brand = new Brand();
+                $form = $this->createForm(BrandType::class, $brand);
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $brand->setUserId($user);
+                    $em->persist($brand);
+                    $em->flush();
+
+                    return $this->redirectToRoute('users_data');
+                }
+                $formView = $form->createView();
+
+                return $this->render('brand/index.html.twig', [
+                    'formView' => $formView,
+                ]);
             }
-            $formView = $form->createView();
+        }
+        //Sinon si l'influencer ou brand entity relier a l'user exist on met a jour le formulaire
+        else {
+            if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
+                $form = $this->createForm(InfluencerType::class, $influcerInfos);
+                $form->handleRequest($request);
 
-            return $this->render('influencer/index.html.twig', [
-                'formView' => $formView,
-            ]);
-        } else {
-            $user = $this->getUser();
-            $brand = new Brand();
-            $form = $this->createForm(BrandType::class, $brand);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $em->persist($influcerInfos);
+                    $em->flush();
 
-            $form->handleRequest($request);
+                    return $this->redirectToRoute('users_data');
+                }
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $brand->setUserId($user);
+                $formView = $form->createView();
 
-                $em->persist($brand);
-                $em->flush();
+                return $this->render('influencer/index.html.twig', [
+                    'formView' => $formView,
+                ]);
+            } else {
+                $brand = new Brand();
+                $form = $this->createForm(BrandType::class, $brandInfos);
+                $form->handleRequest($request);
 
-                return $this->redirectToRoute('users_data');
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $em->persist($brandInfos);
+                    $em->flush();
+
+                    return $this->redirectToRoute('users_data');
+                }
+                $formView = $form->createView();
+
+                return $this->render('brand/index.html.twig', [
+                    'formView' => $formView,
+                ]);
             }
-            $formView = $form->createView();
-
-            return $this->render('brand/index.html.twig', [
-                'formView' => $formView,
-            ]);
         }
     }
 
@@ -131,7 +163,6 @@ class UsersController extends AbstractController
     {
         if ($request->isMethod('POST')) {
             $em = $this->getDoctrine()->getManager();
-
             $user = $this->getUser();
 
             // On vérifie si les 2 mots de passe sont identiques

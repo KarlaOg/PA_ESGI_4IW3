@@ -6,7 +6,7 @@ use App\Entity\Influencer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
+/**^
  * @method Influencer|null find($id, $lockMode = null, $lockVersion = null)
  * @method Influencer|null findOneBy(array $criteria, array $orderBy = null)
  * @method Influencer[]    findAll()
@@ -19,14 +19,15 @@ class InfluencerRepository extends ServiceEntityRepository
         parent::__construct($registry, Influencer::class);
     }
 
-    public function findAll()
-    {
-        return $this->createQueryBuilder('i')
-            ->select('i.id')
-            ->orderBy('i.id', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
+
+    // public function findAll()
+    // {
+    //     return $this->createQueryBuilder('i')
+    //         ->select('i.id')
+    //         ->orderBy('i.id', 'ASC')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
     public function findAllWithNames()
     {

@@ -8,13 +8,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class InfluencerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('username', TextType::class, [
+                'required' => false,
+            ])
+            ->add('description', TextareaType::class, [
+                'required' => false,
+            ])
+            ->add('siret', TextType::class, [
+                'required' => false,
+            ])
             ->add('type', ChoiceType::class, [
                 'label' => 'Selectionner votre domaine',
                 'required' => false,
@@ -30,45 +39,42 @@ class InfluencerType extends AbstractType
                 'multiple'  => true,
                 'required' => true,
             ])
-            ->add('siret', TextType::class, [
-                'required' => false,
-            ])
-            ->add('username', TextType::class, [
+            ->add('website', TextType::class, [
+                'label' => 'Website',
+                'property_path' => 'socialNetwork[Website]',
                 'required' => false,
             ])
             ->add('instagram', TextType::class, [
-                'label' => 'instagram',
-                'property_path' => 'socialNetwork[instagram]',
+                'label' => 'Instagram',
+                'property_path' => 'socialNetwork[Instagram]',
                 'required' => false,
             ])
             ->add('tiktok', TextType::class, [
-                'label' => 'tiktok',
-                'property_path' => 'socialNetwork[tiktok]',
+                'label' => 'Tiktok',
+                'property_path' => 'socialNetwork[Tiktok]',
                 'required' => false,
             ])
             ->add('facebook', TextType::class, [
-                'label' => 'facebook',
-                'property_path' => 'socialNetwork[facebook]',
+                'label' => 'Facebook',
+                'property_path' => 'socialNetwork[Facebook]',
                 'required' => false,
-
             ])
             ->add('youtube', TextType::class, [
-                'label' => 'youtube',
-                'property_path' => 'socialNetwork[youtube]',
+                'label' => 'Youtube',
+                'property_path' => 'socialNetwork[Youtube]',
                 'required' => false,
 
             ])
             ->add('twitter', TextType::class, [
-                'label' => 'twitter',
-                'property_path' => 'socialNetwork[twitter]',
+                'label' => 'Twitter',
+                'property_path' => 'socialNetwork[Twitter]',
                 'required' => false,
 
             ])
             ->add('twitch', TextType::class, [
-                'label' => 'twitch',
-                'property_path' => 'socialNetwork[twitch]',
+                'label' => 'Twitch',
+                'property_path' => 'socialNetwork[Twitch]',
                 'required' => false,
-
             ]);
     }
 

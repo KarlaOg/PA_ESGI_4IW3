@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\BrandRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BrandRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=BrandRepository::class)
+ * @UniqueEntity("username", message="Ce pseudo est déjà utilisé")
  */
 class Brand
 {
@@ -22,25 +25,48 @@ class Brand
      */
     private $UserId;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $domain = [];
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $typeBrand;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(
+     *     type="integer",
+     *     message="Vous ne pouvez pas mettre de lettre, mettez des chiffres"
+     * )
      */
     private $siret;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Application::class, inversedBy="brandId")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $application;
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $socialNetwork = [
+        'Website' => '',
+        'Instagram' => '',
+        'Tiktok' => '',
+        'Facebook' => '',
+        'Youtube' => '',
+        'Twitter' => '',
+        'Twitch' => ''
+    ];
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $domaine = [];
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex("/^[a-z0-9]+$/i", message="Vous ne pouvez pas mettre d'espace")
+     */
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -65,29 +91,6 @@ class Brand
         return $this;
     }
 
-    public function getDomain(): ?array
-    {
-        return $this->domain;
-    }
-
-    public function setDomain(array $domain): self
-    {
-        $this->domain = $domain;
-
-        return $this;
-    }
-
-    public function getTypeBrand(): ?bool
-    {
-        return $this->typeBrand;
-    }
-
-    public function setTypeBrand(bool $typeBrand): self
-    {
-        $this->typeBrand = $typeBrand;
-
-        return $this;
-    }
 
     public function getSiret(): ?int
     {
@@ -101,14 +104,62 @@ class Brand
         return $this;
     }
 
-    public function getApplication(): ?Application
+    public function getName(): ?string
     {
-        return $this->application;
+        return $this->name;
     }
 
-    public function setApplication(?Application $application): self
+    public function setName(?string $name): self
     {
-        $this->application = $application;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSocialNetwork(): ?array
+    {
+        return $this->socialNetwork;
+    }
+
+    public function setSocialNetwork(?array $socialNetwork): self
+    {
+        $this->socialNetwork = $socialNetwork;
+
+        return $this;
+    }
+
+    public function getDomaine(): ?array
+    {
+        return $this->domaine;
+    }
+
+    public function setDomaine(?array $domaine): self
+    {
+        $this->domaine = $domaine;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

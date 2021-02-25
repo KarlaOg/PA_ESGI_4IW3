@@ -65,11 +65,6 @@ class User implements UserInterface, \Serializable
     private $age;
 
     /**
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $type = [];
-
-    /**
      * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="UserId")
      */
     private $brands;
@@ -229,18 +224,6 @@ class User implements UserInterface, \Serializable
     public function setAge(\DateTimeInterface $age): self
     {
         $this->age = $age;
-
-        return $this;
-    }
-
-    public function getType(): ?array
-    {
-        return $this->type;
-    }
-
-    public function setType(?array $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }
