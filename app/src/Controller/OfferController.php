@@ -35,9 +35,7 @@ class OfferController extends AbstractController
         $user = $this->getUser();
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
-        $offer = $repository->findBy([
-            'status' => 'Libre',
-        ], ['dateCreation' => 'DESC']);
+        $offer = $repository->findBy([], ['dateCreation' => 'DESC']);
 
         return $this->render('offer/index.html.twig', [
             'offers' =>  $offer,
@@ -58,8 +56,7 @@ class OfferController extends AbstractController
         $user = $this->getUser();
 
         $brandId = $brandRepository->findOneBy(['UserId' => $user]);
-        // $brandId = $brandRepository->findAll();
-        // dd($brandId, $user);
+
         if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
         }
 
@@ -91,7 +88,10 @@ class OfferController extends AbstractController
      */
     public function show($id, Offer $offer, BrandRepository $brandRepository, OfferRepository $offerRepository)
     {
-        $offer = $offerRepository->find($id);
+
+        $offerId = $offerRepository->find($id);
+
+        $this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
 
         $user = $this->getUser();
 
@@ -108,7 +108,7 @@ class OfferController extends AbstractController
      * @Route("/edit/{id}", name="edit", methods={"GET", "POST"})
      * @IsGranted("ROLE_MARQUE", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
-    public function edit($id, Offer $offer, Request $request, BrandRepository $brandRepository, OfferRepository $offerRepository)
+    public function edit($id, Offer $offer, Request $request, OfferRepository $offerRepository)
     {
         $offerId = $offerRepository->find($id);
 
