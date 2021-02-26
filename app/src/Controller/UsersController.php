@@ -78,7 +78,6 @@ class UsersController extends AbstractController
         // Check si l'influencer ou brand entity relier a l'user n'est pas null
         //Si null alors ca va créer un nouveau form influencer ou brand
         if ($influcerInfos === null && $brandInfos === null) {
-            dd("null");
 
             if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
                 $influencer = new Influencer();
