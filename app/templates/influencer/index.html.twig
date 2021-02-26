@@ -10,11 +10,8 @@
 	</h3>
 	{{form_start(formView)}}
 	{{form_errors(formView)}}
-	<div
-		class="row">
-		{{form_row(formView.siret)}}
-		{{form_row(formView.type)}}
-		{# {{form_row(formView.socialNetwork)}} #}
+	<div class="row">
+		{{form_widget(formView)}}
 	</div>
 
 	<button type="submit" class="btn btn-primary">

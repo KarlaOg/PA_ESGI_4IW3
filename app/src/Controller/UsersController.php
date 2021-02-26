@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Brand;
 use App\Entity\Offer;
 use App\Form\BrandType;
@@ -13,13 +12,9 @@ use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
@@ -44,10 +39,11 @@ class UsersController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/users/profil/modifier", name="users_profil_modifier")
+     * @Route("profile/edit", name="users_edit")
      */
-    public function editProfile(Request $request)
+    public function edit(Request $request)
     {
         $user = $this->getUser();
         $form = $this->createForm(EditProfileType::class, $user);
@@ -69,44 +65,34 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/users/profil/create", name="users_profil_create")
+     * @Route("profile/complete", name="users_complete")
      */
-    public function create(Request $request, EntityManagerInterface $em,  FormFactoryInterface $factory, InfluencerRepository $influencerRepository)
+    public function complete(Request $request, EntityManagerInterface $em, InfluencerRepository $influencerRepository, BrandRepository $brandRepository)
     {
-        if ($this->getUser()->getRoles() == ["ROLE_INFLUENCEUR"]) {
+        $user = $this->getUser();
+        $influcerInfos = $influencerRepository->findOneBy(['userId' => $user]);
+        $brandInfos = $brandRepository->findOneBy(['UserId' => $user]);
 
-            $user = $this->getUser();
-            $influencer = new Influencer();
-
-            $form = $this->createForm(InfluencerType::class, $influencer);
-
+        if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
+            $form = $this->createForm(InfluencerType::class, $influcerInfos);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $influencer->setUserId($user);
-
-                $em->persist($influencer);
                 $em->flush();
 
                 return $this->redirectToRoute('users_data');
             }
+
             $formView = $form->createView();
 
             return $this->render('influencer/index.html.twig', [
                 'formView' => $formView,
             ]);
         } else {
-            $user = $this->getUser();
-            $brand = new Brand();
-            dd($brand);
-            $form = $this->createForm(BrandType::class, $brand);
-
+            $form = $this->createForm(BrandType::class, $brandInfos);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $brand->setUserId($user);
-
-                $em->persist($brand);
                 $em->flush();
 
                 return $this->redirectToRoute('users_data');
@@ -121,13 +107,12 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/users/pass/modifier", name="users_pass_modifier")
+     * @Route("profile/change-password", name="users_pass_modifier")
      */
     public function editPass(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         if ($request->isMethod('POST')) {
             $em = $this->getDoctrine()->getManager();
-
             $user = $this->getUser();
 
             // On vérifie si les 2 mots de passe sont identiques

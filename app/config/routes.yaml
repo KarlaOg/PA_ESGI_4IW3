@@ -1,8 +1,7 @@
 index:
-    path: /
-    controller: App\Controller\DefaultController::index
+  path: /
+  controller: App\Controller\DefaultController::index
 
 profil:
   path: user/edit
   controller: App\Controller\UsersController::editProfile
-

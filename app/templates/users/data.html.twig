@@ -21,17 +21,17 @@
 						{% if app.user.roles[0] == 'ROLE_INFLUENCEUR'%}
 							<i>Influenceur</i>
 							{% elseif app.user.roles[0] == 'ROLE_MARQUE' %}
-							{# <p>Marque
-																						<b>{{brand.name}}</b>
-																					</p> #}
 						{% endif %}
 					</div>
 					<div class="card-action">
 						<button class="btn waves-effect waves-light" type="submit" name="action">
-							<a class="white-text" type="submit" href="{{path('users_profil_modifier')}}">Modifier</a>
+							<a class="white-text" type="submit" href="{{path('users_edit')}}">Modifier</a>
 						</button>
 					</div>
 				</div>
+				<button class="btn waves-effect waves-light" type="submit" name="action">
+					<a class="white-text" type="submit" href="{{path('users_complete')}}">Completer les informations</a>
+				</button>
 			</div>
 		</div>
 	{% endblock %}

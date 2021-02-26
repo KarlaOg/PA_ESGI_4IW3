@@ -9,6 +9,7 @@
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
+
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	</head>
@@ -39,21 +40,21 @@
 									<a class="black-text nav-buttons" href="{{path('app_logout')}}">Déconnexion</a>
 								</li>
 								{# <li class="nav-item">
-									<div display="flex">
-										<form method="post" id="search" action="{{path('search_data')}}">
-											<label for="tags">Recherche:
-											</label>
-											<select name="searchSelect" id="tag-select">
-												<option value="none">Choisissez</option>
-												<option value="influencer">Influenceur</option>
-												<option value="brand">Marque</option>
-												<option value="domain">Domaine</option>
-											</select>
-											<input id="keywords" name="keywords">
-											<input type="submit" value="VALIDER" class="btn search_btn">
-										</form>
-									</div>
-								</li> #}
+																																																																																																	<div display="flex">
+																																																																																																		<form method="post" id="search" action="{{path('search_data')}}">
+																																																																																																			<label for="tags">Recherche:
+																																																																																																			</label>
+																																																																																																			<select name="searchSelect" id="tag-select">
+																																																																																																				<option value="none">Choisissez</option>
+																																																																																																				<option value="influencer">Influenceur</option>
+																																																																																																				<option value="brand">Marque</option>
+																																																																																																				<option value="domain">Domaine</option>
+																																																																																																			</select>
+																																																																																																			<input id="keywords" name="keywords">
+																																																																																																			<input type="submit" value="VALIDER" class="btn search_btn">
+																																																																																																		</form>
+																																																																																																	</div>
+																																																																																																</li> #}
 							{% endif %}
 						</ul>
 					</div>

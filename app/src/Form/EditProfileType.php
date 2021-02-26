@@ -33,16 +33,6 @@ class EditProfileType extends AbstractType
                 'allow_delete' => true, //rajouter pr suprimer limage
                 'download_uri' => true, //rajouter un download
                 'image_uri' => true,
-            ])
-            ->add('type', ChoiceType::class, [
-                'choices' => array(
-                    'Youtubeur' => 'Youtubeur',
-                    'Influenceur' => 'Influenceur',
-                    'Gamer' => 'Gamer',
-                ),
-                'multiple'  => true,
-                'expanded' => true,
-
             ]);
     }
 

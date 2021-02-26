@@ -65,16 +65,6 @@ class User implements UserInterface, \Serializable
     private $age;
 
     /**
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $type = [];
-
-    /**
-     * @ORM\OneToMany(targetEntity=Influencer::class, mappedBy="userId")
-     */
-    private $influencers;
-
-    /**
      * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="UserId")
      */
     private $brands;
@@ -83,17 +73,6 @@ class User implements UserInterface, \Serializable
      * @ORM\ManyToMany(targetEntity=Payment::class, mappedBy="userId")
      */
     private $payments;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-
-    private $nombreAbonnes;
-
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $liens = [];
 
 
     /**
@@ -130,7 +109,6 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->influencers = new ArrayCollection();
         $this->brands = new ArrayCollection();
         $this->payments = new ArrayCollection();
     }
@@ -250,48 +228,6 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getType(): ?array
-    {
-        return $this->type;
-    }
-
-    public function setType(?array $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Influencer[]
-     */
-    public function getInfluencers(): Collection
-    {
-        return $this->influencers;
-    }
-
-    public function addInfluencer(Influencer $influencer): self
-    {
-        if (!$this->influencers->contains($influencer)) {
-            $this->influencers[] = $influencer;
-            $influencer->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInfluencer(Influencer $influencer): self
-    {
-        if ($this->influencers->removeElement($influencer)) {
-            // set the owning side to null (unless already changed)
-            if ($influencer->getUserId() === $this) {
-                $influencer->setUserId(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|Brand[]
      */
@@ -349,29 +285,6 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getNombreAbonnes(): ?string
-    {
-        return $this->nombreAbonnes;
-    }
-
-    public function setNombreAbonnes(string $nombreAbonnes): self
-    {
-        $this->nombreAbonnes = $nombreAbonnes;
-
-        return $this;
-    }
-
-    public function getLiens(): ?array
-    {
-        return $this->liens;
-    }
-
-    public function setLiens(array $liens): self
-    {
-        $this->liens = $liens;
-
-        return $this;
-    }
 
 
 
@@ -441,7 +354,4 @@ class User implements UserInterface, \Serializable
     {
         return (string) $this->id;
     }
-
-
-
 }
