@@ -50,7 +50,7 @@ class BrandType extends AbstractType
                     'Transports - Logistique' => 'Transports - Logistique',
                 ),
                 'multiple'  => true,
-                'required' => true,
+                'required' => false,
             ])
             ->add('website', TextType::class, [
                 'label' => 'Website',

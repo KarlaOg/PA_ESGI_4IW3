@@ -72,85 +72,36 @@ class UsersController extends AbstractController
         $user = $this->getUser();
         $influcerInfos = $influencerRepository->findOneBy(['userId' => $user]);
         $brandInfos = $brandRepository->findOneBy(['UserId' => $user]);
-        // dd($brandInfos);
 
+        if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
+            $form = $this->createForm(InfluencerType::class, $influcerInfos);
+            $form->handleRequest($request);
 
-        // Check si l'influencer ou brand entity relier a l'user n'est pas null
-        //Si null alors ca va créer un nouveau form influencer ou brand
-        if ($influcerInfos === null && $brandInfos === null) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->flush();
 
-            if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
-                $influencer = new Influencer();
-                $form = $this->createForm(InfluencerType::class, $influencer);
-                $form->handleRequest($request);
-
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $influencer->setUserId($user);
-                    $em->persist($influencer);
-                    $em->flush();
-
-                    return $this->redirectToRoute('users_data');
-                }
-
-                $formView = $form->createView();
-
-                return $this->render('influencer/index.html.twig', [
-                    'formView' => $formView,
-                ]);
-            } else {
-                $brand = new Brand();
-                $form = $this->createForm(BrandType::class, $brand);
-                $form->handleRequest($request);
-
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $brand->setUserId($user);
-                    $em->persist($brand);
-                    $em->flush();
-
-                    return $this->redirectToRoute('users_data');
-                }
-                $formView = $form->createView();
-
-                return $this->render('brand/index.html.twig', [
-                    'formView' => $formView,
-                ]);
+                return $this->redirectToRoute('users_data');
             }
-        }
-        //Sinon si l'influencer ou brand entity relier a l'user exist on met a jour le formulaire
-        else {
-            if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
-                $form = $this->createForm(InfluencerType::class, $influcerInfos);
-                $form->handleRequest($request);
 
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $em->persist($influcerInfos);
-                    $em->flush();
+            $formView = $form->createView();
 
-                    return $this->redirectToRoute('users_data');
-                }
+            return $this->render('influencer/index.html.twig', [
+                'formView' => $formView,
+            ]);
+        } else {
+            $form = $this->createForm(BrandType::class, $brandInfos);
+            $form->handleRequest($request);
 
-                $formView = $form->createView();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->flush();
 
-                return $this->render('influencer/index.html.twig', [
-                    'formView' => $formView,
-                ]);
-            } else {
-                $brand = new Brand();
-                $form = $this->createForm(BrandType::class, $brandInfos);
-                $form->handleRequest($request);
-
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $em->persist($brandInfos);
-                    $em->flush();
-
-                    return $this->redirectToRoute('users_data');
-                }
-                $formView = $form->createView();
-
-                return $this->render('brand/index.html.twig', [
-                    'formView' => $formView,
-                ]);
+                return $this->redirectToRoute('users_data');
             }
+            $formView = $form->createView();
+
+            return $this->render('brand/index.html.twig', [
+                'formView' => $formView,
+            ]);
         }
     }
 

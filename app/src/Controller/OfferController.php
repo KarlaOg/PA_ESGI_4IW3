@@ -58,7 +58,8 @@ class OfferController extends AbstractController
         $user = $this->getUser();
 
         $brandId = $brandRepository->findOneBy(['UserId' => $user]);
-
+        // $brandId = $brandRepository->findAll();
+        // dd($brandId, $user);
         if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
         }
 
@@ -167,7 +168,6 @@ class OfferController extends AbstractController
     public function delete($id, Offer $offer, $token, OfferRepository $offerRepository)
     {
         $offerId = $offerRepository->find($id);
-        // dd($offer);
         $this->denyAccessUnlessGranted('CAN_DELETE', $offerId, "Vous n'avez pas accès");
 
 

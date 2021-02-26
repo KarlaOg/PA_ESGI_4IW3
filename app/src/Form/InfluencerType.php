@@ -37,7 +37,7 @@ class InfluencerType extends AbstractType
                     'Humour' => 'Humour',
                 ),
                 'multiple'  => true,
-                'required' => true,
+                'required' => false,
             ])
             ->add('website', TextType::class, [
                 'label' => 'Website',
