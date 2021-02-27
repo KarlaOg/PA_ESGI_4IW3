@@ -6,13 +6,18 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BrandRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=BrandRepository::class)
  * @UniqueEntity("username", message="Ce pseudo est déjà utilisé")
+ * @Vich\Uploadable
  */
 class Brand
 {
+    const SERVER_PATH_TO_IMAGE_FOLDER = '/public/uploads';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -67,6 +72,23 @@ class Brand
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageUser;
+
+    /**
+     * @Vich\UploadableField(mapping="cover_image_user", fileNameProperty="imageUser")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", options={ "default": "NOW()" }, nullable=true)
+     * @var \DateTime
+     */
+    private $updatedAt;
 
 
     public function getId(): ?int
@@ -157,6 +179,57 @@ class Brand
         $this->username = $username;
 
         return $this;
+    }
+    public function getImageUser(): ?string
+    {
+        return $this->imageUser;
+    }
+
+    public function setImageUser(?string $imageUser): self
+    {
+        $this->imageUser = $imageUser;
+
+        return $this;
+    }
+
+    /**
+     * @param null|File $imageFile
+     * @return User
+     * @throws Exception
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        // permet a vich de savoir si l'image est nouvelle ou pas.
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+        ));
     }
 
     public function __toString()

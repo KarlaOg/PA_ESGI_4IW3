@@ -9,12 +9,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BrandType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true, //rajouter pr suprimer limage
+                'download_uri' => true, //rajouter un download
+                'image_uri' => true,
+            ])
             ->add('name', TextType::class, [
                 'required' => false,
             ])

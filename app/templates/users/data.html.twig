@@ -10,28 +10,23 @@
 				<div class="card-content black-text">
 					<span class="card-title">{{ app.user.lastname }}
 						{{ app.user.firstname }}</span>
-					{% if  app.user.imageUser %}
-						<div class="card-image">
-							<img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ app.user.imageUser }}"/>
-							{% else %}
-						{% endif %}
-						<p>{{ app.user.lastname }}</p>
-						<p>{{ app.user.firstname }}</p>
-						<p>{{ app.user.email }}</p>
-						{% if app.user.roles[0] == 'ROLE_INFLUENCEUR'%}
-							<i>Influenceur</i>
-							{% elseif app.user.roles[0] == 'ROLE_MARQUE' %}
-						{% endif %}
-					</div>
-					<div class="card-action">
-						<button class="btn waves-effect waves-light" type="submit" name="action">
-							<a class="white-text" type="submit" href="{{path('users_edit')}}">Modifier</a>
-						</button>
-					</div>
+					<p>{{ app.user.lastname }}</p>
+					<p>{{ app.user.firstname }}</p>
+					<p>{{ app.user.email }}</p>
+					{% if app.user.roles[0] == 'ROLE_INFLUENCEUR'%}
+						<i>Influenceur</i>
+						{% elseif app.user.roles[0] == 'ROLE_MARQUE' %}
+					{% endif %}
 				</div>
-				<button class="btn waves-effect waves-light" type="submit" name="action">
-					<a class="white-text" type="submit" href="{{path('users_complete')}}">Completer les informations</a>
-				</button>
+				<div class="card-action">
+					<button class="btn waves-effect waves-light" type="submit" name="action">
+						<a class="white-text" type="submit" href="{{path('users_edit')}}">Modifier</a>
+					</button>
+				</div>
 			</div>
+			<button class="btn waves-effect waves-light" type="submit" name="action">
+				<a class="white-text" type="submit" href="{{path('users_complete')}}">Completer les informations</a>
+			</button>
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}
