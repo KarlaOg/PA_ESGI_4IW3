@@ -19,7 +19,7 @@ class OfferVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['CAN_EDIT', 'CAN_DELETE'])
+        return in_array($attribute, ['CAN_EDIT', 'CAN_DELETE', 'CAN_SHOW'])
             && $subject instanceof \App\Entity\Offer;
     }
 
@@ -36,9 +36,8 @@ class OfferVoter extends Voter
 
         switch ($attribute) {
             case 'CAN_EDIT':
-                return $id  === $user;
-                break;
             case 'CAN_DELETE':
+            case 'CAN_SHOW':
                 return $id  === $user;
                 break;
         }

@@ -5,29 +5,26 @@
 
 
 {% block body %}
-	<h3>Listes des Offres</h3>
-	<hr>
-	{% if app.user.roles[0] == "ROLE_MARQUE" %}
-		<a href="{{ path('offer_new') }}" class="btn btn-success" class="btn-floating btn-large waves-effect waves-light">
-			<i class="material-icons">add</i>
-		</a>
-	{% endif %}
+<h3>Listes des Offres</h3>
+<hr>
+{% if app.user.roles[0] == "ROLE_MARQUE" %}
+	<a href="{{ path('offer_new') }}" class="btn btn-success" class="btn-floating btn-large waves-effect waves-light">
+		<i class="material-icons">add</i>
+	</a>
+{% endif %}
 
-	<div>
-		{% if offers is empty %}
-			<p>Pas d'offres pour le moment</p>
-		{% else %}
+<div>
+	{% if offers is empty %}
+		<p>Pas d'offres pour le moment</p>
+	{% else %}
 
-
-			{% for offer in offers  %}
-				<div class="card brown lighten-5 z-depth-2">
+		{% for offer in offers  %}
+			<div class="card brown lighten-5 z-depth-2">
+				{% if offer.brandId.id == app.user.id  %}
 					<div class="card-content">
-						{% if offer.brandId.id == app.user.id  %}
-							<p style="margin:10px 0">
-								<mark>VOS OFFRES</mark>
-							</p>
-						{% endif %}
-
+						<p style="margin:10px 0">
+							<mark>{{offer.status}}</mark>
+						</p>
 						<span class="card-title">{{ offer.name|capitalize }}
 						</span>
 						<p>Description :
@@ -38,12 +35,30 @@
 							-
 							{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
 						</p>
-					</div>
-					<div class="card-action">
-						<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>
-					</div>
+						<b>{{brand.name}}</b>
+					</p>
 				</div>
-			{% endfor %}
+				<div class="card-action">
+					<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>
+				</div>
+			</div>
 		{% endif %}
+		{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
+			<div class="card-content">
+				<span class="card-title">{{ offer.name|capitalize }}
+				</span>
+				<p>Description :
+					{{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}}
+				</p>
+				<p>Dates :
+					{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
+					-
+					{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+				</p>
+			</p>
+		</div>
+		<div class="card-action">
+			<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>
+		</div>
 	</div>
-{% endblock %}
+{% endif %}{% endfor %}{% endif %}</div>{% endblock %}

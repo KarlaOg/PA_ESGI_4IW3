@@ -1,15 +1,15 @@
 <?php
- 
+
 
 namespace App\Repository;
- 
+
 
 use App\Entity\Offer;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 use Doctrine\Persistence\ManagerRegistry;
- 
+
 
 /**
 
@@ -32,28 +32,27 @@ class OfferRepository extends ServiceEntityRepository
     {
 
         parent::__construct($registry, Offer::class);
-
     }
- 
 
-    public function findAll()
 
-    {
+    // public function findAll()
 
-        return $this->createQueryBuilder('o')
+    // {
 
-            ->select('o.id, o.name')
+    //     return $this->createQueryBuilder('o')
 
-            ->orderBy('o.id', 'ASC')
+    //         ->select('o.id, o.name')
 
-            ->getQuery()
+    //         ->orderBy('o.id', 'ASC')
 
-            ->getResult()
+    //         ->getQuery()
 
-        ;
+    //         ->getResult()
 
-    }
- 
+    //     ;
+
+    // }
+
 
     // /**
 
@@ -86,7 +85,7 @@ class OfferRepository extends ServiceEntityRepository
     }
 
     */
- 
+
 
     /*
 
@@ -109,5 +108,4 @@ class OfferRepository extends ServiceEntityRepository
     }
 
     */
-
 }
