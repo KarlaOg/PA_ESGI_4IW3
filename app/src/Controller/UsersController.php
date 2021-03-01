@@ -79,6 +79,7 @@ class UsersController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $em->flush();
+                $this->addFlash('green', 'Modification effectué');
 
                 return $this->redirectToRoute('users_data');
             }
@@ -93,6 +94,8 @@ class UsersController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                $this->addFlash('green', 'Modification effectué');
+
                 $em->flush();
 
                 return $this->redirectToRoute('users_data');

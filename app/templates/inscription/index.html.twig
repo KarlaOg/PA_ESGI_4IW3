@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Inscription
+{% endblock %}
 
 
 {% block body %}
@@ -8,13 +9,17 @@
 	<hr>
 
 	<div class="row">
-		<div
-			class="column large-12 tab-12">
+		<div class="column large-12 tab-12">
 			{{ form_start(form) }}
 			{{ form_row(form) }}
 			<button type="submit" class="btn btn-success">Envoyer</button>
 			{{ form_end(form) }}
 		</div>
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				M.toast({html: '{{ message }}', classes: '{{ label }}rounded'});
+			{% endfor %}
+		{% endfor %}
 	</div>
 	<br>
 
