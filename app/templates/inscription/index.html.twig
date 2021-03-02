@@ -4,18 +4,16 @@
 
 
 {% block body %}
+<div class="container pt-5">
 	<h3>Page d'inscription</h3>
 	<hr>
-
 	<div class="row">
-		<div
-			class="column large-12 tab-12">
 			{{ form_start(form) }}
-			{{ form_row(form) }}
+			{{ form_widget(form) }}
 			<button type="submit" class="btn btn-success">Envoyer</button>
 			{{ form_end(form) }}
-		</div>
 	</div>
-	<br>
+</div>
 
 {% endblock %}
+

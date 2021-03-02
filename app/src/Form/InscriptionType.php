@@ -41,7 +41,7 @@ class InscriptionType extends AbstractType
                 ]
             ])
             ->add('age', BirthdayType::class, [
-                'label' => 'Age',
+                'label' => 'Date de Naissance',
                 'placeholder' => 'Selectionner une valeur',
             ])
             ->add('roles', ChoiceType::class, [
@@ -53,6 +53,7 @@ class InscriptionType extends AbstractType
                 ),
                 'multiple'  => true,
                 'required' => true,
+                'expanded' => true
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',

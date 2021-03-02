@@ -7,68 +7,22 @@
 			{% endblock %}
 		</title>
 		{% block stylesheets %}
+			<link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
-
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	</head>
-	<nav class="grey lighten-5">
-		<div class="container">
-			<div class="col s12">
-				<div class="navbar-fixed ">
-					<div class="nav-wrapper">
-						<a class="pink-text" href="{{path('home')}}" class="brand-logo">
-							<b>LIKEY</b>
-						</a>
-						<ul id="nav-mobile" class="right hide-on-med-and-down">
-							{% if not app.user %}
-								<li>
-									<a class="black-text nav-buttons" href="{{path('inscription_index')}}">Inscription</a>
-								</li>
-								<li>
-									<a class="black-text nav-buttons" href="{{path('app_login')}}">Connexion</a>
-								</li>
-							{% else %}
-								<li>
-									<a class="black-text nav-buttons" href="{{path('users_data')}}">Mon profil</a>
-								</li>
-								<li>
-									<a class="black-text nav-buttons" href="{{path('offer_index')}}">Liste des offres</a>
-								</li>
-								<li>
-									<a class="black-text nav-buttons" href="{{path('app_logout')}}">Déconnexion</a>
-								</li>
-								{# <li class="nav-item">
-																																																																																																	<div display="flex">
-																																																																																																		<form method="post" id="search" action="{{path('search_data')}}">
-																																																																																																			<label for="tags">Recherche:
-																																																																																																			</label>
-																																																																																																			<select name="searchSelect" id="tag-select">
-																																																																																																				<option value="none">Choisissez</option>
-																																																																																																				<option value="influencer">Influenceur</option>
-																																																																																																				<option value="brand">Marque</option>
-																																																																																																				<option value="domain">Domaine</option>
-																																																																																																			</select>
-																																																																																																			<input id="keywords" name="keywords">
-																																																																																																			<input type="submit" value="VALIDER" class="btn search_btn">
-																																																																																																		</form>
-																																																																																																	</div>
-																																																																																																</li> #}
-							{% endif %}
-						</ul>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</nav>
+	
 	<body>
-		<main>
-			<div class="container"> {% block body %}{% endblock %}
-				</div>
-			</main>
-
+		{% include "shared/_navbar.html.twig" %}
+			<div> 
+			{% block body %}{% endblock %}
+				
+			</div>
+		{# {% include "shared/_footer.html.twig" %} #}
 			{% block javascripts %}
 				{{ encore_entry_script_tags('app') }}
 			{% endblock %}
