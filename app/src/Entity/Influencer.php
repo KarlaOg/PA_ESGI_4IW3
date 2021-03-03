@@ -84,10 +84,10 @@ class Influencer
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $imageUser;
+    private $profilePhoto;
 
     /**
-     * @Vich\UploadableField(mapping="cover_image_user", fileNameProperty="imageUser")
+     * @Vich\UploadableField(mapping="cover_image_user", fileNameProperty="profilePhoto")
      * @var File
      */
     private $imageFile;
@@ -239,14 +239,14 @@ class Influencer
         return $this;
     }
 
-    public function getImageUser(): ?string
+    public function getProfilePhoto(): ?string
     {
-        return $this->imageUser;
+        return $this->profilePhoto;
     }
 
-    public function setImageUser(?string $imageUser): self
+    public function setProfilePhoto(?string $profilePhoto): self
     {
-        $this->imageUser = $imageUser;
+        $this->profilePhoto = $profilePhoto;
 
         return $this;
     }
