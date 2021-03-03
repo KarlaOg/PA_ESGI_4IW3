@@ -52,9 +52,7 @@ class OfferController extends AbstractController
     {
 
         $offer = new Offer();
-
         $user = $this->getUser();
-
         $brandId = $brandRepository->findOneBy(['UserId' => $user]);
 
         if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {

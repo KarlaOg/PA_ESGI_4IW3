@@ -3,18 +3,14 @@
 namespace App\Security\Voter;
 
 use App\Repository\BrandRepository;
+use App\Repository\InfluencerRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class OfferVoter extends Voter
 {
-    protected $brandRepository;
 
-    public function __construct(BrandRepository $brandRepository)
-    {
-        $this->brandRepository = $brandRepository;
-    }
     protected function supports($attribute, $subject)
     {
         // replace with your own logic
@@ -37,8 +33,10 @@ class OfferVoter extends Voter
         switch ($attribute) {
             case 'CAN_EDIT':
             case 'CAN_DELETE':
-            case 'CAN_SHOW':
                 return $id  === $user;
+                break;
+            case 'CAN_SHOW':
+                return $id  === $user || $user->getRoles() === ["ROLE_INFLUENCEUR"];
                 break;
         }
 
