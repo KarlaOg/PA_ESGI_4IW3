@@ -29,16 +29,14 @@ class OfferVoter extends Voter
 
         //(check conditions and return true to grant permission) 
         $id = $subject->getBrandId()->getUserId();
-        // $influencer = $token->getUser()->getRoles("ROLE_INFLUENCEUR");
 
-        // dd($user->getRoles(), $influencer);
         switch ($attribute) {
             case 'CAN_EDIT':
             case 'CAN_DELETE':
                 return $id  === $user;
                 break;
             case 'CAN_SHOW':
-                return $id  === $user && $user->getRoles("ROLE_INFLUENCEUR");
+                return $id  === $user || $user->getRoles() === ["ROLE_INFLUENCEUR"];
                 break;
         }
 

@@ -21,7 +21,7 @@
 		{% for offer in offers  %}
 			<div class="card brown lighten-5 z-depth-2">
 
-				{% if offer.brandId.id == brand.id  %}
+				{% if brand is not null and offer.brandId.id == brand.id %}
 					<div class="card-content">
 						<p style="margin:10px 0">
 							<mark>{{offer.status}}</mark>
