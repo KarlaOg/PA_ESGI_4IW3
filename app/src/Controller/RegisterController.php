@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Brand;
 use App\Entity\Influencer;
-use App\Form\InscriptionType;
+use App\Form\RegisterType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,9 +15,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 /**
- * @Route("/inscription", name="inscription_")
+ * @Route("/register", name="register_")
  */
-class InscriptionController extends AbstractController
+class RegisterController extends AbstractController
 {
 
     /**
@@ -47,7 +47,7 @@ class InscriptionController extends AbstractController
     public function createAction(Request $request): Response
     {
         $user = new User();
-        $form = $this->createForm(InscriptionType::class, $user);
+        $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -77,7 +77,7 @@ class InscriptionController extends AbstractController
         }
 
         // afficher le formulaire s'il n'est pas déjà rempli
-        return $this->render('inscription/index.html.twig', [
+        return $this->render('register/index.html.twig', [
             'form' => $form->createView()
         ]);
     }

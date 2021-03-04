@@ -29,7 +29,10 @@
 						<span class="card-title">{{ offer.name|capitalize }}
 						</span>
 						<p>Description :
-							{{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}}
+							{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+						</p>
+						<p>Domaine :
+							{{ offer.field ? offer.field|join(', ') : null}}
 						</p>
 						<p>Dates :
 							{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
@@ -40,26 +43,26 @@
 					</p>
 				</div>
 				<div class="card-action">
-					<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>
-				</div>
+					<p href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</p>
+				</a>
 			</div>
-		{% endif %}
-		{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
-			<div class="card-content">
-				<span class="card-title">{{ offer.name|capitalize }}
-				</span>
-				<p>Description :
-					{{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}}
-				</p>
-				<p>Dates :
-					{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
-					-
-					{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
-				</p>
+		</div>
+	{% endif %}
+	{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
+		<div class="card-content">
+			<span class="card-title">{{ offer.name|capitalize }}
 			</p>
-		</div>
-		<div class="card-action">
-			<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>
-		</div>
-	</div>
-{% endif %}{% endfor %}{% endif %}</div>{% endblock %}
+		</span>
+		<p>Description :
+			{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+		</p>
+		<p>Dates :
+			{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
+			-
+			{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+		</p>
+	</p>
+</div>
+<div class="card-action">
+	<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>
+</div></div>{% endif %}{% endfor %}{% endif %}</div>{% endblock %}
