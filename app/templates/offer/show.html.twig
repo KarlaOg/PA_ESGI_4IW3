@@ -11,17 +11,13 @@
 			<span class="card-title">{{ offer.name|capitalize }}
 			</span>
 			<p>Description :
-				{{ offer.decription ? offer.decription|slice(0, 50) : 'NC'}}
+				{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
 			</p>
 			<p>Dates :
 				{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
 				-
 				{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
 			</p>
-			{# <p>Créer par
-																																																																												<b>{{brand.name}}</b>
-																																																																											</p> #}
-
 		</div>
 		<div class="card-action">
 			{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}

@@ -35,7 +35,7 @@ class BrandType extends AbstractType
             ->add('siret', TextType::class, [
                 'required' => false,
             ])
-            ->add('domaine', ChoiceType::class, [
+            ->add('field', ChoiceType::class, [
                 'label' => 'Selectionner votre domaine d\'activité',
                 'required' => false,
                 'choices' => array(

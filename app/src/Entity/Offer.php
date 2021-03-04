@@ -27,7 +27,7 @@ class Offer
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $decription;
+    private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=Brand::class)
@@ -60,6 +60,11 @@ class Offer
      */
     private $application;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $field = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,14 +82,14 @@ class Offer
         return $this;
     }
 
-    public function getDecription(): ?string
+    public function getDescription(): ?string
     {
-        return $this->decription;
+        return $this->description;
     }
 
-    public function setDecription(string $decription): self
+    public function setDescription(string $description): self
     {
-        $this->decription = $decription;
+        $this->description = $description;
 
         return $this;
     }
@@ -160,6 +165,18 @@ class Offer
     public function setApplication(?Application $application): self
     {
         $this->application = $application;
+
+        return $this;
+    }
+
+    public function getField(): ?array
+    {
+        return $this->field;
+    }
+
+    public function setField(array $field): self
+    {
+        $this->field = $field;
 
         return $this;
     }

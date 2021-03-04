@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -33,9 +34,26 @@ class OfferType extends AbstractType
                 'required' => true,
             ])
 
-            ->add('decription',  TextareaType::class, [
+            ->add('description',  TextareaType::class, [
                 'label' => 'Description',
                 'attr' => ['class' => 'tinymce'],
+            ])
+            ->add('field', ChoiceType::class, [
+                'label' => 'Selectionner votre domaine',
+                'required' => false,
+                'choices' => array(
+                    'Gaming' => 'Gaming',
+                    'Beaute' => 'Beaute',
+                    'Lifestyle' => 'Lifestyle',
+                    'Streaming' => 'Streaming',
+                    'Humour' => 'Humour',
+                    'Horreur' => 'Horreur',
+                    'Education' => 'Education',
+                    'Exploration' => 'Exploration',
+                    'Autre' => 'Autre',
+                ),
+                'multiple'  => true,
+                'required' => false,
             ])
 
             ->add('brandId', EntityType::class, [

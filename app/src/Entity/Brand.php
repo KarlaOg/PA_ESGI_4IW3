@@ -60,7 +60,7 @@ class Brand
     /**
      * @ORM\Column(type="json", nullable=true)
      */
-    private $domaine = [];
+    private $field = [];
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -157,14 +157,14 @@ class Brand
         return $this;
     }
 
-    public function getDomaine(): ?array
+    public function getField(): ?array
     {
-        return $this->domaine;
+        return $this->field;
     }
 
-    public function setDomaine(?array $domaine): self
+    public function setField(?array $field): self
     {
-        $this->domaine = $domaine;
+        $this->field = $field;
 
         return $this;
     }

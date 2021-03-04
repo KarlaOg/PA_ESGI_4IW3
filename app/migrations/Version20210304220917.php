@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210221194028 extends AbstractMigration
+final class Version20210304220917 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -23,7 +23,10 @@ final class Version20210221194028 extends AbstractMigration
         $this->addSql('DROP SEQUENCE user_id_seq CASCADE');
         $this->addSql('DROP TABLE "user"');
         $this->addSql('DROP TABLE offer_brand');
-        $this->addSql('ALTER TABLE user_account ALTER updated_at SET DEFAULT \'NOW()\'');
+        $this->addSql('ALTER TABLE brand ALTER updated_at SET DEFAULT \'NOW()\'');
+        $this->addSql('ALTER TABLE brand RENAME COLUMN domaine TO field');
+        $this->addSql('ALTER TABLE influencer ALTER updated_at SET DEFAULT \'NOW()\'');
+        $this->addSql('ALTER TABLE offer ADD field JSON NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -36,6 +39,9 @@ final class Version20210221194028 extends AbstractMigration
         $this->addSql('CREATE TABLE offer_brand (offer_id INT NOT NULL, brand_id INT NOT NULL, PRIMARY KEY(offer_id, brand_id))');
         $this->addSql('CREATE INDEX idx_9f7f84b153c674ee ON offer_brand (offer_id)');
         $this->addSql('CREATE INDEX idx_9f7f84b144f5d008 ON offer_brand (brand_id)');
-        $this->addSql('ALTER TABLE user_account ALTER updated_at SET DEFAULT \'2021-02-21 19:40:12.156409\'');
+        $this->addSql('ALTER TABLE offer DROP field');
+        $this->addSql('ALTER TABLE brand ALTER updated_at SET DEFAULT \'2021-03-04 22:03:14.477133\'');
+        $this->addSql('ALTER TABLE brand RENAME COLUMN field TO domaine');
+        $this->addSql('ALTER TABLE influencer ALTER updated_at SET DEFAULT \'2021-03-04 22:03:14.479946\'');
     }
 }
