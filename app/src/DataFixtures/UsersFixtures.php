@@ -33,14 +33,7 @@ class UsersFixtures extends Fixture
                 ->setFirstname($faker->firstName)
                 ->setPassword($faker->password)
                 ->setEmail($faker->safeEmail)
-                ->setAge(new \DateTime('11-11-1998'))
-                ->setImageUser("http://placeholder.com")
-                ->setNombreAbonnes(rand(50, 9000))
-                ->setUpdatedAt($faker->dateTime())
-                ->setLiens(array(
-                    "youtube"  => "youtube.com/$faker->lastName",
-                    "instagram" => "instagram.com/$faker->lastName",
-                ));
+                ->setAge(new \DateTime('11-11-1998'));
 
             $user->setPassword($hash);
 
@@ -55,14 +48,7 @@ class UsersFixtures extends Fixture
             ->setPassword($hash)
             ->setEmail('admin@gmail.com')
             ->setRoles(['ROLE_ADMIN'])
-            ->setAge(new \DateTime('11-11-1998'))
-            ->setImageUser("http://placeholder.com")
-            ->setNombreAbonnes(rand(50, 9000))
-            ->setUpdatedAt($faker->dateTime())
-            ->setLiens(array(
-                "youtube"  => "youtube.com/$faker->lastName",
-                "instagram" => "instagram.com/$faker->lastName",
-            ));
+            ->setAge(new \DateTime('11-11-1998'));
 
 
         $manager->persist($admin);

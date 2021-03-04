@@ -8,13 +8,18 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=InfluencerRepository::class)
  * @UniqueEntity("username", message="Ce pseudo est déjà utilisé")
+ * @Vich\Uploadable
  */
 class Influencer
 {
+    const SERVER_PATH_TO_IMAGE_FOLDER = '/public/uploads';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -75,6 +80,23 @@ class Influencer
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profilePhoto;
+
+    /**
+     * @Vich\UploadableField(mapping="cover_image_user", fileNameProperty="profilePhoto")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", options={ "default": "NOW()" }, nullable=true)
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -213,6 +235,49 @@ class Influencer
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getProfilePhoto(): ?string
+    {
+        return $this->profilePhoto;
+    }
+
+    public function setProfilePhoto(?string $profilePhoto): self
+    {
+        $this->profilePhoto = $profilePhoto;
+
+        return $this;
+    }
+
+    /**
+     * @param null|File $imageFile
+     * @return User
+     * @throws Exception
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        // permet a vich de savoir si l'image est nouvelle ou pas.
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
