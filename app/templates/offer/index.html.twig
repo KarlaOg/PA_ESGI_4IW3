@@ -30,8 +30,10 @@
 								-
 								{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
 							</p>
-							<b>{{brand.name}}</b>
-
+							{% if brand.name is not null %}
+								<p>Créer par
+									{{brand.name}}</p>
+							{% endif %}
 							<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn btn-primary">Voir l'offre</a>
 						</div>
 					{% endif %}
@@ -54,8 +56,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			{% endif %}
-		{% endfor %}
-	{% endif %}
-</div>{% endblock %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	</div>
+{% endblock %}

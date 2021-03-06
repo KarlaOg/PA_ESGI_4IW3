@@ -24,7 +24,7 @@
 					<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-success">Postuler</a>
 				{% endif %}
 				{% if app.user.roles[0] == "ROLE_MARQUE" %}
-					{% if offer.brandId.id == app.user.id  %}
+					{% if offer.brandId.id == brand.id  %}
 						<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-success">Modifier l'offre</a>
 						<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>
 					{% endif %}
