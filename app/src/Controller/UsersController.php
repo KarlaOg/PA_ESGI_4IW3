@@ -22,8 +22,10 @@ class UsersController extends AbstractController
 {
 
     /**
-     * @Route("/users/data", name="users_data")
+     * @Route("/home", name="users_data")
      */
+
+    //todo : change this
     public function usersData(BrandRepository $brandRepository)
     {
         $repository = $this->getDoctrine()->getRepository(Offer::class);
@@ -55,7 +57,7 @@ class UsersController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('green', 'Modification effectué');
+            $this->addFlash('info', 'Modification effectué');
             return $this->redirectToRoute('users_data');
         }
 
@@ -79,7 +81,6 @@ class UsersController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $em->flush();
-                $this->addFlash('green', 'Modification effectué');
 
                 return $this->redirectToRoute('users_data');
             }
@@ -94,8 +95,6 @@ class UsersController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $this->addFlash('green', 'Modification effectué');
-
                 $em->flush();
 
                 return $this->redirectToRoute('users_data');
@@ -122,11 +121,11 @@ class UsersController extends AbstractController
             if ($request->request->get('pass') == $request->request->get('pass2')) {
                 $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('pass')));
                 $em->flush();
-                $this->addFlash('blue', 'Mot de passe mis à jour avec succès');
+                $this->addFlash('success', 'Mot de passe mis à jour avec succès');
 
                 //return $this->redirectToRoute('users');
             } else {
-                $this->addFlash('red', 'Les deux mots de passe ne sont pas identiques');
+                $this->addFlash('danger', 'Les deux mots de passe ne sont pas identiques');
             }
         }
 

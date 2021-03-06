@@ -22,6 +22,9 @@ class InfluencerType extends AbstractType
                 'download_uri' => true, //rajouter un download
                 'image_uri' => true,
             ])
+            ->add('name', TextType::class, [
+                'required' => false,
+            ])
             ->add('username', TextType::class, [
                 'required' => false,
             ])
@@ -45,6 +48,8 @@ class InfluencerType extends AbstractType
                 ),
                 'multiple'  => true,
                 'required' => false,
+                'expanded' => true
+
             ])
             ->add('website', TextType::class, [
                 'label' => 'Website',
