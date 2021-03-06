@@ -7,30 +7,24 @@
 
 
 {% block body %}
-
 	<h1>
 		Editer une offre</h1>
-
-
-	<div class="row">
-		<div class="column large-12 tab-12 ">
-			{{ form_start(form) }}
-			{{ form_row(form.name) }}
-			{{ form_row(form.description) }}
-			{{ form_row(form.dateStart) }}
-			{{ form_row(form.dateEnd) }}
-			<div class="hide">
-				{{ form_widget(form.brandId) }}
-			</div>
-
-			<div style="margin-top:20px">
-				<button type="submit" class="btn btn-success">Sauvegarder</button>
-
-				<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn black">Retour</a>
-			</div>
-			{{ form_end(form) }}
-		</div>
+	{{ form_start(form) }}
+	{{ form_row(form.name) }}
+	{{ form_row(form.description) }}
+	{{ form_row(form.field) }}
+	{{ form_row(form.dateStart) }}
+	{{ form_row(form.dateEnd) }}
+	<div class="d-none">
+		{{ form_widget(form.brandId) }}
 	</div>
+
+	<div style="margin-top:20px">
+		<button type="submit" class="btn btn-success">Sauvegarder</button>
+
+		<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn btn-primary">Retour</a>
+	</div>
+	{{ form_end(form) }}
 
 
 {% endblock %}

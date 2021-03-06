@@ -3,66 +3,59 @@
 {% block title %}Offres
 {% endblock %}
 
-
 {% block body %}
-<h3>Listes des Offres</h3>
-<hr>
-{% if app.user.roles[0] == "ROLE_MARQUE" %}
-	<a href="{{ path('offer_new') }}" class="btn btn-success" class="btn-floating btn-large waves-effect waves-light">
-		<i class="material-icons">add</i>
-	</a>
-{% endif %}
+	<h1>Listes des Offres</h1>
+	<div>
+		{% if offers is empty %}
+			<p>Pas d'offres pour le moment</p>
+		{% else %}
 
-<div>
-	{% if offers is empty %}
-		<p>Pas d'offres pour le moment</p>
-	{% else %}
+			{% for offer in offers  %}
+				<div class="card mb-3">
+					{% if brand is not null and offer.brandId.id == brand.id %}
+						<div class="card-body">
+							<p style="margin:10px 0">
+								<mark>{{offer.status}}</mark>
+							</p>
+							<p>Nom :
+								{{ offer.name|capitalize }}</p>
+							<p>Description :
+								{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+							</p>
+							<p>Domaine :
+								{{ offer.field ? offer.field|join(', ') : null}}
+							</p>
+							<p>Dates :
+								{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
+								-
+								{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+							</p>
+							<b>{{brand.name}}</b>
 
-		{% for offer in offers  %}
-			<div class="card brown lighten-5 z-depth-2">
-
-				{% if brand is not null and offer.brandId.id == brand.id %}
-					<div class="card-content">
-						<p style="margin:10px 0">
-							<mark>{{offer.status}}</mark>
-						</p>
-						<span class="card-title">{{ offer.name|capitalize }}
-						</span>
-						<p>Description :
-							{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
-						</p>
-						<p>Domaine :
-							{{ offer.field ? offer.field|join(', ') : null}}
-						</p>
-						<p>Dates :
-							{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
-							-
-							{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
-						</p>
-						<b>{{brand.name}}</b>
-					</p>
+							<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn btn-primary">Voir l'offre</a>
+						</div>
+					{% endif %}
 				</div>
-				<div class="card-action">
-					<p href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</p>
-				</a>
-			</div>
-		</div>
+				{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
+					<div class="card mb-3">
+						<div class="card-body">
+							<p>Nom :
+								{{ offer.name|capitalize }}</p>
+							<p>Description :
+								{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+							</p>
+							<p>Dates :
+								{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
+								-
+								{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+							</p>
+							<div class="card-action">
+								<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
 	{% endif %}
-	{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
-		<div class="card-content">
-			<span class="card-title">{{ offer.name|capitalize }}
-			</p>
-		</span>
-		<p>Description :
-			{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
-		</p>
-		<p>Dates :
-			{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
-			-
-			{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
-		</p>
-	</p>
-</div>
-<div class="card-action">
-	<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn">Voir l'offre</a>
-</div></div>{% endif %}{% endfor %}{% endif %}</div>{% endblock %}
+</div>{% endblock %}

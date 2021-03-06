@@ -41,8 +41,7 @@ class RegisterType extends AbstractType
                 ]
             ])
             ->add('age', BirthdayType::class, [
-                'label' => 'Age',
-                'placeholder' => 'Selectionner une valeur',
+                'label' => 'Date de Naissance',
             ])
             ->add('roles', ChoiceType::class, [
                 'label' => 'Vous êtes',
@@ -53,6 +52,7 @@ class RegisterType extends AbstractType
                 ),
                 'multiple'  => true,
                 'required' => true,
+                'expanded' => true
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
@@ -64,8 +64,8 @@ class RegisterType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'label' => 'Mot de passe',
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmer mot de passe'],
                 'constraints' => [new Length(['min' => 8])]
             ]);
     }

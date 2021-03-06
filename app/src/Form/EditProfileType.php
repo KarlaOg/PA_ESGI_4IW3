@@ -16,14 +16,11 @@ class EditProfileType extends AbstractType
     {
 
         $builder
-            ->add('lastname', TextType::class)
-            ->add('firstname', TextType::class);
+            ->add('lastname', TextType::class, [
+                'label' => 'Prénom',
+            ])
+            ->add('firstname', TextType::class, [
+                'label' => 'Nom',
+            ]);
     }
-
-    // public function configureOptions(OptionsResolver $resolver)
-    // {
-    //     $resolver->setDefaults([
-    //         'data_class' => Users::class,
-    //     ]);
-    // }
 }

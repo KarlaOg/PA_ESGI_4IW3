@@ -54,6 +54,7 @@ class OfferType extends AbstractType
                 ),
                 'multiple'  => true,
                 'required' => false,
+                'expanded' => true
             ])
 
             ->add('brandId', EntityType::class, [

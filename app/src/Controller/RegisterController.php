@@ -72,7 +72,7 @@ class RegisterController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash("green", "Inscription réussie !");
+            $this->addFlash("success", "Inscription réussie !");
             return $this->redirectToRoute('app_login');
         }
 

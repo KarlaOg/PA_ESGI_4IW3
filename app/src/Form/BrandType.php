@@ -58,6 +58,8 @@ class BrandType extends AbstractType
                 ),
                 'multiple'  => true,
                 'required' => false,
+                'expanded' => true
+
             ])
             ->add('website', TextType::class, [
                 'label' => 'Website',

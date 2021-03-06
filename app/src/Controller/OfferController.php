@@ -52,7 +52,9 @@ class OfferController extends AbstractController
     {
 
         $offer = new Offer();
+
         $user = $this->getUser();
+
         $brandId = $brandRepository->findOneBy(['UserId' => $user]);
 
         if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
@@ -70,7 +72,7 @@ class OfferController extends AbstractController
             $em->persist($offer);
             $em->flush();
 
-            $this->addFlash('green', 'Création réussie');
+            $this->addFlash('success', 'Création réussie');
 
             return $this->redirectToRoute('offer_index', ['id' => $offer->getId()]);
         }
@@ -120,7 +122,7 @@ class OfferController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $this->addFlash('blue', 'Modification réussie');
+            $this->addFlash('info', 'Modification réussie');
 
             return $this->redirectToRoute('offer_index');
         }
@@ -146,7 +148,7 @@ class OfferController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $this->addFlash('blue', 'Postuler à l\'offre en cours');
+            $this->addFlash('success', 'Postuler à l\'offre en cours');
 
             return $this->redirectToRoute('offer_index');
         }
@@ -178,7 +180,7 @@ class OfferController extends AbstractController
         $offer->setBrandId(null);
         $em->flush();
 
-        $this->addFlash('red', 'Suppression réussie');
+        $this->addFlash('info', 'Suppression réussie');
 
         return $this->redirectToRoute('offer_index');
     }
