@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OfferRepository;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
@@ -21,11 +22,13 @@ class Offer
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank 
      */
     private $description;
 
@@ -42,11 +45,15 @@ class Offer
 
     /**
      * @ORM\Column(type="datetimetz")
+     *@Assert\GreaterThanOrEqual("tomorrow", message="Une offre peut commencer qu'à partir de demain.")
+     *@Assert\LessThanOrEqual(propertyPath="dateEnd", message="La date de commencement doit être inférieure à la date de fin.")
      */
     private $dateStart;
 
     /**
      * @ORM\Column(type="datetimetz")
+     *@Assert\GreaterThanOrEqual("tomorrow")
+     *@Assert\GreaterThanOrEqual(propertyPath="dateStart", message="La date de fin doit être supérieure à la date de commencement.")
      */
     private $dateEnd;
 
