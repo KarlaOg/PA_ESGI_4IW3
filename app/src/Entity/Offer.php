@@ -35,6 +35,7 @@ class Offer
     /**
      * @ORM\ManyToOne(targetEntity=Brand::class)
      * @JoinColumn(onDelete="CASCADE")
+     * @Assert\NotNull
      */
     private $brandId;
 
