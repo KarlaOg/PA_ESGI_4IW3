@@ -41,6 +41,8 @@
 				{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
 					<div class="card mb-3">
 						<div class="card-body">
+							<p>Marque :
+									{{ offer.brandId.name|capitalize }}</p>
 							<p>Nom :
 								{{ offer.name|capitalize }}</p>
 							<p>Description :
