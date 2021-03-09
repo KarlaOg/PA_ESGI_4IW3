@@ -47,6 +47,7 @@ class Offer
     /**
      * @ORM\Column(type="datetimetz")
      *@Assert\GreaterThanOrEqual("tomorrow", message="Une offre peut commencer qu'à partir de demain.")
+     *@Assert\GreaterThan(propertyPath="dateCreation", message="Une offre ne peut pas être inférieure à la date de publication.")
      *@Assert\LessThanOrEqual(propertyPath="dateEnd", message="La date de commencement doit être inférieure à la date de fin.")
      */
     private $dateStart;
@@ -55,6 +56,10 @@ class Offer
      * @ORM\Column(type="datetimetz")
      *@Assert\GreaterThanOrEqual("tomorrow")
      *@Assert\GreaterThanOrEqual(propertyPath="dateStart", message="La date de fin doit être supérieure à la date de commencement.")
+     * @Assert\Range(
+     *      minPropertyPath = "dateStart",
+     *      max = "+5 years"
+     * )
      */
     private $dateEnd;
 
@@ -143,11 +148,11 @@ class Offer
 
     public function getDateEnd(): ?\DateTimeInterface
     {
-        return $this->dateEnd;
+        return $this->dateEnd ;
     }
 
     public function setDateEnd(\DateTimeInterface $dateEnd): self
-    {
+    {  
         $this->dateEnd = $dateEnd;
 
         return $this;
