@@ -6,11 +6,11 @@
 {% block body %}
 
 	<h1>{{ offer.name|capitalize }}</h1>
+	<h2>Marque : {{ offer.brandId.name}} </h2>
 	<div class="card mb-3">
 		<div class="card-body">
 			<p>Nom :
 				{{ offer.name|capitalize }}</p>
-
 			<p>Description :
 				{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
 			</p>
