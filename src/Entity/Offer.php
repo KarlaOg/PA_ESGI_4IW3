@@ -2,12 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OfferRepository;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
@@ -24,20 +21,17 @@ class Offer
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank 
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=Brand::class)
      * @JoinColumn(onDelete="CASCADE")
-     * @Assert\NotNull
      */
     private $brandId;
 
@@ -154,7 +148,7 @@ class Offer
     }
 
     public function setDateEnd(\DateTimeInterface $dateEnd): self
-    {  
+    {
         $this->dateEnd = $dateEnd;
 
         return $this;
