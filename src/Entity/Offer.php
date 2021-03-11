@@ -30,7 +30,7 @@ class Offer
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank 
+     * @Assert\NotBlank
      */
     private $description;
 
@@ -64,6 +64,11 @@ class Offer
      * )
      */
     private $dateEnd;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $status;
 
     /**
      * @ORM\Column(type="json")
@@ -150,11 +155,11 @@ class Offer
 
     public function getDateEnd(): ?\DateTimeInterface
     {
-        return $this->dateEnd ;
+        return $this->dateEnd;
     }
 
     public function setDateEnd(\DateTimeInterface $dateEnd): self
-    {  
+    {
         $this->dateEnd = $dateEnd;
 
         return $this;

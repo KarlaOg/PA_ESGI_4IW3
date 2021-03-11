@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Application;
+use App\Entity\Influencer;
 use App\Entity\Offer;
 
+use App\Entity\User;
 use App\Form\OfferType;
 use App\Form\ApplicationType;
 use App\Repository\BrandRepository;
@@ -59,6 +61,8 @@ class OfferController extends AbstractController
 
         $brandId = $brandRepository->findOneBy(['UserId' => $user]);
 
+        if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
+        }
 
         $form = $this->createForm(OfferType::class, $offer);
 
