@@ -30,7 +30,7 @@ class Application
     private $offerId;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",nullable=true)
      */
     private $status;
 

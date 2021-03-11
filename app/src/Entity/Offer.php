@@ -56,11 +56,6 @@ class Offer
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Application::class, inversedBy="offerId")
-     */
-    private $application;
-
-    /**
      * @ORM\Column(type="json")
      */
     private $field = [];
@@ -157,17 +152,6 @@ class Offer
         return $this;
     }
 
-    public function getApplication(): ?Application
-    {
-        return $this->application;
-    }
-
-    public function setApplication(?Application $application): self
-    {
-        $this->application = $application;
-
-        return $this;
-    }
 
     public function getField(): ?array
     {

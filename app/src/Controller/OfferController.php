@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Application;
+use App\Entity\Influencer;
 use App\Entity\Offer;
 
+use App\Entity\User;
 use App\Form\OfferType;
 use App\Form\ApplicationType;
 use App\Repository\BrandRepository;
@@ -144,8 +147,17 @@ class OfferController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $offer->setStatus($this->status = "En attente de validation");
 
+        $application = new Application();
+        $application->setStatus(true);
+        $userId = $this->getUser()->getId();
+        $influencer = $em->getRepository(Influencer::class)->findInfluencer($userId);
+        foreach ($influencer as $value){
+           $application->addInfluencerId($value);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $em->persist($application);
             $em->flush();
 
             $this->addFlash('success', 'Postuler à l\'offre en cours');
