@@ -71,13 +71,8 @@ class OfferType extends AbstractType
                 'label' => "Date de fin",
                 'widget' => 'choice',
                 'years' => range(date('Y'), date('Y') + 10),
-            ))
+            ));
 
-            ->add('status', HiddenType::class, [
-                'data' => 'Libre',
-            ])
-
-            ->add('application', HiddenType::class);
     }
 
 
