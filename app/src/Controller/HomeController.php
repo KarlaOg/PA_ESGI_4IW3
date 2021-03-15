@@ -15,6 +15,12 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
+        $userLogged = $this->getUser();
+
+        if ($userLogged) {
+            return $this->redirectToRoute('users_data');
+        }
+
         $repository = $this->getDoctrine()->getRepository(Offer::class);
         $offers = $repository->findAll();
         return $this->render('home/index.html.twig', [

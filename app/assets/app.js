@@ -1,5 +1,3 @@
-import './styles/app.scss'
-
 var elems = document.querySelectorAll('select')
 // var instances = M.FormSelect.init(elems);
 
