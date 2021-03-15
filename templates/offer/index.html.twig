@@ -14,9 +14,6 @@
 				<div class="card mb-3">
 					{% if brand is not null and offer.brandId.id == brand.id %}
 						<div class="card-body">
-							<p style="margin:10px 0">
-								<mark>{{offer.status}}</mark>
-							</p>
 							<p>Nom :
 								{{ offer.name|capitalize }}</p>
 							<p>Description :
