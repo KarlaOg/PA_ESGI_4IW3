@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Application;
+use App\Entity\Influencer;
 use App\Entity\Offer;
 
+use App\Entity\User;
 use App\Form\OfferType;
 use App\Form\ApplicationType;
 use App\Repository\BrandRepository;
@@ -146,6 +148,14 @@ class OfferController extends AbstractController
 
         $influencer = $influencerRepository->findOneBy(['userId' => $user]);
 
+
+        $application = new Application();
+        $application->setStatus(true);
+        $userId = $this->getUser()->getId();
+        $influencer = $em->getRepository(Influencer::class)->findInfluencer($userId);
+        foreach ($influencer as $value){
+           $application->addInfluencerId($value);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $application = new Application();

@@ -58,6 +58,7 @@ class Offer
     private $field = [];
 
     /**
+
      * @ORM\OneToMany(targetEntity=Application::class, mappedBy="offer")
      */
     private $application;
@@ -159,6 +160,7 @@ class Offer
 
         return $this;
     }
+
 
     /**
      * @return Collection|Application[]
