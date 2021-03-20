@@ -8,6 +8,7 @@ use App\Entity\Influencer;
 use App\Form\RegisterType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,18 +20,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class RegisterController extends AbstractController
 {
-
-    /**
-     * @param $id
-     *
-     * @Route("/show/{id}", name="show", methods={"GET"})
-     */
-    public function show(User $user): Response
-    {
-        return $this->render('user/show.html.twig', [
-            'user' => $user
-        ]);
-    }
 
     private $passwordEncoder;
 
@@ -49,6 +38,11 @@ class RegisterController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
+        $userLogged = $this->getUser();
+
+        if ($userLogged) {
+            return $this->redirectToRoute('users_data');
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
