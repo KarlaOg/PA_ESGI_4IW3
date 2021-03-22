@@ -138,31 +138,25 @@ class OfferController extends AbstractController
     /**
      * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
      */
-    public function apply(Offer $offer, Request $request , influencerRepository $influencerRepository )
-    {
+    public function apply(Offer $offer, Request $request)
+    { 
+        $em = $this->getDoctrine()->getManager();
+        
         $form = $this->createForm(ApplicationType::class, $offer);
         $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
+        $influencer = $em->getRepository(Influencer::class)->findOneBy(['userId' => $user]);
 
-        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
-
-
+        // Created new application 
         $application = new Application();
-        $application->setStatus(true);
-        $userId = $this->getUser()->getId();
-        $influencer = $em->getRepository(Influencer::class)->findInfluencer($userId);
-        foreach ($influencer as $value){
-           $application->addInfluencerId($value);
-        }
+        $offer->addApplication($application);
+        $application->setOffer($offer);
+        $application->addInfluencerId($influencer);
+        $application->setStatus("pending");
+
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $application = new Application();
-            $offer->addApplication($application);
-            $application->setOffer($offer);
-            $application->addInfluencerId($influencer);
-            $application->setStatus("pending");
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($application);
