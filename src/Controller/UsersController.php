@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Application;
 use App\Entity\Brand;
 use App\Entity\Offer;
 use App\Form\BrandType;
 use App\Entity\Influencer;
+use App\Form\ApplicationType;
 use App\Form\InfluencerType;
 use App\Form\EditProfileType;
+use App\Repository\ApplicationRepository;
 use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,6 +41,25 @@ class UsersController extends AbstractController
         return $this->render('users/data.html.twig', [
             'offers' => $offers,
             'brand' => $brand
+        ]);
+    }
+
+
+    /**
+     * @Route("/my_offers", name="users_offers")
+     */
+
+    public function usersOffers()
+    {
+        $em = $this->getDoctrine();
+        $user = $this->getUser();
+        $influencer = $em->getRepository(Influencer::class)->find($user);
+        // GET ALL APPLICATIONS AS DOCTRINE PERSISTENT COLLECTION
+        $allApplications = $em->getRepository(Influencer::class)->find($influencer)->getApplications();
+
+        return $this->render('users/offers.html.twig', [
+               "applications" => $allApplications
+
         ]);
     }
 

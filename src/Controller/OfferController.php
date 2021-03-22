@@ -61,8 +61,6 @@ class OfferController extends AbstractController
 
         $brandId = $brandRepository->findOneBy(['UserId' => $user]);
 
-        if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
-        }
 
         $form = $this->createForm(OfferType::class, $offer);
 

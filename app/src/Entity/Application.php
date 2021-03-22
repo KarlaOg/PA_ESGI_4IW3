@@ -46,6 +46,21 @@ class Application
         $this->brandId = new ArrayCollection();
     }
 
+
+    /**
+     * toString
+     * @return string
+     */
+    public function __toString()
+    {
+        if(is_null($this->influencerId)){
+            return 'NULL';
+        }
+        return  $this->influencerId;
+
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
