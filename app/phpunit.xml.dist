@@ -33,6 +33,10 @@
         <!-- ###+ symfony/mailer ### -->
         <!-- MAILER_DSN=smtp://localhost -->
         <!-- ###- symfony/mailer ### -->
+
+        <!-- ###+ friendsofsymfony/elastica-bundle ### -->
+        <env name="ELASTICSEARCH_URL" value="http://localhost:9200/"/>
+        <!-- ###- friendsofsymfony/elastica-bundle ### -->
     </php>
 
     <testsuites>

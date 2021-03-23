@@ -1,6 +1,36 @@
 {
+    "elasticsearch/elasticsearch": {
+        "version": "v6.8.1"
+    },
+    "ezimuel/guzzlestreams": {
+        "version": "3.0.1"
+    },
+    "ezimuel/ringphp": {
+        "version": "1.1.2"
+    },
+    "friendsofsymfony/elastica-bundle": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "5.0",
+            "ref": "46c9cd2c1e07f0fcfd97e96f12b03b2e0845c4cd"
+        },
+        "files": [
+            "config/packages/fos_elastica.yaml"
+        ]
+    },
     "jms/metadata": {
         "version": "2.4.0"
+    },
+    "pagerfanta/pagerfanta": {
+        "version": "v2.7.1"
+    },
+    "react/promise": {
+        "version": "v2.8.0"
+    },
+    "ruflin/elastica": {
+        "version": "6.1.4"
     },
     "vich/uploader-bundle": {
         "version": "1.5",

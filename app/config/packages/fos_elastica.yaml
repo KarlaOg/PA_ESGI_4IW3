@@ -1,0 +1,16 @@
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/doc/setup.md
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9209 }
+    indexes:
+        app: 
+            types:
+                brands:
+                    properties:
+                        type: ~
+                        name: ~
+                        slug: ~
+                        keyword: ~
+                    persistence:
+                        driver: orm
+                        model: App\Entity\Brand

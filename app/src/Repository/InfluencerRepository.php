@@ -32,9 +32,8 @@ class InfluencerRepository extends ServiceEntityRepository
     public function findAllWithNames()
     {
         return $this->createQueryBuilder('i')
-            ->leftJoin('App:User', 'u', 'WITH', 'i.user = u.id')
-            ->select('DISTINCT u.firstname, u.lastname')
-            ->orderBy('u.lastname', 'ASC')
+            ->select('i.name')
+            ->orderBy('i.name', 'ASC')
             ->getQuery()
             ->getResult();
     }

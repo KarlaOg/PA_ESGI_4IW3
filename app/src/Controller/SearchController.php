@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\InfluencerRepository;
 use App\Repository\BrandRepository;
 use App\Repository\UserRepository;
+use App\Repository\OfferRepository;
 use App\Entity\Influencer;
 use App\Entity\User;
 
@@ -28,7 +29,7 @@ class SearchController extends AbstractController
     /**
      * @Route("/search/keyworddata", name="search_keyworddata")
      */
-    public function keyworddata(Request $request, InfluencerRepository $influencerRepository)
+    public function keyworddata(Request $request, InfluencerRepository $influencerRepository, BrandRepository $brandRepository, OfferRepository $offerRepository)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -38,6 +39,12 @@ class SearchController extends AbstractController
 
         if ($searchSelector == 'influencer') {
             $res = $influencerRepository->findAllWithNames();
+        }
+        elseif ($searchSelector == 'brand'){
+            $res = $brandRepository->findAllWithNames();
+        }
+        elseif ($searchSelector == 'domain'){
+            $res = $offerRepository->findAllWithNames();
         }
 
         return new JsonResponse($res); //return $this->render('users/editpass.html.twig');
