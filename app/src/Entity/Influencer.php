@@ -115,13 +115,13 @@ class Influencer
      * @return string
      */
 
-    public function __toString()
+/*    public function __toString()
     {
         if(is_null($this->applications)){
             return 'NULL';
         }
         return $this->applications;
-    }
+    }*/
 
     public function getId(): ?int
     {
