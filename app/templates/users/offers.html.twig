@@ -11,5 +11,18 @@
         Offres postuler
     </h1>
 
+    {% for application in applications %}
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ application.offer.name }}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">Offre N° {{ application.offer.id }} - Status {{ application.status }}</h6>
+                <p class="card-text">{{ application.offer.description }}</p>
+                <a href="{{ path('offer_show', {'id': application.offer.id}) }}" class="card-link">Voir l'offre </a>
+                <a href="#" class="card-link"></a>
+            </div>
+        </div>
+                {% dump application %}
+    {% endfor %}
+
 
 {% endblock %}
