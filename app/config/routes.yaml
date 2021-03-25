@@ -4,4 +4,4 @@ index:
 
 profil:
   path: user/edit
-  controller: App\Controller\UsersController::editProfile
+  controller: App\Controller\UserController::editProfile

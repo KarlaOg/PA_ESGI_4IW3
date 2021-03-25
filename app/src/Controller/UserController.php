@@ -18,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
-class UsersController extends AbstractController
+class UserController extends AbstractController
 {
 
     /**
@@ -75,7 +75,7 @@ class UsersController extends AbstractController
         $influcerInfos = $influencerRepository->findOneBy(['userId' => $user]);
         $brandInfos = $brandRepository->findOneBy(['UserId' => $user]);
 
-        if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
+        if ($user->getStatus() == ["ROLE_INFLUENCEUR"]) {
             $form = $this->createForm(InfluencerType::class, $influcerInfos);
             $form->handleRequest($request);
 

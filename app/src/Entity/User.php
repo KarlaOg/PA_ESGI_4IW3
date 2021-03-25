@@ -70,6 +70,11 @@ class User implements UserInterface, \Serializable
      */
     private $payments;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $status = [];
+
 
     // Pour les test unitaire (pas complet)
     public function isValid(): bool
@@ -285,5 +290,17 @@ class User implements UserInterface, \Serializable
     public function __toString()
     {
         return (string) $this->id;
+    }
+
+    public function getStatus(): ?array
+    {
+        return $this->status;
+    }
+
+    public function setStatus(array $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }

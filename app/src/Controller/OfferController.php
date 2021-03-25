@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Application;
 use App\Entity\Offer;
 
 use App\Form\OfferType;
 use App\Form\ApplicationType;
 use App\Repository\BrandRepository;
+use App\Repository\InfluencerRepository;
 use App\Repository\OfferRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -56,9 +58,6 @@ class OfferController extends AbstractController
         $user = $this->getUser();
 
         $brandId = $brandRepository->findOneBy(['UserId' => $user]);
-
-        if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
-        }
 
         $form = $this->createForm(OfferType::class, $offer);
 
@@ -136,8 +135,12 @@ class OfferController extends AbstractController
     /**
      * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
      */
-    public function apply(Offer $offer, Request $request)
+    public function apply(Offer $offer, Request $request, InfluencerRepository $influencerRepository)
     {
+        $user = $this->getUser();
+        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
+        // dd($user, $influencer);
+
         $form = $this->createForm(ApplicationType::class, $offer);
         $form->handleRequest($request);
 
@@ -145,7 +148,15 @@ class OfferController extends AbstractController
         $offer->setStatus($this->status = "En attente de validation");
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $application = new Application();
+            $offer->setApplication($application);
+            $application->setOffer($offer);
+            $application->addInfluencerId($influencer);
+            $application->setStatus("Vous venez de postulez à l'offre");
+
             $em = $this->getDoctrine()->getManager();
+            $em->persist($application);
+            // dd($offer, $application);
             $em->flush();
 
             $this->addFlash('success', 'Postuler à l\'offre en cours');
