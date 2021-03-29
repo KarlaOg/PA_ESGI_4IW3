@@ -8,7 +8,7 @@
   - [Technologies](#technologies)
 - [Lancement de l'app SANS DOCKER](#lancement-de-lapp-sans-docker)
   - [/!\ Attention tout se passe dans le dossier /app](#-attention-tout-se-passe-dans-le-dossier-app)
-  - [Setup](#setup)
+  - [Installation avec docker](#installation-avec-docker)
   - [Load fixtures](#load-fixtures)
   - [Authors](#authors)
 
@@ -35,7 +35,7 @@ Installation de composer
 composer install
 ```
 
-Créer un fichier ou edit le fichier .env.local
+Créer un fichier ou edit le fichier **.env.local**
 
 ```
 DATABASE_URL=mysql://user:password@127.0.0.1:3306/pa-sf?serverVersion=5.7
@@ -70,7 +70,7 @@ Install webpack
 yarn install
 ```
 
-## Setup
+## Installation avec docker
 
 To run this project, install it locally using:
 

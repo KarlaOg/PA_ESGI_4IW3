@@ -85,7 +85,7 @@ class Brand
     private $imageFile;
 
     /**
-     * @ORM\Column(type="datetime", options={ "default": "NOW()" }, nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime
      */
     private $updatedAt;
