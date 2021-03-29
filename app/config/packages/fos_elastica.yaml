@@ -3,14 +3,15 @@ fos_elastica:
     clients:
         default: { host: localhost, port: 9209 }
     indexes:
-        app: 
+        app:
             types:
-                brands:
-                    properties:
-                        type: ~
-                        name: ~
-                        slug: ~
-                        keyword: ~
+                brand:
                     persistence:
+                        # the driver can be orm, mongodb or phpcr
                         driver: orm
                         model: App\Entity\Brand
+                        provider: ~
+                        finder: ~
+                    properties:
+                        username: ~
+                        name: ~

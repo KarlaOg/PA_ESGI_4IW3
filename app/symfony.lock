@@ -20,6 +20,12 @@
             "config/packages/fos_elastica.yaml"
         ]
     },
+    "guzzlehttp/ringphp": {
+        "version": "1.1.1"
+    },
+    "guzzlehttp/streams": {
+        "version": "3.0.0"
+    },
     "jms/metadata": {
         "version": "2.4.0"
     },
