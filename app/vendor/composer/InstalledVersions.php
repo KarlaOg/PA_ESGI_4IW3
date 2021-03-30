@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '140ae6175081c6164e62b2279db69beec4d4407f',
+    'reference' => 'dee24fbcaae536587693d12e285d84c3539189b4',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '140ae6175081c6164e62b2279db69beec4d4407f',
+      'reference' => 'dee24fbcaae536587693d12e285d84c3539189b4',
     ),
     'behat/transliterator' => 
     array (
@@ -232,15 +232,6 @@ private static $installed = array (
       array (
       ),
       'reference' => '121af47c9aee9c03031bdeca3fac0540f59aa5c3',
-    ),
-    'fzaninotto/faker' => 
-    array (
-      'pretty_version' => 'v1.9.2',
-      'version' => '1.9.2.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '848d8125239d7dbf8ab25cb7f054f1a630e68c2e',
     ),
     'gedmo/doctrine-extensions' => 
     array (
