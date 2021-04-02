@@ -37,6 +37,7 @@ node_modules
 
 # IDE - PHPStorm
  .idea/
+  .idea/workspace.xml
  .idea/**/workspace.xml
 
 ###> symfony/webpack-encore-bundle ###
