@@ -15,7 +15,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="user_account")
  * @UniqueEntity("email")
  */
 class User implements UserInterface, \Serializable

@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Application;
+use App\Entity\User;
+
 use App\Entity\Brand;
 use App\Entity\Offer;
 use App\Form\BrandType;
@@ -15,8 +16,12 @@ use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
 
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -151,5 +156,50 @@ class UsersController extends AbstractController
         }
 
         return $this->render('users/editpass.html.twig');
+    }
+
+    /**
+     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, User $user): Response
+    {
+
+        // $active = 'delete';
+        // $user = $this->getUser();
+
+        // if ($user == null) {
+        //     return $this->redirectToRoute('home');
+        // }
+
+        // $form = $this->createFormBuilder()->getForm();
+        // $form->handleRequest($request);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $em = $this->getDoctrine()->getManager();
+        //     $em->remove($user);
+        //     $em->flush();
+
+        //     $this->get('security.context')->setToken(null);
+        //     $this->get('request')->getSession()->invalidate();
+
+        //     //$request->getSession()->getFlashBag()->add('notice', "Votre compte a bien été supprimé.");
+
+        //     return $this->redirectToRoute('home');
+        // }
+
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre compte utilisateur a bien été supprimé !');
+
+            $session = new Session();
+            $session->invalidate();
+        }
+
+        // return $this->redirectToRoute('home');
+
+        return $this->redirectToRoute('app_logout');
     }
 }
