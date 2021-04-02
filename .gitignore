@@ -35,6 +35,9 @@
 .history/*
 node_modules
 
+# IDE - PHPStorm
+ .idea/
+
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
