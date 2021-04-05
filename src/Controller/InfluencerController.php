@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\InfluencerRepository ; 
+use App\Entity\Influencer;
 
 class InfluencerController extends AbstractController
 {
@@ -30,7 +31,7 @@ class InfluencerController extends AbstractController
     }
     
         /**
-     * @Route("influencer/show/{slug}", name="influencer_show", methods={"GET"})
+        * @Route("influencer/show/{id}", name="influencer_show", methods={"GET"})
      */
     public function show(Influencer $influencer): Response
     {
