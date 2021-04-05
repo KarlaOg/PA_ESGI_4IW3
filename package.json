@@ -2,10 +2,12 @@
     "devDependencies": {
         "@symfony/stimulus-bridge": "^1.1.0",
         "@symfony/webpack-encore": "^1.0.0",
-        "sass-loader": "^10.1.1",
-        "node-sass": "^5.0.0"
+        "node-sass": "^5.0.0",
+        "sass-loader": "^10.1.1"
     },
     "dependencies": {
+        "jquery": "^3.6.0",
+        "list.js": "^2.3.1",
         "material-icons": "^0.5.2",
         "materialize-css": "^1.0.0"
     },
