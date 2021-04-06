@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\BrandRepository ; 
+use App\Repository\OfferRepository ; 
+use App\Entity\Brand;
+
 
 class BrandController extends AbstractController
 {
@@ -20,12 +23,27 @@ class BrandController extends AbstractController
     }
 
       /**
-     * @Route("/all_brand", name="all_brand")
+     * @Route("/all_brands", name="all_brands")
      */
     public function brands_list(BrandRepository $brandRepository) : Response
     {
         return $this->render('brand/list.html.twig', [
-            'brands' => $brandRepository->findBy([], ['position' => 'ASC'])
+            'brands' => $brandRepository->findAll()
         ]);
     }  
+
+      /**
+        * @Route("brand/{name}", name="brand_show", methods={"GET"})
+     */
+    public function show(Brand $brand, OfferRepository $offerRepository, BrandRepository $brandRepository): Response
+    {
+        $brandId = $brandRepository->findOneBy(['name' => $brand->getName()]);
+
+        $offers = $offerRepository->findBy(['brandId' => $brandId->getId()]);
+
+        return $this->render('brand/show.html.twig', [
+            'brand' => $brand,
+            'offers' => $offers
+        ]);
+    }
 }

@@ -19,7 +19,7 @@
                         <img class="h-10 w-10 rounded-full" src={{influencer.imageFile ? influencer.imageFile : "https://images.unsplash.com/photo-1504703395950-b89145a5425b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"}} alt="">
                       </div>
                       <div class="flex-1 min-w-0">
-                        <a href="{{ path('influencer_show', {'id': influencer.id}) }}" class="focus:outline-none">
+                        <a href="{{ path('influencer_show', {'name': influencer.name}) }}" class="focus:outline-none">
                           <!-- Extend touch target to entire panel -->
                           <span class="absolute inset-0" aria-hidden="true"></span>
                           <p class="text-sm font-medium text-gray-900">

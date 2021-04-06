@@ -31,7 +31,7 @@ class InfluencerController extends AbstractController
     }
     
         /**
-        * @Route("influencer/show/{id}", name="influencer_show", methods={"GET"})
+        * @Route("influencer/{name}", name="influencer_show", methods={"GET"})
      */
     public function show(Influencer $influencer): Response
     {
