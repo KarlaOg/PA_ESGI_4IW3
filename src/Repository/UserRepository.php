@@ -37,71 +37,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    public function findUser($rechercheRegEx){
-        return $this->createQueryBuilder('u')
-            ->select("u.firstname")
-            ->andWhere("u.firstname LIKE '#Mohand|Aitamara#'")
-            //->setParameter('pattern', $rechercheRegEx)
-            ->orderBy('u.id', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-    
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getBrandAndInfluencer()
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT * FROM user_account
+        LEFT JOIN brand ON user_account.id = brand.user_id_id
+        LEFT JOIN influencer ON user_account.id = influencer.user_id_id';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([]);
+
+        return $stmt->fetchAllAssociative();
     }
-    */
-
-    
-    // public function findOneBySomeField($value): ?User
-    // {
-    //     return $this->createQueryBuilder('u')
-    //         ->andWhere('u.exampleField = :val')
-    //         ->setParameter('val', $value)
-    //         ->getQuery()
-    //         ->getOneOrNullResult()
-    //     ;
-    // }
-
-    
-    // public function getUsersOffer($value): ?User
-    // {
-    //     $repository = $this->getDoctrine()
-    //     ->getManager()
-    //     ->getRepository(Offer::class);
-
-    //     $qb = $this->createQueryBuilder('u')
-    //         ->where('p.price > :price')
-    //         ->setParameter('price', $price)
-    //         ->orderBy('p.price', 'ASC');
-
-    //     if (!$includeUnavailableProducts) {
-    //         $qb->andWhere('p.available = TRUE');
-    //     }
-
-    //     $query = $qb->getQuery();
-
-    //     return $query->execute();
-
-    //     return $this->createQueryBuilder('u')
-    //         ->andWhere('u.exampleField = :val')
-    //         ->setParameter('val', $value)
-    //         ->getQuery()
-    //         ->getOneOrNullResult()
-    //     ;
-    // }
-    
-    
 }

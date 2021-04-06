@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Offer;
+use App\Repository\BrandRepository;
+use App\Repository\InfluencerRepository;
 use App\Repository\UserRepository;
 use App\Repository\OfferRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,20 +35,27 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/admin/list", name="home_admin")
+     * @Route("/admin/list/users", name="admin_list_users")
      */
-    public function adminList(UserRepository $userRepository)
+    public function adminListUsers(UserRepository $userRepository, BrandRepository $brandRepository, InfluencerRepository $influencerRepository)
+    {
+        $users = $userRepository->getBrandAndInfluencer();
+
+        return $this->render('home/admin/list_users.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/list/offers", name="admin_list_offers")
+     */
+    public function adminListOffers(OfferRepository $offerRepository)
     {
 
-
-        $users =  $userRepository->findAll();
-
-        // foreach ($users as $key) {
-        // array_values($users);
-
-
-        return $this->render('home/admin/index.html.twig', [
-            'users' => $users
+        $offers =  $offerRepository->findAll();
+        // dd($offers);
+        return $this->render('home/admin/list_offers.html.twig', [
+            'offers' => $offers
         ]);
     }
 }
