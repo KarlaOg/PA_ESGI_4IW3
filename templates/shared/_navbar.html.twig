@@ -35,7 +35,7 @@
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon profil</a>
 					{% if is_granted('ROLE_ADMIN') %}
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ path('home_admin') }}">List des utilisateurs</a>
+							<a class="dropdown-item" href="{{ path('admin_list_users') }}">List des utilisateurs</a>
 							{# <a class="dropdown-item" href="{{ path('offer_index') }}">Mes offres</a> #}
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
