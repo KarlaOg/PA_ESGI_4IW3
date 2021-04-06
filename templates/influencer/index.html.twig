@@ -53,44 +53,42 @@
 
 			<div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
 				<section aria-labelledby="payment_details_heading">
-					<form action="#" method="POST">
-						<div class="shadow sm:rounded-md sm:overflow-hidden">
-							<div class="bg-white py-6 px-4 sm:p-6">
-								{% for message in app.flashes('error') %}
-									<div class="col-xs4">
-										<div class="p-3 my-2 rounded-2 error">{{message}}</div>
-									</div>
-								{% endfor %}
-								<h3>Informations complémentaires</h3>
-								{{form_start(formView)}}
-								{{form_errors(formView)}}
-								<div class="row">
-									<div class="col">
-										{{form_row(formView.name)}}
-										{{form_row(formView.imageFile)}}
-										{{form_row(formView.username)}}
-										{{form_row(formView.description)}}
-										{{form_row(formView.siret)}}
-										{{form_row(formView.type)}}
-									</div>
-									<div class="col">
-										{{form_row(formView.website)}}
-										{{form_row(formView.instagram)}}
-										{{form_row(formView.facebook)}}
-										{{form_row(formView.youtube)}}
-										{{form_row(formView.twitter)}}
-										{{form_row(formView.twitch)}}
-										{{form_row(formView.tiktok)}}
-									</div>
+					<div class="shadow sm:rounded-md sm:overflow-hidden">
+						<div class="bg-white py-6 px-4 sm:p-6">
+							{% for message in app.flashes('error') %}
+								<div class="col-xs4">
+									<div class="p-3 my-2 rounded-2 error">{{message}}</div>
 								</div>
-
-								<button type="submit" class="btn btn-primary">
-									Sauvegarder</button>
-
-								{{form_end(formView)}}
-
+							{% endfor %}
+							<h3>Informations complémentaires</h3>
+							{{ form_start(formView, {'multipart':'true'}) }}
+							{{form_errors(formView)}}
+							<div class="row">
+								<div class="col">
+									{{form_row(formView.name)}}
+									{{form_row(formView.imageFile)}}
+									{{form_row(formView.username)}}
+									{{form_row(formView.description)}}
+									{{form_row(formView.siret)}}
+									{{form_row(formView.type)}}
+								</div>
+								<div class="col">
+									{{form_row(formView.website)}}
+									{{form_row(formView.instagram)}}
+									{{form_row(formView.facebook)}}
+									{{form_row(formView.youtube)}}
+									{{form_row(formView.twitter)}}
+									{{form_row(formView.twitch)}}
+									{{form_row(formView.tiktok)}}
+								</div>
 							</div>
-						</form>
+
+							<button type="submit" class="btn btn-primary">
+								Sauvegarder</button>
+
+							{{form_end(formView)}}
+
+						</div>
 					</section>
 				</div>
 			</div>
