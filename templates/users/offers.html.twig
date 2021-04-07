@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if applications is empty  %}
+        <div class="alert alert-dismissible alert-primary">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 class="alert-heading"> Vous avez postuler à aucune offre</h4>
+            <strong><p class="mb-0"><a  href="{{ path('offer_index') }}"> Voir plus d'offre !</a> </p></strong>
+        </div>
+    {% endif %}
+
+    {% for application in applications %}
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ application.offer.name }}</h4>
+                <h6 class="card-subtitle mb-2 text-muted"> Offre n° {{ application.id }} </h6>
+                <p class="card-text">  {{ application.offer.description }} </p>
+                <a href="{{ path('offer_show', {"id": application.id}) }}" class="card-link">Voir l'offre</a>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}

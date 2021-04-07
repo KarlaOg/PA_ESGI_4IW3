@@ -29,7 +29,7 @@ class Offer
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", length=65535)
      * @Assert\NotBlank
      */
     private $description;
@@ -65,10 +65,6 @@ class Offer
      */
     private $dateEnd;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $status;
 
     /**
      * @ORM\Column(type="json")

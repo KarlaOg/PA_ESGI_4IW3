@@ -46,19 +46,18 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/my_offers", name="users_offers")
+     * @Route("/offres", name="users_offers")
      */
 
-    public function usersOffers()
+    public function usersOffers(influencerRepository $influencerRepository)
     {
-        $em = $this->getDoctrine();
         $user = $this->getUser();
-        $influencer = $em->getRepository(Influencer::class)->find($user);
+        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
         // GET ALL APPLICATIONS AS DOCTRINE PERSISTENT COLLECTION
-        $allApplications = $em->getRepository(Influencer::class)->find($influencer)->getApplications();
+        $allApplications = $influencerRepository->find($influencer)->getApplications();
 
         return $this->render('users/offers.html.twig', [
-               "applications" => $allApplications
+            "applications" => $allApplications
 
         ]);
     }

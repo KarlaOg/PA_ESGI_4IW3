@@ -11,6 +11,8 @@ use App\Form\OfferType;
 use App\Form\ApplicationType;
 use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
+use App\Repository\ApplicationRepository;
+
 use App\Repository\OfferRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +26,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  *
  * @Route("/offer", name="offer_")
  */
-
 class OfferController extends AbstractController
 {
 
@@ -42,7 +43,7 @@ class OfferController extends AbstractController
         $offer = $repository->findBy([], ['dateCreation' => 'DESC']);
 
         return $this->render('offer/index.html.twig', [
-            'offers' =>  $offer,
+            'offers' => $offer,
             'brand' => $brand
         ]);
     }
@@ -60,7 +61,6 @@ class OfferController extends AbstractController
         $user = $this->getUser();
 
         $brandId = $brandRepository->findOneBy(['UserId' => $user]);
-
 
         $form = $this->createForm(OfferType::class, $offer);
 
@@ -88,7 +88,7 @@ class OfferController extends AbstractController
     /**
      * @Route("/show/{id}", name="show", methods={"GET"})
      */
-    public function show($id, Offer $offer, BrandRepository $brandRepository, OfferRepository $offerRepository)
+    public function show($id, Offer $offer, BrandRepository $brandRepository, OfferRepository $offerRepository,influencerRepository $influencerRepository, applicationRepository $applicationRepository)
     {
 
         $offerId = $offerRepository->find($id);
@@ -96,8 +96,12 @@ class OfferController extends AbstractController
         $this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
 
         $user = $this->getUser();
-
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
+
+        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
+        $currentOffer = $offerRepository->findOneBy(['id' => $id])->getApplication()->getValues();
+        dump($applicationRepository->find($influencer));
+
 
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,
@@ -138,12 +142,11 @@ class OfferController extends AbstractController
     /**
      * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
      */
-    public function apply(Offer $offer, Request $request , influencerRepository $influencerRepository )
+    public function apply(Offer $offer, Request $request, influencerRepository $influencerRepository)
     {
         $form = $this->createForm(ApplicationType::class, $offer);
         $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
         $influencer = $influencerRepository->findOneBy(['userId' => $user]);
@@ -170,7 +173,6 @@ class OfferController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
 
 
     /**
