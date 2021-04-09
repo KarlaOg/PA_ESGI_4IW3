@@ -33,29 +33,4 @@ class HomeController extends AbstractController
             'offers' => $offers,
         ]);
     }
-
-    /**
-     * @Route("/admin/list/users", name="admin_list_users")
-     */
-    public function adminListUsers(UserRepository $userRepository, BrandRepository $brandRepository, InfluencerRepository $influencerRepository)
-    {
-        $users = $userRepository->getBrandAndInfluencer();
-
-        return $this->render('home/admin/list_users.html.twig', [
-            'users' => $users,
-        ]);
-    }
-
-    /**
-     * @Route("/admin/list/offers", name="admin_list_offers")
-     */
-    public function adminListOffers(OfferRepository $offerRepository)
-    {
-
-        $offers =  $offerRepository->findAll();
-        // dd($offers);
-        return $this->render('home/admin/list_offers.html.twig', [
-            'offers' => $offers
-        ]);
-    }
 }

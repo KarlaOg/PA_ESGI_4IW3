@@ -1,4 +1,7 @@
 const Encore = require('@symfony/webpack-encore');
+const PurgeCssPlugin = require('purgecss-webpack-plugin');
+const glob = require('glob-all');
+const path = require('path');
 
 //test si on est en environnement de dev ou de prod
 if (!Encore.isRuntimeEnvironmentConfigured()) {
@@ -23,6 +26,7 @@ Encore
   .enableSassLoader()
   .splitEntryChunks()
   .enableSingleRuntimeChunk()
+  .enablePostCssLoader()
 
   /*
    * FEATURE CONFIG
@@ -39,4 +43,14 @@ Encore
 // uncomment if you're having problems with a jQuery plugin
 //.autoProvidejQuery()
 
+if (Encore.isProduction()) {
+  Encore.addPlugin(
+    new PurgeCssPlugin({
+      paths: glob.sync([path.join(__dirname, 'templates/**/*.html.twig')]),
+      defaultExtractor: (content) => {
+        return content.match(/[\w-/:]+(?<!:)/g) || [];
+      },
+    })
+  );
+}
 module.exports = Encore.getWebpackConfig();
