@@ -164,29 +164,6 @@ class UsersController extends AbstractController
     public function delete(Request $request, User $user): Response
     {
 
-        // $active = 'delete';
-        // $user = $this->getUser();
-
-        // if ($user == null) {
-        //     return $this->redirectToRoute('home');
-        // }
-
-        // $form = $this->createFormBuilder()->getForm();
-        // $form->handleRequest($request);
-
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $em = $this->getDoctrine()->getManager();
-        //     $em->remove($user);
-        //     $em->flush();
-
-        //     $this->get('security.context')->setToken(null);
-        //     $this->get('request')->getSession()->invalidate();
-
-        //     //$request->getSession()->getFlashBag()->add('notice', "Votre compte a bien été supprimé.");
-
-        //     return $this->redirectToRoute('home');
-        // }
-
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
