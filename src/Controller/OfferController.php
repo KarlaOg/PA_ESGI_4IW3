@@ -37,9 +37,12 @@ class OfferController extends AbstractController
 
         $offer = $repository->findBy([], ['dateCreation' => 'DESC']);
 
+        $datenow = new \DateTime("now");
+
         return $this->render('offer/index.html.twig', [
             'offers' =>  $offer,
-            'brand' => $brand
+            'brand' => $brand,
+            'datenow' => $datenow
         ]);
     }
 
