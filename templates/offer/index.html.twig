@@ -36,25 +36,27 @@
 					{% endif %}
 				</div>
 				{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
-					<div class="card mb-3">
-						<div class="card-body">
-							<p>Marque :
+					{% if offer.dateEnd > datenow %}
+						<div class="card mb-3">
+							<div class="card-body">
+								<p>Marque :
 									{{ offer.brandId.name|capitalize }}</p>
-							<p>Nom :
-								{{ offer.name|capitalize }}</p>
-							<p>Description :
-								{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
-							</p>
-							<p>Dates :
-								{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
-								-
-								{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
-							</p>
-							<div class="card-action">
-								<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
+								<p>Nom :
+									{{ offer.name|capitalize }}</p>
+								<p>Description :
+									{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+								</p>
+								<p>Dates :
+									{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
+									-
+									{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+								</p>
+								<div class="card-action">
+									<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
+								</div>
 							</div>
 						</div>
-					</div>
+					{% endif %}
 				{% endif %}
 			{% endfor %}
 		{% endif %}
