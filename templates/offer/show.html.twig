@@ -5,7 +5,9 @@
 
 {% block body %}
 	<h1>{{ offer.name|capitalize }}</h1>
-	<h2>Marque : {{ offer.brandId.name}} </h2>
+	<h2>Marque :
+		{{ offer.brandId.name}}
+	</h2>
 	<div class="card mb-3">
 		<div class="card-body">
 			<p>Nom :
@@ -14,9 +16,9 @@
 				{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
 			</p>
 			<p>Dates :
-				{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
+				{{ offer.dateStart ? offer.dateStart|date(''d/m/Y'') : 'NC'}}
 				-
-				{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+				{{ offer.dateEnd ? offer.dateEnd|date(''d/m/Y'') : 'NC'}}
 			</p>
 			<div class="card-action">
 				{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
