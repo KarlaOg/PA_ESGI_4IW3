@@ -84,6 +84,7 @@ class Influencer
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+<<<<<<< HEAD:src/Entity/Influencer.php
     private $profilePhoto;
 
     /**
@@ -101,6 +102,8 @@ class Influencer
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+=======
+>>>>>>> 24d7c8a5e4c52c1c87c360575386c25c4ef947a2:app/src/Entity/Influencer.php
     private $name;
 
     public function __construct()
@@ -244,6 +247,7 @@ class Influencer
         return $this;
     }
 
+<<<<<<< HEAD:src/Entity/Influencer.php
     public function getProfilePhoto(): ?string
     {
         return $this->profilePhoto;
@@ -287,6 +291,8 @@ class Influencer
         return $this;
     }
 
+=======
+>>>>>>> 24d7c8a5e4c52c1c87c360575386c25c4ef947a2:app/src/Entity/Influencer.php
     public function getName(): ?string
     {
         return $this->name;
