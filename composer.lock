@@ -4,11 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD:composer.lock
+
     "content-hash": "ec71a717c3111a8f4c58f8756816de76",
-=======
-    "content-hash": "44605be5e708e6cb56f06392f1df00ad",
->>>>>>> 24d7c8a5e4c52c1c87c360575386c25c4ef947a2:app/composer.lock
     "packages": [
         {
             "name": "behat/transliterator",
