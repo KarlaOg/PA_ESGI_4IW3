@@ -26,6 +26,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  *
  * @Route("/offer", name="offer_")
  */
+
 class OfferController extends AbstractController
 {
 
@@ -43,7 +44,7 @@ class OfferController extends AbstractController
         $offer = $repository->findBy([], ['dateCreation' => 'DESC']);
 
         return $this->render('offer/index.html.twig', [
-            'offers' => $offer,
+            'offers' =>  $offer,
             'brand' => $brand
         ]);
     }
@@ -61,6 +62,7 @@ class OfferController extends AbstractController
         $user = $this->getUser();
 
         $brandId = $brandRepository->findOneBy(['UserId' => $user]);
+
 
         $form = $this->createForm(OfferType::class, $offer);
 
@@ -178,6 +180,7 @@ class OfferController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
 
 
     /**
