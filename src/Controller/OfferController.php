@@ -193,7 +193,7 @@ class OfferController extends AbstractController
   /**
     * @Route("/voir_candidatures/{id}", name="voir_candidatures")
     */
-    public function voir_candidatures($id, Offer $offer)
+    public function voir_candidatures($id, Offer $offer, InfluencerRepository $influencerRepository)
     {
         return $this->render('offer/candidatures.html.twig');
     }
