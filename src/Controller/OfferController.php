@@ -193,12 +193,55 @@ class OfferController extends AbstractController
   /**
     * @Route("/voir_candidatures/{id}", name="voir_candidatures")
     */
-    public function voir_candidatures($id, Offer $offer, InfluencerRepository $influencerRepository)
+    public function voir_candidatures($id, Offer $offer, BrandRepository $brandRepository, InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
     {
+<<<<<<< HEAD
         return $this->render('offer/candidatures.html.twig');
+=======
+        $user = $this->getUser();
+        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
+       
+        //recupere tt les applications de l'offre en question
+        $applications = $offerRepository->findOneby([
+            'id' => $id
+        ])->getApplication();
+
+        $influencers = array();
+        //on recupere l'influenceur lié à l'application.
+        foreach($applications as $application) {
+            $influencers = array_merge($application->getInfluencerId()->toArray(), $influencers);
+        }
+
+        return $this->render('offer/candidatures.html.twig', [
+            'influencers' => $influencers
+        ]);
+>>>>>>> 2e5dce61... ajout les utilisateurs qui ont postuler ok
     }
 
+    /**
+    * @Route("/validated_partnership/{id}", name="validated_partnership")
+    */
+    public function validated_partnership($id,  Request $request, Offer $offer, InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
+    {
+        $user = $this->getUser();
+        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
+   
+        //recupere tt les applications de l'offre en question
+        $applications = $offerRepository->findOneby([
+            'id' => $id
+        ])->getApplication();
 
+        $application->setStatus("validate");
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($application);
+        $em->flush();
+
+        $this->addFlash('success', 'Valider le partenariat');
+
+
+        return null;
+    }
 
     /**
      * @Route("/delete/{id}/{token}", name="delete", methods={"GET"})
