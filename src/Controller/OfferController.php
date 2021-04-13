@@ -101,17 +101,12 @@ class OfferController extends AbstractController
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
         $influencer = $influencerRepository->findOneBy(['userId' => $user]);
-        if ( $user->getRoles() == "ROLE_MARQUE"){
-            dd('fihjgihfgfh');
-        }
-
-        //$application = $applicationRepository->find($influencer);
+        $application = $applicationRepository->find($influencer);
 
 
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,
             'brand' => $brand,
-           'influencer'=> $influencer,
 
         ]);
     }
