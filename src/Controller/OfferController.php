@@ -55,24 +55,20 @@ class OfferController extends AbstractController
             'offerApplied' => $offerApplied,
         ]);
     }
-
-    /**
+   /**
      * @Route("/new", name="new", methods={"GET", "POST"})
      * @IsGranted("ROLE_MARQUE", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
 
     public function new(Request $request, BrandRepository $brandRepository)
     {
-
         $offer = new Offer();
 
         $user = $this->getUser();
 
         $brandId = $brandRepository->findOneBy(['user' => $user]);
 
-
         $form = $this->createForm(OfferType::class, $offer);
-
         $form->handleRequest($request);
 
         $user = $this->getUser();
@@ -153,7 +149,7 @@ class OfferController extends AbstractController
         ]);
     }
 
-    /**
+  /**
      * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
      */
     public function apply(Offer $offer, Request $request, influencerRepository $influencerRepository, applicationRepository $applicationRepository)
@@ -192,6 +188,14 @@ class OfferController extends AbstractController
             'form' => $form->createView(),
             'influencer' => $influencer
         ]);
+    }
+
+  /**
+    * @Route("/voir_candidatures/{id}", name="voir_candidatures")
+    */
+    public function voir_candidatures($id, Offer $offer)
+    {
+        return $this->render('offer/candidatures.html.twig');
     }
 
 
