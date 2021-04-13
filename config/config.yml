@@ -1,0 +1,5 @@
+fos_elastica:
+  indexes:
+    app: ~
+    provider: ~
+      finder: ~
