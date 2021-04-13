@@ -88,4 +88,26 @@ class InfluencerRepository extends ServiceEntityRepository
     }
     */
 
+
+    /*
+     public function findInfluencer($value){
+            return $this->createQueryBuilder('i')
+                ->where('i.userId = :value')
+                ->setParameter('value', $value)
+                ->getQuery()
+                ->getResult()
+        ;
+     }
+    */
+
+    /*
+    public function findApplications($value){
+        return $this->createQueryBuilder('i')
+            ->where('i.applications = :value')
+            ->setParameter('value', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+     }
+    */
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OfferRepository;
 use Doctrine\ORM\Mapping\JoinColumn;
@@ -26,7 +28,8 @@ class Offer
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", length=65535)
+     * @Assert\NotBlank
      */
     private $description;
 
@@ -59,6 +62,7 @@ class Offer
      * )
      */
     private $dateEnd;
+
 
     /**
      * @ORM\Column(type="json")
@@ -145,7 +149,7 @@ class Offer
 
     public function getDateEnd(): ?\DateTimeInterface
     {
-        return $this->dateEnd ;
+        return $this->dateEnd;
     }
 
     public function setDateEnd(\DateTimeInterface $dateEnd): self

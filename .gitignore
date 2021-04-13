@@ -35,10 +35,12 @@
 .history/*
 node_modules
 
-# IDE - PHPStorm
- .idea/
-  .idea/workspace.xml
- .idea/**/workspace.xml
+# IDE - PHPSTORM
+.idea/
+.idea/workspace.xml
+.idea/**
+.idea/**/workspace.xml
+
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
