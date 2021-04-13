@@ -31,7 +31,13 @@
 			{% if app.user and app.user.roles[0] == "ROLE_INFLUENCEUR" %}
 
 				<a class="mr-3 text-muted" href=" {{path('offer_index')}} ">Liste des offres</a>
+				<a href="{{ path('all_brands') }}" class="btn btn-primary" class="btn-floating btn-large waves-effect waves-light">
+					Annuaire marques
+				</a>
 			{% else %}
+				<a href="{{ path('all_influencers') }}" class="btn btn-primary" class="btn-floating btn-large waves-effect waves-light">
+					Annuaire influenceurs
+				</a>
 				<a href="{{ path('offer_new') }}" class="btn btn-primary" class="btn-floating btn-large waves-effect waves-light">
 					Créer une nouvelle offre
 				</a>

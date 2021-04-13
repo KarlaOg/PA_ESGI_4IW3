@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de
+	{{ brand.name }}
+
+{% endblock %}
+
+{% block body %}
+          <main>
+            <!-- Profile header -->
+        <a href="{{ path('all_brands')}}" class="inline-flex justify-center mb-3 px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+        <span>Retour</span>
+        </a>
+            <div>
+              <div class="bg-dark" style="height:200px; width: auto; max-width:100%; position:relative; z-index:-1;">
+              </div>
+              <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+                  <div class="flex">
+                    <img class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32" src={{vich_uploader_asset(brand, 'imageFile') ?  vich_uploader_asset(brand, 'imageFile')  : "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=1024&amp;h=1024&amp;q=80"}} alt="">
+                  </div>
+                  <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                    <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
+                      <h1 class="text-2xl font-bold text-gray-900 truncate">
+                        {{brand.name}}
+                      </h1>
+                    </div>
+                    <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+                      <button type="button" class="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+                        <svg class="-ml-1 mr-2 h-5 w-5 text-gray-400" x-description="Heroicon name: solid/mail" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+</svg>
+                        <span>Message</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
+                  <h1 class="text-2xl font-bold text-gray-900 truncate">
+                    {{brand.name}}
+                  </h1>
+                    <p>
+                       @{{brand.username}}
+                    </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="mt-6 sm:mt-2 2xl:mt-5">
+              <div class="border-b border-gray-200">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-gray-900 whitespace-nowrap py-4 px-1 font-medium text-sm">
+                      Toutes les offres de {{brand.name}}
+                    </h2>
+                </div>
+              </div>
+            </div>
+
+            <!-- Description list -->
+            <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+              {% for offer in offers  %}
+                <div class="card mb-3">
+						<div class="card-body">
+							<p>Nom :
+								{{ offer.name|capitalize }}</p>
+							<p>Description :
+								{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+							</p>
+							<p>Dates :
+								{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
+								-
+								{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+							</p>
+							<div class="card-action">
+								<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
+							</div>
+						</div>
+					</div>
+                {% endfor %}
+              </dl>
+            </div>
+            </div>
+          </main>
+{% endblock %}
