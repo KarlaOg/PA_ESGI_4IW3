@@ -4,7 +4,6 @@
 {% endblock %}
 
 {% block body %}
-
 	<h1>{{ offer.name|capitalize }}</h1>
 	<h2>Marque : {{ offer.brandId.name}} </h2>
 	<div class="card mb-3">
@@ -21,7 +20,7 @@
 			</p>
 			<div class="card-action">
 				{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
-					<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-success">Postuler</a>
+					<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-success  ">Postuler</a>
 				{% endif %}
 				{% if app.user.roles[0] == "ROLE_MARQUE" %}
 					{% if offer.brandId.id == brand.id  %}
