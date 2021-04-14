@@ -211,6 +211,14 @@ class OfferController extends AbstractController
          $application = $applicationRepository->findOneby([
             'id' => $applicationId
         ]);
+
+        // $refused = $applicationRepository->findBy([
+        //     'offer_id' => $id
+        //   //  'id' different $applicationid
+        // ]);
+        //boucle et pour chacun dentre eux je fait un setStatus
+
+
         dump($application);
         $validate = $application->setStatus("validated");
         $em = $this->getDoctrine()->getManager();
