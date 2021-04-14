@@ -206,12 +206,14 @@ class OfferController extends AbstractController
             'id' => $id
         ])->getApplication();
 
+       
         $influencers = array();
         //on recupere l'influenceur lié à l'application.
         foreach($applications as $application) {
             $influencers = array_merge($application->getInfluencerId()->toArray(), $influencers);
+            //dump($application->getId());
         }
-
+ 
         return $this->render('offer/candidatures.html.twig', [
             'influencers' => $influencers,
             'applications' => $applications
@@ -222,20 +224,26 @@ class OfferController extends AbstractController
     /**
     * @Route("/validated_partnership/{id}", name="validated_partnership")
     */
-    public function validated_partnership($id,  Request $request, Offer $offer, InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
+    public function validated_partnership($id, $applicationId, Request $request, Offer $offer, InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
     {
         $user = $this->getUser();
         $influencer = $influencerRepository->findOneBy(['userId' => $user]);
 
-        $application->setStatus("validate");
+        //recupere tt les applications de l'offre en question
+        $applications = $offerRepository->findOneby([
+            'id' => $id
+        ])->getApplication();
 
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($application);
-        // $em->flush();
+        dump($applications);
+
+        $validate = $applications->setStatus("validated");
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($validate);
+        $em->flush();
 
         $this->addFlash('success', 'Valider le partenariat');
 
-return $this->render('offer/candidatures.html.twig');
+        return $this->render('offer/validate.html.twig');
     }
 
     /**
