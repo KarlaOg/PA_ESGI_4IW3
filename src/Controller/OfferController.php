@@ -193,12 +193,20 @@ class OfferController extends AbstractController
     }
 
   /**
-    * @Route("/voir_candidatures/{id}", name="voir_candidatures")
+    * @Route("/show_applications/{id}", name="show_applications")
     */
-    public function voir_candidatures($id, Offer $offer, BrandRepository $brandRepository, InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
+    public function show_applications($id, Offer $offer, BrandRepository $brandRepository, InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
     {
 
-        return $this->render('offer/candidatures.html.twig');
+        //on recupere l'influenceur lié à l'application.
+        foreach($applications as $application) {
+            $influencers = array_merge($application->getInfluencerId()->toArray(), $influencers);
+        }
+ 
+        return $this->render('offer/application.html.twig', [
+            'influencers' => $influencers,
+            'applications' => $applications
+        ]);
     }
 
     /**
