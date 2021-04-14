@@ -90,7 +90,7 @@ class OfferController extends AbstractController
     /**
      * @Route("/show/{id}", name="show", methods={"GET"})
      */
-    public function show($id, Offer $offer, BrandRepository $brandRepository, OfferRepository $offerRepository,influencerRepository $influencerRepository, applicationRepository $applicationRepository)
+    public function show($id, Offer $offer, BrandRepository $brandRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository, applicationRepository $applicationRepository)
     {
 
         $offerId = $offerRepository->find($id);
@@ -101,7 +101,7 @@ class OfferController extends AbstractController
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
         $influencer = $influencerRepository->findOneBy(['userId' => $user]);
-        $application = $applicationRepository->find($influencer);
+        // $application = $applicationRepository->find($influencer);
 
 
         return $this->render('offer/show.html.twig', [
