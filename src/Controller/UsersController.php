@@ -98,7 +98,7 @@ class UsersController extends AbstractController
     public function complete(Request $request, EntityManagerInterface $em, InfluencerRepository $influencerRepository, BrandRepository $brandRepository)
     {
         $user = $this->getUser();
-        $influcerInfos = $influencerRepository->findOneBy(['userId' => $user]);
+        $influcerInfos = $influencerRepository->findOneBy(['UserId' => $user]);
         $brandInfos = $brandRepository->findOneBy(['UserId' => $user]);
 
         if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
