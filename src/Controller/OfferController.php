@@ -157,6 +157,8 @@ class OfferController extends AbstractController
         $form = $this->createForm(ApplicationType::class, $offer);
         $form->handleRequest($request);
 
+
+
         $user = $this->getUser();
 
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
@@ -195,53 +197,48 @@ class OfferController extends AbstractController
     */
     public function voir_candidatures($id, Offer $offer, BrandRepository $brandRepository, InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
     {
-<<<<<<< HEAD
-        return $this->render('offer/candidatures.html.twig');
-=======
-        $user = $this->getUser();
-        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
-       
-        //recupere tt les applications de l'offre en question
-        $applications = $offerRepository->findOneby([
-            'id' => $id
-        ])->getApplication();
 
-       
-        $influencers = array();
-        //on recupere l'influenceur lié à l'application.
-        foreach($applications as $application) {
-            $influencers = array_merge($application->getInfluencerId()->toArray(), $influencers);
-            //dump($application->getId());
-        }
- 
-        return $this->render('offer/candidatures.html.twig', [
-            'influencers' => $influencers,
-            'applications' => $applications
-        ]);
->>>>>>> 2e5dce61... ajout les utilisateurs qui ont postuler ok
+        return $this->render('offer/candidatures.html.twig');
     }
 
     /**
     * @Route("/validated_partnership/{id}", name="validated_partnership")
     */
-    public function validated_partnership($id, $applicationId, Request $request, Offer $offer, InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
+    public function validated_partnership($id, Request $request, Offer $offer, ApplicationRepository $applicationRepository ,  InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
     {
-        $user = $this->getUser();
-        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
-
-        //recupere tt les applications de l'offre en question
-        $applications = $offerRepository->findOneby([
-            'id' => $id
-        ])->getApplication();
-
-        dump($applications);
-
-        $validate = $applications->setStatus("validated");
+        $applicationId = $request->get('application');
+       
+         $application = $applicationRepository->findOneby([
+            'id' => $applicationId
+        ]);
+        dump($application);
+        $validate = $application->setStatus("validated");
         $em = $this->getDoctrine()->getManager();
         $em->persist($validate);
         $em->flush();
 
         $this->addFlash('success', 'Valider le partenariat');
+
+        return $this->render('offer/validate.html.twig');
+    }
+
+   /**
+    * @Route("/refuse_partnership/{id}", name="refuse_partnership")
+    */
+    public function refuse_partnership($id, Request $request, Offer $offer, ApplicationRepository $applicationRepository ,  InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
+    {
+        $applicationId = $request->get('application');
+       
+         $application = $applicationRepository->findOneby([
+            'id' => $applicationId
+        ]);
+        dump($application);
+        $validate = $application->setStatus("refuse");
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($validate);
+        $em->flush();
+
+        $this->addFlash('success', 'Refuser le partenariat');
 
         return $this->render('offer/validate.html.twig');
     }

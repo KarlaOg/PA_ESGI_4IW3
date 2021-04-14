@@ -12,19 +12,20 @@
 		<p>Il n'y a pas de candidature pour le moment. </br> Laissez le temps aux influenceurs de voir votre offre.</p>
 	{% endif %}
 	{% for influencer in influencers %}
-		{% for application in applications %}
+		{% if applications[loop.index0].status == "pending" %}
 		<div class="card mb-3">
 			<div class="card-body">
 				<p>Nom : {{ influencer.username|capitalize }}</p>
 				</p>
 				<a href="">Voir le profil</a>
-				<div class="card-action">
-					<a href="{{ path('offer_validated_partnership', {'id': influencer.id, 'applicationId': application.id}) }}" class="btn btn-success">Valider le partenariat</a>
-					<a href="" class="btn btn-danger">Refuser le partenariat</a>
-				</div>
+				
+					<div class="card-action">
+						<a href="{{ path('offer_validated_partnership', {'id': influencer.id, 'application': applications[loop.index0].id }) }}" class="btn btn-success">Valider le partenariat</a>
+						<a href="{{ path('offer_refuse_partnership', {'id': influencer.id, 'application': applications[loop.index0].id }) }}" class="btn btn-danger">Refuser le partenariat</a>
+					</div>
 			</div>
 		</div>
-		{% endfor %}
+		{% endif %}
 	{% endfor %}
 
 {% endblock %}
