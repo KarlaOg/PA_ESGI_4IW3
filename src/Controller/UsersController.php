@@ -47,7 +47,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/offres", name="users_offers")
+     * @Route("/offers", name="users_offers")
      * @IsGranted("ROLE_INFLUENCEUR", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
 
