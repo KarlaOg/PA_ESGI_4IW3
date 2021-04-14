@@ -103,8 +103,6 @@ class OfferController extends AbstractController
         $user = $this->getUser();
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
-       dump($applicationRepository->findApplicationAndInfluencer($id));
-       // if null bc no application has been made
         // $influencer = $influencerRepository->findOneBy(['userId' => $user]);
         // $application = $applicationRepository->find($influencer);
 
