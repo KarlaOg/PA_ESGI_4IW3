@@ -8,6 +8,9 @@
 
 {% block body %}
 	<h1>Candidatures</h1>
+	{% if influencers is empty %}
+		<p>Il n'y a pas de candidature pour le moment. </br> Laissez le temps aux influenceurs de voir votre offre.</p>
+	{% endif %}
 	{% for influencer in influencers %}
 		<div class="card mb-3">
 			<div class="card-body">
@@ -15,7 +18,7 @@
 				</p>
 				<a href="">Voir le profil</a>
 				<div class="card-action">
-					<a href="{{ path('offer_validated_partnership', {'id': influencer.id}) }}" class="btn btn-success">Valider le partenariat</a>
+					<a href="" class="btn btn-success">Valider le partenariat</a>
 					<a href="" class="btn btn-danger">Refuser le partenariat</a>
 				</div>
 			</div>

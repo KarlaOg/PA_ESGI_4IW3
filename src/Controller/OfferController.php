@@ -213,7 +213,8 @@ class OfferController extends AbstractController
         }
 
         return $this->render('offer/candidatures.html.twig', [
-            'influencers' => $influencers
+            'influencers' => $influencers,
+            'applications' => $applications
         ]);
 >>>>>>> 2e5dce61... ajout les utilisateurs qui ont postuler ok
     }
@@ -225,22 +226,16 @@ class OfferController extends AbstractController
     {
         $user = $this->getUser();
         $influencer = $influencerRepository->findOneBy(['userId' => $user]);
-   
-        //recupere tt les applications de l'offre en question
-        $applications = $offerRepository->findOneby([
-            'id' => $id
-        ])->getApplication();
 
         $application->setStatus("validate");
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($application);
-        $em->flush();
+        // $em = $this->getDoctrine()->getManager();
+        // $em->persist($application);
+        // $em->flush();
 
         $this->addFlash('success', 'Valider le partenariat');
 
-
-        return null;
+return $this->render('offer/candidatures.html.twig');
     }
 
     /**
