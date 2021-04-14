@@ -72,11 +72,6 @@ class Influencer
     private $type = [];
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
-     */
-    private $userId;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
@@ -102,6 +97,16 @@ class Influencer
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="influencer")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $UserId;
+
+
+
+
 
     public function __construct()
     {
@@ -234,17 +239,6 @@ class Influencer
         return $this;
     }
 
-    public function getUserId(): ?User
-    {
-        return $this->userId;
-    }
-
-    public function setUserId(?User $userId): self
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -309,6 +303,18 @@ class Influencer
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->UserId;
+    }
+
+    public function setUserId(?User $UserId): self
+    {
+        $this->UserId = $UserId;
 
         return $this;
     }

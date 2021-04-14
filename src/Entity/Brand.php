@@ -27,6 +27,7 @@ class Brand
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="brands")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $UserId;
 
