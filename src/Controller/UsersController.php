@@ -2,22 +2,23 @@
 
 namespace App\Controller;
 
-use App\Entity\Application;
 use App\Entity\Brand;
 use App\Entity\Offer;
 use App\Form\BrandType;
 use App\Entity\Influencer;
-use App\Form\ApplicationType;
+use App\Entity\Application;
 use App\Form\InfluencerType;
+use App\Form\ApplicationType;
 use App\Form\EditProfileType;
-use App\Repository\ApplicationRepository;
 use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ApplicationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
@@ -46,7 +47,8 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/offres", name="users_offers")
+     * @Route("/offers", name="users_offers")
+     * @IsGranted("ROLE_INFLUENCEUR", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
 
     public function usersOffers(influencerRepository $influencerRepository)
