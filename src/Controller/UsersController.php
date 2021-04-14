@@ -8,7 +8,6 @@ use App\Entity\Brand;
 use App\Entity\Offer;
 use App\Form\BrandType;
 use App\Entity\Influencer;
-use App\Entity\Application;
 use App\Form\InfluencerType;
 use App\Form\ApplicationType;
 use App\Form\EditProfileType;
@@ -58,7 +57,8 @@ class UsersController extends AbstractController
      * @Route("/offers", name="users_offers")
      * @IsGranted("ROLE_INFLUENCEUR", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
-    public function usersOffers(influencerRepository $influencerRepository, brandRepository $brandRepository , offerRepository $offerRepository)
+
+    public function usersOffers(influencerRepository $influencerRepository)
     {
         $user = $this->getUser();
         $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
