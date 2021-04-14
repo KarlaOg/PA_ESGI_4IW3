@@ -4,6 +4,10 @@
 {% endblock %}
 
 {% block body %}
+
+	{{ dump(application.influencerId) }}
+	{{ dump(influencer) }}
+
 	<h1>{{ offer.name|capitalize }}</h1>
 	<h2>Marque :
 		{{ offer.brandId.name}}

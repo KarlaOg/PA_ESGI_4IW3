@@ -2,16 +2,7 @@
 
 {% block body %}
 
-    {% if user.roles[0] == "ROLE_MARQUE" %}
-        {% if offer is empty  %}
-            <div class="alert alert-dismissible alert-primary">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <h4 class="alert-heading"> Vous avez postuler à aucune offre</h4>
-                <strong><p class="mb-0"><a  href="{{ path('offer_new') }}"> Voir plus d'offre !</a> </p></strong>
-            </div>
-        {% endif %}
-    {% endif %}
-    {% if user.roles[0] == "INFLUENCEUR" %}
+
         {% if applications is empty  %}
             <div class="alert alert-dismissible alert-primary">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -31,7 +22,7 @@
             </div>
 
         {% endfor %}
-    {% endif %}
+
 
 
 
