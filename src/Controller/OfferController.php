@@ -109,6 +109,8 @@ class OfferController extends AbstractController
         $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
 
         $apply = $applicationRepository->findAll();
+        $influencer = $influencerRepository->findOneBy(['id' => $user]);
+        // $application = $applicationRepository->find($influencer);
 
 
         return $this->render('offer/show.html.twig', [
