@@ -63,7 +63,6 @@ class OfferController extends AbstractController
     public function new(Request $request, BrandRepository $brandRepository)
     {
         $offer = new Offer();
-
         $user = $this->getUser();
 
         $brandId = $brandRepository->findOneBy(['user' => $user]);
@@ -95,7 +94,6 @@ class OfferController extends AbstractController
      */
     public function show($id, Offer $offer, BrandRepository $brandRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository, applicationRepository $applicationRepository)
     {
-
         $offerId = $offerRepository->find($id);
 
         // J'ai commenté cette ligne, car sinon impoossible de postuler à l'ofrre
@@ -197,7 +195,7 @@ class OfferController extends AbstractController
   /**
     * @Route("/show_applications/{id}", name="show_applications")
     */
-    public function show_applications($id, Offer $offer, BrandRepository $brandRepository, InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
+    public function show_applications($id, OfferRepository $offerRepository)
     {
 
         //on recupere l'influenceur lié à l'application.
@@ -214,27 +212,29 @@ class OfferController extends AbstractController
     /**
     * @Route("/validated_partnership/{id}", name="validated_partnership")
     */
-    public function validated_partnership($id, Request $request, Offer $offer, ApplicationRepository $applicationRepository ,  InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
+    public function validated_partnership($id, Request $request, ApplicationRepository $applicationRepository)
     {
         $applicationId = $request->get('application');
        
-         $application = $applicationRepository->findOneby([
-            'id' => $applicationId
-        ]);
-
-        // $refused = $applicationRepository->findBy([
-        //     'offer_id' => $id
-        //   //  'id' different $applicationid
-        // ]);
+        $applications = $applicationRepository->findBy([
+            'offer_id' => $id
+         ]);
+        dump($applications);
         //boucle et pour chacun dentre eux je fait un setStatus
-
-
-        dump($application);
-        $validate = $application->setStatus("validated");
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($validate);
-        $em->flush();
-
+        foreach ($applications as $application) {
+            if($application->getId() == $applicationId) {
+                $validate = $application->setStatus("validated");
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($validate);
+                $em->flush();
+            }
+            else{
+                $validate = $application->setStatus("refused");
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($validate);
+                $em->flush();
+            }
+        }
         $this->addFlash('success', 'Valider le partenariat');
 
         return $this->render('offer/validate.html.twig');
@@ -284,4 +284,5 @@ class OfferController extends AbstractController
 
         return $this->redirectToRoute('offer_index');
     }
+
 }
