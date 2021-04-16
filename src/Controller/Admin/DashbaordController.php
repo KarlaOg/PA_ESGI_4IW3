@@ -29,11 +29,17 @@ class DashbaordController extends AbstractController
     public function adminListUsers(UserRepository $userRepository)
     {
         $users = $userRepository->getBrandAndInfluencer();
+        // dd($users);
+
+        // foreach ($users as $key) {
+        //     dd($key->getBrands()->getUserId());
+        // }
 
         return $this->render('admin_dashbaord/list_users.html.twig', [
             'users' => $users,
         ]);
     }
+
 
     /**
      * @Route("/admin/list/offers", name="dashbaord_admin_list_offers")

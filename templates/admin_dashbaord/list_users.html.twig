@@ -6,46 +6,46 @@
 
 
 {% block body %}
-	<h2 class="max-w-6xl mx-auto mt-8 mb-8 px-4 text-lg leading-6 font-medium text-gray-900 sm:px-6 lg:px-8">
+	<h2 class="max-w-6xl px-4 mx-auto mt-8 mb-8 text-lg font-medium leading-6 text-gray-900 sm:px-6 lg:px-8">
 		List des utilisateurs
 	</h2>
 	<div id="user-list">
 
 		<div class="mb-5 lg:px-8">
-			<div class="mt-1 relative rounded-md shadow-sm">
-				<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none" aria-hidden="true">
-					<svg class="mr-3 h-4 w-4 text-gray-400" x-description="Heroicon name: solid/search" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+			<div class="relative mt-1 rounded-md shadow-sm">
+				<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none" aria-hidden="true">
+					<svg class="w-4 h-4 mr-3 text-gray-400" x-description="Heroicon name: solid/search" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
 						<path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
 					</svg>
 				</div>
-				<input placeholder="Rechercher.." type="search" class="fuzzy-search form-input px-4 py-3 focus:ring-indigo-500 focus:border-indigo-500 block pl-9 sm:text-sm border-gray-300 rounded-md">
+				<input placeholder="Rechercher.." type="search" class="block px-4 py-3 border-gray-300 rounded-md fuzzy-search form-input focus:ring-indigo-500 focus:border-indigo-500 pl-9 sm:text-sm">
 			</div>
 		</div>
-		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 			<div class="flex flex-col">
 				<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-					<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-						<div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+					<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+						<div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
 							<table class="min-w-full divide-y divide-gray-200">
 								<thead class="bg-gray-50">
 									<tr>
 										<th scope="col" class="relative px-6 py-3">
 											<span class="sr-only">Img</span>
 										</th>
-										<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom
+										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Nom
 										</th>
-										<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prénom
+										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Prénom
 										</th>
-										<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
 											Email
 										</th>
-										<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
 											Info
 										</th>
-										<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
 											Date de naissance
 										</th>
-										<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
 											Role
 										</th>
 										<th scope="col" class="relative px-6 py-3">
@@ -54,113 +54,130 @@
 									</tr>
 								</thead>
 							</thead>
-							<tbody class="list bg-white divide-y divide-gray-200" x-max="1">
-								{% for user in users %}
-									<tr>
-										<td class="px-6 py-4 whitespace-nowrap">
-											<div class="flex-shrink-0 h-10 w-10">
-												{% if user.profile_photo %}
-													<img class="h-10 w-10 rounded-full" src="{{ asset('uploads/image_user/' ~ user.profile_photo) }}" alt=""/>
-												{% endif %}
+							<tbody class="bg-white divide-y divide-gray-200 list" x-max="1">
+								{# {% for user in users %}
+																																																																																																																																																																																									<tr>
+																																																																																																																																																																																										<td class="px-6 py-4 whitespace-nowrap">
+																																																																																																																																																																																											<div class="flex-shrink-0 w-10 h-10">
+																																																																																																																																																																																												{% if user.profile_photo %}
+																																																																																																																																																																																													<img class="w-10 h-10 rounded-full" src="{{ asset('uploads/image_user/' ~ user.profile_photo) }}" alt=""/>
+																																																																																																																																																																																												{% endif %}
+																																																																																																																																																																																
+																																																																																																																																																																																											</div>
+																																																																																																																																																																																										</td>
+																																																																																																																																																																																										<td class="px-6 py-4 whitespace-nowrap">
+																																																																																																																																																																																											<div class="text-sm text-gray-900 firstname">
+																																																																																																																																																																																												{{user.firstname}}
+																																																																																																																																																																																											</div>
+																																																																																																																																																																																										</td>
+																																																																																																																																																																																										<td class="px-6 py-4 whitespace-nowrap">
+																																																																																																																																																																																											<div class="text-sm text-gray-900 lastname">
+																																																																																																																																																																																												{{user.lastname}}
+																																																																																																																																																																																											</div>
+																																																																																																																																																																																										</td>
+																																																																																																																																																																																										<td class="px-6 py-4 whitespace-nowrap">
+																																																																																																																																																																																											<div class="text-sm text-gray-900 email">
+																																																																																																																																																																																												{{user.email}}
+																																																																																																																																																																																											</div>
+																																																																																																																																																																																										</td>
+																																																																																																																																																																																
+																																																																																																																																																																																										<td class="px-6 py-4 whitespace-nowrap">
+																																																																																																																																																																																											<div class="text-sm text-gray-900">{{user.name}}</div>
+																																																																																																																																																																																											<div class="text-sm text-gray-500">{{user.description}}</div>
+																																																																																																																																																																																										</td>
+																																																																																																																																																																																										<td class="px-6 py-4 whitespace-nowrap">
+																																																																																																																																																																																
+																																																																																																																																																																																
+																																																																																																																																																																																											<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
+																																																																																																																																																																																										</td>
+																																																																																																																																																																																										<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+																																																																																																																																																																																											{% set value = user.roles|capitalize|replace({'[\"role_': '', '\]': '', '"': '', 'role_': '', ',': ''})|split(' ') %}
+																																																																																																																																																																																											{% for val in value %}
+																																																																																																																																																																																
+																																																																																																																																																																																												{% if val == "influenceur" %}
+																																																																																																																																																																																													<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full">
+																																																																																																																																																																																														Influenceur
+																																																																																																																																																																																													</span>
+																																																																																																																																																																																												{% elseif val == "marque" %}
+																																																																																																																																																																																													<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
+																																																																																																																																																																																														Marque
+																																																																																																																																																																																													</span>
+																																																																																																																																																																																												{% elseif val == "admin" %}
+																																																																																																																																																																																													<span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
+																																																																																																																																																																																														Admin
+																																																																																																																																																																																													</span>
+																																																																																																																																																																																												{% endif %}
+																																																																																																																																																																																											{% endfor %}
+																																																																																																																																																																																										</td>
+																																																																																																																																																																																										<td class="pr-6">
+																																																																																																																																																																																											<div x-data="{ open: false }" @keydown.escape.stop="open = false" @click.away="open = false" class="relative flex items-center justify-end">
+																																																																																																																																																																																												<button type="button" class="inline-flex items-center justify-center w-8 h-8 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500" id="project-options-menu-0" aria-expanded="false" @click="open = !open" aria-haspopup="true" x-bind:aria-expanded="open">
+																																																																																																																																																																																													<span class="sr-only">Open options</span>
+																																																																																																																																																																																													<svg class="w-5 h-5" x-description="Heroicon name: solid/dots-vertical" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																																																																																																																																																																																														<path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+																																																																																																																																																																																													</svg>
+																																																																																																																																																																																												</button>
+																																																																																																																																																																																
+																																																																																																																																																																																												<transition enter-active-class="transition duration-100 ease-out" enter-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
+																																																																																																																																																																																													<div x-description="Dropdown menu, show/hide based on menu state." x-show="open" class="absolute top-0 z-10 w-48 mx-3 mt-1 origin-top-right bg-white divide-y divide-gray-200 rounded-md shadow-lg right-7 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="project-options-menu-0">
+																																																																																																																																																																																														<div class="py-1" role="none">
+																																																																																																																																																																																															<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																																																																																																																																																																																																<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/pencil-alt" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																																																																																																																																																																																																	<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+																																																																																																																																																																																																	<path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+																																																																																																																																																																																																</svg>
+																																																																																																																																																																																																Editer
+																																																																																																																																																																																															</a>
+																																																																																																																																																																																															<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																																																																																																																																																																																																<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/duplicate" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																																																																																																																																																																																																	<path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path>
+																																																																																																																																																																																																	<path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path>
+																																																																																																																																																																																																</svg>
+																																																																																																																																																																																																Voir le profile
+																																																																																																																																																																																															</a>
+																																																																																																																																																																																														</div>
+																																																																																																																																																																																														<div class="py-1" role="none">
+																																																																																																																																																																																															<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																																																																																																																																																																																																<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/trash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																																																																																																																																																																																																	<path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+																																																																																																																																																																																																</svg>
+																																																																																																																																																																																																Supprimer
+																																																																																																																																																																																															</a>
+																																																																																																																																																																																														</div>
+																																																																																																																																																																																													</div>
+																																																																																																																																																																																												</transition>
+																																																																																																																																																																																											</div>
+																																																																																																																																																																																										</td>
+																																																																																																																																																																																									</tr>
+																																																																																																																																																																																								{% endfor %} #}
 
-											</div>
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap">
-											<div class="firstname text-sm text-gray-900">
-												{{user.firstname}}
-											</div>
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap">
-											<div class="lastname text-sm text-gray-900">
-												{{user.lastname}}
-											</div>
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap">
-											<div class="email text-sm text-gray-900">
-												{{user.email}}
-											</div>
-										</td>
+								{# {% for u in users.brands %}
+																																																																																																																																									{{u.name}}
+																																																																																																																																								{% endfor %} #}
 
-										<td class="px-6 py-4 whitespace-nowrap">
-											<div class="text-sm text-gray-900">{{user.name}}</div>
-											<div class="text-sm text-gray-500">{{user.description}}</div>
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap">
-
-
-											<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-											{% set value = user.roles|capitalize|replace({'[\"role_': '', '\]': '', '"': '', 'role_': '', ',': ''})|split(' ') %}
-											{% for val in value %}
-
-												{% if val == "influenceur" %}
-													<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
-														Influenceur
-													</span>
-												{% elseif val == "marque" %}
-													<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-														Marque
-													</span>
-												{% elseif val == "admin" %}
-													<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-														Admin
-													</span>
-												{% endif %}
-											{% endfor %}
-										</td>
-										<td class="pr-6">
-											<div x-data="{ open: false }" @keydown.escape.stop="open = false" @click.away="open = false" class="relative flex justify-end items-center">
-												<button type="button" class="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500" id="project-options-menu-0" aria-expanded="false" @click="open = !open" aria-haspopup="true" x-bind:aria-expanded="open">
-													<span class="sr-only">Open options</span>
-													<svg class="w-5 h-5" x-description="Heroicon name: solid/dots-vertical" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-														<path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
-													</svg>
-												</button>
-
-												<transition enter-active-class="transition ease-out duration-100" enter-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-													<div x-description="Dropdown menu, show/hide based on menu state." x-show="open" class="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="project-options-menu-0">
-														<div class="py-1" role="none">
-															<a href="#" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-																<svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/pencil-alt" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																	<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-																	<path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
-																</svg>
-																Editer
-															</a>
-															<a href="#" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-																<svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/duplicate" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																	<path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path>
-																	<path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path>
-																</svg>
-																Voir le profile
-															</a>
-														</div>
-														<div class="py-1" role="none">
-															<a href="#" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-																<svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/trash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																	<path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-																</svg>
-																Supprimer
-															</a>
-														</div>
-													</div>
-												</transition>
-											</div>
-										</td>
-									</tr>
+								{# {% for brand in users.brands %}
+																								<pre>
+																									{{ dump(users.brands) }}
+																								</pre>
+																							{% endfor %} #}
+									{% for user in users %}
+										{% for brand in user.brands %}
+									<pre>
+																	{{ dump(brand) }}
+																</pre>
 								{% endfor %}
-							</tbody>
-						</table>
-					</div>
+
+							{% endfor %}
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 {% endblock %}
 
-{% block javascript %}
+	{% block javascript %}
 	{{parent()}}
-	{{ encore_entry_script_tags('list-users') }}
-{% endblock %}
+{{ encore_entry_script_tags('list-users') }}{% endblock %}

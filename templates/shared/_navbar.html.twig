@@ -11,12 +11,12 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarColor03">
-		<ul class="navbar-nav mr-auto"></ul>
+		<ul class="mr-auto navbar-nav"></ul>
 		{% if not app.user %}
 			<a class="btn btn-primary" href="{{path('register_index')}}">
 				Inscription
 			</a>
-			<a class="btn btn-secondary ml-3" href="{{path('app_login')}}">
+			<a class="ml-3 btn btn-secondary" href="{{path('app_login')}}">
 				Connexion
 			</a>
 
@@ -35,7 +35,7 @@
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon profil</a>
 					{% if is_granted('ROLE_ADMIN') %}
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ path('admin_list_users') }}">List des utilisateurs</a>
+							<a class="dropdown-item" href="{{ path('dashbaord_admin_list_users') }}">List des utilisateurs</a>
 							{# <a class="dropdown-item" href="{{ path('offer_index') }}">Mes offres</a> #}
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>

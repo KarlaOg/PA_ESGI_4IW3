@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\Brand;
 use App\Entity\Offer;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,15 +40,28 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function getBrandAndInfluencer()
     {
-        $conn = $this->getEntityManager()->getConnection();
+        // $conn = $this->getEntityManager()->getConnection();
 
-        $sql = '
-        SELECT * FROM user_account
-        LEFT JOIN brand ON user_account.id = brand.user_id_id
-        LEFT JOIN influencer ON user_account.id = influencer.user_id_id';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
+        // $sql = '
+        // SELECT * FROM user_account
+        // LEFT JOIN brand ON user_account.id = brand.user_id_id
+        // LEFT JOIN influencer ON user_account.id = influencer.user_id_id';
+        // $stmt = $conn->prepare($sql);
+        // $stmt->execute([]);
 
-        return $stmt->fetchAllAssociative();
+
+        // return $stmt->fetchAllAssociative();
+        return $this->createQueryBuilder('u')
+            // ->from(Brand::class, 'b')
+            // ->leftJoin('u.brands', 'b.UserId')
+            ->leftJoin(
+                Brand::class,
+                'b',
+                \Doctrine\ORM\Query\Expr\Join::WITH,
+                'b.UserId = u.id'
+            )
+            ->select('u')
+            ->getQuery()
+            ->getResult();
     }
 }
