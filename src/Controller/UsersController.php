@@ -16,6 +16,7 @@ use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ApplicationRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,18 +34,22 @@ class UsersController extends AbstractController
      */
 
     //todo : change this
-    public function usersData(BrandRepository $brandRepository)
+    public function usersData(BrandRepository $brandRepository, UserRepository $userRepository)
     {
         $repository = $this->getDoctrine()->getRepository(Offer::class);
         $offers = $repository->findAll();
 
         $user = $this->getUser();
 
+        $users = $userRepository->getBrandAndInfluencer();
+
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
         return $this->render('users/data.html.twig', [
             'offers' => $offers,
-            'brand' => $brand
+            'brand' => $brand,
+            'users' => $users
+
         ]);
     }
 

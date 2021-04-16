@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}Likey
+			{% endblock %}
+		</title>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+	</head>
+
+
+	<div style="min-height: 640px;">
+		<div x-data="{ open: false }" @keydown.window.escape="open = false" class="flex h-screen overflow-hidden bg-gray-100">
+
+			<div x-show="open" class="fixed inset-0 z-40 flex lg:hidden" x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state." x-ref="dialog" role="dialog" aria-modal="true">
+
+				<transition enter-active-class="transition-opacity duration-300 ease-linear" enter-class="opacity-0" enter-to-class="opacity-100" leave-active-class="transition-opacity duration-300 ease-linear" leave-class="opacity-100" leave-to-class="opacity-0">
+					<div x-show="open" x-description="Off-canvas menu overlay, show/hide based on off-canvas menu state." class="fixed inset-0 bg-gray-600 bg-opacity-75" @click="open = false" aria-hidden="true"></div>
+				</transition>
+
+
+				<transition enter-active-class="transition duration-300 ease-in-out transform" enter-class="-translate-x-full" enter-to-class="translate-x-0" leave-active-class="transition duration-300 ease-in-out transform" leave-class="translate-x-0" leave-to-class="-translate-x-full">
+					<div x-show="open" x-description="Off-canvas menu, show/hide based on off-canvas menu state." class="relative flex flex-col flex-1 w-full max-w-xs pt-5 pb-4 bg-indigo-700">
+
+						<transition enter-active-class="duration-300 ease-in-out" enter-class="opacity-0" enter-to-class="opacity-100" leave-active-class="duration-300 ease-in-out" leave-class="opacity-100" leave-to-class="opacity-0">
+							<div x-show="open" x-description="Close button, show/hide based on off-canvas menu state." class="absolute top-0 right-0 pt-2 -mr-12">
+								<button class="flex items-center justify-center w-10 h-10 ml-1 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" @click="open = false">
+									<span class="sr-only">Close sidebar</span>
+									<svg class="w-6 h-6 text-white" x-description="Heroicon name: outline/x" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+									</svg>
+								</button>
+							</div>
+						</transition>
+
+						<div class="flex items-center flex-shrink-0 px-4">
+							<span class="max-w-6xl px-4 mx-auto mt-8 text-lg font-medium leading-6 text-gray-900 sm:px-6 lg:px-8">
+								LIKEY
+							</span>
+						</div>
+						<nav class="flex-shrink-0 h-full mt-5 overflow-y-auto divide-y divide-indigo-800" aria-label="Sidebar">
+							<div class="px-2 space-y-1">
+
+								<a href="{{path('dashbaord_admin_dashbaord')}}" class="flex items-center px-2 py-2 text-base font-medium text-white bg-indigo-800 rounded-md group" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-indigo-800 text-white&quot;, Default: &quot;text-indigo-100 hover:text-white hover:bg-indigo-600&quot;">
+									<svg class="w-6 h-6 mr-4 text-indigo-200" x-description="Heroicon name: outline/home" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+									</svg>
+									Home
+								</a>
+
+
+								<a href="#" class="flex items-center px-2 py-2 text-base font-medium text-indigo-100 rounded-md hover:text-white hover:bg-indigo-600 group" x-state-description="undefined: &quot;bg-indigo-800 text-white&quot;, undefined: &quot;text-indigo-100 hover:text-white hover:bg-indigo-600&quot;">
+									<svg class="w-6 h-6 mr-4 text-indigo-200" x-description="Heroicon name: outline/user-group" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+									</svg>
+									Utilisateurs
+								</a>
+
+								<a href="#" class="flex items-center px-2 py-2 text-base font-medium text-indigo-100 rounded-md hover:text-white hover:bg-indigo-600 group" x-state-description="undefined: &quot;bg-indigo-800 text-white&quot;, undefined: &quot;text-indigo-100 hover:text-white hover:bg-indigo-600&quot;">
+									<svg class="w-6 h-6 mr-4 text-indigo-200" x-description="Heroicon name: outline/document-report" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+									</svg>
+									Reports
+								</a>
+
+							</div>
+							<div class="pt-6 mt-6">
+								<div class="px-2 space-y-1">
+
+									<a href="#" class="flex items-center px-2 py-2 text-base font-medium text-indigo-100 rounded-md group hover:text-white hover:bg-indigo-600">
+										<svg class="w-6 h-6 mr-4 text-indigo-200" x-description="Heroicon name: outline/cog" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+										</svg>
+										Settings
+									</a>
+
+
+								</div>
+							</div>
+						</nav>
+					</div>
+				</transition>
+
+				<div
+					class="flex-shrink-0 w-14" aria-hidden="true"><!-- Dummy element to force sidebar to shrink to fit close icon -->
+				</div>
+			</div>
+
+
+			<!-- Static sidebar for desktop -->
+			<div class="hidden lg:flex lg:flex-shrink-0">
+				<div
+					class="flex flex-col w-64">
+					<!-- Sidebar component, swap this element with another sidebar if you like -->
+					<div class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto bg-indigo-700">
+						<div class="flex items-center flex-shrink-0 px-4">
+							<span class="text-lg font-bold leading-6 text-white font-lg sm:px-6 lg:px-8 logo">
+								LIKEY
+							</span>
+						</div>
+						<nav class="flex flex-col flex-1 mt-5 overflow-y-auto divide-y divide-indigo-800" aria-label="Sidebar">
+							<div class="px-2 space-y-1">
+
+								<a href="#" class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-white bg-indigo-800 rounded-md group" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-indigo-800 text-white&quot;, Default: &quot;text-indigo-100 hover:text-white hover:bg-indigo-600&quot;">
+									<svg class="w-6 h-6 mr-4 text-indigo-200" x-description="Heroicon name: outline/home" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+									</svg>
+									Home
+								</a>
+
+								<a href="#" class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-indigo-100 rounded-md hover:text-white hover:bg-indigo-600 group" x-state-description="undefined: &quot;bg-indigo-800 text-white&quot;, undefined: &quot;text-indigo-100 hover:text-white hover:bg-indigo-600&quot;">
+									<svg class="w-6 h-6 mr-4 text-indigo-200" x-description="Heroicon name: outline/user-group" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+									</svg>
+									Utilisateurs
+								</a>
+
+								<a href="#" class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-indigo-100 rounded-md hover:text-white hover:bg-indigo-600 group" x-state-description="undefined: &quot;bg-indigo-800 text-white&quot;, undefined: &quot;text-indigo-100 hover:text-white hover:bg-indigo-600&quot;">
+									<svg class="w-6 h-6 mr-4 text-indigo-200" x-description="Heroicon name: outline/document-report" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+									</svg>
+									Reports
+								</a>
+
+							</div>
+							<div class="pt-6 mt-6">
+								<div class="px-2 space-y-1">
+
+									<a href="#" class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-indigo-100 rounded-md group hover:text-white hover:bg-indigo-600">
+										<svg class="w-6 h-6 mr-4 text-indigo-200" x-description="Heroicon name: outline/cog" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+										</svg>
+										Settings
+									</a>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+
+			<div x-init="$el.focus()" class="flex-1 overflow-auto focus:outline-none" tabindex="0">
+				{% include "shared/_navbar_admin.html.twig" %}
+				<main class="relative z-0 flex-1 pb-8 overflow-y-auto"> {% block body %}{% endblock %}
+					</main>
+				</div>
+			</div>
+		</div>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<script>
+				$(document).ready(function () {
+$('.toast').toast('show');
+});
+			</script>
+		{% endblock %}
+	</html>

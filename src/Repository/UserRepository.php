@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\Brand;
+use App\Entity\Influencer;
 use App\Entity\Offer;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -37,71 +39,24 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    public function findUser($rechercheRegEx){
+    public function getBrandAndInfluencer()
+    {
+
         return $this->createQueryBuilder('u')
-            ->select("u.firstname")
-            ->andWhere("u.firstname LIKE '#Mohand|Aitamara#'")
-            //->setParameter('pattern', $rechercheRegEx)
-            ->orderBy('u.id', 'ASC')
+            ->leftJoin(
+                Brand::class,
+                'b',
+                'WITH',
+                'b.UserId = u.id'
+            )
+            ->leftJoin(
+                Influencer::class,
+                'i',
+                'WITH',
+                'i.UserId = u.id'
+            )
+            ->select('u')
             ->getQuery()
             ->getResult();
     }
-    
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    
-    // public function findOneBySomeField($value): ?User
-    // {
-    //     return $this->createQueryBuilder('u')
-    //         ->andWhere('u.exampleField = :val')
-    //         ->setParameter('val', $value)
-    //         ->getQuery()
-    //         ->getOneOrNullResult()
-    //     ;
-    // }
-
-    
-    // public function getUsersOffer($value): ?User
-    // {
-    //     $repository = $this->getDoctrine()
-    //     ->getManager()
-    //     ->getRepository(Offer::class);
-
-    //     $qb = $this->createQueryBuilder('u')
-    //         ->where('p.price > :price')
-    //         ->setParameter('price', $price)
-    //         ->orderBy('p.price', 'ASC');
-
-    //     if (!$includeUnavailableProducts) {
-    //         $qb->andWhere('p.available = TRUE');
-    //     }
-
-    //     $query = $qb->getQuery();
-
-    //     return $query->execute();
-
-    //     return $this->createQueryBuilder('u')
-    //         ->andWhere('u.exampleField = :val')
-    //         ->setParameter('val', $value)
-    //         ->getQuery()
-    //         ->getOneOrNullResult()
-    //     ;
-    // }
-    
-    
 }
