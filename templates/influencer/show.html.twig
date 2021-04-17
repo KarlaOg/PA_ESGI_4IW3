@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-	<main>
+	<div>
 		<!-- Profile header -->
 		<a href="{{ path('all_influencers')}}" class="inline-flex justify-center px-4 py-2 mb-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
 			<span>Retour</span>
@@ -61,11 +61,7 @@
 		<!-- Tabs -->
 		<div class="mt-6 sm:mt-2 2xl:mt-5">
 			<div class="border-b border-gray-200">
-				<div class="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
-					<h2 class="px-1 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-						Profil
-					</h2>
-				</div>
+				<div class="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8"></div>
 			</div>
 		</div>
 
@@ -104,18 +100,17 @@
 					<dd class="mt-1 text-sm text-gray-900">
 						{% if influencer.socialNetwork is not empty %}
 							{% for key, value in influencer.socialNetwork %}
-								<dt class="text-sm font-medium text-dark">
-									{{ key }}
-								</dt>
-								<dd class="mt-1 text-sm text-gray-900">
-									{{ value }}
-								</dd>
+								<div class="flex">
+									<p class="font-bold">{{ key }}
+										:&nbsp;
+									</p>
+									<a href="{{ value }}">{{value }}</a>
+								</div>
 							{% endfor %}
 						{% endif %}
 					</dd>
 				</div>
-
 			</dl>
 		</div>
 	</div>
-</main>{% endblock %}
+{% endblock %}

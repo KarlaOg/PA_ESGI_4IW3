@@ -6,8 +6,7 @@
   - [Table of contents](#table-of-contents)
   - [General info](#general-info)
   - [Technologies](#technologies)
-  - [Setup](#setup)
-  - [Load fixtures](#load-fixtures)
+- [Installation](#installation)
   - [Authors](#authors)
 
 ## General info
@@ -64,6 +63,16 @@ Install webpack
 
 ```
 yarn install
+```
+
+```
+yarn watch
+```
+
+Jouer les fixtures
+
+```
+php bin/console d:f:l --no-interaction
 ```
 
 ## Authors
