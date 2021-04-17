@@ -7,7 +7,7 @@
 
 {% block body %}
 	<h2 class="max-w-6xl px-4 mx-auto mt-8 mb-8 text-lg font-medium leading-6 text-gray-900 sm:px-6 lg:px-8">
-		List des utilisateurs
+		Liste des utilisateurs
 	</h2>
 	<div id="user-list">
 
@@ -53,7 +53,6 @@
 										</th>
 									</tr>
 								</thead>
-								{# </thead> #}
 								<tbody class="bg-white divide-y divide-gray-200 list" x-max="1">
 									{% for user in users %}
 										<tr>
@@ -222,20 +221,22 @@
 																	</svg>
 																	Supprimer
 																</a>
-															</div>
-															{# </div> #}
+															{% endfor %}
 														{% endfor %}
-													</div>
-												</td>
+													</tbody>
+												</table>
 											</td>
 										</tr>
-									</transition>
+									</div>
 								</tbody>
-							</td>
-						</tr>
+							</div>
+						</div>
 					</div>
-				</tbody>
-			</td>
-		</tr>
-	{% endfor %}
-</tbody></tbody></table></div></div></div></div>{% endblock %}{% block javascript %}{{parent()}}{{ encore_entry_script_tags('list-users') }}{% endblock %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascript %}
+	{{parent()}}{{ encore_entry_script_tags('list-users') }}
+{% endblock %}
