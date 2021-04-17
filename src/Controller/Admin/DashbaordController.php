@@ -21,6 +21,7 @@ class DashbaordController extends AbstractController
     public function index(UserRepository $userRepository)
     {
         $users = $userRepository->findAll();
+        dd($users);
         $countUsers = count($users);
 
         return $this->render('admin/index.html.twig', [
@@ -33,7 +34,7 @@ class DashbaordController extends AbstractController
      */
     public function adminListUsers(UserRepository $userRepository)
     {
-        $users = $userRepository->findAll();
+        $users = $userRepository->getBrandAndInfluencer();
         return $this->render('admin/list_users.html.twig', [
             'users' => $users,
         ]);
