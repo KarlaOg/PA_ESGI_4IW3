@@ -12,16 +12,5 @@
 		<div class="card-body">
 			Page en cours de contruction
 		</div>
-		<div>
-
-			{% for u in users %}
-				{% for b in u.brands %}
-					{{ dump(b) }}
-				{% endfor %}
-				{% for i in u.influencer %}
-					{{ dump(i) }}
-				{% endfor %}
-			{% endfor %}
-		</div>
 	</div>
 {% endblock %}
