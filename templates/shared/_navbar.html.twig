@@ -57,8 +57,11 @@
 					{% else %}
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
-							<a class="dropdown-item" href="{{ path('offer_index') }}">Mes offres</a>
 							{% for role in app.user.roles %}
+								{% if role ==  "ROLE_MARQUE" %}
+									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres</a>
+								{% endif %}
+								<a class="dropdown-item" href="{{ path('offer_index') }}">Liste des offres</a>
 								{% if role ==  "ROLE_INFLUENCEUR" %}
 									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
 								{% endif %}
