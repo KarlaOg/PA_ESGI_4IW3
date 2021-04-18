@@ -30,11 +30,11 @@
 										<th scope="col" class="relative px-6 py-3">
 											<span class="sr-only">Img</span>
 										</th>
-										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Nom
+										<th data-sort="firstname" scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase sort">Nom
 										</th>
-										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Prénom
+										<th data-sort="lastname" scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase sort">Prénom
 										</th>
-										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+										<th data-sort="email" scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase sort">
 											Email
 										</th>
 										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -43,7 +43,7 @@
 										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
 											Date de naissance
 										</th>
-										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+										<th data-sort="role" scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase sort">
 											Role
 										</th>
 										<th scope="col" class="relative px-6 py-3">
@@ -53,203 +53,407 @@
 								</thead>
 								<tbody class="bg-white divide-y divide-gray-200 list" x-max="1">
 									{% for user in users %}
-										<tr>
-											<td class="px-6 py-4 whitespace-nowrap">
-												<div class="flex-shrink-0 w-10 h-10">
-													{% for b in user.brand %}
-														{% if b.profilePhoto %}
-															<img class="w-10 h-10 rounded-full" src="{{ asset('uploads/image_user/' ~ b.profilePhoto) }}" alt=""/>
-														{% else %}
-															<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
-																<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
-																	<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
-																</svg>
-															</span>
-														{% endif %}
-													{% endfor %}
-													{% for i in user.influencer %}
-														{% if i.profilePhoto %}
-															<img class="w-10 h-10 rounded-full" src="{{ asset('uploads/image_user/' ~ i.profilePhoto) }}" alt=""/>
-														{% else %}
-															<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
-																<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
-																	<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
-																</svg>
-															</span>
-														{% endif %}
-													{% endfor %}
-												</div>
-											</td>
-											{% for b in user.brand %}
+										{% set valI = "" %}
+										{% set valB = "" %}
+										{% for i in user.influencer %}
+											{% set valI = i.UserId %}
+										{% endfor %}
+										{% for b in user.brand %}
+											{% set valB = b.UserId %}
+										{% endfor %}
+										{% if valI != "" and valB != "" %}
+											{# Si un user a une marque et un influenceur #}
+											<tr>
 												<td class="px-6 py-4 whitespace-nowrap">
-													<div class="text-sm text-gray-900 firstname">
-														{{b.UserId.firstname }}
-													</div>
-												</td>
-												<td class="px-6 py-4 whitespace-nowrap">
-													<div class="text-sm text-gray-900 lastname">
-														{{b.UserId.lastname }}
-													</div>
-												</td>
-												<td class="px-6 py-4 whitespace-nowrap">
-													<div class="text-sm text-gray-900 email">
-														{{b.UserId.email }}
-													</div>
-												</td>
-												<td class="px-6 py-4 whitespace-nowrap bg-emerald-200">
-													<div class="text-sm text-gray-900">{{b.name}}</div>
-													<div class="text-sm text-gray-500">{{b.description|slice(0, 50) ~ '...'}}</div>
-												</td>
-												<td class="px-6 py-4 whitespace-nowrap">
-													<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
-												</td>
-											{% endfor %}
-											{% for i in user.influencer %}
-												<td class="px-6 py-4 whitespace-nowrap">
-													<div class="text-sm text-gray-900 firstname">
-														{{i.UserId.firstname }}
-													</div>
-												</td>
-												<td class="px-6 py-4 whitespace-nowrap">
-													<div class="text-sm text-gray-900 lastname">
-														{{i.UserId.lastname }}
-													</div>
-												</td>
-												<td class="px-6 py-4 whitespace-nowrap">
-													<div class="text-sm text-gray-900 email">
-														{{i.UserId.email }}
-													</div>
-												</td>
-												<td class="px-6 py-4 whitespace-nowrap">
-													<div class="text-sm text-gray-900">{{i.name}}</div>
-													<div class="text-sm text-gray-500">{{i.description|slice(0, 50) ~ '...'}}</div>
-												</td>
-												<td class="px-6 py-4 whitespace-nowrap">
-													<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
-												</td>
-											{% endfor %}
-											<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-												{% for b in  user.brand %}
-													{% for role in b.UserId.roles%}
-														{% set val = role %}
+													<div class="flex-shrink-0 w-10 h-10">
+														{% for b in user.brand %}
+															{% if b.profilePhoto %}
+																<img class="w-10 h-10 rounded-full" src="{{ asset('uploads/image_user/' ~ b.profilePhoto) }}" alt=""/>
+															{% else %}
+																<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+																	<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+																		<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+																	</svg>
+																</span>
+															{% endif %}
+														{% endfor %}
 
-														{% if val == "ROLE_INFLUENCEUR" %}
-															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full">
-																Influenceur
-															</span>
-														{% elseif val == "ROLE_MARQUE" %}
-															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-																Marque
-															</span>
-														{% elseif val == "ROLE_ADMIN" %}
-															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-																Admin
-															</span>
-														{% endif %}
-													{% endfor %}
+													</div>
+												</td>
+												{% for b in user.brand %}
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 firstname">
+															{{b.UserId.firstname }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 lastname">
+															{{b.UserId.lastname }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 email">
+															{{b.UserId.email }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap bg-emerald-200">
+														<div class="text-sm text-gray-900">{{b.name}}</div>
+														<div class="text-sm text-gray-500">{{b.description|slice(0, 50) ~ '...'}}</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
+													</td>
 												{% endfor %}
-												{% for i in  user.influencer %}
-													{% for role in i.UserId.roles%}
-														{% set val = role %}
 
-														{% if val == "ROLE_INFLUENCEUR" %}
-															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full">
-																Influenceur
-															</span>
-														{% elseif val == "ROLE_MARQUE" %}
-															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-																Marque
-															</span>
-														{% elseif val == "ROLE_ADMIN" %}
-															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-																Admin
-															</span>
-														{% endif %}
+												<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+
+													{% for b in  user.brand %}
+														{% for role in b.UserId.roles%}
+															{% set val = role %}
+
+															{% if val == "ROLE_MARQUE" %}
+																<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full role">
+																	{{val}}
+																</span>
+															{% elseif val == "ROLE_ADMIN" %}
+																<span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full role">
+																	{{val}}
+																</span>
+															{% endif %}
+														{% endfor %}
 													{% endfor %}
-												{% endfor %}
-											</td>
-											<td class="pr-6">
-												<div x-data="{ open: false }" @keydown.escape.stop="open = false" @click.away="open = false" class="relative flex items-center justify-end">
-													<button type="button" class="inline-flex items-center justify-center w-8 h-8 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500" id="project-options-menu-0" aria-expanded="false" @click="open = !open" aria-haspopup="true" x-bind:aria-expanded="open">
-														<span class="sr-only">Open options</span>
-														<svg class="w-5 h-5" x-description="Heroicon name: solid/dots-vertical" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-															<path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
-														</svg>
-													</button>
-													<transition enter-active-class="transition duration-100 ease-out" enter-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
-														<div x-description="Dropdown menu, show/hide based on menu state." x-show="open" class="absolute top-0 z-10 w-48 mx-3 mt-1 origin-top-right bg-white divide-y divide-gray-200 rounded-md shadow-lg right-7 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="project-options-menu-0">
-															{% for b in user.brand %}
-																<div class="py-1" role="none">
-																	<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-																		<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/pencil-alt" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																			<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-																			<path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
-																		</svg>
-																		Editer
-																	</a>
-
-																	<a href="{{ path('brand_show', {'name': b.name}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-																		<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/duplicate" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																			<path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path>
-																			<path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path>
-																		</svg>
-																		Voir le profile
-																	</a>
-																</div>
-																<div class="py-1" role="none">
-																	{% if app.user.id  != b.UserId.id %}
-																		<a href="{{ path('dashbaord_admin_user_delete',{'id': b.UserId.id}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-																			<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/trash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																				<path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+												</td>
+												<td class="pr-6">
+													<div x-data="{ open: false }" @keydown.escape.stop="open = false" @click.away="open = false" class="relative flex items-center justify-end">
+														<button type="button" class="inline-flex items-center justify-center w-8 h-8 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500" id="project-options-menu-0" aria-expanded="false" @click="open = !open" aria-haspopup="true" x-bind:aria-expanded="open">
+															<span class="sr-only">Open options</span>
+															<svg class="w-5 h-5" x-description="Heroicon name: solid/dots-vertical" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																<path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+															</svg>
+														</button>
+														<transition enter-active-class="transition duration-100 ease-out" enter-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
+															<div x-description="Dropdown menu, show/hide based on menu state." x-show="open" class="absolute top-0 z-10 w-48 mx-3 mt-1 origin-top-right bg-white divide-y divide-gray-200 rounded-md shadow-lg right-7 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="project-options-menu-0">
+																{% for b in user.brand %}
+																	<div class="py-1" role="none">
+																		<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																			<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/pencil-alt" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																				<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+																				<path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
 																			</svg>
-																			Supprimer
+																			Editer
 																		</a>
-																	{% endif %}
 
-																</div>
-															</div>
+																		<a href="{{ path('brand_show', {'name': b.name}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																			<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/duplicate" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																				<path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path>
+																				<path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path>
+																			</svg>
+																			Voir le profile
+																		</a>
+																	</div>
+																	<div class="py-1" role="none">
+																		{% if app.user.id  != b.UserId.id %}
+																			<a onclick="return confirm('Attention, supprimer cette utilisateur entrainera la suppresion de son autre compte asocié. Etes vous sur de supprimer cet utilisateur ?')" href="{{ path('dashbaord_admin_user_delete',{'id': b.UserId.id}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																				<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/trash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																					<path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+																				</svg>
+																				Supprimer
+																			</a>
+																		{% endif %}
+
+																	</div>
+																{% endfor %}
+
+															</transition>
+														</td>
+													</td>
+												</td>
+											</tr>
+
+
+											<tr>
+												<td class="px-6 py-4 whitespace-nowrap">
+													<div class="flex-shrink-0 w-10 h-10">
+
+														{% for i in user.influencer %}
+															{% if i.profilePhoto %}
+																<img class="w-10 h-10 rounded-full" src="{{ asset('uploads/image_user/' ~ i.profilePhoto) }}" alt=""/>
+															{% else %}
+																<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+																	<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+																		<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+																	</svg>
+																</span>
+															{% endif %}
+														{% endfor %}
+													</div>
+												</td>
+
+												{% for i in user.influencer %}
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 firstname">
+															{{i.UserId.firstname }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 lastname">
+															{{i.UserId.lastname }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 email">
+															{{i.UserId.email }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900">{{i.name}}</div>
+														<div class="text-sm text-gray-500">{{i.description|slice(0, 50) ~ '...'}}</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
+													</td>
+												{% endfor %}
+												<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+
+													{% for i in  user.influencer %}
+														{% for role in i.UserId.roles%}
+															{% set val = role %}
+
+															{% if val == "ROLE_INFLUENCEUR" %}
+																<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full role">
+																	{{val}}
+																</span>
+
+															{% elseif val == "ROLE_ADMIN" %}
+																<span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full role">
+																	{{val}}
+																</span>
+															{% endif %}
+														{% endfor %}
+													{% endfor %}
+												</td>
+												<td class="pr-6">
+													<div x-data="{ open: false }" @keydown.escape.stop="open = false" @click.away="open = false" class="relative flex items-center justify-end">
+														<button type="button" class="inline-flex items-center justify-center w-8 h-8 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500" id="project-options-menu-0" aria-expanded="false" @click="open = !open" aria-haspopup="true" x-bind:aria-expanded="open">
+															<span class="sr-only">Open options</span>
+															<svg class="w-5 h-5" x-description="Heroicon name: solid/dots-vertical" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																<path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+															</svg>
+														</button>
+														<transition enter-active-class="transition duration-100 ease-out" enter-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
+															<div x-description="Dropdown menu, show/hide based on menu state." x-show="open" class="absolute top-0 z-10 w-48 mx-3 mt-1 origin-top-right bg-white divide-y divide-gray-200 rounded-md shadow-lg right-7 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="project-options-menu-0">
+
+																{% for i in user.influencer %}
+																	<div class="py-1" role="none">
+																		<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																			<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/pencil-alt" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																				<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+																				<path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+																			</svg>
+																			Editer
+																		</a>
+
+																		<a href="{{ path('influencer_show', {'name': i.name}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																			<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/duplicate" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																				<path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path>
+																				<path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path>
+																			</svg>
+																			Voir le profile
+																		</a>
+																	</div>
+																	<div class="py-1" role="none">
+																		{% if app.user.id  != i.UserId.id %}
+																			<a onclick="return confirm('Attention, supprimer cette utilisateur entrainera la suppresion de son autre compte asocié. Etes vous sur de supprimer cet utilisateur ?')" href="{{ path('dashbaord_admin_user_delete',{'id': i.UserId.id}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																				<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/trash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																					<path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+																				</svg>
+																				Supprimer
+																			</a>
+																		{% endif %}
+																	</div>
+																{% endfor %}
+															</transition>
+														</td>
+													</td>
+												</td>
+											</tr>
+										{% else %}
+											{# Si un user a une seule marque ou un influenceur #}
+											<tr>
+												<td class="px-6 py-4 whitespace-nowrap">
+													<div class="flex-shrink-0 w-10 h-10">
+														{% for b in user.brand %}
+															{% if b.profilePhoto %}
+																<img class="w-10 h-10 rounded-full" src="{{ asset('uploads/image_user/' ~ b.profilePhoto) }}" alt=""/>
+															{% else %}
+																<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+																	<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+																		<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+																	</svg>
+																</span>
+															{% endif %}
 														{% endfor %}
 														{% for i in user.influencer %}
-															<div class="py-1" role="none">
-																<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-																	<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/pencil-alt" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																		<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-																		<path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+															{% if i.profilePhoto %}
+																<img class="w-10 h-10 rounded-full" src="{{ asset('uploads/image_user/' ~ i.profilePhoto) }}" alt=""/>
+															{% else %}
+																<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+																	<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+																		<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
 																	</svg>
-																	Editer
-																</a>
-
-																<a href="{{ path('influencer_show', {'name': i.name}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-																	<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/duplicate" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																		<path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path>
-																		<path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path>
-																	</svg>
-																	Voir le profile
-																</a>
-															</div>
-															<div class="py-1" role="none">
-																{% if app.user.id  != i.UserId.id %}
-																	<a href="{{ path('dashbaord_admin_user_delete',{'id': i.UserId.id}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-																		<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/trash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-																			<path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-																		</svg>
-																		Supprimer
-																	</a>
-																{% endif %}
-
-															{% endfor %}
+																</span>
+															{% endif %}
 														{% endfor %}
-													</tbody>
-												</table>
-											</td>
-										</tr>
-									</div>
+													</div>
+												</td>
+												{% for b in user.brand %}
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 firstname">
+															{{b.UserId.firstname }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 lastname">
+															{{b.UserId.lastname }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 email">
+															{{b.UserId.email }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap bg-emerald-200">
+														<div class="text-sm text-gray-900">{{b.name}}</div>
+														<div class="text-sm text-gray-500">{{b.description|slice(0, 50) ~ '...'}}</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
+													</td>
+												{% endfor %}
+												{% for i in user.influencer %}
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 firstname">
+															{{i.UserId.firstname }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 lastname">
+															{{i.UserId.lastname }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900 email">
+															{{i.UserId.email }}
+														</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900">{{i.name}}</div>
+														<div class="text-sm text-gray-500">{{i.description|slice(0, 50) ~ '...'}}</div>
+													</td>
+													<td class="px-6 py-4 whitespace-nowrap">
+														<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
+													</td>
+												{% endfor %}
+												<td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+													{% for role in user.roles%}
+														{% set val = role %}
+
+														{% if val == "ROLE_INFLUENCEUR" %}
+															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full role">
+																{{val}}
+															</span>
+														{% elseif val == "ROLE_MARQUE" %}
+															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full role">
+																{{val}}
+															</span>
+														{% elseif val == "ROLE_ADMIN" %}
+															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full role">
+																{{val}}
+															</span>
+														{% endif %}
+													{% endfor %}
+												</td>
+												<td class="pr-6">
+													<div x-data="{ open: false }" @keydown.escape.stop="open = false" @click.away="open = false" class="relative flex items-center justify-end">
+														<button type="button" class="inline-flex items-center justify-center w-8 h-8 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500" id="project-options-menu-0" aria-expanded="false" @click="open = !open" aria-haspopup="true" x-bind:aria-expanded="open">
+															<span class="sr-only">Open options</span>
+															<svg class="w-5 h-5" x-description="Heroicon name: solid/dots-vertical" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																<path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+															</svg>
+														</button>
+														<transition enter-active-class="transition duration-100 ease-out" enter-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
+															<div x-description="Dropdown menu, show/hide based on menu state." x-show="open" class="absolute top-0 z-10 w-48 mx-3 mt-1 origin-top-right bg-white divide-y divide-gray-200 rounded-md shadow-lg right-7 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="project-options-menu-0">
+																{% for b in user.brand %}
+																	<div class="py-1" role="none">
+																		<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																			<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/pencil-alt" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																				<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+																				<path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+																			</svg>
+																			Editer
+																		</a>
+
+																		<a href="{{ path('brand_show', {'name': b.name}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																			<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/duplicate" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																				<path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path>
+																				<path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path>
+																			</svg>
+																			Voir le profile
+																		</a>
+																	</div>
+																	<div class="py-1" role="none">
+																		{% if app.user.id  != b.UserId.id %}
+																			<a onclick="return confirm('Etes vous sur de supprimer cet utilisateur ?')" href="{{ path('dashbaord_admin_user_delete',{'id': b.UserId.id}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																				<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/trash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																					<path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+																				</svg>
+																				Supprimer
+																			</a>
+																		{% endif %}
+
+																	</div>
+																{% endfor %}
+																{% for i in user.influencer %}
+																	<div class="py-1" role="none">
+																		<a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																			<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/pencil-alt" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																				<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+																				<path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+																			</svg>
+																			Editer
+																		</a>
+
+																		<a href="{{ path('influencer_show', {'name': i.name}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																			<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/duplicate" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																				<path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path>
+																				<path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path>
+																			</svg>
+																			Voir le profile
+																		</a>
+																	</div>
+																	<div class="py-1" role="none">
+																		{% if app.user.id  != i.UserId.id %}
+																			<a onclick="return confirm('Etes vous sur de supprimer cet utilisateur ?')" href="{{ path('dashbaord_admin_user_delete',{'id': i.UserId.id}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 group hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																				<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/trash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																					<path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+																				</svg>
+																				Supprimer
+																			</a>
+																		{% endif %}
+																	</div>
+																{% endfor %}
+															</transition>
+														</td>
+													</td>
+												</td>
+											</tr>
+										{% endif %}
+									{% endfor %}
 								</tbody>
-							</div>
-						</div>
+							</table>
+						</tbody>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-{% endblock %}
+	{% endblock %}

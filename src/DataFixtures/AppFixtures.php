@@ -28,6 +28,8 @@ class AppFixtures extends Fixture
         $brands = [];
         $applications = [];
 
+
+        //ADMIN
         $admin = new User;
         $hash = $this->encoder->encodePassword($admin, "password");
         $admin->setEmail("admin@admin.com")
@@ -56,6 +58,68 @@ class AppFixtures extends Fixture
         $influcers[] = $influencer;
         $manager->persist($influencer);
 
+        //INFLUENCER AND BRAND USER
+        $influenceurAndMarque = new User;
+        $hash = $this->encoder->encodePassword($influenceurAndMarque, "password");
+        $influenceurAndMarque->setEmail("influenceurAndMarque@admin.com")
+            ->setFirstname("Mickey")
+            ->setLastname("Mouse")
+            ->setPassword($hash)
+            ->setAge($faker->dateTime())
+            ->setRoles(['ROLE_MARQUE', 'ROLE_INFLUENCEUR']);
+        $manager->persist($influenceurAndMarque);
+
+        $influencer = new Influencer();
+        $influencer->setUserId($influenceurAndMarque)
+            ->setDescription($faker->realText())
+            ->setUsername($faker->userName())
+            ->setSiret($faker->numberBetween(10, 2000))
+            ->setName($faker->name())
+            ->setSocialNetwork([
+                'Website' => 'https://admin.com',
+                'Instagram' => 'https://instagram.com/admin',
+                'Tiktok' => 'https://tiktok/admin',
+                'Facebook' => 'https://facebook/admin',
+                'Youtube' => 'https://youtube.com/admin',
+                'Twitter' => 'https://twitter/admin',
+                'Twitch' => 'https://twitch/admin'
+            ])
+            ->setUpdatedAt($faker->dateTime());
+        $influcers[] = $influencer;
+        $manager->persist($influencer);
+
+        $brand = new Brand();
+
+        $brandName = "brand NAME";
+        $brand->setUserId($influenceurAndMarque)
+            ->setDescription($faker->realText())
+            ->setUsername($faker->userName())
+            ->setSiret($faker->numberBetween(10, 2000))
+            ->setName($faker->name())
+            ->setField([
+                "Agroalimentaire",
+                "Bois - Papier - Carton - Imprimerie",
+                "Édition - Communication - Multimédia",
+                "Industrie pharmaceutique",
+                "Transports - Logistique"
+            ])
+            ->setSocialNetwork([
+                'Website' => 'https://' . $brandName . '.com',
+                'Instagram' => 'https://instagram.com/' . $brandName,
+                'Tiktok' => 'https://tiktok/' . $brandName,
+                'Facebook' => 'https://facebook/' . $brandName,
+                'Youtube' => 'https://youtube.com/' . $brandName . 'com',
+                'Twitter' => 'https://twitter/' . $brandName,
+                'Twitch' => 'https://twitch/' . $brandName
+            ])
+
+            ->setUpdatedAt($faker->dateTime());
+        $brands[] = $brand;
+
+        $manager->persist($brand);
+
+
+        //INFLUENCER USER
         for ($u = 0; $u < 5; $u++) {
             $user = new User();
             $hash = $this->encoder->encodePassword($user, "password");
@@ -91,6 +155,8 @@ class AppFixtures extends Fixture
             $manager->persist($influencer);
         }
 
+
+        //BRAND USER
         for ($u = 0; $u < 5; $u++) {
             $user = new User();
             $hash = $this->encoder->encodePassword($user, "password");
@@ -132,6 +198,8 @@ class AppFixtures extends Fixture
 
             $manager->persist($brand);
         }
+
+        //CREATION OFFER
         for ($u = 0; $u < 5; $u++) {
             $offer = new Offer();
             $offer->setBrandId($faker->randomElement($brands))
@@ -147,6 +215,7 @@ class AppFixtures extends Fixture
             $manager->persist($offer);
         }
 
+        //CREATION  APPLICATION OFFER
         for ($u = 0; $u < 5; $u++) {
             $application = new Application();
             $offer->addApplication($application);

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Entity\Brand;
 use App\Entity\Influencer;
+use App\Repository\ApplicationRepository;
 use App\Repository\UserRepository;
 use App\Repository\BrandRepository;
 use App\Repository\OfferRepository;
@@ -18,14 +19,20 @@ class DashbaordController extends AbstractController
     /**
      * @Route("/admin/dashbaord", name="dashbaord_admin_dashbaord")
      */
-    public function index(UserRepository $userRepository)
+    public function index(UserRepository $userRepository, ApplicationRepository $applicationRepository, OfferRepository $offerRepository)
     {
         $users = $userRepository->findAll();
-        dd($users);
+        $offers = $offerRepository->findAll();
+        $applications = $applicationRepository->findAll();
+
         $countUsers = count($users);
+        $countOffers = count($offers);
+        $countApplications = count($applications);
 
         return $this->render('admin/index.html.twig', [
-            'countUsers' => $countUsers
+            'countUsers' => $countUsers,
+            'countOffers' => $countOffers,
+            'countApplications' => $countApplications
         ]);
     }
 
@@ -35,6 +42,18 @@ class DashbaordController extends AbstractController
     public function adminListUsers(UserRepository $userRepository)
     {
         $users = $userRepository->getBrandAndInfluencer();
+        // dd($users);
+
+        return $this->render('admin/list_users.html.twig', [
+            'users' => $users,
+        ]);
+    }
+    /**
+     * @Route("/admin/edit/user/{id}", name="dashbaord_admin_edit_users")
+     */
+    public function editUser(UserRepository $userRepository)
+    {
+        $users = $userRepository->findAll();
         return $this->render('admin/list_users.html.twig', [
             'users' => $users,
         ]);
