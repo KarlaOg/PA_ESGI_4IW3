@@ -103,7 +103,7 @@ class OfferController extends AbstractController
         $user = $this->getUser();
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
-        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
+        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
         // $application = $applicationRepository->find($influencer);
 
 
@@ -154,7 +154,7 @@ class OfferController extends AbstractController
 
         $user = $this->getUser();
 
-        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
+        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
