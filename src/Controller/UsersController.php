@@ -62,7 +62,7 @@ class UsersController extends AbstractController
     public function usersOffers(influencerRepository $influencerRepository)
     {
         $user = $this->getUser();
-        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
+        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
         // GET ALL APPLICATIONS AS DOCTRINE PERSISTENT COLLECTION
         $allApplications = $influencerRepository->find($influencer)->getApplications();
 

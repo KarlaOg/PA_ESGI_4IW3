@@ -1,12 +1,11 @@
 import './styles/app.css';
-import $ from 'jquery';
 import List from 'list.js';
 import 'alpinejs';
 
-$(document).ready(function () {
+window.onload = () => {
   var options = {
-    valueNames: ['lastname', 'firstname', 'email', 'name'],
+    valueNames: ['lastname', 'firstname', 'email', 'name', 'role'],
   };
 
   var userList = new List('user-list', options);
-});
+};
