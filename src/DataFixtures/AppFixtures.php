@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Application;
 use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Brand;
@@ -25,6 +26,7 @@ class AppFixtures extends Fixture
         $users = [];
         $influcers = [];
         $brands = [];
+        $applications = [];
 
         $admin = new User;
         $hash = $this->encoder->encodePassword($admin, "password");
@@ -53,8 +55,6 @@ class AppFixtures extends Fixture
             ->setUpdatedAt($faker->dateTime());
         $influcers[] = $influencer;
         $manager->persist($influencer);
-
-
 
         for ($u = 0; $u < 5; $u++) {
             $user = new User();
@@ -134,15 +134,28 @@ class AppFixtures extends Fixture
         }
         for ($u = 0; $u < 5; $u++) {
             $offer = new Offer();
-            $offer->setBrandId($faker->unique()->randomElement($brands))
+            $offer->setBrandId($faker->randomElement($brands))
                 ->setDescription($faker->realText())
                 ->setName($faker->title())
-                ->setDateStart($faker->dateTimeThisMonth())
-                ->setDateEnd($faker->dateTimeThisYear())
+                ->setDateEnd($faker->dateTimeThisMonth())
+                ->setDateStart($faker->dateTimeThisYear())
+                ->setField(["Gaming", "Streaming", "Lifestyle", "Exploration"])
+
                 ->setDateCreation($faker->dateTime());
             $offers[] = $offer;
 
             $manager->persist($offer);
+        }
+
+        for ($u = 0; $u < 5; $u++) {
+            $application = new Application();
+            $offer->addApplication($application);
+            $application->setOffer($faker->randomElement($offers))
+                ->addInfluencerId($faker->randomElement($influcers))
+                ->setStatus("pending");
+            $applications[] = $application;
+
+            $manager->persist($application);
         }
 
         $manager->flush();
