@@ -5,10 +5,13 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Entity\Brand;
 use App\Entity\Influencer;
-use App\Repository\ApplicationRepository;
+use App\Form\EditUserType;
+use App\Form\EditBrandType;
 use App\Repository\UserRepository;
 use App\Repository\BrandRepository;
 use App\Repository\OfferRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ApplicationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,11 +54,31 @@ class DashbaordController extends AbstractController
     /**
      * @Route("/admin/edit/user/{id}", name="dashbaord_admin_edit_users")
      */
-    public function editUser(UserRepository $userRepository)
+    public function editUser(UserRepository $userRepository, Request $request, $id,  EntityManagerInterface $em)
     {
-        $users = $userRepository->findAll();
-        return $this->render('admin/list_users.html.twig', [
-            'users' => $users,
+
+
+        $user = $userRepository->find($id);
+
+
+        $form = $this->createForm(EditUserType::class, $user);
+
+        $form->handleRequest($request);
+
+
+        $role = $user->getRoles();
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($user->getIsAdmin(1)) {
+                $user->setRoles(array_merge($role, ["ROLE_ADMIN"]));
+            }
+            $em->flush(); //actualise en db
+            return $this->redirectToRoute('dashbaord_admin_list_users');
+        }
+
+        return $this->render('admin/edit_user.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 

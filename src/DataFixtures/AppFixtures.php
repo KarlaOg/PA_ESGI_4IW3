@@ -36,15 +36,17 @@ class AppFixtures extends Fixture
             ->setFirstname("Admin")
             ->setLastname("Admin")
             ->setPassword($hash)
+            ->setIsAdmin(1)
             ->setAge($faker->dateTime())
-            ->setRoles(['ROLE_ADMIN', 'ROLE_INFLUENCEUR']);
+            ->setRoles(['ROLE_INFLUENCEUR', 'ROLE_ADMIN']);
         $manager->persist($admin);
         $influencer = new Influencer();
         $influencer->setUserId($admin)
             ->setDescription($faker->realText())
             ->setUsername($faker->userName())
             ->setSiret($faker->numberBetween(10, 2000))
-            ->setName($faker->name())
+            ->setName($faker->userName())
+            ->setType(["Gamer", "Instagramer", "Blogueur"])
             ->setSocialNetwork([
                 'Website' => 'https://admin.com',
                 'Instagram' => 'https://instagram.com/admin',
@@ -66,6 +68,7 @@ class AppFixtures extends Fixture
             ->setLastname("Mouse")
             ->setPassword($hash)
             ->setAge($faker->dateTime())
+            ->setIsAdmin(0)
             ->setRoles(['ROLE_MARQUE', 'ROLE_INFLUENCEUR']);
         $manager->persist($influenceurAndMarque);
 
@@ -74,7 +77,8 @@ class AppFixtures extends Fixture
             ->setDescription($faker->realText())
             ->setUsername($faker->userName())
             ->setSiret($faker->numberBetween(10, 2000))
-            ->setName($faker->name())
+            ->setName($faker->userName())
+            ->setType(["Gamer", "Instagramer", "Blogueur"])
             ->setSocialNetwork([
                 'Website' => 'https://admin.com',
                 'Instagram' => 'https://instagram.com/admin',
@@ -95,7 +99,7 @@ class AppFixtures extends Fixture
             ->setDescription($faker->realText())
             ->setUsername($faker->userName())
             ->setSiret($faker->numberBetween(10, 2000))
-            ->setName($faker->name())
+            ->setName($faker->userName())
             ->setField([
                 "Agroalimentaire",
                 "Bois - Papier - Carton - Imprimerie",
@@ -128,6 +132,7 @@ class AppFixtures extends Fixture
                 ->setLastname($faker->lastName())
                 ->setPassword($hash)
                 ->setAge($faker->dateTime())
+                ->setIsAdmin(0)
                 ->setRoles(['ROLE_INFLUENCEUR']);
             $users[] = $user;
 
@@ -138,7 +143,7 @@ class AppFixtures extends Fixture
                 ->setDescription($faker->realText())
                 ->setUsername($faker->userName())
                 ->setSiret($faker->numberBetween(10, 2000))
-                ->setName($faker->name())
+                ->setName($faker->userName())
                 ->setType(["Gamer", "Instagramer", "Blogueur"])
                 ->setSocialNetwork([
                     'Website' => 'https://' . $u . '.com',
@@ -165,6 +170,7 @@ class AppFixtures extends Fixture
                 ->setLastname($faker->lastName())
                 ->setPassword($hash)
                 ->setAge($faker->dateTime())
+                ->setIsAdmin(0)
                 ->setRoles(['ROLE_MARQUE']);
             $users[] = $user;
 
@@ -175,7 +181,7 @@ class AppFixtures extends Fixture
                 ->setDescription($faker->realText())
                 ->setUsername($faker->userName())
                 ->setSiret($faker->numberBetween(10, 2000))
-                ->setName($faker->name())
+                ->setName($faker->userName())
                 ->setField([
                     "Agroalimentaire",
                     "Bois - Papier - Carton - Imprimerie",
