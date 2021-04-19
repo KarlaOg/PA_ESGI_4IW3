@@ -76,6 +76,11 @@ class User implements UserInterface, \Serializable
      */
     private $influencer;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAdmin;
+
 
 
 
@@ -323,6 +328,18 @@ class User implements UserInterface, \Serializable
                 $influencer->setUserId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsAdmin(): ?bool
+    {
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin(bool $isAdmin): self
+    {
+        $this->isAdmin = $isAdmin;
 
         return $this;
     }
