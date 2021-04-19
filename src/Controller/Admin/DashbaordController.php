@@ -67,12 +67,17 @@ class DashbaordController extends AbstractController
 
 
         $role = $user->getRoles();
+        $admin = ["ROLE_ADMIN"];
+        $merge = array_merge($role, $admin);
         if ($form->isSubmitted() && $form->isValid()) {
 
             if ($user->getIsAdmin(1)) {
-                $user->setRoles(array_merge($role, ["ROLE_ADMIN"]));
+                $user->setRoles($merge);
+            } else {
+                $key = array_search("ROLE_ADMIN", $merge);
+                $user->setRoles(array_splice($merge, 0, $key));
             }
-            $em->flush(); //actualise en db
+            $em->flush();
             return $this->redirectToRoute('dashbaord_admin_list_users');
         }
 
