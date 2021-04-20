@@ -41,11 +41,11 @@
 
 
 		{% for i in user.influencer %}
-			<a href="{{ path('dashbaord_admin_edit_influencer', {'id': i.id}) }}" class="mt-3 btn btn-info">Modifier les informations de
+			<a href="{{ path('dashbaord_admin_edit_influencer', {'id': i.id}) }}" class="mt-3 bg-purple-100 btn btn-info">Modifier l'influenceur
 				{{i.name}}</a>
 		{% endfor %}
 		{% for b in user.brand %}
-			<a href="{{ path('dashbaord_admin_edit_brand', {'id': b.id}) }}" class="mt-3 btn btn-info">Modifier les informations de
+			<a href="{{ path('dashbaord_admin_edit_brand', {'id': b.id}) }}" class="mt-3 btn btn-info">Modifier la marque
 				{{b.name}}</a>
 		{% endfor %}
 	</div>
