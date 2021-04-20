@@ -48,7 +48,7 @@ class DashbaordController extends AbstractController
      */
     public function adminListUsers(UserRepository $userRepository)
     {
-        $users = $userRepository->getBrandAndInfluencer();
+        $users = $userRepository->findAll();
         // dd($users);
 
         return $this->render('admin/list_users.html.twig', [
