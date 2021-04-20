@@ -16,3 +16,6 @@
 a:hover {
     text-decoration: unset !important;
 }
+.vich-image{
+    width: 200px;
+}
