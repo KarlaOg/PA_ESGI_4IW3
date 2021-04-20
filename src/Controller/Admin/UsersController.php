@@ -47,7 +47,7 @@ class UsersController extends AbstractController
         $merge = array_merge($role, $admin);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($user->getIsAdmin(1)) {
+            if ($user->getIsAdmin(true)) {
                 $user->setRoles($merge);
             } else {
                 $key = array_search("ROLE_ADMIN", $merge);
