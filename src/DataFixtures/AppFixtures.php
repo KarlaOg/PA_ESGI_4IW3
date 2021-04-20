@@ -28,18 +28,18 @@ class AppFixtures extends Fixture
         $brands = [];
         $applications = [];
 
-
         //ADMIN
         $admin = new User;
         $hash = $this->encoder->encodePassword($admin, "password");
         $admin->setEmail("admin@admin.com")
-            ->setFirstname("Admin")
-            ->setLastname("Admin")
+            ->setFirstname("admin")
+            ->setLastname("admin")
             ->setPassword($hash)
-            ->setIsAdmin(1)
             ->setAge($faker->dateTime())
-            ->setRoles(['ROLE_INFLUENCEUR']);
+            ->setIsAdmin(1)
+            ->setRoles(['ROLE_INFLUENCEUR', 'ROLE_ADMIN']);
         $manager->persist($admin);
+
         $influencer = new Influencer();
         $influencer->setUserId($admin)
             ->setDescription($faker->realText())
@@ -59,6 +59,8 @@ class AppFixtures extends Fixture
             ->setUpdatedAt($faker->dateTime());
         $influcers[] = $influencer;
         $manager->persist($influencer);
+
+
 
         //INFLUENCER AND BRAND USER
         $influenceurAndMarque = new User;
