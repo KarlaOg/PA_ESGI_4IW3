@@ -1,4 +1,4 @@
-import './styles/app.css';
+import './styles/app.scss';
 import List from 'list.js';
 import 'alpinejs';
 
