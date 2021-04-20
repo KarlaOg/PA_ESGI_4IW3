@@ -105,8 +105,7 @@ class UsersController extends AbstractController
         $user = $this->getUser();
         $influcerInfos = $influencerRepository->findOneBy(['UserId' => $user]);
         $brandInfos = $brandRepository->findOneBy(['UserId' => $user]);
-
-        if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
+        if ($user->getRoles() == ["ROLE_INFLUENCEUR"] ||   $user->getRoles()[0] == "ROLE_INFLUENCEUR") {
             $form = $this->createForm(InfluencerType::class, $influcerInfos);
             $form->handleRequest($request);
 
