@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Brand;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -11,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class EditUserType extends AbstractType
 {
@@ -19,8 +20,9 @@ class EditUserType extends AbstractType
     {
         $builder
             ->add('email')
-            // ->add('roles')
-            // ->add('password')
+            ->add('age', BirthdayType::class, [
+                'label' => 'Date de Naissance',
+            ])
             ->add('firstname')
             ->add('lastname')
 

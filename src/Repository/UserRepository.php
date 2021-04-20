@@ -38,25 +38,4 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
-
-    public function getBrandAndInfluencer()
-    {
-
-        return $this->createQueryBuilder('u')
-            ->leftJoin(
-                Brand::class,
-                'b',
-                'WITH',
-                'b.UserId = u.id'
-            )
-            ->leftJoin(
-                Influencer::class,
-                'i',
-                'WITH',
-                'i.UserId = u.id'
-            )
-            ->select('u')
-            ->getQuery()
-            ->getResult();
-    }
 }

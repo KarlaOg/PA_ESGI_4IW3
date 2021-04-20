@@ -41,7 +41,7 @@ class UsersController extends AbstractController
 
         $user = $this->getUser();
 
-        $users = $userRepository->getBrandAndInfluencer();
+        $users = $userRepository->findAll();
 
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
