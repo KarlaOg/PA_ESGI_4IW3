@@ -4,12 +4,16 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Brand;
+use App\Form\BrandType;
 use App\Entity\Influencer;
 use App\Form\EditUserType;
 use App\Form\EditBrandType;
+use App\Form\InfluencerType;
 use App\Repository\UserRepository;
 use App\Repository\BrandRepository;
 use App\Repository\OfferRepository;
+use ContainerFuRrfIK\getBrandService;
+use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ApplicationRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,9 +61,7 @@ class DashbaordController extends AbstractController
     public function editUser(UserRepository $userRepository, Request $request, $id,  EntityManagerInterface $em)
     {
 
-
         $user = $userRepository->find($id);
-
 
         $form = $this->createForm(EditUserType::class, $user);
 
@@ -86,6 +88,57 @@ class DashbaordController extends AbstractController
             'user' => $user
         ]);
     }
+
+    /**
+     * @Route("/admin/edit/brand/{id}", name="dashbaord_admin_edit_brand")
+     */
+    public function editBrand(BrandRepository $brandRepository, Request $request, $id,  EntityManagerInterface $em)
+    {
+
+        $brand = $brandRepository->find($id);
+
+        $form = $this->createForm(BrandType::class, $brand);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+            return $this->redirectToRoute('dashbaord_admin_list_users');
+        }
+
+        return $this->render('admin/edit_brand.html.twig', [
+            'form' => $form->createView(),
+            'brand' => $brand,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/edit/influencer/{id}", name="dashbaord_admin_edit_influencer")
+     */
+    public function editInfluencer(Request $request, $id,  EntityManagerInterface $em, InfluencerRepository $influencerRepository)
+    {
+
+        $influencer = $influencerRepository->find($id);
+
+        $form = $this->createForm(InfluencerType::class, $influencer);
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $em->flush();
+            return $this->redirectToRoute('dashbaord_admin_list_users');
+        }
+
+        return $this->render('admin/edit_influencer.html.twig', [
+            'form' => $form->createView(),
+            'influencer' => $influencer
+        ]);
+    }
+
 
     /**
      * @Route("admin/user/{id}", name="dashbaord_admin_user_delete")

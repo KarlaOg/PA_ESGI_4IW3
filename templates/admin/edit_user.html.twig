@@ -1,17 +1,52 @@
 {% extends "admin/base_admin.html.twig" %}
+{% block stylesheets %}
+	{{parent()}}
+	<link href="https://bootswatch.com/4/lux/bootstrap.min.css" rel="stylesheet">
 
+{% endblock %}
 
 {% block title %}Editer l'utilisateur
 {% endblock %}
 
 {% block body %}
-	<h2 class="max-w-6xl px-4 mx-auto mt-8 mb-8 text-lg font-medium leading-6 text-gray-900 sm:px-6 lg:px-8">
-		Editer l'utilisateur
-	</h2>
-	<pre>
-</pre>
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
-	<button type="submit" class="mt-3 btn btn-primary">Sauvegarder</button>
-	{{ form_end(form) }}
+	<div class="p-5">
+
+		<div class="flex items-baseline ">
+
+			<h2 class="max-w-6xl mb-8 mr-3 text-lg font-medium leading-6 text-gray-900">
+				Editer l'utilisateur
+				{{user.firstname}}
+				{{user.lastname}}
+			</h2>
+			{% for role in user.roles %}
+				{% if role == "ROLE_INFLUENCEUR" %}
+					<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full role">
+						Influenceur
+					</span>
+				{% elseif role == "ROLE_MARQUE" %}
+					<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full role">
+						Marque
+					</span>
+				{% elseif role == "ROLE_ADMIN" %}
+					<span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full role">
+						Admin
+					</span>
+				{% endif %}
+			{% endfor %}
+		</div>
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button type="submit" class="mt-3 btn btn-primary">Sauvegarder</button>
+		{{ form_end(form) }}
+
+
+		{% for i in user.influencer %}
+			<a href="{{ path('dashbaord_admin_edit_influencer', {'id': i.id}) }}" class="mt-3 btn btn-info">Modifier les informations de
+				{{i.name}}</a>
+		{% endfor %}
+		{% for b in user.brand %}
+			<a href="{{ path('dashbaord_admin_edit_brand', {'id': b.id}) }}" class="mt-3 btn btn-info">Modifier les informations de
+				{{b.name}}</a>
+		{% endfor %}
+	</div>
 {% endblock %}

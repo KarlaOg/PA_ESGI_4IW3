@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
             ->setPassword($hash)
             ->setIsAdmin(1)
             ->setAge($faker->dateTime())
-            ->setRoles(['ROLE_INFLUENCEUR', 'ROLE_ADMIN']);
+            ->setRoles(['ROLE_INFLUENCEUR']);
         $manager->persist($admin);
         $influencer = new Influencer();
         $influencer->setUserId($admin)

@@ -38,9 +38,6 @@
 											Email
 										</th>
 										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-											Info
-										</th>
-										<th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
 											Date de naissance
 										</th>
 										<th data-sort="role" scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase sort">
@@ -96,10 +93,6 @@
 															{{b.UserId.email }}
 														</div>
 													</td>
-													<td class="px-6 py-4 whitespace-nowrap bg-emerald-200">
-														<div class="text-sm text-gray-900">{{b.name}}</div>
-														<div class="text-sm text-gray-500">{{b.description|slice(0, 50) ~ '...'}}</div>
-													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
 														<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
 													</td>
@@ -113,11 +106,11 @@
 
 															{% if val == "ROLE_MARQUE" %}
 																<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full role">
-																	{{val}}
+																	Marque
 																</span>
 															{% elseif val == "ROLE_ADMIN" %}
 																<span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full role">
-																	{{val}}
+																	Admin
 																</span>
 															{% endif %}
 														{% endfor %}
@@ -206,10 +199,6 @@
 														</div>
 													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
-														<div class="text-sm text-gray-900">{{i.name}}</div>
-														<div class="text-sm text-gray-500">{{i.description|slice(0, 50) ~ '...'}}</div>
-													</td>
-													<td class="px-6 py-4 whitespace-nowrap">
 														<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
 													</td>
 												{% endfor %}
@@ -221,12 +210,12 @@
 
 															{% if val == "ROLE_INFLUENCEUR" %}
 																<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full role">
-																	{{val}}
+																	Influenceur
 																</span>
 
 															{% elseif val == "ROLE_ADMIN" %}
 																<span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full role">
-																	{{val}}
+																	Marque
 																</span>
 															{% endif %}
 														{% endfor %}
@@ -322,10 +311,6 @@
 															{{b.UserId.email }}
 														</div>
 													</td>
-													<td class="px-6 py-4 whitespace-nowrap bg-emerald-200">
-														<div class="text-sm text-gray-900">{{b.name}}</div>
-														<div class="text-sm text-gray-500">{{b.description|slice(0, 50) ~ '...'}}</div>
-													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
 														<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
 													</td>
@@ -347,10 +332,6 @@
 														</div>
 													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
-														<div class="text-sm text-gray-900">{{i.name}}</div>
-														<div class="text-sm text-gray-500">{{i.description|slice(0, 50) ~ '...'}}</div>
-													</td>
-													<td class="px-6 py-4 whitespace-nowrap">
 														<div class="text-sm text-gray-900">{{ user.age |date("m/d/Y", "Europe/Paris")}}</div>
 													</td>
 												{% endfor %}
@@ -360,15 +341,15 @@
 
 														{% if val == "ROLE_INFLUENCEUR" %}
 															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full role">
-																{{val}}
+																Influenceur
 															</span>
 														{% elseif val == "ROLE_MARQUE" %}
 															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full role">
-																{{val}}
+																Marque
 															</span>
 														{% elseif val == "ROLE_ADMIN" %}
 															<span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full role">
-																{{val}}
+																Admin
 															</span>
 														{% endif %}
 													{% endfor %}
