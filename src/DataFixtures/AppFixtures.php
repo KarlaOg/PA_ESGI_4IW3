@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
             ->setLastname("admin")
             ->setPassword($hash)
             ->setAge($faker->dateTime())
-            ->setIsAdmin(1)
+            ->setIsAdmin(true)
             ->setRoles(['ROLE_INFLUENCEUR', 'ROLE_ADMIN']);
         $manager->persist($admin);
 
@@ -70,7 +70,7 @@ class AppFixtures extends Fixture
             ->setLastname("Mouse")
             ->setPassword($hash)
             ->setAge($faker->dateTime())
-            ->setIsAdmin(0)
+            ->setIsAdmin(false)
             ->setRoles(['ROLE_MARQUE', 'ROLE_INFLUENCEUR']);
         $manager->persist($influenceurAndMarque);
 
@@ -134,7 +134,7 @@ class AppFixtures extends Fixture
                 ->setLastname($faker->lastName())
                 ->setPassword($hash)
                 ->setAge($faker->dateTime())
-                ->setIsAdmin(0)
+                ->setIsAdmin(false)
                 ->setRoles(['ROLE_INFLUENCEUR']);
             $users[] = $user;
 
@@ -172,7 +172,7 @@ class AppFixtures extends Fixture
                 ->setLastname($faker->lastName())
                 ->setPassword($hash)
                 ->setAge($faker->dateTime())
-                ->setIsAdmin(0)
+                ->setIsAdmin(false)
                 ->setRoles(['ROLE_MARQUE']);
             $users[] = $user;
 

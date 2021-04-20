@@ -29,8 +29,8 @@ class EditUserType extends AbstractType
             ->add('isAdmin', ChoiceType::class, [
                 'label' => 'Admin ?',
                 'choices' => [
-                    'Oui' => "1",
-                    'Non' => "0",
+                    'Oui' => true,
+                    'Non' => false,
 
                 ],
 
