@@ -41,7 +41,7 @@
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon profil</a>
 					{% if is_granted('ROLE_ADMIN') %}
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ path('dashbaord_admin_list_users') }}">
+							<a class="dropdown-item" href="{{ path('dashbaord_admin_dashbaord') }}">
 								<mark>Dashboard ADMIN</mark>
 							</a>
 							{% for role in app.user.roles %}

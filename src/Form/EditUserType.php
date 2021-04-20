@@ -20,12 +20,12 @@ class EditUserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('age', BirthdayType::class, [
-                'label' => 'Date de Naissance',
-            ])
             ->add('firstname')
             ->add('lastname')
 
+            ->add('age', BirthdayType::class, [
+                'label' => 'Date de Naissance',
+            ])
             ->add('isAdmin', ChoiceType::class, [
                 'label' => 'Admin ?',
                 'choices' => [
