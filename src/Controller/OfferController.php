@@ -2,11 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Application;
+use App\Entity\Influencer;
 use App\Entity\Offer;
 
+use App\Entity\User;
 use App\Form\OfferType;
 use App\Form\ApplicationType;
 use App\Repository\BrandRepository;
+use App\Repository\InfluencerRepository;
+use App\Repository\ApplicationRepository;
+
 use App\Repository\OfferRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,8 +66,6 @@ class OfferController extends AbstractController
 
         $brandId = $brandRepository->findOneBy(['UserId' => $user]);
 
-        if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
-        }
 
         $form = $this->createForm(OfferType::class, $offer);
 
@@ -89,7 +93,7 @@ class OfferController extends AbstractController
     /**
      * @Route("/show/{id}", name="show", methods={"GET"})
      */
-    public function show($id, Offer $offer, BrandRepository $brandRepository, OfferRepository $offerRepository)
+    public function show($id, Offer $offer, BrandRepository $brandRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository, applicationRepository $applicationRepository)
     {
 
         $offerId = $offerRepository->find($id);
@@ -97,12 +101,16 @@ class OfferController extends AbstractController
         $this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
 
         $user = $this->getUser();
-
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
+
+        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
+        // $application = $applicationRepository->find($influencer);
+
 
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,
-            'brand' => $brand
+            'brand' => $brand,
+
         ]);
     }
 
@@ -139,16 +147,25 @@ class OfferController extends AbstractController
     /**
      * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
      */
-    public function apply(Offer $offer, Request $request)
+    public function apply(Offer $offer, Request $request, influencerRepository $influencerRepository)
     {
         $form = $this->createForm(ApplicationType::class, $offer);
         $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
-        $offer->setStatus($this->status = "En attente de validation");
+        $user = $this->getUser();
+
+        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $application = new Application();
+            $offer->addApplication($application);
+            $application->setOffer($offer);
+            $application->addInfluencerId($influencer);
+            $application->setStatus("pending");
+
             $em = $this->getDoctrine()->getManager();
+            $em->persist($application);
             $em->flush();
 
             $this->addFlash('success', 'Postuler à l\'offre en cours');

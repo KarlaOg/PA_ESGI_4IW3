@@ -65,6 +65,16 @@ Install webpack
 yarn install
 ```
 
+```
+yarn watch
+```
+
+Jouer les fixtures
+
+```
+php bin/console d:f:l --no-interaction
+```
+
 ## Authors
 
 - Yanis FENICHE

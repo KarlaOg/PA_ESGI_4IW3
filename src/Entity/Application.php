@@ -25,25 +25,19 @@ class Application
     private $influencerId;
 
     /**
-     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="application")
-     */
-    private $offerId;
-
-    /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="application")
+     * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="application")
      */
-    private $brandId;
+    private $offer;
+
 
     public function __construct()
     {
         $this->influencerId = new ArrayCollection();
-        $this->offerId = new ArrayCollection();
-        $this->brandId = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,74 +69,26 @@ class Application
         return $this;
     }
 
-    /**
-     * @return Collection|Offer[]
-     */
-    public function getOfferId(): Collection
-    {
-        return $this->offerId;
-    }
-
-    public function addOfferId(Offer $offerId): self
-    {
-        if (!$this->offerId->contains($offerId)) {
-            $this->offerId[] = $offerId;
-            $offerId->setApplication($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOfferId(Offer $offerId): self
-    {
-        if ($this->offerId->removeElement($offerId)) {
-            // set the owning side to null (unless already changed)
-            if ($offerId->getApplication() === $this) {
-                $offerId->setApplication(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getStatus(): ?bool
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(bool $status): self
+    public function setStatus(?string $status): self
     {
         $this->status = $status;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Brand[]
-     */
-    public function getBrandId(): Collection
+    public function getOffer(): ?Offer
     {
-        return $this->brandId;
+        return $this->offer;
     }
 
-    public function addBrandId(Brand $brandId): self
+    public function setOffer(?Offer $offer): self
     {
-        if (!$this->brandId->contains($brandId)) {
-            $this->brandId[] = $brandId;
-            $brandId->setApplication($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBrandId(Brand $brandId): self
-    {
-        if ($this->brandId->removeElement($brandId)) {
-            // set the owning side to null (unless already changed)
-            if ($brandId->getApplication() === $this) {
-                $brandId->setApplication(null);
-            }
-        }
+        $this->offer = $offer;
 
         return $this;
     }

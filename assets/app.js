@@ -1,33 +1,11 @@
-var elems = document.querySelectorAll('select')
-// var instances = M.FormSelect.init(elems);
+import './styles/app.scss';
+import List from 'list.js';
+import 'alpinejs';
 
-$('select').change(function () {
-  var donnees = {
-    searchSelector: $(this).children('option:selected').val(),
-  }
-  $.ajax({
-    url: '/search/keyworddata',
-    type: 'POST',
-    dataType: 'json',
-    data: donnees,
-    async: true,
-    success: function (data, status) {
-      var tab = []
-      for (var i = 0; i < data.length; i++) {
-        tab[i] = data[i].firstname + ' ' + data[i].lastname
-      }
-      autocomplete(document.getElementById('keywords'), tab)
-    },
-    error: function (xhr, textStatus, errorThrown) {
-      console.log('Ajax request failed. ' + errorThrown)
-    },
-  })
-})
-$('#keywords').keyup(function () {
-  var keywords = $('#keywords').val()
-  var tagselect = $('#tag-select').val()
-  $('#asb').attr(
-    'href',
-    '/search/data?keywords=' + keywords + '&searchfilter=' + tagselect
-  )
-})
+window.onload = () => {
+  var options = {
+    valueNames: ['lastname', 'firstname', 'email', 'name', 'role'],
+  };
+
+  var userList = new List('user-list', options);
+};

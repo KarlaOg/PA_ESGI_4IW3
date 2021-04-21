@@ -11,12 +11,9 @@
 		{% else %}
 
 			{% for offer in offers  %}
-				<div class="card mb-3">
+				<div class="mb-3 card">
 					{% if brand is not null and offer.brandId.id == brand.id %}
 						<div class="card-body">
-							<p style="margin:10px 0">
-								<mark>{{offer.status}}</mark>
-							</p>
 							<p>Nom :
 								{{ offer.name|capitalize }}</p>
 							<p>Description :
@@ -35,13 +32,14 @@
 								<p>Créer par
 									{{brand.name}}</p>
 							{% endif %}
-							<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn btn-primary">Voir l'offre</a>
+							<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
 						</div>
 					{% endif %}
 				</div>
 				{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
 					{% if offer.dateEnd > datenow %}
 						<div class="card mb-3">
+
 							<div class="card-body">
 								<p>Marque :
 									{{ offer.brandId.name|capitalize }}</p>
@@ -50,6 +48,7 @@
 								<p>Description :
 									{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
 								</p>
+
 								<p>Dates de début:
 									{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
 								</p>
@@ -63,6 +62,7 @@
 						</div>
 					{% endif %}
 				{% endif %}
+
 			{% endfor %}
 		{% endif %}
 	</div>

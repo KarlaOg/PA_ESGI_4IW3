@@ -15,7 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="user_account")
+ * @ORM\Table(name="user")
  * @UniqueEntity("email")
  */
 class User implements UserInterface, \Serializable
@@ -61,14 +61,28 @@ class User implements UserInterface, \Serializable
     private $age;
 
     /**
-     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="UserId")
+     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="UserId", orphanRemoval=true)
      */
-    private $brands;
+    private $brand;
+
 
     /**
      * @ORM\ManyToMany(targetEntity=Payment::class, mappedBy="userId")
      */
     private $payments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Influencer::class, mappedBy="UserId", orphanRemoval=true)
+     */
+    private $influencer;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAdmin;
+
+
+
 
 
     // Pour les test unitaire (pas complet)
@@ -87,8 +101,9 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->brands = new ArrayCollection();
+        $this->brand = new ArrayCollection();
         $this->payments = new ArrayCollection();
+        $this->influencer = new ArrayCollection();
     }
 
 
@@ -209,15 +224,15 @@ class User implements UserInterface, \Serializable
     /**
      * @return Collection|Brand[]
      */
-    public function getBrands(): Collection
+    public function getBrand(): Collection
     {
-        return $this->brands;
+        return $this->brand;
     }
 
     public function addBrand(Brand $brand): self
     {
-        if (!$this->brands->contains($brand)) {
-            $this->brands[] = $brand;
+        if (!$this->brand->contains($brand)) {
+            $this->brand[] = $brand;
             $brand->setUserId($this);
         }
 
@@ -226,7 +241,7 @@ class User implements UserInterface, \Serializable
 
     public function removeBrand(Brand $brand): self
     {
-        if ($this->brands->removeElement($brand)) {
+        if ($this->brand->removeElement($brand)) {
             // set the owning side to null (unless already changed)
             if ($brand->getUserId() === $this) {
                 $brand->setUserId(null);
@@ -285,5 +300,47 @@ class User implements UserInterface, \Serializable
     public function __toString()
     {
         return (string) $this->id;
+    }
+
+    /**
+     * @return Collection|Influencer[]
+     */
+    public function getInfluencer(): Collection
+    {
+        return $this->influencer;
+    }
+
+    public function addInfluencer(Influencer $influencer): self
+    {
+        if (!$this->influencer->contains($influencer)) {
+            $this->influencer[] = $influencer;
+            $influencer->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInfluencer(Influencer $influencer): self
+    {
+        if ($this->influencer->removeElement($influencer)) {
+            // set the owning side to null (unless already changed)
+            if ($influencer->getUserId() === $this) {
+                $influencer->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIsAdmin(): ?bool
+    {
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin(bool $isAdmin): self
+    {
+        $this->isAdmin = $isAdmin;
+
+        return $this;
     }
 }
