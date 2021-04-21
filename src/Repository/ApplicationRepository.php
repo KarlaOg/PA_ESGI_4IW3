@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Application;
+use App\Entity\Influencer;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,4 +49,22 @@ class ApplicationRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findApplicationAndInfluencer($value): ?Application
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.id = :val')
+            ->setParameter('val', $value)
+      /*      ->leftJoin(
+                Influencer::class,
+                'i',
+                'WITH',
+                'i.id = a.id'
+            )*/
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+    /*SELECT * FROM application LEFT JOIN application_influencer
+    ON application_influencer.application_id = application.id
+*/
 }
