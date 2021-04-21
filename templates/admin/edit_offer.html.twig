@@ -1,0 +1,32 @@
+{% extends "admin/base_admin.html.twig" %}
+{% block stylesheets %}
+	{{parent()}}
+	<link href="https://bootswatch.com/4/lux/bootstrap.min.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}Editer l'offre
+{% endblock %}
+
+{% block body %}
+	<div class="p-5">
+		<h1>
+			Editer l'offre</h1>
+		{{ form_start(form) }}
+		{{ form_row(form.name) }}
+		{{ form_row(form.description) }}
+		{{ form_row(form.field) }}
+		{{ form_row(form.dateStart) }}
+		{{ form_row(form.dateEnd) }}
+		<div class="d-none">
+			{{ form_widget(form.brandId) }}
+		</div>
+
+		<div style="margin-top:20px">
+			<button type="submit" class="btn btn-success">Sauvegarder</button>
+
+			<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn btn-primary">Retour</a>
+		</div>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
