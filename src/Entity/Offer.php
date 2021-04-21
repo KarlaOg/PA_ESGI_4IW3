@@ -34,12 +34,6 @@ class Offer
      */
     private $description;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Brand::class)
-     * @JoinColumn(onDelete="CASCADE")
-     * @Assert\NotNull
-     */
-    private $brandId;
 
     /**
      * @ORM\Column(type="datetimetz")
@@ -71,8 +65,15 @@ class Offer
      */
     private $field = [];
 
+
     /**
-     * @ORM\OneToMany(targetEntity=Application::class, mappedBy="offer")
+     * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="offers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $brandId;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Application::class, mappedBy="offer", orphanRemoval=true)
      */
     private $application;
 
@@ -110,17 +111,6 @@ class Offer
         return $this;
     }
 
-    public function getBrandId(): ?Brand
-    {
-        return $this->brandId;
-    }
-
-    public function setBrandId(?Brand $brandId): self
-    {
-        $this->brandId = $brandId;
-
-        return $this;
-    }
 
     public function getDateCreation(): ?\DateTimeInterface
     {
@@ -170,6 +160,19 @@ class Offer
     public function setField(array $field): self
     {
         $this->field = $field;
+
+        return $this;
+    }
+
+
+    public function getBrandId(): ?Brand
+    {
+        return $this->brandId;
+    }
+
+    public function setBrandId(?Brand $brandId): self
+    {
+        $this->brandId = $brandId;
 
         return $this;
     }
