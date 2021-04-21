@@ -22,10 +22,11 @@
 							<p>Domaine :
 								{{ offer.field ? offer.field|join(', ') : null}}
 							</p>
-							<p>Dates :
-								{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
-								-
-								{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+							<p>Dates de début:
+								{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+							</p>
+							<p>Dates de fin:
+								{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
 							</p>
 							{% if brand.name is not null %}
 								<p>Créer par
@@ -35,9 +36,10 @@
 						</div>
 					{% endif %}
 				</div>
-				{% for role in app.user.roles %}
-					{% if role == "ROLE_INFLUENCEUR"  %}
-						<div class="mb-3 card">
+				{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
+					{% if offer.dateEnd > datenow %}
+						<div class="card mb-3">
+
 							<div class="card-body">
 								<p>Marque :
 									{{ offer.brandId.name|capitalize }}</p>
@@ -46,10 +48,12 @@
 								<p>Description :
 									{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
 								</p>
-								<p>Dates :
-									{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
-									-
-									{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+
+								<p>Dates de début:
+									{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+								</p>
+								<p>Dates de fin:
+									{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
 								</p>
 								<div class="card-action">
 									<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
@@ -57,7 +61,8 @@
 							</div>
 						</div>
 					{% endif %}
-				{% endfor %}
+				{% endif %}
+
 			{% endfor %}
 		{% endif %}
 	</div>
