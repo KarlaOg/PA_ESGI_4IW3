@@ -59,20 +59,22 @@ php bin/console make:migration
 php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
+Jouer les fixtures
+
+```
+php bin/console d:f:l --no-interaction
+```
+
 Install webpack
 
 ```
 yarn install
 ```
 
+Pour mettre a jour le css en background
+
 ```
 yarn watch
-```
-
-Jouer les fixtures
-
-```
-php bin/console d:f:l --no-interaction
 ```
 
 ## Authors

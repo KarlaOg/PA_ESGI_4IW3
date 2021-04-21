@@ -114,7 +114,6 @@ class OfferController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="edit", methods={"GET", "POST"})
-     * @IsGranted("ROLE_MARQUE", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
     public function edit($id, Offer $offer, Request $request, OfferRepository $offerRepository)
     {
