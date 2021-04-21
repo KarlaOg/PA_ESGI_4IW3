@@ -102,7 +102,7 @@ class Influencer
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="influencer")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $UserId;
+    private $User;
 
 
 
@@ -120,7 +120,7 @@ class Influencer
      * @return string
      */
 
-/*    public function __toString()
+    /*    public function __toString()
     {
         if(is_null($this->applications)){
             return 'NULL';
@@ -307,14 +307,14 @@ class Influencer
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->UserId;
+        return $this->User;
     }
 
-    public function setUserId(?User $UserId): self
+    public function setUser(?User $User): self
     {
-        $this->UserId = $UserId;
+        $this->User = $User;
 
         return $this;
     }

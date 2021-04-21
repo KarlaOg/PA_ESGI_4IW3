@@ -28,7 +28,7 @@ class OfferVoter extends Voter
         }
 
         //(check conditions and return true to grant permission) 
-        $id = $subject->getBrandId()->getUserId();
+        $id = $subject->getBrandId()->getUser();
 
         switch ($attribute) {
             case 'CAN_EDIT':

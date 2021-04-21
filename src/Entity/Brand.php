@@ -29,7 +29,7 @@ class Brand
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="brands")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $UserId;
+    private $User;
 
 
     /**
@@ -97,14 +97,14 @@ class Brand
         return $this->id;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->UserId;
+        return $this->User;
     }
 
-    public function setUserId(?User $UserId): self
+    public function setUser(?User $User): self
     {
-        $this->UserId = $UserId;
+        $this->User = $User;
 
         return $this;
     }
