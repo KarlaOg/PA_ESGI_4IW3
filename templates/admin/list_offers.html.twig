@@ -1,0 +1,120 @@
+{% extends "admin/base_admin.html.twig" %}
+
+
+{% block title %}liste des offres
+{% endblock %}
+
+{% block body %}
+
+	<h2 class="max-w-6xl px-4 mx-auto mt-8 mb-8 text-lg font-medium leading-6 text-gray-900 sm:px-6 lg:px-8">
+		Liste des offres
+	</h2>
+	<div class="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:gap-8">
+
+		<main class="lg:col-span-9 xl:col-span-6">
+			{% for brand in brands %}
+
+				{% for offer in brand.offers %}
+					<div class="mt-4">
+						<ul class="space-y-4" x-max="1">
+
+							<li class="px-4 py-6 bg-white shadow sm:p-6 sm:rounded-lg">
+								<article aria-labelledby="question-title-81614">
+									<div>
+										<div class="flex space-x-3">
+											<div class="flex-shrink-0">
+												{% if brand.profilePhoto %}
+													<img class="w-10 h-10 rounded-full" src="{{ asset('uploads/image_user/' ~ brand.profilePhoto) }}" alt=""/>
+												{% else %}
+													<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+														<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+															<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+														</svg>
+													</span>
+												{% endif %}
+											</div>
+											<div class="flex-1 min-w-0">
+												<p class="text-sm font-medium text-gray-900">
+													<a href="#" class="hover:underline">{{brand.name}}</a>
+												</p>
+
+												<p class="text-sm text-gray-500">
+													<time datetime="2020-12-09T11:43:00">Créer le
+														{{offer.dateCreation |date("d/m/Y", "Europe/Paris") }}</time>
+												</p>
+											</div>
+											<div class="flex self-center flex-shrink-0">
+												<div x-data="{ open: false }" @keydown.escape.stop="open = false" @click.away="open = false" class="relative inline-block text-left">
+													<div>
+														<button type="button" class="flex items-center p-2 -m-2 text-gray-400 rounded-full hover:text-gray-600" id="options-menu-0" aria-expanded="false" @click="open = !open" aria-haspopup="true" x-bind:aria-expanded="open">
+															<span class="sr-only">Open options</span>
+															<svg class="w-5 h-5" x-description="Heroicon name: solid/dots-vertical" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																<path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+															</svg>
+														</button>
+													</div>
+
+
+													<transition enter-active-class="transition duration-100 ease-out" enter-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
+														<div x-show="open" x-description="Dropdown menu, show/hide based on menu state." class="absolute right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-0">
+															<div class="py-1" role="none">
+																<a href="{{ path('offers_admin_edit', {'id': offer.id}) }}" class="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																	<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/pencil-alt" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																		<path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+																		<path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+																	</svg>
+																	<span>Editer</span>
+																</a>
+																<a href="{{ path('offer_show', {'id': offer.id}) }}" class="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																	<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/duplicate" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																		<path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path>
+																		<path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path>
+																	</svg>
+																	<span>Voir l'offre</span>
+																</a>
+																<a onclick="return confirm('Etes vous sur de supprimer cet utilisateur ?')" href="{{ path('offer_admin_delete',{'id': offer.id}) }}" class="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+																	<svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500" x-description="Heroicon name: solid/trash" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+																		<path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+																	</svg>
+																	<span>Supprimer</span>
+																</a>
+															</div>
+														</div>
+													</transition>
+
+												</div>
+											</div>
+										</div>
+										<h2 id="question-title-81614" class="mt-4 text-base font-medium text-gray-900">
+											{{offer.name}}
+										</h2>
+									</div>
+									<div class="mt-2 space-y-4 text-sm text-gray-700">
+										<p>
+											{{offer.description }}
+										</p>
+									</div>
+									<div class="flex justify-between mt-6 space-x-8">
+										<div class="flex space-x-6">
+											<span class="inline-flex items-center text-sm">
+												<p class="font-medium text-gray-900">Commence le
+													{{offer.dateStart |date("d/m/Y", "Europe/Paris")}}
+
+												</p>
+											</span>
+											<span class="inline-flex items-center text-sm">
+												<p class="font-medium text-gray-900">Termine le
+													{{offer.dateEnd |date("d/m/Y", "Europe/Paris")}}
+												</p>
+											</span>
+										</div>
+									</div>
+								</article>
+							</li>
+						</li>
+					</ul>
+				</div>
+			{% endfor %}
+		{% endfor %}
+	</main>
+</div>{% endblock %}
