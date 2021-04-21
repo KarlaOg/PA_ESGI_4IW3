@@ -63,7 +63,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="UserId", orphanRemoval=true)
      */
-    private $brands;
+    private $brand;
 
 
     /**
@@ -75,6 +75,11 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity=Influencer::class, mappedBy="UserId", orphanRemoval=true)
      */
     private $influencer;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAdmin;
 
 
 
@@ -96,7 +101,7 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->brands = new ArrayCollection();
+        $this->brand = new ArrayCollection();
         $this->payments = new ArrayCollection();
         $this->influencer = new ArrayCollection();
     }
@@ -219,15 +224,15 @@ class User implements UserInterface, \Serializable
     /**
      * @return Collection|Brand[]
      */
-    public function getBrands(): Collection
+    public function getBrand(): Collection
     {
-        return $this->brands;
+        return $this->brand;
     }
 
     public function addBrand(Brand $brand): self
     {
-        if (!$this->brands->contains($brand)) {
-            $this->brands[] = $brand;
+        if (!$this->brand->contains($brand)) {
+            $this->brand[] = $brand;
             $brand->setUserId($this);
         }
 
@@ -236,7 +241,7 @@ class User implements UserInterface, \Serializable
 
     public function removeBrand(Brand $brand): self
     {
-        if ($this->brands->removeElement($brand)) {
+        if ($this->brand->removeElement($brand)) {
             // set the owning side to null (unless already changed)
             if ($brand->getUserId() === $this) {
                 $brand->setUserId(null);
@@ -323,6 +328,18 @@ class User implements UserInterface, \Serializable
                 $influencer->setUserId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsAdmin(): ?bool
+    {
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin(bool $isAdmin): self
+    {
+        $this->isAdmin = $isAdmin;
 
         return $this;
     }
