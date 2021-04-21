@@ -22,7 +22,7 @@ class Payment
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="payments")
      */
-    private $User;
+    private $user;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -41,7 +41,7 @@ class Payment
 
     public function __construct()
     {
-        $this->User = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,21 +54,21 @@ class Payment
      */
     public function getUser(): Collection
     {
-        return $this->User;
+        return $this->user;
     }
 
-    public function addUser(User $User): self
+    public function addUser(User $user): self
     {
-        if (!$this->User->contains($User)) {
-            $this->User[] = $User;
+        if (!$this->User->contains($user)) {
+            $this->user[] = $user;
         }
 
         return $this;
     }
 
-    public function removeUser(User $User): self
+    public function removeUser(User $user): self
     {
-        $this->User->removeElement($User);
+        $this->user->removeElement($user);
 
         return $this;
     }

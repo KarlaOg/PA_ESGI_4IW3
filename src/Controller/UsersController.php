@@ -40,7 +40,7 @@ class UsersController extends AbstractController
 
         $user = $this->getUser();
 
-        $brand = $brandRepository->findOneBy(['User' => $user]);
+        $brand = $brandRepository->findOneBy(['user' => $user]);
 
         return $this->render('users/data.html.twig', [
             'offers' => $offers,
@@ -57,7 +57,7 @@ class UsersController extends AbstractController
     public function usersOffers(influencerRepository $influencerRepository)
     {
         $user = $this->getUser();
-        $influencer = $influencerRepository->findOneBy(['User' => $user]);
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
         // GET ALL APPLICATIONS AS DOCTRINE PERSISTENT COLLECTION
         $allApplications = $influencerRepository->find($influencer)->getApplications();
 
@@ -98,8 +98,8 @@ class UsersController extends AbstractController
     public function complete(Request $request, EntityManagerInterface $em, InfluencerRepository $influencerRepository, BrandRepository $brandRepository)
     {
         $user = $this->getUser();
-        $influcerInfos = $influencerRepository->findOneBy(['User' => $user]);
-        $brandInfos = $brandRepository->findOneBy(['User' => $user]);
+        $influcerInfos = $influencerRepository->findOneBy(['user' => $user]);
+        $brandInfos = $brandRepository->findOneBy(['user' => $user]);
 
         if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
             $form = $this->createForm(InfluencerType::class, $influcerInfos);

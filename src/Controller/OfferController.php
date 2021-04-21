@@ -39,7 +39,7 @@ class OfferController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Offer::class);
 
         $user = $this->getUser();
-        $brand = $brandRepository->findOneBy(['User' => $user]);
+        $brand = $brandRepository->findOneBy(['user' => $user]);
 
         $offer = $repository->findBy([], ['dateCreation' => 'DESC']);
 
@@ -61,7 +61,7 @@ class OfferController extends AbstractController
 
         $user = $this->getUser();
 
-        $brandId = $brandRepository->findOneBy(['User' => $user]);
+        $brandId = $brandRepository->findOneBy(['user' => $user]);
 
 
         $form = $this->createForm(OfferType::class, $offer);
@@ -98,9 +98,9 @@ class OfferController extends AbstractController
         $this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
 
         $user = $this->getUser();
-        $brand = $brandRepository->findOneBy(['User' => $user]);
+        $brand = $brandRepository->findOneBy(['user' => $user]);
 
-        $influencer = $influencerRepository->findOneBy(['User' => $user]);
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
         // $application = $applicationRepository->find($influencer);
 
 
@@ -151,7 +151,7 @@ class OfferController extends AbstractController
 
         $user = $this->getUser();
 
-        $influencer = $influencerRepository->findOneBy(['User' => $user]);
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
 
         if ($form->isSubmitted() && $form->isValid()) {

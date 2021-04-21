@@ -102,11 +102,7 @@ class Influencer
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="influencer")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $User;
-
-
-
-
+    private $user;
 
     public function __construct()
     {
@@ -309,12 +305,12 @@ class Influencer
 
     public function getUser(): ?User
     {
-        return $this->User;
+        return $this->user;
     }
 
-    public function setUser(?User $User): self
+    public function setUser(?User $user): self
     {
-        $this->User = $User;
+        $this->user = $user;
 
         return $this;
     }
