@@ -6,8 +6,7 @@
   - [Table of contents](#table-of-contents)
   - [General info](#general-info)
   - [Technologies](#technologies)
-  - [Setup](#setup)
-  - [Load fixtures](#load-fixtures)
+- [Installation](#installation)
   - [Authors](#authors)
 
 ## General info
@@ -60,10 +59,22 @@ php bin/console make:migration
 php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
+Jouer les fixtures
+
+```
+php bin/console d:f:l --no-interaction
+```
+
 Install webpack
 
 ```
 yarn install
+```
+
+Pour mettre a jour le css en background
+
+```
+yarn watch
 ```
 
 ## Authors

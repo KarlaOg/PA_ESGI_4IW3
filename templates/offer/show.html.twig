@@ -5,29 +5,35 @@
 
 {% block body %}
 	<h1>{{ offer.name|capitalize }}</h1>
-	<h2>Marque : {{ offer.brandId.name}} </h2>
+	<h2>Marque :
+		{{ offer.brandId.name}}
+	</h2>
 	<div class="card mb-3">
+
 		<div class="card-body">
 			<p>Nom :
 				{{ offer.name|capitalize }}</p>
 			<p>Description :
 				{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
 			</p>
-			<p>Dates :
-				{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
-				-
-				{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
+			<p>Dates de début :
+				{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+			</p>
+			<p>Dates de fin :
+				{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
 			</p>
 			<div class="card-action">
-				{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
-					<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-success  ">Postuler</a>
-				{% endif %}
-				{% if app.user.roles[0] == "ROLE_MARQUE" %}
-					{% if offer.brandId.id == brand.id  %}
-						<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-success">Modifier l'offre</a>
-						<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>
+				{% for role in app.user.roles %}
+					{% if role == "ROLE_INFLUENCEUR"  %}
+						<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-success ">Postuler</a>
 					{% endif %}
-				{% endif %}
+					{% if  role == "ROLE_MARQUE" %}
+						{% if offer.brandId.id == brand.id  %}
+							<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-success">Modifier l'offre</a>
+							<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
 			</div>
 		</div>
 	</div>

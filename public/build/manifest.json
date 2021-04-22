@@ -1,26 +1,6 @@
 {
+  "build/app.css": "/build/app.css",
   "build/app.js": "/build/app.js",
   "build/runtime.js": "/build/runtime.js",
-  "build/vendors-node_modules_materialize-css_dist_js_materialize_js-node_modules_material-icons_iconf-eb6ba3.css": "/build/vendors-node_modules_materialize-css_dist_js_materialize_js-node_modules_material-icons_iconf-eb6ba3.css",
-  "build/vendors-node_modules_materialize-css_dist_js_materialize_js-node_modules_material-icons_iconf-eb6ba3.js": "/build/vendors-node_modules_materialize-css_dist_js_materialize_js-node_modules_material-icons_iconf-eb6ba3.js",
-  "build/fonts/MaterialIconsTwoTone-Regular.eot": "/build/fonts/MaterialIconsTwoTone-Regular.da439515.eot",
-  "build/fonts/MaterialIconsTwoTone-Regular.otf": "/build/fonts/MaterialIconsTwoTone-Regular.ba0cd7fd.otf",
-  "build/fonts/MaterialIconsRound-Regular.eot": "/build/fonts/MaterialIconsRound-Regular.0e9b4f36.eot",
-  "build/fonts/MaterialIconsRound-Regular.otf": "/build/fonts/MaterialIconsRound-Regular.fd41834a.otf",
-  "build/fonts/MaterialIcons-Regular.ttf": "/build/fonts/MaterialIcons-Regular.1b88cb9a.ttf",
-  "build/fonts/MaterialIconsOutlined-Regular.eot": "/build/fonts/MaterialIconsOutlined-Regular.1aaf56b3.eot",
-  "build/fonts/MaterialIconsOutlined-Regular.otf": "/build/fonts/MaterialIconsOutlined-Regular.d8b0d36e.otf",
-  "build/fonts/MaterialIconsTwoTone-Regular.woff": "/build/fonts/MaterialIconsTwoTone-Regular.53b20e51.woff",
-  "build/fonts/MaterialIconsSharp-Regular.eot": "/build/fonts/MaterialIconsSharp-Regular.26cb9377.eot",
-  "build/fonts/MaterialIconsSharp-Regular.otf": "/build/fonts/MaterialIconsSharp-Regular.4096195c.otf",
-  "build/fonts/MaterialIconsTwoTone-Regular.woff2": "/build/fonts/MaterialIconsTwoTone-Regular.c72f2dde.woff2",
-  "build/fonts/MaterialIconsRound-Regular.woff": "/build/fonts/MaterialIconsRound-Regular.38907964.woff",
-  "build/fonts/MaterialIconsOutlined-Regular.woff": "/build/fonts/MaterialIconsOutlined-Regular.bb9eb244.woff",
-  "build/fonts/MaterialIconsRound-Regular.woff2": "/build/fonts/MaterialIconsRound-Regular.03791264.woff2",
-  "build/fonts/MaterialIcons-Regular.woff": "/build/fonts/MaterialIcons-Regular.6d14df8c.woff",
-  "build/fonts/MaterialIconsOutlined-Regular.woff2": "/build/fonts/MaterialIconsOutlined-Regular.bba5e49b.woff2",
-  "build/fonts/MaterialIconsSharp-Regular.woff": "/build/fonts/MaterialIconsSharp-Regular.9cc8ab73.woff",
-  "build/fonts/MaterialIcons-Regular.eot": "/build/fonts/MaterialIcons-Regular.fe38d9ff.eot",
-  "build/fonts/MaterialIconsSharp-Regular.woff2": "/build/fonts/MaterialIconsSharp-Regular.94a93350.woff2",
-  "build/fonts/MaterialIcons-Regular.woff2": "/build/fonts/MaterialIcons-Regular.f71673ad.woff2"
+  "build/vendors-node_modules_alpinejs_dist_alpine_js-node_modules_list_js_src_index_js-node_modules_l-87ed07.js": "/build/vendors-node_modules_alpinejs_dist_alpine_js-node_modules_list_js_src_index_js-node_modules_l-87ed07.js"
 }

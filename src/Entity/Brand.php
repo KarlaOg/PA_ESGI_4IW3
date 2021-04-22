@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BrandRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,7 +28,7 @@ class Brand
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="brands")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="brand")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -90,6 +92,16 @@ class Brand
      * @var \DateTime
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="brandId", orphanRemoval=true)
+     */
+    private $offers;
+
+    public function __construct()
+    {
+        $this->offers = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -239,5 +251,35 @@ class Brand
             return 'NULL';
         }
         return $this->name;
+    }
+
+    /**
+     * @return Collection|Offer[]
+     */
+    public function getOffers(): Collection
+    {
+        return $this->offers;
+    }
+
+    public function addOffer(Offer $offer): self
+    {
+        if (!$this->offers->contains($offer)) {
+            $this->offers[] = $offer;
+            $offer->setBrandId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Offer $offer): self
+    {
+        if ($this->offers->removeElement($offer)) {
+            // set the owning side to null (unless already changed)
+            if ($offer->getBrandId() === $this) {
+                $offer->setBrandId(null);
+            }
+        }
+
+        return $this;
     }
 }

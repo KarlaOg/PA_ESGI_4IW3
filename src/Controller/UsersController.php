@@ -16,6 +16,7 @@ use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ApplicationRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,18 +34,22 @@ class UsersController extends AbstractController
      */
 
     //todo : change this
-    public function usersData(BrandRepository $brandRepository)
+    public function usersData(BrandRepository $brandRepository, UserRepository $userRepository)
     {
         $repository = $this->getDoctrine()->getRepository(Offer::class);
         $offers = $repository->findAll();
 
         $user = $this->getUser();
 
+        $users = $userRepository->findAll();
+
         $brand = $brandRepository->findOneBy(['user' => $user]);
 
         return $this->render('users/data.html.twig', [
             'offers' => $offers,
-            'brand' => $brand
+            'brand' => $brand,
+            'users' => $users
+
         ]);
     }
 
@@ -101,7 +106,7 @@ class UsersController extends AbstractController
         $influcerInfos = $influencerRepository->findOneBy(['user' => $user]);
         $brandInfos = $brandRepository->findOneBy(['user' => $user]);
 
-        if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
+        if ($user->getRoles() == ["ROLE_INFLUENCEUR"] ||   $user->getRoles()[0] == "ROLE_INFLUENCEUR") {
             $form = $this->createForm(InfluencerType::class, $influcerInfos);
             $form->handleRequest($request);
 
