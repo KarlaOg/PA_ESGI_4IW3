@@ -61,18 +61,18 @@ class User implements UserInterface, \Serializable
     private $age;
 
     /**
-     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="User", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="user", orphanRemoval=true)
      */
     private $brand;
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Payment::class, mappedBy="User")
+     * @ORM\ManyToMany(targetEntity=Payment::class, mappedBy="user")
      */
     private $payments;
 
     /**
-     * @ORM\OneToMany(targetEntity=Influencer::class, mappedBy="User", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Influencer::class, mappedBy="user", orphanRemoval=true)
      */
     private $influencer;
 
@@ -80,9 +80,6 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="boolean")
      */
     private $isAdmin;
-
-
-
 
 
     // Pour les test unitaire (pas complet)
