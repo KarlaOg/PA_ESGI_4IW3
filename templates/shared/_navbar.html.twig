@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+{# <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	{% if app.user %}
 		<a class="navbar-brand" href="{{path('users_data')}}">LIKEY</a>
 	{% else %}
@@ -60,10 +60,14 @@
 							{% for role in app.user.roles %}
 								{% if role ==  "ROLE_MARQUE" %}
 									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres</a>
+
 								{% endif %}
 								<a class="dropdown-item" href="{{ path('offer_index') }}">Liste des offres</a>
 								{% if role ==  "ROLE_INFLUENCEUR" %}
 									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
+									<a href="{{ path('all_brands') }}" class="btn btn-secondary" class="btn-floating btn-large waves-effect waves-light">
+										Annuaire marques
+									</a>
 								{% endif %}
 							{% endfor %}
 							<div class="dropdown-divider"></div>
@@ -74,4 +78,177 @@
 			</ul>
 		</li>
 	{% endif %}
-</div></nav>
+</div> #}
+
+
+{# </nav> #}
+<nav x-data="{ open: false }" class="bg-white shadow">
+	<div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+		<div class="flex justify-between h-16">
+			<div class="flex">
+				<div
+					class="flex items-center mr-2 -ml-2 md:hidden">
+					<!-- Mobile menu button -->
+					<button type="button" class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-controls="mobile-menu" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+						<span class="sr-only">Open main menu</span>
+						<svg x-description="Icon when menu is closed.																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				Heroicon name: outline/menu" x-state:on="Menu open" x-state:off="Menu closed" class="block w-6 h-6" :class="{ 'hidden': open, 'block': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+						</svg>
+						<svg x-description="Icon when menu is open.
+
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class="hidden w-6 h-6" :class="{ 'block': open, 'hidden': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+						</svg>
+					</button>
+				</div>
+				{% if app.user %}
+					<div class="flex items-center flex-shrink-0">
+						<a href="{{path('users_data')}}" class="text-lg font-bold leading-6 text-white font-lg logo">
+							LIKEY
+						</a>
+					</div>
+				{% else %}
+					<div class="flex items-center flex-shrink-0">
+						<a href="{{path('home')}}" class="text-lg font-bold leading-6 text-white font-lg logo">
+							LIKEY
+						</a>
+					</div>
+				{% endif %}
+			</div>
+			<div class="flex items-center">
+				{% if app.user %}
+					<div class="flex-shrink-0">
+						{% for role in app.user.roles %}
+							{% if role == "ROLE_MARQUE" %}
+								<a href="{{ path('offer_new') }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+									<svg class="w-5 h-5 mr-2 -ml-1" x-description="Heroicon name: solid/plus" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+										<path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+									</svg>
+									<span>
+										Nouvelle offre
+									</span>
+								</a>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<div class="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
+						<button class="p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+							<span class="sr-only">View notifications</span>
+							<svg class="w-6 h-6" x-description="Heroicon name: outline/bell" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+							</svg>
+						</button>
+
+						<!-- Profile dropdown -->
+						<div x-data="{ open: false }" @keydown.escape.stop="open = false" @click.away="open = false" class="relative ml-3">
+							<div>
+								<button type="button" class="flex text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu" aria-expanded="false" @click="open = !open" aria-haspopup="true" x-bind:aria-expanded="open">
+									<span class="sr-only">Open user menu</span>
+									{% for influencer in app.user.influencer %}
+										{% if influencer.profilePhoto %}
+											<img class="w-10 h-10 rounded-full" src="{{ asset('uploads/image_user/' ~ influencer.profilePhoto) }}" alt=""/>
+										{% else %}
+											<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+												<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+													<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+												</svg>
+											</span>
+										{% endif %}
+									{% endfor %}
+									{% for brand in app.user.brand %}
+										{% if brand.profilePhoto %}
+											<img class="w-10 h-10 rounded-full" src="{{ asset('uploads/image_user/' ~ brand.profilePhoto) }}" alt=""/>
+										{% else %}
+											<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+												<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+													<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+												</svg>
+											</span>
+										{% endif %}
+									{% endfor %}
+								</button>
+							</div>
+
+							<transition enter-active-class="transition duration-200 ease-out" enter-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
+								<div x-description="Dropdown menu, show/hide based on menu state." x-show="open" class="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+									{% if is_granted('ROLE_ADMIN') %}
+										<a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" href="{{ path('dashbaord_admin_dashbaord') }}">
+											<mark>Dashboard ADMIN</mark>
+										</a>
+										{% for role in app.user.roles %}
+											{% if role ==  "ROLE_INFLUENCEUR" %}
+												<a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" href="{{ path('users_offers') }}">Mes offres postulés</a>
+                                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" href="{{ path('all_brands') }}">Annuaire marques</a>
+											{% endif %}
+										{% endfor %}
+										<a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" href="{{ path('users_complete') }}">Mon compte</a>
+
+										<a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" href="{{path('app_logout')}}">Déconnexion</a>
+									{% else %}
+										<a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" href="{{ path('users_complete') }}">Mon compte</a>
+										{% for role in app.user.roles %}
+											{% if role ==  "ROLE_MARQUE" %}
+												<a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" href="{{ path('users_offers') }}">Mes offres</a>
+											{% endif %}
+											<a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" href="{{ path('offer_index') }}">Liste des offres</a>
+											{% if role ==  "ROLE_INFLUENCEUR" %}
+												<a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" href="{{ path('users_offers') }}">Mes offres postulés</a>
+											{% endif %}
+										{% endfor %}
+										<a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" href="{{path('app_logout')}}">Déconnexion</a>
+									{% endif %}
+								</div>
+							</transition>
+
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div x-description="Mobile menu, show/hide based on menu state." class="md:hidden" id="mobile-menu" x-show="open">
+		<div
+			class="pt-2 pb-3 space-y-1"><!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
+
+		</div>
+		<div class="pt-4 pb-3 border-t border-gray-200">
+			<div class="mt-3 space-y-1">
+				{% if app.user %}
+
+					{% if is_granted('ROLE_ADMIN') %}
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{ path('dashbaord_admin_dashbaord') }}">
+								<mark>Dashboard ADMIN</mark>
+							</a>
+							{% for role in app.user.roles %}
+								{% if role ==  "ROLE_INFLUENCEUR" %}
+									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
+								{% endif %}
+							{% endfor %}
+							<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
+
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
+						</div>
+					{% else %}
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
+							{% for role in app.user.roles %}
+								{% if role ==  "ROLE_MARQUE" %}
+									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres</a>
+								{% endif %}
+								<a class="dropdown-item" href="{{ path('offer_index') }}">Liste des offres</a>
+								{% if role ==  "ROLE_INFLUENCEUR" %}
+									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
+								{% endif %}
+							{% endfor %}
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
+						</div>
+					{% endif %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</nav>
