@@ -49,7 +49,6 @@ class RegisterType extends AbstractType
                 'choices' => array(
                     'Marque' => "ROLE_MARQUE",
                     'Influenceur' => 'ROLE_INFLUENCEUR',
-
                 ),
                 'multiple'  => true,
                 'required' => true,
