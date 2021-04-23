@@ -1,21 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Message;
 use App\Repository\ChannelRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Mercure\PublisherInterface;
+use Symfony\Component\Mercure\Update;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class MessageController extends AbstractController
 {
-
     /**
      * @Route("/message", name="message", methods={"POST"})
      */
@@ -23,33 +26,44 @@ class MessageController extends AbstractController
         Request $request,
         ChannelRepository $channelRepository,
         SerializerInterface $serializer,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        PublisherInterface $publisher
     ): JsonResponse {
-        $data = \json_decode($request->getContent(), true); // On récupère les data postées et on les déserialize
+        $data = \json_decode($request->getContent(), true);
         if (empty($content = $data['content'])) {
             throw new AccessDeniedHttpException('No data sent');
         }
 
         $channel = $channelRepository->findOneBy([
-            'id' => $data['channel'] // On cherche à savoir de quel channel provient le message
+            'id' => $data['channel']
         ]);
         if (!$channel) {
             throw new AccessDeniedHttpException('Message have to be sent on a specific channel');
         }
 
-        $message = new Message(); // Après validation, on crée le nouveau message
+        $message = new Message();
         $message->setContent($content);
         $message->setChannel($channel);
-        $message->setAuthor($this->getUser()); // On lui attribue comme auteur l'utilisateur courant
+        $message->setAuthor($this->getUser());
 
         $em->persist($message);
-        $em->flush(); // Sauvegarde du nouvel objet en DB
+        $em->flush();
 
         $jsonMessage = $serializer->serialize($message, 'json', [
-            'groups' => ['message'] // On serialize la réponse avant de la renvoyer
+            'groups' => ['message']
         ]);
 
-        return new JsonResponse( // Enfin, on retourne la réponse
+        $update = new Update(
+            sprintf(
+                'http://astrochat.com/channel/%s',
+                $channel->getId()
+            ),
+            $jsonMessage,
+            true
+        );
+        $publisher($update);
+
+        return new JsonResponse(
             $jsonMessage,
             Response::HTTP_OK,
             [],

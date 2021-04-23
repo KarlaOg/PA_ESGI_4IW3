@@ -22,7 +22,7 @@
 						<tr class="">
 							<th>
 								<span>{{ channel.name }}</span>
-								<a class="float-right btn btn-primary" href="{{ path('chat', {id: channel.id}) }}">Go chat !</a>
+								<a class="float-right btn btn-primary" href="{{ path('channel_chat', {id: channel.id}) }}">Go chat !</a>
 							</th>
 						</tr>
 					{% endfor %}
