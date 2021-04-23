@@ -4,15 +4,13 @@
 {% endblock %}
 
 {% block body %}
-	{{ dump() }}
-	{% for value in application %}
-		{{ dump(value) }}
-	{% endfor %}
+
 	<h1>{{ offer.name|capitalize }}</h1>
 	<h2>Marque :
 		{{ offer.brandId.name}}
 	</h2>
-	<div class="card mb-3">
+	<div class="mb-3 card">
+
 		<div class="card-body">
 			<p>Nom :
 				{{ offer.name|capitalize }}</p>
@@ -26,15 +24,42 @@
 				{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
 			</p>
 			<div class="card-action">
-				{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
-					<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-success  ">Postuler</a>
-				{% endif %}
-				{% if app.user.roles[0] == "ROLE_MARQUE" %}
-					{% if offer.brandId.id == brand.id  %}
-						<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-success">Modifier l'offre</a>
-						<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>
+				{% for role in app.user.roles %}
+					{% if role == "ROLE_INFLUENCEUR"  %}
+						{% set newArray = [] %}
+						{% set var = [] %}
+
+						{% for app in offerApplied %}
+							{% if app.offer.id not in newArray %}
+								{% if app.offer.id  == offer.id %}
+									<div class="mb-3">
+										<mark>Vous avez deja postuler a cette offre</mark>
+									</div>
+									<div class="mb-3">
+										{% if app.status == "pending" %}
+											<p class="lead">En cours de traitement ✨</p>
+										{% endif %}
+									</div>
+									{% set newArray = newArray|merge([app.offer.id]) %}
+								{% endif %}
+							{% endif %}
+							{% if offer.id == app.offer.id %}
+								{% set var = app.offer.id %}
+							{% endif %}
+						{% endfor %}
+
+						{% if offer.id != var %}
+							<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-success ">Postuler</a>
+						{% endif %}
+
 					{% endif %}
-				{% endif %}
+					{% if  role == "ROLE_MARQUE" %}
+						{% if offer.brandId.id == brand.id  %}
+							<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-success">Modifier l'offre</a>
+							<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
 			</div>
 		</div>
 	</div>

@@ -64,7 +64,4 @@ class ApplicationRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
-    /*SELECT * FROM application LEFT JOIN application_influencer
-    ON application_influencer.application_id = application.id
-*/
 }
