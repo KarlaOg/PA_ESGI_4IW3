@@ -49,19 +49,19 @@ class ApplicationRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findApplicationAndInfluencer($value): ?Application
+    public function findApplicationAndInfluencer($value): array
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.id = :val')
-            ->setParameter('val', $value)
-      /*      ->leftJoin(
-                Influencer::class,
-                'i',
-                'WITH',
-                'i.id = a.id'
-            )*/
+        return $this->createQueryBuilder('application')
+            ->select('a', 'i')
+            ->from(
+                'App\Entity\Application',
+                'a',
+            )
+            ->leftJoin('a.influencerId', 'i')
+            ->where('i = :influencerId')
+            ->setParameter('influencerId', $value)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
             ;
     }
     /*SELECT * FROM application LEFT JOIN application_influencer
