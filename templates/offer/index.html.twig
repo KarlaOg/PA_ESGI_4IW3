@@ -9,7 +9,6 @@
 		{% if offers is empty %}
 			<p>Pas d'offres pour le moment</p>
 		{% else %}
-
 			{% for offer in offers  %}
 				<div class="mb-3 card">
 					{% if brand is not null and offer.brandId.id == brand.id %}
@@ -38,7 +37,8 @@
 				</div>
 				{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
 					{% if offer.dateEnd > datenow %}
-						<div class="card mb-3">
+
+						<div class="mb-3 card">
 
 							<div class="card-body">
 								<p>Marque :
@@ -55,6 +55,22 @@
 								<p>Dates de fin:
 									{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
 								</p>
+								{% set newArray = [] %}
+								{% for app in offerApplied %}
+									{% if app.offer.id not in newArray %}
+										{% if app.offer.id  == offer.id %}
+											<div class="mb-3">
+												<mark>Vous avez deja postuler a cette offre</mark>
+											</div>
+											<div class="mb-3">
+												{% if app.status == "pending" %}
+													<p class="lead">En cours de traitement ✨</p>
+												{% endif %}
+											</div>
+										{% endif %}
+										{% set newArray = newArray|merge([app.offer.id]) %}
+									{% endif %}
+								{% endfor %}
 								<div class="card-action">
 									<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
 								</div>
@@ -62,7 +78,6 @@
 						</div>
 					{% endif %}
 				{% endif %}
-
 			{% endfor %}
 		{% endif %}
 	</div>
