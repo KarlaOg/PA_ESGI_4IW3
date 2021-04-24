@@ -42,7 +42,6 @@ class MessageController extends AbstractController
         $message->setContent($content);
         $message->setChannel($channel);
         $message->setAuthor($this->getUser());
-
         $em->persist($message);
         $em->flush();
 
