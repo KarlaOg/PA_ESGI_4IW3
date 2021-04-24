@@ -1,0 +1,73 @@
+{# {% extends 'base.html.twig' %} #}
+
+{% block title %}Chat
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		{% if app.user %}
+			<div class="mb-3">
+				You are logged in as
+				{{ app.user.email }},
+				<a href="{{ path('app_logout') }}">Logout</a>
+			</div>
+		{% endif %}
+		<h1>Channel
+			{{ channel.name }}</h1>
+		<div class="container" style="height: 600px">
+			<div class="container overflow-auto bg-light h-75">
+				{% for message in messages %}
+					{% if app.user == message.author %}
+						<div class="float-right row w-75">
+							<b>{{ message.author.email }}</b>
+							<p class="alert alert-info w-100">
+								{{ message.content }}
+							</p>
+						</div>
+					{% else %}
+						<div class="float-left row w-75">
+							<b>{{ message.author.email }}</b>
+							<p class="alert alert-success w-100">
+								{{ message.content }}
+							</p>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+			<div>
+				<form id="form" class="container row">
+					<input id="message" class="input-group-text col-sm-9" placeholder="Message" type="text"/>
+					<button id="submit" type="submit" class="btn btn-success col-sm-3">Send</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script>
+		let chatDiv = document.querySelector('.overflow-auto');
+chatDiv.scrollTop = chatDiv.scrollHeight; // On souhaite scroller toujours jusqu'au dernier message du chat
+
+let form = document.getElementById('form');
+function handleForm(event) {
+event.preventDefault(); // Empêche la page de se rafraîchir après le submit du formulaire
+}form.addEventListener('submit', handleForm);
+
+const submit = document.querySelector('button');
+submit.onclick = e => { // On change le comportement du submit
+const message = document.getElementById('message'); // Récupération du message dans l'input correspondant
+const data = { // La variable data sera envoyée au controller
+'content': message.value, // On transmet le message...
+'channel': {{ channel.id }} // ... Et le canal correspondant
+}
+console.log(data); // Pour vérifier vos informations
+fetch('/message', { // On envoie avec un post nos datas sur le endpoint /message de notre application
+method: 'POST',
+body: JSON.stringify(data) // On envoie les data sous format JSON
+}).then((response) => {
+message.value = '';
+console.log(response);
+});
+}
+	</script>
+{% endblock %}
