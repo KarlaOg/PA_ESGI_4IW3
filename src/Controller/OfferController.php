@@ -34,21 +34,25 @@ class OfferController extends AbstractController
      * @Route("/", name="index", methods={"GET"})
      */
 
-    public function index(BrandRepository $brandRepository)
+    public function index(BrandRepository $brandRepository, InfluencerRepository $influencerRepository, ApplicationRepository $applicationRepository)
     {
         $repository = $this->getDoctrine()->getRepository(Offer::class);
 
         $user = $this->getUser();
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
-        $offer = $repository->findBy([], ['dateCreation' => 'DESC']);
+        $offers = $repository->findBy([], ['dateCreation' => 'DESC']);
+        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
+
+        $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
 
         $datenow = new \DateTime("now");
 
         return $this->render('offer/index.html.twig', [
-            'offers' =>  $offer,
+            'offers' =>  $offers,
             'brand' => $brand,
-            'datenow' => $datenow
+            'datenow' => $datenow,
+            'offerApplied' => $offerApplied
         ]);
     }
 
@@ -71,7 +75,6 @@ class OfferController extends AbstractController
 
         $form->handleRequest($request);
 
-        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $offer->setBrandId($brandId);
@@ -95,22 +98,24 @@ class OfferController extends AbstractController
      */
     public function show($id, Offer $offer, BrandRepository $brandRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository, applicationRepository $applicationRepository)
     {
-
         $offerId = $offerRepository->find($id);
-
         $this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
-
         $user = $this->getUser();
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
         $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
-        // $application = $applicationRepository->find($influencer);
+
+        $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
+
+        $apply = $applicationRepository->findAll();
 
 
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,
             'brand' => $brand,
-
+            'influencer' => $influencer,
+            'offerApplied' => $offerApplied,
+            'apply' => $apply
         ]);
     }
 
@@ -155,7 +160,6 @@ class OfferController extends AbstractController
 
         $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $application = new Application();
             $offer->addApplication($application);
@@ -174,10 +178,10 @@ class OfferController extends AbstractController
 
         return $this->render('offer/apply.html.twig', [
             'offer' => $offer,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'influencer' => $influencer
         ]);
     }
-
 
 
     /**
