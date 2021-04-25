@@ -201,8 +201,6 @@ class OfferController extends AbstractController
             $influencers = array_merge($influencers, $application->getInfluencerId()->toArray());
         }
 
-        dump($influencers);
-
         return $this->render('offer/application.html.twig', [
             'influencers' => $influencers,
             'applications' => $applications
@@ -216,17 +214,13 @@ class OfferController extends AbstractController
     {
         $applicationId = $request->get('application');
        
-       dump($applicationId);
-
         $applications = $applicationRepository->findBy([
             'offer' => $id
          ]);
         // dump($applications);
         //boucle et pour chacun dentre eux je fait un setStatus
         foreach ($applications as $application) {
-            dump($application->getId(), "  " , $applicationId);
             if($application->getId() == $applicationId) {
-                dump("ici");
                 $validate = $application->setStatus("validated");
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($validate);
@@ -239,7 +233,7 @@ class OfferController extends AbstractController
                 $em->flush();
             }
         }
-       // $this->addFlash('success', 'Valider le partenariat');
+       $this->addFlash('success', 'Valider le partenariat');
 
         return $this->render('offer/validate.html.twig');
     }
@@ -254,8 +248,7 @@ class OfferController extends AbstractController
         $application = $applicationRepository->findOneby([
             'id' => $applicationId
         ]);
-        dump($application);
-       
+
         $refuse = $application->setStatus("refused");
         $em = $this->getDoctrine()->getManager();
         $em->persist($refuse);

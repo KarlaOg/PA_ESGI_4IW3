@@ -44,13 +44,10 @@ class PartnershipController extends AbstractController
                 if (strcmp($application->getStatus(), "validated") == 0) {
                     array_push($partnerships, $offer);
                     array_push($influencers, $influencer);
-                    dump("ici");
                 }
             }
         }
 
-        dump($influencers);
-        dump($partnerships);
         return $this->render('partnership/index.html.twig', [
             'partnerships' => $partnerships,
             'influencers' => $influencers
