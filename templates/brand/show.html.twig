@@ -63,11 +63,10 @@
 
 		<!-- Description list -->
 		<div class="max-w-5xl px-4 mx-auto mt-6 sm:px-6 lg:px-8">
+			Toutes les offres de
+			{{brand.name}}</p>
 			{% for offer in offers  %}
 				{% if offer is not null %}
-					<p class="px-1 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-						Toutes les offres de
-						{{brand.name}}</p>
 					<dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
 						<div class="mb-3 card">
 
@@ -83,7 +82,29 @@
 									{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
 								</p>
 								<div class="card-action">
-									<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
+
+									{% set newArray = [] %}
+									{% set var = [] %}
+
+									{% for app in offerApplied %}
+										{% if app.offer.id not in newArray %}
+											{% if app.offer.id  == offer.id %}
+												<div class="mb-3">
+													<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn btn-link">Voir l'offre</a>
+													<mark>Vous avez deja postuler a cette offre</mark>
+												</div>
+												{% set newArray = newArray|merge([app.offer.id]) %}
+											{% endif %}
+										{% endif %}
+										{% if offer.id == app.offer.id %}
+											{% set var = app.offer.id %}
+										{% endif %}
+									{% endfor %}
+
+									{% if offer.id != var %}
+										<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn btn-link">Voir l'offre</a>
+									{% endif %}
+
 								</div>
 							</div>
 						</div>
