@@ -8,5 +8,15 @@
 
 {% block body %}
 	<h1>Mes partenariats</h1>
-	
+	{% if partnerships is empty %}
+		<p>Il n'y a pas de partenariats pour le moment. </br> Veuillez d'abords valider des candidatures</p>
+	{% endif %}
+	{% for partnership in partnerships %}
+		<div class="card mb-3">
+			<div class="card-body">
+				<p>Nom : {{ influencers[loop.index0].name }} </p>
+				<a class="btn btn-link" href="{{ path('influencer_show', {'name': influencers[loop.index0].name}) }}">Voir le profil</a>
+			</div>
+		</div>
+	{% endfor %}
 {% endblock %}

@@ -70,8 +70,6 @@ class OfferController extends AbstractController
         $form = $this->createForm(OfferType::class, $offer);
         $form->handleRequest($request);
 
-        $user = $this->getUser();
-
         if ($form->isSubmitted() && $form->isValid()) {
             $offer->setBrandId($brandId);
             $em = $this->getDoctrine()->getManager();
@@ -200,9 +198,11 @@ class OfferController extends AbstractController
 
         //on recupere l'influenceur lié à l'application.
         foreach($applications as $application) {
-            $influencers = array_merge($application->getInfluencerId()->toArray(), $influencers);
+            $influencers = array_merge($influencers, $application->getInfluencerId()->toArray());
         }
- 
+
+        dump($influencers);
+
         return $this->render('offer/application.html.twig', [
             'influencers' => $influencers,
             'applications' => $applications
@@ -216,13 +216,17 @@ class OfferController extends AbstractController
     {
         $applicationId = $request->get('application');
        
+       dump($applicationId);
+
         $applications = $applicationRepository->findBy([
-            'offer_id' => $id
+            'offer' => $id
          ]);
-        dump($applications);
+        // dump($applications);
         //boucle et pour chacun dentre eux je fait un setStatus
         foreach ($applications as $application) {
+            dump($application->getId(), "  " , $applicationId);
             if($application->getId() == $applicationId) {
+                dump("ici");
                 $validate = $application->setStatus("validated");
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($validate);
@@ -235,7 +239,7 @@ class OfferController extends AbstractController
                 $em->flush();
             }
         }
-        $this->addFlash('success', 'Valider le partenariat');
+       // $this->addFlash('success', 'Valider le partenariat');
 
         return $this->render('offer/validate.html.twig');
     }
@@ -243,17 +247,18 @@ class OfferController extends AbstractController
    /**
     * @Route("/refuse_partnership/{id}", name="refuse_partnership")
     */
-    public function refuse_partnership($id, Request $request, Offer $offer, ApplicationRepository $applicationRepository ,  InfluencerRepository $influencerRepository, OfferRepository $offerRepository)
+    public function refuse_partnership($id, Request $request, ApplicationRepository $applicationRepository)
     {
         $applicationId = $request->get('application');
        
-         $application = $applicationRepository->findOneby([
+        $application = $applicationRepository->findOneby([
             'id' => $applicationId
         ]);
         dump($application);
-        $validate = $application->setStatus("refuse");
+       
+        $refuse = $application->setStatus("refused");
         $em = $this->getDoctrine()->getManager();
-        $em->persist($validate);
+        $em->persist($refuse);
         $em->flush();
 
         $this->addFlash('success', 'Refuser le partenariat');
