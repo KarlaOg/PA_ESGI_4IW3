@@ -12,19 +12,23 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Mercure\PublisherInterface;
+use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Mercure\HubInterface;
 
 class MessageController extends AbstractController
 {
     /**
-     * @Route("/message", name="message", methods={"POST"})
+     * @Route("/message", name="message_sendMessage", methods={"POST"})
      */
     public function sendMessage(
         Request $request,
         ChannelRepository $channelRepository,
         SerializerInterface $serializer,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        HubInterface $hub
     ): JsonResponse {
         $data = \json_decode($request->getContent(), true);
         if (empty($content = $data['content'])) {
@@ -42,6 +46,7 @@ class MessageController extends AbstractController
         $message->setContent($content);
         $message->setChannel($channel);
         $message->setAuthor($this->getUser());
+
         $em->persist($message);
         $em->flush();
 
@@ -49,11 +54,38 @@ class MessageController extends AbstractController
             'groups' => ['message']
         ]);
 
+        $update = new Update(
+            sprintf(
+                'http://localhost/channel/%s',
+                $channel->getId()
+            ),
+            $jsonMessage,
+            true
+        );
+
+
+        $hub->publish($update);
+
         return new JsonResponse(
             $jsonMessage,
             Response::HTTP_OK,
             [],
             true
         );
+    }
+
+    /**
+     * @Route("/push", name="push")
+     */
+    public function push(HubInterface $hub): Response
+    {
+        $update = new Update(
+            'http://localhost:8000',
+            json_encode(['status' => 'OutOfStock'])
+        );
+
+        $hub->publish($update);
+
+        return new Response('published!');
     }
 }

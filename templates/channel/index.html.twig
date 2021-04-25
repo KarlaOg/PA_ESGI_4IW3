@@ -6,13 +6,7 @@
 {% block body %}
 
 	<div class="container">
-		{% if app.user %}
-			<div class="mb-3">
-				You are logged in as
-				{{ app.user.username }},
-				<a href="{{ path('app_logout') }}">Logout</a>
-			</div>
-		{% endif %}
+
 		{% if channels %}
 			<h2>Which chan do you want to join ?</h2>
 			<table class="table table-striped">
@@ -21,7 +15,7 @@
 						<tr class="">
 							<th>
 								<span>{{ channel.name }}</span>
-								<a class="float-right btn btn-primary" href="{{ path('chat', {id: channel.id}) }}">Go chat !</a>
+								<a class="float-right btn btn-primary" href="{{ path('channel_chat', {id: channel.id}) }}">Go chat !</a>
 							</th>
 						</tr>
 					{% endfor %}

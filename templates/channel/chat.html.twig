@@ -3,15 +3,13 @@
 {% block title %}Chat
 {% endblock %}
 
+{% block stylesheets %}
+	<link href="https://bootswatch.com/4/lux/bootstrap.min.css" rel="stylesheet">
+
+{% endblock %}
+
 {% block body %}
 	<div class="container">
-		{% if app.user %}
-			<div class="mb-3">
-				You are logged in as
-				{{ app.user.email }},
-				<a href="{{ path('app_logout') }}">Logout</a>
-			</div>
-		{% endif %}
 		<h1>Channel
 			{{ channel.name }}</h1>
 		<div class="container" style="height: 600px">
@@ -53,6 +51,43 @@ function handleForm(event) {
 event.preventDefault(); // Empêche la page de se rafraîchir après le submit du formulaire
 }form.addEventListener('submit', handleForm);
 
+// 'mercure' is used as the docker-compose service name. We replace it by the actual url for the browser.
+// const link = '{{ app.request.attributes.get('_links').getLinksbyRel('mercure')[0].getHref }}'.replace("mercure", "localhost:3000");
+
+// const url = new URL(link);
+
+// url.searchParams.append('topic', 'http://localhost/channel/        {{ channel.id }}');
+
+const url = new URL('http://localhost:3000/.well-known/mercure');
+
+// All Review resources will match this pattern
+url.searchParams.append('topic', 'http://localhost:8000/channel/                      {{ channel.id }}');
+
+
+const eventSource = new EventSource(url);
+
+const appUser = {{ app.user.id }};
+
+eventSource.onmessage = ({data}) => {
+const message = JSON.parse(data);
+document.querySelector('.bg-light').insertAdjacentHTML('beforeend', appUser === message.author.id ? `<div class="float-right row w-75">
+                    <b>${
+message.author.username
+}</b>
+                    <p class="alert alert-info w-100">${
+message.content
+}</p>
+                </div>` : `<div class="float-left row w-75">
+                    <b>${
+message.author.username
+}</b>
+                    <p class="alert alert-success w-100">${
+message.content
+}</p>
+                </div>`)
+chatDiv.scrollTop = chatDiv.scrollHeight;
+}
+
 const submit = document.querySelector('button');
 submit.onclick = e => { // On change le comportement du submit
 const message = document.getElementById('message'); // Récupération du message dans l'input correspondant
@@ -60,14 +95,25 @@ const data = { // La variable data sera envoyée au controller
 'content': message.value, // On transmet le message...
 'channel': {{ channel.id }} // ... Et le canal correspondant
 }
-console.log(data); // Pour vérifier vos informations
-fetch('/message', { // On envoie avec un post nos datas sur le endpoint /message de notre application
-method: 'POST',
-body: JSON.stringify(data) // On envoie les data sous format JSON
-}).then((response) => {
-message.value = '';
-console.log(response);
-});
+// console.log(data); // Pour vérifier vos informations
+// fetch('/message', { // On envoie avec un post nos datas sur le endpoint /message de notre application
+// method: 'POST',
+// body: JSON.stringify(data) // On envoie les data sous format JSON
+// }).then((response) => {
+// message.value = '';
+// console.log(response);
+// });
+fetch('/message', {
+method: 'post',
+headers: {
+'Accept': 'application/json, text/plain, */*',
+'Content-Type': 'application/json',
+Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOlsiKiJdfX0.aFaV-izx0-VvSndadCjUdTqeENEVeUYN_qd_Mm8xjq0'
+
+},
+
+body: JSON.stringify(data)
+}).then(res => res.json()).then(res => console.log(res));
 }
 	</script>
 {% endblock %}
