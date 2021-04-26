@@ -234,7 +234,7 @@ class OfferController extends AbstractController
             }
         }
        $this->addFlash('success', 'Valider le partenariat');
-
+        //eesais
         return $this->render('offer/validate.html.twig');
     }
 
