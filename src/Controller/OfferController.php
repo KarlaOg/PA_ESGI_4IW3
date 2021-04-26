@@ -42,7 +42,7 @@ class OfferController extends AbstractController
         $brand = $brandRepository->findOneBy(['user' => $user]);
 
         $offers = $repository->findBy([], ['dateCreation' => 'DESC']);
-        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
         $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
 
@@ -102,7 +102,8 @@ class OfferController extends AbstractController
 
         $offerId = $offerRepository->find($id);
 
-        $this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
+        // J'ai commenté cette ligne, car sinon impoossible de postuler à l'ofrre
+        //$this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
 
         $user = $this->getUser();
         $brand = $brandRepository->findOneBy(['user' => $user]);

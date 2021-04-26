@@ -20,7 +20,7 @@ class EditBrandType extends AbstractType
             ->add('name')
             ->add('profilePhoto')
             ->add('updatedAt')
-            ->add('UserId');
+            ->add('user');
     }
 
     public function configureOptions(OptionsResolver $resolver)
