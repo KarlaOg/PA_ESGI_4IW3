@@ -91,7 +91,7 @@ class InfluencerRepository extends ServiceEntityRepository
     /*
      public function findInfluencer($value){
             return $this->createQueryBuilder('i')
-                ->where('i.userId = :value')
+                ->where('i.user = :value')
                 ->setParameter('value', $value)
                 ->getQuery()
                 ->getResult()

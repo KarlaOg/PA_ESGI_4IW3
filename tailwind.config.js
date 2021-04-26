@@ -10,10 +10,7 @@ module.exports = {
     extend: {},
   },
   variants: {},
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-  ],
+  plugins: [require('@tailwindcss/aspect-ratio')],
   theme: {
     extend: {
       colors: {

@@ -51,14 +51,14 @@ class RegisterController extends AbstractController
 
             if (array_search("ROLE_INFLUENCEUR", $user->getRoles()) !== false) {
                 $influencer = new Influencer();
-                $influencer->setUserId($user);
+                $influencer->setUser($user);
 
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($influencer);
             } else if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
                 $brand = new Brand();
-                $brand->setUserId($user);
+                $brand->setUser($user);
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($brand);

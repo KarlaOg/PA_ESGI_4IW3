@@ -34,13 +34,8 @@ class OfferVoter extends Voter
             return false;
         }
 
-        if ($this->security->isGranted('ROLE_ADMIN')) {
-            return true;
-        }
-
-
-        //(check conditions and return true to grant permission)
-        $id = $subject->getBrandId()->getUserId();
+        //(check conditions and return true to grant permission) 
+        $id = $subject->getBrandId()->getUser();
 
         switch ($attribute) {
             case 'CAN_EDIT':

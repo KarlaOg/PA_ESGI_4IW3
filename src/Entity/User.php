@@ -61,18 +61,18 @@ class User implements UserInterface, \Serializable
     private $age;
 
     /**
-     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="UserId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="user", orphanRemoval=true)
      */
     private $brand;
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Payment::class, mappedBy="userId")
+     * @ORM\ManyToMany(targetEntity=Payment::class, mappedBy="user")
      */
     private $payments;
 
     /**
-     * @ORM\OneToMany(targetEntity=Influencer::class, mappedBy="UserId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Influencer::class, mappedBy="user", orphanRemoval=true)
      */
     private $influencer;
 
@@ -80,9 +80,6 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="boolean")
      */
     private $isAdmin;
-
-
-
 
 
     // Pour les test unitaire (pas complet)
@@ -233,7 +230,7 @@ class User implements UserInterface, \Serializable
     {
         if (!$this->brand->contains($brand)) {
             $this->brand[] = $brand;
-            $brand->setUserId($this);
+            $brand->setUser($this);
         }
 
         return $this;
@@ -243,8 +240,8 @@ class User implements UserInterface, \Serializable
     {
         if ($this->brand->removeElement($brand)) {
             // set the owning side to null (unless already changed)
-            if ($brand->getUserId() === $this) {
-                $brand->setUserId(null);
+            if ($brand->getUser() === $this) {
+                $brand->setUser(null);
             }
         }
 
@@ -263,7 +260,7 @@ class User implements UserInterface, \Serializable
     {
         if (!$this->payments->contains($payment)) {
             $this->payments[] = $payment;
-            $payment->addUserId($this);
+            $payment->addUser($this);
         }
 
         return $this;
@@ -272,7 +269,7 @@ class User implements UserInterface, \Serializable
     public function removePayment(Payment $payment): self
     {
         if ($this->payments->removeElement($payment)) {
-            $payment->removeUserId($this);
+            $payment->removeUser($this);
         }
 
         return $this;
@@ -314,7 +311,7 @@ class User implements UserInterface, \Serializable
     {
         if (!$this->influencer->contains($influencer)) {
             $this->influencer[] = $influencer;
-            $influencer->setUserId($this);
+            $influencer->setUser($this);
         }
 
         return $this;
@@ -324,8 +321,8 @@ class User implements UserInterface, \Serializable
     {
         if ($this->influencer->removeElement($influencer)) {
             // set the owning side to null (unless already changed)
-            if ($influencer->getUserId() === $this) {
-                $influencer->setUserId(null);
+            if ($influencer->getUser() === $this) {
+                $influencer->setUser(null);
             }
         }
 

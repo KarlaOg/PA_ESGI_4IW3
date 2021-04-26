@@ -39,10 +39,10 @@ class OfferController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Offer::class);
 
         $user = $this->getUser();
-        $brand = $brandRepository->findOneBy(['UserId' => $user]);
+        $brand = $brandRepository->findOneBy(['user' => $user]);
 
         $offers = $repository->findBy([], ['dateCreation' => 'DESC']);
-        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
         $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
 
@@ -68,7 +68,7 @@ class OfferController extends AbstractController
 
         $user = $this->getUser();
 
-        $brandId = $brandRepository->findOneBy(['UserId' => $user]);
+        $brandId = $brandRepository->findOneBy(['user' => $user]);
 
 
         $form = $this->createForm(OfferType::class, $offer);
@@ -102,12 +102,13 @@ class OfferController extends AbstractController
 
         $offerId = $offerRepository->find($id);
 
-        $this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
+        // J'ai commenté cette ligne, car sinon impoossible de postuler à l'ofrre
+        //$this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
 
         $user = $this->getUser();
-        $brand = $brandRepository->findOneBy(['UserId' => $user]);
+        $brand = $brandRepository->findOneBy(['user' => $user]);
 
-        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
         $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
 
@@ -126,7 +127,6 @@ class OfferController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="edit", methods={"GET", "POST"})
-     * @IsGranted("ROLE_MARQUE", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
     public function edit($id, Offer $offer, Request $request, OfferRepository $offerRepository)
     {
@@ -163,7 +163,7 @@ class OfferController extends AbstractController
 
         $user = $this->getUser();
 
-        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
 
         if ($form->isSubmitted() && $form->isValid()) {

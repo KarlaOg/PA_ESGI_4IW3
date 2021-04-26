@@ -41,7 +41,7 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
 
         $influencer = new Influencer();
-        $influencer->setUserId($admin)
+        $influencer->setUser($admin)
             ->setDescription($faker->realText())
             ->setUsername($faker->userName())
             ->setSiret($faker->numberBetween(10, 2000))
@@ -75,7 +75,7 @@ class AppFixtures extends Fixture
         $manager->persist($influenceurAndMarque);
 
         $influencer = new Influencer();
-        $influencer->setUserId($influenceurAndMarque)
+        $influencer->setUser($influenceurAndMarque)
             ->setDescription($faker->realText())
             ->setUsername($faker->userName())
             ->setSiret($faker->numberBetween(10, 2000))
@@ -97,7 +97,7 @@ class AppFixtures extends Fixture
         $brand = new Brand();
 
         $brandName = "brand NAME";
-        $brand->setUserId($influenceurAndMarque)
+        $brand->setUser($influenceurAndMarque)
             ->setDescription($faker->realText())
             ->setUsername($faker->userName())
             ->setSiret($faker->numberBetween(10, 2000))
@@ -141,7 +141,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
 
             $influencer = new Influencer();
-            $influencer->setUserId($faker->unique()->randomElement($users))
+            $influencer->setUser($faker->unique()->randomElement($users))
                 ->setDescription($faker->realText())
                 ->setUsername($faker->userName())
                 ->setSiret($faker->numberBetween(10, 2000))
@@ -179,7 +179,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
 
             $brand = new Brand();
-            $brand->setUserId($faker->unique()->randomElement($users))
+            $brand->setUser($faker->unique()->randomElement($users))
                 ->setDescription($faker->realText())
                 ->setUsername($faker->userName())
                 ->setSiret($faker->numberBetween(10, 2000))
