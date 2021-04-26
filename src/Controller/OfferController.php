@@ -34,21 +34,25 @@ class OfferController extends AbstractController
      * @Route("/", name="index", methods={"GET"})
      */
 
-    public function index(BrandRepository $brandRepository)
+    public function index(BrandRepository $brandRepository, InfluencerRepository $influencerRepository, ApplicationRepository $applicationRepository)
     {
         $repository = $this->getDoctrine()->getRepository(Offer::class);
 
         $user = $this->getUser();
         $brand = $brandRepository->findOneBy(['user' => $user]);
 
-        $offer = $repository->findBy([], ['dateCreation' => 'DESC']);
+        $offers = $repository->findBy([], ['dateCreation' => 'DESC']);
+        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
+
+        $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
 
         $datenow = new \DateTime("now");
 
         return $this->render('offer/index.html.twig', [
-            'offers' =>  $offer,
+            'offers' =>  $offers,
             'brand' => $brand,
-            'datenow' => $datenow
+            'datenow' => $datenow,
+            'offerApplied' => $offerApplied
         ]);
     }
 
@@ -104,13 +108,18 @@ class OfferController extends AbstractController
         $brand = $brandRepository->findOneBy(['user' => $user]);
 
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
-        // $application = $applicationRepository->find($influencer);
+
+        $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
+
+        $apply = $applicationRepository->findAll();
 
 
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,
             'brand' => $brand,
-
+            'influencer' => $influencer,
+            'offerApplied' => $offerApplied,
+            'apply' => $apply
         ]);
     }
 
@@ -174,7 +183,8 @@ class OfferController extends AbstractController
 
         return $this->render('offer/apply.html.twig', [
             'offer' => $offer,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'influencer' => $influencer
         ]);
     }
 
