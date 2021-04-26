@@ -47,4 +47,20 @@ class ApplicationRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findApplicationAndInfluencer($value): array
+    {
+        return $this->createQueryBuilder('application')
+            ->select('a', 'i')
+            ->from(
+                'App\Entity\Application',
+                'a',
+            )
+            ->leftJoin('a.influencerId', 'i')
+            ->where('i = :influencerId')
+            ->setParameter('influencerId', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

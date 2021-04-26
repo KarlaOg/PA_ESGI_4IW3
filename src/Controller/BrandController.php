@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\BrandRepository ; 
 use App\Repository\OfferRepository ; 
+use App\Repository\InfluencerRepository ;
+use App\Repository\ApplicationRepository ;
 use App\Entity\Brand;
 
 
@@ -35,15 +37,27 @@ class BrandController extends AbstractController
       /**
         * @Route("brand/{name}", name="brand_show", methods={"GET"})
      */
-    public function show(Brand $brand, OfferRepository $offerRepository, BrandRepository $brandRepository): Response
+    public function show(Brand $brand, OfferRepository $offerRepository, BrandRepository $brandRepository, influencerRepository $influencerRepository, applicationRepository $applicationRepository): Response
     {
         $brandId = $brandRepository->findOneBy(['name' => $brand->getName()]);
 
         $offers = $offerRepository->findBy(['brandId' => $brandId->getId()]);
 
+        $user = $this->getUser();
+
+        $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
+
+        $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
+
+        $apply = $applicationRepository->findAll();
+
+
         return $this->render('brand/show.html.twig', [
             'brand' => $brand,
-            'offers' => $offers
+            'offers' => $offers,
+            'influencer' => $influencer,
+            'offerApplied' => $offerApplied,
+            'apply' => $apply
         ]);
     }
 }
