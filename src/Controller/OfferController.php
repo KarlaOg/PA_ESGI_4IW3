@@ -90,7 +90,7 @@ class OfferController extends AbstractController
     /**
      * @Route("/show/{id}", name="show", methods={"GET"})
      */
-    public function show($id, Offer $offer, BrandRepository $brandRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository, applicationRepository $applicationRepository)
+    public function show($id, Offer $offer, BrandRepository $brandRepository, ApplicationRepository $applicationRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository)
     {
         $offerId = $offerRepository->find($id);
 
@@ -109,12 +109,17 @@ class OfferController extends AbstractController
         // $application = $applicationRepository->find($influencer);
 
 
+        $application = $applicationRepository->findBy([
+            'offer' => $id
+         ]);
+        dump($application);
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,
             'brand' => $brand,
             'influencer' => $influencer,
             'offerApplied' => $offerApplied,
             'apply' => $apply
+            'application' => $application
         ]);
     }
 
@@ -210,15 +215,14 @@ class OfferController extends AbstractController
     /**
     * @Route("/validated_partnership/{id}", name="validated_partnership")
     */
-    public function validated_partnership($id, Request $request, ApplicationRepository $applicationRepository)
+    public function validated_partnership($id, Request $request, ApplicationRepository $applicationRepository, OfferRepository $offerRepository)
     {
         $applicationId = $request->get('application');
        
         $applications = $applicationRepository->findBy([
             'offer' => $id
          ]);
-        // dump($applications);
-        //boucle et pour chacun dentre eux je fait un setStatus
+
         foreach ($applications as $application) {
             if($application->getId() == $applicationId) {
                 $validate = $application->setStatus("validated");
@@ -233,15 +237,17 @@ class OfferController extends AbstractController
                 $em->flush();
             }
         }
-       $this->addFlash('success', 'Valider le partenariat');
-        //eesais
-        return $this->render('offer/validate.html.twig');
+        $this->addFlash('success', 'Valider le partenariat');
+        $offerId = $offerRepository->find($id);
+
+        return $this->redirectToRoute("offer_show_applications", ['id' => $offerId->getId()]);
+        //return $this->render('offer/validate.html.twig');
     }
 
    /**
     * @Route("/refuse_partnership/{id}", name="refuse_partnership")
     */
-    public function refuse_partnership($id, Request $request, ApplicationRepository $applicationRepository)
+    public function refuse_partnership($id, Request $request, ApplicationRepository $applicationRepository, OfferRepository $offerRepository)
     {
         $applicationId = $request->get('application');
        
@@ -256,7 +262,8 @@ class OfferController extends AbstractController
 
         $this->addFlash('success', 'Refuser le partenariat');
 
-        return $this->render('offer/validate.html.twig');
+        $offerId = $offerRepository->find($id);
+        return $this->redirectToRoute("offer_show_applications", ['id' => $offerId->getId()]);
     }
 
     /**

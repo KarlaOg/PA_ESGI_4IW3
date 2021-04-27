@@ -13,14 +13,6 @@ use App\Repository\InfluencerRepository;
 class PartnershipController extends AbstractController
 {
     /**
-     * @Route("/partnership", name="partnership")
-     */
-    public function index(BrandRepository $brandRepository)
-    {
-    }
-
-
-    /**
      * @Route("/my_partnership", name="my_partnership") 
     */
     public function my_partnership(OfferRepository $offerRepository, influencerRepository $influencerRepository)
