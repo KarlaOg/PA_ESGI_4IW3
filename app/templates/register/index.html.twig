@@ -6,15 +6,53 @@
 
 
 {% block body %}
-	{{ form_start(form) }}
+	{{ form_start(formUser) }}
 	<h3>S'inscrire</h3>
 	<hr>
-	{{ form_widget(form) }}
-	<button type="submit" class="btn btn-primary">S'inscrire</button>
-	{{ form_end(form) }}
+	<div class="form">
+		<div class="formUser">
+			{{ form_widget(formUser) }}
+		</div>
+		<div class="formBrand">
+			<h5>Partie marque :</h5>
+			{{ form_widget(formBrand) }}
+		</div>
+		<div class="formInfluencer">
+			<h5>Partie influenceur :</h5>
+			{{ form_widget(formInfluencer) }}
+		</div>
+		<button type="submit" class="btn btn-primary" id="submitBtn">S'inscrire</button>
+	</div>
+	
 	{% for label, messages in app.flashes %}
 		{% for message in messages %}
 			M.toast({html: '{{ message }}', classes: '{{ label }}rounded'});
 		{% endfor %}
 	{% endfor %}
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$(".formBrand").hide();
+			$(".formInfluencer").hide();
+			$("#submitBtn").hide();
+			var checked = "";
+			console.log("hello");
+			var M = false;
+			var I = false;
+			$("#register_roles_0").click(function(){
+				$(".formBrand").show();
+				$("#submitBtn").show();
+			});
+			$("#register_roles_1").click(function(){
+				$(".formInfluencer").show();
+				$("#submitBtn").show();
+			});
+			var regex = /[IM]/g;
+			var result = checked.match(regex);
+			if(result == "M") console.log("marque");
+		});
+	</script>
+
 {% endblock %}
