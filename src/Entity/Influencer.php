@@ -62,7 +62,6 @@ class Influencer
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Regex("/^[a-z0-9]+$/i", message="Vous ne pouvez pas mettre d'espace")
      */
     private $username;
 

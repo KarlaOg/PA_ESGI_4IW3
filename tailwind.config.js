@@ -2,8 +2,6 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
   future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
   },
   purge: [],
   theme: {
@@ -15,6 +13,8 @@ module.exports = {
     extend: {
       colors: {
         orange: colors.orange,
+        rose: colors.rose,
+        cyan: colors.cyan,
       },
     },
   },

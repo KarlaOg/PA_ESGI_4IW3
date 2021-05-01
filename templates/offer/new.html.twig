@@ -1,27 +1,33 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Ajouter une offre
+{% block title %}Créer une offre
 {% endblock %}
 
 
 {% block body %}
-	<h1>Ajouter une offre</h1>
-	<hr>
-	{{ form_start(form) }}
-	{{ form_row(form.name) }}
-	{{ form_row(form.description) }}
-	{{ form_row(form.field) }}
-	{{ form_row(form.dateStart) }}
-	{{ form_row(form.dateEnd) }}
-	<div class="d-none">
-		{{ form_widget(form.brandId) }}
+	<div class="pb-10 mx-auto max-w-7xl lg:py-12 lg:px-8">
+		<div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
+			<div class="shadow sm:rounded-md sm:overflow-hidden">
+				<div class="bg-white py-6 px-4 sm:p-6">
+					<h3>Créer une offre</h3>
+					{{ form_start(form) }}
+					{{ form_row(form.name) }}
+					{{ form_row(form.description) }}
+					{{ form_row(form.field) }}
+					{{ form_row(form.dateStart) }}
+					{{ form_row(form.dateEnd) }}
+					<div class="d-none">
+						{{ form_widget(form.brandId) }}
+					</div>
+					<div style="margin-top:20px">
+						<button type="submit" class="btn btn-success">Créer</button>
+						<a href="{{path('offer_index')}}" class="btn btn-primary">Annuler</a>
+					</div>
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
 	</div>
-	<div style="margin-top:20px">
-		<button type="submit" class="btn btn-success">Créer</button>
-		<a href="{{path('offer_index')}}" class="btn btn-primary">Annuler</a>
-	</div>
-	{{ form_end(form) }}
-
 
 {% endblock %}

@@ -52,7 +52,7 @@ class OfferController extends AbstractController
             'offers' =>  $offers,
             'brand' => $brand,
             'datenow' => $datenow,
-            'offerApplied' => $offerApplied
+            'offerApplied' => $offerApplied,
         ]);
     }
 

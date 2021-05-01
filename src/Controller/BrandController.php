@@ -35,11 +35,11 @@ class BrandController extends AbstractController
     }
 
     /**
-     * @Route("brand/{name}", name="brand_show", methods={"GET"})
+     * @Route("brand/{username}", name="brand_show", methods={"GET"})
      */
     public function show(Brand $brand, OfferRepository $offerRepository, BrandRepository $brandRepository, influencerRepository $influencerRepository, applicationRepository $applicationRepository): Response
     {
-        $brandId = $brandRepository->findOneBy(['name' => $brand->getName()]);
+        $brandId = $brandRepository->findOneBy(['username' => $brand->getUsername()]);
 
         $offers = $offerRepository->findBy(['brandId' => $brandId->getId()]);
 

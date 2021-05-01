@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block body %}
-	<main class="flex-shrink-0 hidden xl:order-first xl:flex xl:flex-col">
-		<h2 class="text-lg font-medium text-gray-900">Annuaire des marques</h2>
+	<div class="container mt-5">
+		<h2 class="pb-5">Annuaire des marques</h2>
 		<!--  Liste  -->
 		<nav class="relative flex-1 min-h-0 overflow-y-auto" aria-label="Annuaire">
 
@@ -14,7 +14,7 @@
 			<ul class="relative z-0 divide-y divide-gray-200">
 
 				{% for brand in brands %}
-					<li>
+					<li class="bg-white">
 						<div class="relative flex items-center px-6 py-5 space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
 							<div class="flex-shrink-0">
 								{% if brand.profilePhoto %}
@@ -29,7 +29,7 @@
 							</div>
 							<div class="flex-1 min-w-0">
 								<a
-									href="{{ path('brand_show', {'name': brand.name}) }}" class="focus:outline-none">
+									href="{{ path('brand_show', {'username': brand.username}) }}" class="focus:outline-none">
 									<!-- Extend touch target to entire panel -->
 									<span class="absolute inset-0" aria-hidden="true"></span>
 									<p class="text-sm font-medium text-gray-900">
@@ -46,5 +46,5 @@
 			</ul>
 
 		</nav>
-	</main>
+	</div>
 {% endblock %}

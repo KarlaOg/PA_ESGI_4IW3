@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\InfluencerRepository ; 
+use App\Repository\InfluencerRepository;
 use App\Entity\Influencer;
 
 class InfluencerController extends AbstractController
@@ -20,18 +20,18 @@ class InfluencerController extends AbstractController
         ]);
     }
 
-  /**
+    /**
      * @Route("/all_influencers", name="all_influencers")
      */
-    public function influencers_list(InfluencerRepository $influencerRepository) : Response
+    public function influencers_list(InfluencerRepository $influencerRepository): Response
     {
         return $this->render('influencer/list.html.twig', [
             'influencers' => $influencerRepository->findAll()
         ]);
     }
-    
-        /**
-        * @Route("influencer/{name}", name="influencer_show", methods={"GET"})
+
+    /**
+     * @Route("influencer/{username}", name="influencer_show", methods={"GET"})
      */
     public function show(Influencer $influencer): Response
     {
