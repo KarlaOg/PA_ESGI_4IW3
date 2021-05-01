@@ -9,13 +9,12 @@
 		<h2 class="pb-5">
 			Liste des offres
 		</h2>
-
-		{% if brand.offers|length < 0 %}
+		{% if app.user.roles[0] == "ROLE_MARQUE" and brand.offers|length < 0 %}
 			<p>Vous n'avez pas d'offre de créer pour le moment.</p>
 		{% else %}
 
-			{% for offer in offers  %}
 
+			{% for offer in offers  %}
 
 				{% if brand is not null and offer.brandId.id == brand.id %}
 					<div class="mb-3 card">
