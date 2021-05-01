@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Influencer;
+use App\Repository\InfluencerRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\InfluencerRepository;
-use App\Entity\Influencer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class InfluencerController extends AbstractController
 {
@@ -22,6 +24,8 @@ class InfluencerController extends AbstractController
 
     /**
      * @Route("/all_influencers", name="all_influencers")
+     * @Security("is_granted('ROLE_MARQUE') or is_granted('ROLE_ADMIN')")
+
      */
     public function influencers_list(InfluencerRepository $influencerRepository): Response
     {
@@ -32,6 +36,7 @@ class InfluencerController extends AbstractController
 
     /**
      * @Route("influencer/{username}", name="influencer_show", methods={"GET"})
+     * @Security("is_granted('ROLE_MARQUE') or is_granted('ROLE_ADMIN')")
      */
     public function show(Influencer $influencer): Response
     {
