@@ -9,7 +9,7 @@
 		<h2 class="pb-5">
 			Liste des offres
 		</h2>
-		{% if app.user.roles[0] == "ROLE_MARQUE" and brand.offers|length < 0 %}
+		{% if app.user.roles[0] == "ROLE_MARQUE" and brand.offers|length <= 0 %}
 			<p>Vous n'avez pas d'offre de créer pour le moment.</p>
 		{% else %}
 			<div id="offer-list-user">
@@ -51,6 +51,26 @@
 								<div class="mb-3 card">
 
 									<div class="card-body">
+										{% set newArray = [] %}
+										{% for app in offerApplied %}
+											{% if app.offer.id not in newArray %}
+												{% if app.offer.id  == offer.id %}
+													<div class="mb-3">
+														{% if app.status == "pending" %}
+															<div class="flex justify-end">
+																<svg class="w-6 h-6 mr-4 text-grey-400" x-description="Heroicon name: outline/clock" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+																	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+																</svg>
+															</div>
+														{% endif %}
+														<div class="mb-3">
+															<mark>Vous avez deja postuler a cette offre</mark>
+														</div>
+													</div>
+												{% endif %}
+												{% set newArray = newArray|merge([app.offer.id]) %}
+											{% endif %}
+										{% endfor %}
 										<p class="brand">Marque :
 											{{ offer.brandId.name|capitalize }}</p>
 										<p class="name">Nom :
@@ -65,22 +85,6 @@
 										<p>Dates de fin:
 											{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
 										</p>
-										{% set newArray = [] %}
-										{% for app in offerApplied %}
-											{% if app.offer.id not in newArray %}
-												{% if app.offer.id  == offer.id %}
-													<div class="mb-3">
-														<mark>Vous avez deja postuler a cette offre</mark>
-													</div>
-													<div class="mb-3">
-														{% if app.status == "pending" %}
-															<p class="lead">En cours de traitement ✨</p>
-														{% endif %}
-													</div>
-												{% endif %}
-												{% set newArray = newArray|merge([app.offer.id]) %}
-											{% endif %}
-										{% endfor %}
 										<div class="card-action">
 											<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
 										</div>

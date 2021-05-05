@@ -4,6 +4,8 @@
 {% endblock %}
 
 {% block body %}
+	{% set var = [] %}
+	{% set newArray = [] %}
 	<div class="container pt-5">
 		<h1>{{ offer.name|capitalize }}</h1>
 		<h2>Marque :
@@ -12,6 +14,25 @@
 		<div class="mb-3 card">
 
 			<div class="card-body">
+				{% for app in offerApplied %}
+					{% if app.offer.id not in newArray %}
+						{% if app.offer.id  == offer.id %}
+							<div class="mb-3">
+								{% if app.status == "pending" %}
+									<div class="flex justify-end">
+										<svg class="w-6 h-6 mr-4 text-grey-400" x-description="Heroicon name: outline/clock" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+										</svg>
+									</div>
+								{% endif %}
+								<div class="mb-3">
+									<mark>Vous avez deja postuler a cette offre</mark>
+								</div>
+							</div>
+						{% endif %}
+						{% set newArray = newArray|merge([app.offer.id]) %}
+					{% endif %}
+				{% endfor %}
 				<p>Nom :
 					{{ offer.name|capitalize }}</p>
 				<p>Description :
@@ -26,23 +47,7 @@
 				<div class="card-action">
 					{% for role in app.user.roles %}
 						{% if role == "ROLE_INFLUENCEUR"  %}
-							{% set newArray = [] %}
-							{% set var = [] %}
-
 							{% for app in offerApplied %}
-								{% if app.offer.id not in newArray %}
-									{% if app.offer.id  == offer.id %}
-										<div class="mb-3">
-											<mark>Vous avez deja postuler a cette offre</mark>
-										</div>
-										<div class="mb-3">
-											{% if app.status == "pending" %}
-												<p class="lead">En cours de traitement ✨</p>
-											{% endif %}
-										</div>
-										{% set newArray = newArray|merge([app.offer.id]) %}
-									{% endif %}
-								{% endif %}
 								{% if offer.id == app.offer.id %}
 									{% set var = app.offer.id %}
 								{% endif %}

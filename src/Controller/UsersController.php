@@ -59,15 +59,23 @@ class UsersController extends AbstractController
      * @IsGranted("ROLE_INFLUENCEUR", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
 
-    public function usersOffers(influencerRepository $influencerRepository)
+    public function usersOffers(influencerRepository $influencerRepository, ApplicationRepository $applicationRepository, OfferRepository $offerRepository, BrandRepository $brandRepository)
     {
         $user = $this->getUser();
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
         // GET ALL APPLICATIONS AS DOCTRINE PERSISTENT COLLECTION
         $allApplications = $influencerRepository->find($influencer)->getApplications();
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
+
+        $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
+        $offers = $offerRepository->findBy([], ['dateCreation' => 'DESC']);
+        $brand = $brandRepository->findOneBy(['user' => $user]);
 
         return $this->render('users/offers.html.twig', [
-            "applications" => $allApplications
+            'applications' => $allApplications,
+            'offerApplied' => $offerApplied,
+            'offers' => $offers,
+            'brand' => $brand
 
         ]);
     }
