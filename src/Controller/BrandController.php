@@ -10,6 +10,7 @@ use App\Repository\OfferRepository;
 use App\Repository\InfluencerRepository;
 use App\Repository\ApplicationRepository;
 use App\Entity\Brand;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 class BrandController extends AbstractController
@@ -26,6 +27,7 @@ class BrandController extends AbstractController
 
     /**
      * @Route("/all_brands", name="all_brands")
+     * @Security("is_granted('ROLE_INFLUENCEUR') or is_granted('ROLE_ADMIN')")
      */
     public function brands_list(BrandRepository $brandRepository): Response
     {
@@ -35,11 +37,12 @@ class BrandController extends AbstractController
     }
 
     /**
-     * @Route("brand/{name}", name="brand_show", methods={"GET"})
+     * @Route("brand/{username}", name="brand_show", methods={"GET"})
+     * @Security("is_granted('ROLE_INFLUENCEUR') or is_granted('ROLE_ADMIN')")
      */
     public function show(Brand $brand, OfferRepository $offerRepository, BrandRepository $brandRepository, influencerRepository $influencerRepository, applicationRepository $applicationRepository): Response
     {
-        $brandId = $brandRepository->findOneBy(['name' => $brand->getName()]);
+        $brandId = $brandRepository->findOneBy(['username' => $brand->getUsername()]);
 
         $offers = $offerRepository->findBy(['brandId' => $brandId->getId()]);
 

@@ -212,9 +212,9 @@ class AppFixtures extends Fixture
             $offer = new Offer();
             $offer->setBrandId($faker->randomElement($brands))
                 ->setDescription($faker->realText())
-                ->setName($faker->title())
-                ->setDateEnd($faker->dateTimeBetween('now', '+2 years'))
-                ->setDateStart($faker->dateTimeBetween('now', '+1 years'))
+                ->setName($faker->jobTitle())
+                ->setDateStart($faker->dateTimeBetween('+1 days', '+10 days'))
+                ->setDateEnd($faker->dateTimeBetween('+11 days', '+2 years'))
                 ->setField(["Gaming", "Streaming", "Lifestyle", "Exploration"])
 
                 ->setDateCreation($faker->dateTime());

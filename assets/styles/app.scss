@@ -2,11 +2,14 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+body{
+    font-family: unset  !important;
+}
 .logo {
   margin-top: 0px;
   margin-bottom: 10px;
   font-family: sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   letter-spacing: 8px;
   background: linear-gradient(
     to right,
@@ -31,4 +34,11 @@ a:hover {
   img {
     width: 200px;
   }
+}
+
+img.preview_image{
+    margin: 30px 0 !important;
+}
+.form-inline{
+    flex-flow: unset !important;
 }

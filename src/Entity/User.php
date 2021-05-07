@@ -81,21 +81,6 @@ class User implements UserInterface, \Serializable
      */
     private $isAdmin;
 
-
-    // Pour les test unitaire (pas complet)
-    public function isValid(): bool
-    {
-        return !empty($this->firstname)
-            && !empty($this->lastname)
-            && !empty($this->password)
-            && !empty($this->age)
-            && strlen($this->password) >= 3
-            && strlen($this->password) <= 50
-            && !empty($this->email)
-            && filter_var($this->email, FILTER_VALIDATE_EMAIL);
-        //&& Carbon::now()->subYears(10)->isAfter($this->age);
-    }
-
     public function __construct()
     {
         $this->brand = new ArrayCollection();
