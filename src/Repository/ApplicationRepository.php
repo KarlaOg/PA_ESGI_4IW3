@@ -63,4 +63,23 @@ class ApplicationRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    public function influencerApplyOfferId($value, $offer): array
+    {
+        return $this->createQueryBuilder('application')
+            ->select('a', 'i')
+            ->from(
+                'App\Entity\Application',
+                'a',
+            )
+            ->leftJoin('a.influencerId', 'i')
+            ->andWhere('a.offer = :offerId')
+            ->andWhere('i = :influencerId')
+
+            ->setParameters(['influencerId' => $value, 'offerId' => $offer])
+
+
+            ->getQuery()
+            ->getResult();
+    }
 }
