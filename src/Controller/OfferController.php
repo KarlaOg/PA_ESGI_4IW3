@@ -156,7 +156,7 @@ class OfferController extends AbstractController
     /**
      * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
      */
-    public function apply(Offer $offer, Request $request, influencerRepository $influencerRepository)
+    public function apply(Offer $offer, Request $request, influencerRepository $influencerRepository, applicationRepository $applicationRepository)
     {
         $form = $this->createForm(ApplicationType::class, $offer);
         $form->handleRequest($request);
@@ -165,13 +165,18 @@ class OfferController extends AbstractController
 
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
+        $offerAppliedId = $applicationRepository->influencerApplyOfferId($influencer, $offer);
+
+        if (!empty($offerAppliedId)) {
+            return $this->redirectToRoute('offer_index');
+        }
+        $application = new Application();
+        $offer->addApplication($application);
+        $application->setOffer($offer);
+        $application->addInfluencerId($influencer);
+        $application->setStatus("pending");
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $application = new Application();
-            $offer->addApplication($application);
-            $application->setOffer($offer);
-            $application->addInfluencerId($influencer);
-            $application->setStatus("pending");
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($application);
