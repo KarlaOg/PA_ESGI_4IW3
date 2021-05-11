@@ -14,6 +14,7 @@ use App\Repository\InfluencerRepository;
 use App\Repository\ApplicationRepository;
 
 use App\Repository\OfferRepository;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -153,25 +154,30 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
+     * @Route("/{id}/apply", name="apply", methods={ "GET", "POST"})
      */
-    public function apply(Offer $offer, Request $request, influencerRepository $influencerRepository)
+    public function apply(Offer $offer, Request $request, influencerRepository $influencerRepository, applicationRepository $applicationRepository, OfferRepository $offerRepository)
     {
         $form = $this->createForm(ApplicationType::class, $offer);
         $form->handleRequest($request);
 
         $user = $this->getUser();
-
         $influencer = $influencerRepository->findOneBy(['UserId' => $user]);
+
+        $offerAppliedId = $applicationRepository->influencerApplyOfferId($influencer, $offer);
+
+        if (!empty($offerAppliedId)) {
+            return $this->redirectToRoute('offer_index');
+        }
+
+        $application = new Application();
+        $offer->addApplication($application);
+        $application->setOffer($offer);
+        $application->addInfluencerId($influencer);
+        $application->setStatus("pending");
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $application = new Application();
-            $offer->addApplication($application);
-            $application->setOffer($offer);
-            $application->addInfluencerId($influencer);
-            $application->setStatus("pending");
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($application);
             $em->flush();

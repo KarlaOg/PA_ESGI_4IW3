@@ -25,6 +25,7 @@
 
 # macOS Files
 /.DS_Store
+.DS_Store
 
 # IDE - VSCode
 .vscode/*
