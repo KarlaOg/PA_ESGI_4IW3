@@ -33,30 +33,16 @@ class ChannelController extends AbstractController
      * @Route("/chat/{id}", name="channel_chat")
      */
     public function chat(
-        Request $request,
         Channel $channel,
-        MessageRepository $messageRepository,
-        CookieJwtProvider $cookieJwtProvider
+        MessageRepository $messageRepository
     ): Response {
         $messages = $messageRepository->findBy([
             'channel' => $channel
         ], ['createdAt' => 'ASC']);
 
-        $hubUrl = $this->getParameter('mercure.default_hub');
-        $this->addLink($request, new Link('mercure', $hubUrl));
-
-        $response = $this->render('channel/chat.html.twig', [
+        return $this->render('channel/chat.html.twig', [
             'channel' => $channel,
             'messages' => $messages
         ]);
-        $response->headers->setCookie(
-            Cookie::create(
-                'mercureAuthorization',
-                $cookieJwtProvider($channel),
-                new \DateTime('+1day'),
-                '/.well-known/mercure'
-            )
-        );
-        return $response;
     }
 }
