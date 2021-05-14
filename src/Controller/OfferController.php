@@ -47,12 +47,24 @@ class OfferController extends AbstractController
         $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
 
         $datenow = new \DateTime("now");
+        $applications = $applicationRepository->findBy([
+            'status' => 'pending'
+         ]);
+
+        $idsPending = array();
+        foreach ($applications as $application) {
+            if (strcmp($application->getStatus(), 'pending') === 0)
+                array_push($idsPending, $application->getOffer()->getId());
+        }
+
+        $offers = $repository->findBy([], ['dateCreation' => 'DESC']);
 
         return $this->render('offer/index.html.twig', [
             'offers' =>  $offers,
             'brand' => $brand,
             'datenow' => $datenow,
             'offerApplied' => $offerApplied,
+            'idsPending' => $idsPending
         ]);
     }
    /**
