@@ -112,14 +112,19 @@ class OfferController extends AbstractController
         $application = $applicationRepository->findBy([
             'offer' => $id
          ]);
+        $pending = $applicationRepository->findBy([
+            'offer' => $id,
+            'status' => 'pending'
+         ]);
         dump($application);
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,
             'brand' => $brand,
             'influencer' => $influencer,
             'offerApplied' => $offerApplied,
-            'apply' => $apply
-            'application' => $application
+            'apply' => $apply,
+            'application' => $application,
+            'isPending' => $pending ? true : false
         ]);
     }
 
@@ -205,7 +210,7 @@ class OfferController extends AbstractController
         foreach($applications as $application) {
             $influencers = array_merge($influencers, $application->getInfluencerId()->toArray());
         }
-
+        dump($applications);
         return $this->render('offer/application.html.twig', [
             'influencers' => $influencers,
             'applications' => $applications
@@ -222,7 +227,8 @@ class OfferController extends AbstractController
         $applications = $applicationRepository->findBy([
             'offer' => $id
          ]);
-
+        dump($id);
+        dump($applications);
         foreach ($applications as $application) {
             if($application->getId() == $applicationId) {
                 $validate = $application->setStatus("validated");
@@ -231,16 +237,16 @@ class OfferController extends AbstractController
                 $em->flush();
             }
             else{
-                $validate = $application->setStatus("refused");
+                $refused = $application->setStatus("refused");
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($validate);
+                $em->persist($refused);
                 $em->flush();
             }
         }
-        $this->addFlash('success', 'Valider le partenariat');
+        $this->addFlash('success', 'Partenariat validé');
         $offerId = $offerRepository->find($id);
 
-        return $this->redirectToRoute("offer_show_applications", ['id' => $offerId->getId()]);
+        return $this->redirectToRoute("my_partnership");
         //return $this->render('offer/validate.html.twig');
     }
 

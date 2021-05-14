@@ -20,8 +20,8 @@
 				<a href="">Voir le profil</a>
 				
 					<div class="card-action">
-						<a href="{{ path('offer_validated_partnership', {'id': influencer.id, 'application': applications[loop.index0].id }) }}" class="btn btn-success">Valider le partenariat</a>
-						<a href="{{ path('offer_refuse_partnership', {'id': influencer.id, 'application': applications[loop.index0].id }) }}" class="btn btn-danger">Refuser le partenariat</a>
+						<a href="{{ path('offer_validated_partnership', {'id': applications[loop.index0].offer.id, 'application': applications[loop.index0].id }) }}" class="btn btn-success">Valider le partenariat</a>
+						<a href="{{ path('offer_refuse_partnership', {'id': applications[loop.index0].offer.id, 'application': applications[loop.index0].id }) }}" class="btn btn-danger">Refuser le partenariat</a>
 					</div>
 			</div>
 		</div>
