@@ -81,6 +81,7 @@ class RegisterController extends AbstractController
     private function createInfluencerAction($request, $user)
     {
         $influencer = new Influencer();
+        $user->addInfluencer($influencer);
         $influencer->setUser($user);
         $influencer->setName('testdespuislecontroller');
         //--------------
@@ -93,6 +94,7 @@ class RegisterController extends AbstractController
     private function createBrandAction($request, $user)
     {
         $brand = new Brand();
+        $user->addBrand($brand);
         $brand->setUser($user);
         $brand->setName('testdespuislecontroller');
         //--------------
