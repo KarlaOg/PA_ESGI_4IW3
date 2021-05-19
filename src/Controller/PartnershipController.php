@@ -55,7 +55,7 @@ class PartnershipController extends AbstractController
                         'id' => $offer->getBrandId()
                     ]);
 
-                    if($application->getInfluencerId() == $influencerId->getId()){
+                    if($application->getInfluencerId()->toArray()[0]->getId() == $influencerId->getId()){
                         if (strcmp($application->getStatus(), "validated") == 0) {
                             array_push($partnerships, $offer);
                             array_push($collaborators, $brand);
