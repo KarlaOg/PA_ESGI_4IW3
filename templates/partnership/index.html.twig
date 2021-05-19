@@ -12,15 +12,30 @@
 		<p>Il n'y a pas de partenariats pour le moment. </br> Veuillez d'abords valider des candidatures</p>
 	{% endif %}
 	{% for partnership in partnerships %}
-		<div class="card mb-3">
-			<div class="card-body">
-				<p>Nom de l'influenceur : 
-					<a href="{{ path('influencer_show', {'name': influencers[loop.index0].name}) }}" >{{ influencers[loop.index0].name }}
-					</a>
-				 </p>
-				<p>Nom de l'offre: {{ partnership.name }} </p>
-				<p>Description de l'offre: {{ partnership.description }} </p>
+		{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
+			<div class="card mb-3">
+				<div class="card-body">
+					<p>Nom de la marque : 
+						{{ collaborators[loop.index0].name }}
+					</p>
+					<p>Nom de l'offre: {{ partnership.name }} </p>
+					<p>Description de l'offre: {{ partnership.description }} </p>
+				</div>
 			</div>
-		</div>
+		{% else %}
+			<div class="card mb-3">
+				<div class="card-body">
+					<p>Nom de l'influenceur : 
+						<a href="{{ path('influencer_show', {'name': collaborators[loop.index0].name}) }}" >{{ collaborators[loop.index0].name }}
+						</a>
+					</p>
+					<p>Nom de l'offre: {{ partnership.name }} </p>
+					<p>Description de l'offre: {{ partnership.description }} </p>
+				</div>
+			</div>
+		{% endif %}
+
+
+		
 	{% endfor %}
 {% endblock %}

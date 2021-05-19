@@ -67,30 +67,24 @@ class OfferController extends AbstractController
             'idsPending' => $idsPending
         ]);
         $brand = $brandRepository->findOneBy(['UserId' => $user]);
-        //Si c'est un influenceur
-        if ($brand == null){
-             
-        }
-        else {
-            $applications = $applicationRepository->findBy([
-                'status' => 'validated'
-            ]);
 
-            $idsValidated = array();
-            foreach ($applications as $application) {
-                array_push($idsValidated, $application->getOffer()->getId());
-            }
-            dump($idsValidated);
-            dump($brand);
-            $offers = $repository->findBy([], ['dateCreation' => 'DESC']);
+        $applications = $applicationRepository->findBy([
+            'status' => 'validated'
+         ]);
 
-            return $this->render('offer/index.html.twig', [
-                'offers' =>  $offers,
-                'brand' => $brand,
-                'idsValidated' => $idsValidated
-            ]);
+        $idsValidated = array();
+        foreach ($applications as $application) {
+            array_push($idsValidated, $application->getOffer()->getId());
         }
-        
+        dump($idsValidated);
+        dump($brand);
+        $offers = $repository->findBy([], ['dateCreation' => 'DESC']);
+
+        return $this->render('offer/index.html.twig', [
+            'offers' =>  $offers,
+            'brand' => $brand,
+            'idsValidated' => $idsValidated
+        ]);
     }
    /**
      * @Route("/new", name="new", methods={"GET", "POST"})
