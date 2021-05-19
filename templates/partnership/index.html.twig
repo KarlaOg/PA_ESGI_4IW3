@@ -14,8 +14,12 @@
 	{% for partnership in partnerships %}
 		<div class="card mb-3">
 			<div class="card-body">
-				<p>Nom : {{ influencers[loop.index0].name }} </p>
-				<a class="btn btn-link" href="{{ path('influencer_show', {'name': influencers[loop.index0].name}) }}">Voir le profil</a>
+				<p>Nom de l'influenceur : 
+					<a href="{{ path('influencer_show', {'name': influencers[loop.index0].name}) }}" >{{ influencers[loop.index0].name }}
+					</a>
+				 </p>
+				<p>Nom de l'offre: {{ partnership.name }} </p>
+				<p>Description de l'offre: {{ partnership.description }} </p>
 			</div>
 		</div>
 	{% endfor %}

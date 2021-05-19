@@ -23,6 +23,7 @@
 					{% if brand is not null and offer.brandId.id == brand.id %}
 						<div class="card-body">
 				{% if offer.id in idsPending %}
+				{% if offer.id not in idsValidated %}
 					<div class="card mb-3">
 						{% if brand is not null and offer.brandId.id == brand.id %}
 							<div class="card-body">

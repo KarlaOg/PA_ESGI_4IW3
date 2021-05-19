@@ -18,7 +18,6 @@ class PartnershipController extends AbstractController
     public function my_partnership(OfferRepository $offerRepository, influencerRepository $influencerRepository)
     {
         $brandId = $this->getUser();
-
         //on recupere tout les offres lié à la brandId
         $offers = $offerRepository->findby([
             'brandId' => $brandId
@@ -30,6 +29,7 @@ class PartnershipController extends AbstractController
         foreach($offers as $offer) {
             $applications = $offer->getApplication();
             foreach($applications as $application) {
+                //recuperer l'influenceur qui a postuler a l'offre
                 $influencer = $influencerRepository->findOneby([
                     'id' => $application->getInfluencerId()->toArray()[0]
                 ]);
@@ -39,7 +39,6 @@ class PartnershipController extends AbstractController
                 }
             }
         }
-
         return $this->render('partnership/index.html.twig', [
             'partnerships' => $partnerships,
             'influencers' => $influencers
