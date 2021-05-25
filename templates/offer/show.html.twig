@@ -28,35 +28,6 @@
 							</div>
 						{% endif %}
 						{% set newArray = newArray|merge([app.offer.id]) %}
-	<h1>{{ offer.name|capitalize }}</h1>
-	<h2>Marque : {{ offer.brandId.name}} </h2>
-	<div class="card mb-3">
-		<div class="card-body">
-			<p>Nom :
-				{{ offer.name|capitalize }}</p>
-			<p>Description :
-				{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
-			</p>
-			<p>Dates :
-				{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
-				-
-				{{ offer.dateEnd ? offer.dateEnd|date('m/d/Y') : 'NC'}}
-			</p>
-			<div class="card-action">
-				{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
-					<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-success">Postuler</a>
-				{% endif %}
-				{% if app.user.roles[0] == "ROLE_MARQUE" %}
-					{% if offer.brandId.id == brand.id  %}
-						<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-success">Modifier l'offre</a>
-						<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>
-						
-
-					{# SI CETTE OFFRE EST DEJA VALIDER ON CHANGE DE BOUTON #}
-					{# {% if application.status == "pending" %} #}
-					{% if isPending == "pending" %}
-						<a href="{{ path('offer_show_applications', {'id': offer.id}) }}" class="btn btn-primary">Voir les candidatures</a>
-					{% endif %}
 					{% endif %}
 				{% endfor %}
 				<p>Nom :
@@ -88,6 +59,9 @@
 							{% if offer.brandId.id == brand.id  %}
 								<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-success">Modifier l'offre</a>
 								<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>
+								{% if isPending == "pending" %}
+									<a href="{{ path('offer_show_applications', {'id': offer.id}) }}" class="btn btn-primary">Voir les candidatures</a>
+								{% endif %}
 							{% endif %}
 						{% endif %}
 					{% endfor %}

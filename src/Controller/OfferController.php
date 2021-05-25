@@ -47,46 +47,29 @@ class OfferController extends AbstractController
         $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
 
         $datenow = new \DateTime("now");
-        $applications = $applicationRepository->findBy([
-            'status' => 'pending'
-         ]);
-
-        $idsPending = array();
-        foreach ($applications as $application) {
-            if (strcmp($application->getStatus(), 'pending') === 0)
-                array_push($idsPending, $application->getOffer()->getId());
-        }
-
-        $offers = $repository->findBy([], ['dateCreation' => 'DESC']);
-
-        return $this->render('offer/index.html.twig', [
-            'offers' =>  $offers,
-            'brand' => $brand,
-            'datenow' => $datenow,
-            'offerApplied' => $offerApplied,
-            'idsPending' => $idsPending
-        ]);
-        $brand = $brandRepository->findOneBy(['UserId' => $user]);
 
         $applications = $applicationRepository->findBy([
             'status' => 'validated'
-         ]);
+        ]);
 
         $idsValidated = array();
         foreach ($applications as $application) {
             array_push($idsValidated, $application->getOffer()->getId());
         }
-        dump($idsValidated);
-        dump($brand);
+       
         $offers = $repository->findBy([], ['dateCreation' => 'DESC']);
 
         return $this->render('offer/index.html.twig', [
             'offers' =>  $offers,
             'brand' => $brand,
-            'idsValidated' => $idsValidated
+            'idsValidated' => $idsValidated,
+            'offerApplied' => $offerApplied,
+            'datenow' => $datenow
         ]);
+
+
     }
-   /**
+    /**
      * @Route("/new", name="new", methods={"GET", "POST"})
      * @IsGranted("ROLE_MARQUE", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
@@ -236,12 +219,19 @@ class OfferController extends AbstractController
     */
     public function show_applications($id, OfferRepository $offerRepository)
     {
+        //recupere tt les applications de l'offre en question
+        $applications = $offerRepository->findOneby([
+            'id' => $id
+        ])->getApplication();
+
+        //creation d'un tableau $influencers pour pouvoir ensuite faire un array_merge
+        $influencers = array();
 
         //on recupere l'influenceur lié à l'application.
         foreach($applications as $application) {
             $influencers = array_merge($influencers, $application->getInfluencerId()->toArray());
         }
-        dump($applications);
+
         return $this->render('offer/application.html.twig', [
             'influencers' => $influencers,
             'applications' => $applications
@@ -258,8 +248,7 @@ class OfferController extends AbstractController
         $applications = $applicationRepository->findBy([
             'offer' => $id
          ]);
-        dump($id);
-        dump($applications);
+       
         foreach ($applications as $application) {
             if($application->getId() == $applicationId) {
                 $validate = $application->setStatus("validated");
