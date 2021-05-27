@@ -23,25 +23,29 @@ class PartnershipController extends AbstractController
         $influencerId = $influencerRepository->findOneBy(['user' => $user ]);
         $partnerships = array();
         $collaborators = array();
+        dump($brand);
 
         if ($brand) {
-            //on recupere tout les offres lié a la marque
             $offers = $offerRepository->findby([
                 'brandId' => $user
             ]);
-
+            dump($offers);
             //on recupere toutes les applications en lien avec la marque
             foreach($offers as $offer) {
+                dump('in offer');
                 $applications = $offer->getApplication();
                 foreach($applications as $application) {
-                    //recuperer l'influenceur qui a postuler a l'offre
-                    $influencer = $influencerRepository->findOneby([
-                        'id' => $application->getInfluencerId()->toArray()[0]
-                    ]);
+                    dump('in application');
                     if (strcmp($application->getStatus(), "validated") == 0) {
+                        dump('validated');
+                        //recuperer l'influenceur qui a postuler a l'offre
+                        $influencer = $influencerRepository->findOneby([
+                            'id' => $application->getInfluencerId()->toArray()[0]
+                        ]);
                         array_push($partnerships, $offer);
                         array_push($collaborators, $influencer);
                     }
+                    else  dump('no validated');
                 }
             }
         }

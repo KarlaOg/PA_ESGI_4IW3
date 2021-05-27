@@ -19,6 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
 
 /**
  * Class OfferController
@@ -179,8 +182,6 @@ class OfferController extends AbstractController
         $form = $this->createForm(ApplicationType::class, $offer);
         $form->handleRequest($request);
 
-
-
         $user = $this->getUser();
 
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
@@ -198,10 +199,11 @@ class OfferController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($application);
             $em->flush();
-
             $this->addFlash('success', 'Postuler à l\'offre en cours');
 
             return $this->redirectToRoute('offer_index');
@@ -223,8 +225,6 @@ class OfferController extends AbstractController
         $applications = $offerRepository->findOneby([
             'id' => $id
         ])->getApplication();
-
-        //creation d'un tableau $influencers pour pouvoir ensuite faire un array_merge
         $influencers = array();
 
         //on recupere l'influenceur lié à l'application.
@@ -241,10 +241,19 @@ class OfferController extends AbstractController
     /**
     * @Route("/validated_partnership/{id}", name="validated_partnership")
     */
-    public function validated_partnership($id, Request $request, ApplicationRepository $applicationRepository, OfferRepository $offerRepository)
+    public function validated_partnership($id, Request $request, influencerRepository $influencerRepository,NotifierInterface $notifier, ApplicationRepository $applicationRepository, OfferRepository $offerRepository)
     {
         $applicationId = $request->get('application');
-       
+        
+        $user = $this->getUser();
+        $userEmail = $user->getEmail();
+        dump($userEmail);
+        
+        //récuperer l'email de l'influenceur qui a postuler.
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
+        $influencerEmail = $influencer->getEmail();
+        dump($influencerEmail);
+
         $applications = $applicationRepository->findBy([
             'offer' => $id
          ]);
@@ -255,6 +264,20 @@ class OfferController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($validate);
                 $em->flush();
+
+                // Create a Notification that has to be sent
+                // using the "email" channel
+                $notification = (new Notification('Vous avez postulé', ['email']))
+                    ->content('Bravo ! vous avez bien postulé à l offre');
+
+                // The receiver of the Notification
+                $recipient = new Recipient(
+                    $user->getEmail()
+                );
+
+                // Send the notification to the recipient
+                $notifier->send($notification, $recipient);
+
             }
             else{
                 $refused = $application->setStatus("refused");
@@ -266,8 +289,8 @@ class OfferController extends AbstractController
         $this->addFlash('success', 'Partenariat validé');
         $offerId = $offerRepository->find($id);
 
-        return $this->redirectToRoute("my_partnership");
-        //return $this->render('offer/validate.html.twig');
+       // return $this->redirectToRoute("my_partnership");
+        return $this->render('offer/validate.html.twig');
     }
 
    /**
