@@ -198,9 +198,6 @@ class OfferController extends AbstractController
         $application->setStatus("pending");
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($application);
             $em->flush();
@@ -251,8 +248,8 @@ class OfferController extends AbstractController
         
         //récuperer l'email de l'influenceur qui a postuler.
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
-        $influencerEmail = $influencer->getEmail();
-        dump($influencerEmail);
+     //   $influencerEmail = $influencer->getEmail();
+      //  dump($influencerEmail);
 
         $applications = $applicationRepository->findBy([
             'offer' => $id
@@ -265,19 +262,17 @@ class OfferController extends AbstractController
                 $em->persist($validate);
                 $em->flush();
 
-                // Create a Notification that has to be sent
-                // using the "email" channel
-                $notification = (new Notification('Vous avez postulé', ['email']))
-                    ->content('Bravo ! vous avez bien postulé à l offre');
+         
+                $notification = (new Notification('Nouveau Partenariat !', ['email']))
+                    ->content('Bravo ! Vous avez votre partenariat !');
 
                 // The receiver of the Notification
                 $recipient = new Recipient(
-                    $user->getEmail()
+                    $userEmail
                 );
 
                 // Send the notification to the recipient
                 $notifier->send($notification, $recipient);
-
             }
             else{
                 $refused = $application->setStatus("refused");
@@ -289,8 +284,8 @@ class OfferController extends AbstractController
         $this->addFlash('success', 'Partenariat validé');
         $offerId = $offerRepository->find($id);
 
-       // return $this->redirectToRoute("my_partnership");
-        return $this->render('offer/validate.html.twig');
+        return $this->redirectToRoute("my_partnership");
+       // return $this->render('offer/validate.html.twig');
     }
 
    /**

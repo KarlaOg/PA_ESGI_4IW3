@@ -27,6 +27,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
+
+
 class UsersController extends AbstractController
 {
 
@@ -36,9 +41,7 @@ class UsersController extends AbstractController
 
     public function usersData(BrandRepository $brandRepository, ApplicationRepository $applicationRepository, InfluencerRepository $influencerRepository)
     {
-
         $user = $this->getUser();
-
 
         $brand = $brandRepository->findOneBy(['user' => $user]);
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
