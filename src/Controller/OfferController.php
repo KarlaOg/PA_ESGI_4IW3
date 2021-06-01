@@ -12,8 +12,8 @@ use App\Form\ApplicationType;
 use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use App\Repository\ApplicationRepository;
-
 use App\Repository\OfferRepository;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -95,7 +95,7 @@ class OfferController extends AbstractController
 
             $userEmail = $user->getEmail();
             $notification = (new Notification('Création d\'une offre  !', ['email']))
-                ->content('Merci d\'avoir créer une nouvelle offre. Les influenceurs peuvent désormais postuler à votre offre !');
+                ->content('Merci ' . $user->getLastname() . ' d\'avoir créer l\'offre ' .  $offer->getName() . ' N° '. $offer->getId() .  ' .Les influenceurs peuvent désormais postuler à votre offre !');
 
             // The receiver of the Notification
             $recipient = new Recipient(
@@ -141,11 +141,12 @@ class OfferController extends AbstractController
         $application = $applicationRepository->findBy([
             'offer' => $id
          ]);
+    
         $pending = $applicationRepository->findBy([
             'offer' => $id,
             'status' => 'pending'
          ]);
-        dump($application);
+
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,
             'brand' => $brand,
@@ -195,10 +196,16 @@ class OfferController extends AbstractController
         $form->handleRequest($request);
 
         $user = $this->getUser();
-        
+       $offer->getId();
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
         $offerAppliedId = $applicationRepository->influencerApplyOfferId($influencer, $offer);
+        //For get email 
+        $applicationForEmail = $applicationRepository->findOneBy([
+            'offer' => $offer->getId()
+        ]);
+        dump($applicationForEmail);
+
 
         if (!empty($offerAppliedId)) {
             return $this->redirectToRoute('offer_index');
@@ -214,20 +221,29 @@ class OfferController extends AbstractController
             $em->persist($application);
             $em->flush();
             $this->addFlash('success', 'Postuler à l\'offre en cours');
-
+ 
+            //envoyer un email à la marque pour lui dire qu'un influenceur à postuler à l'offre
+            $brandEmail = $applicationForEmail->getOffer()->getBrandId()->getUser()->getEmail();
+           // dump($brandEmail);
             $userEmail = $user->getEmail();
-           // $userEmail = $user->getEmail();
+
             $notification = (new Notification('Vous avez postuler à une offre !', ['email']))
-                ->content('Merci d\'avoir postuler à l\'offre, la marque vous donnera bientot une réponse.');
+                ->content('Merci d\'avoir postuler à l\'offre ' .  $offer->getName() . ' N° '. $offer->getId() . ' , la marque vous donnera bientot une réponse.');
+
+            $notificationBrand = (new Notification('Vous avez une candidature à votre offre !', ['email']))
+                ->content('blablacbla.');
 
             // The receiver of the Notification
             $recipient = new Recipient(
                 $userEmail
             );
+            $recipient2 = new Recipient(
+                $brandEmail
+            );
 
             // Send the notification to the recipient
             $notifier->send($notification, $recipient);
-
+            $notifier->send($notificationBrand, $recipient2);
 
             return $this->redirectToRoute('offer_index');
         }
@@ -237,6 +253,7 @@ class OfferController extends AbstractController
             'form' => $form->createView(),
             'influencer' => $influencer
         ]);
+        //return $this->render('offer/validate.html.twig');
     }
 
   /**
@@ -270,9 +287,7 @@ class OfferController extends AbstractController
         
         $user = $this->getUser();
         $userEmail = $user->getEmail();
-       
-        //récuperer l'email de l'influenceur qui a postuler.
-     
+
         $applications = $applicationRepository->findBy([
             'offer' => $id
          ]);
@@ -283,17 +298,26 @@ class OfferController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($validate);
                 $em->flush();
+
+                //récuperer l'email de l'influenceur qui a postuler.
+                $influencerEmail = $application->getInfluencerId()[0]->getUser()->getEmail();
+                //dump($influencerEmail);
          
                 $notification = (new Notification('Nouveau Partenariat !', ['email']))
-                    ->content('Bravo ! Vous avez créer un nouveau partenariat ! Contactez l\'influenceur par message');
+                    ->content('Bravo ! Vous avez un nouveau partenariat !');
 
-                // The receiver of the Notification
+                // Envoie un mail à la marque qui à validé la candidature d'un influenceur.
                 $recipient = new Recipient(
                     $userEmail
+                );
+                // Envoie un mail à l'influenceur
+                $recipient2 = new Recipient(
+                    $influencerEmail
                 );
 
                 // Send the notification to the recipient
                 $notifier->send($notification, $recipient);
+                $notifier->send($notification, $recipient2);
             }
             else{
                 $refused = $application->setStatus("refused");
@@ -306,6 +330,7 @@ class OfferController extends AbstractController
         $offerId = $offerRepository->find($id);
 
         return $this->redirectToRoute("my_partnership");
+        //ne pas supprimer ce qu'il y a dessous.
         //return $this->render('offer/validate.html.twig');
     }
 
@@ -328,17 +353,32 @@ class OfferController extends AbstractController
         $this->addFlash('success', 'Refuser le partenariat');
         $user = $this->getUser();
         $userEmail = $user->getEmail();
-      
-        $notification = (new Notification('Refuser le partenariat !', ['email']))
+        
+        //récuperer l'email de l'influenceur qui a postuler.
+   // $influencerEmail = $application->getInfluencerId()[0]->getUser()->getEmail();
+        //dump($influencerEmail);
+
+        $notificationBrand = (new Notification('Refuser le partenariat !', ['email']))
             ->content('Vous venez de refuser le partenariat ');
+
+        // $notificationInfluencer = (new Notification('Vous venez d\'être refuser pour le partenariat !', ['email']))
+        //     ->content('Vous venez d\'être refuser pour l\'offre que vous avez postulé.');
 
         // The receiver of the Notification
         $recipient = new Recipient(
             $userEmail
         );
 
+        // Envoie un mail à l'influenceur
+        // $recipient2 = new Recipient(
+        //     $influencerEmail
+        // );
+
         // Send the notification to the recipient
-        $notifier->send($notification, $recipient);
+        $notifier->send($notificationBrand, $recipient);
+      //  $notifier->send($notificationInfluencer, $recipient2);
+
+
         $offerId = $offerRepository->find($id);
         return $this->redirectToRoute("offer_show_applications", ['id' => $offerId->getId()]);
     }

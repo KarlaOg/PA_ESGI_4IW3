@@ -69,7 +69,7 @@ class RegisterController extends AbstractController
            
             $userEmail = $user->getEmail();
             $notification = (new Notification('Confirmation d\'inscription', ['email']))
-                ->content('Bienvenue chez LIKEY et Merci pour votre confiance.');
+                ->content('Bienvenue '. $user->getLastname() . ' chez LIKEY et Merci pour votre confiance.');
 
             // user recoit le mail
             $recipient = new Recipient(
