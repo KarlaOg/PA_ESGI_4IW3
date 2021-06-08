@@ -196,17 +196,10 @@ class OfferController extends AbstractController
         $form->handleRequest($request);
 
         $user = $this->getUser();
-       $offer->getId();
+        $offerId = $offer->getId();
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
-
         $offerAppliedId = $applicationRepository->influencerApplyOfferId($influencer, $offer);
-        //For get email 
-        $applicationForEmail = $applicationRepository->findOneBy([
-            'offer' => $offer->getId()
-        ]);
-        dump($applicationForEmail);
-
-
+       
         if (!empty($offerAppliedId)) {
             return $this->redirectToRoute('offer_index');
         }
@@ -221,17 +214,16 @@ class OfferController extends AbstractController
             $em->persist($application);
             $em->flush();
             $this->addFlash('success', 'Postuler à l\'offre en cours');
- 
+            
             //envoyer un email à la marque pour lui dire qu'un influenceur à postuler à l'offre
-            $brandEmail = $applicationForEmail->getOffer()->getBrandId()->getUser()->getEmail();
-           // dump($brandEmail);
+            $brandEmail = $offer->getBrandId()->getUser()->getEmail();
             $userEmail = $user->getEmail();
 
             $notification = (new Notification('Vous avez postuler à une offre !', ['email']))
-                ->content('Merci d\'avoir postuler à l\'offre ' .  $offer->getName() . ' N° '. $offer->getId() . ' , la marque vous donnera bientot une réponse.');
+                ->content('Merci d\'avoir postuler à l\'offre ' .  $offer->getName() . ' N° '. $offerId . ' , la marque vous donnera bientot une réponse.');
 
             $notificationBrand = (new Notification('Vous avez une candidature à votre offre !', ['email']))
-                ->content('blablacbla.');
+                ->content('Un influenceur viens de postuler à votre offre ' .  $offer->getName());
 
             // The receiver of the Notification
             $recipient = new Recipient(
