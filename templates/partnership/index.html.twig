@@ -26,7 +26,7 @@
 			<div class="card mb-3">
 				<div class="card-body">
 					<p>Nom de l'influenceur : 
-						<a href="{{ path('influencer_show', {'name': collaborators[loop.index0].name}) }}" >{{ collaborators[loop.index0].name }}
+						<a href="{{ path('influencer_show', {'username': collaborators[loop.index0].name }) }}" >{{ collaborators[loop.index0].name }}
 						</a>
 					</p>
 					<p>Nom de l'offre: {{ partnership.name }} </p>

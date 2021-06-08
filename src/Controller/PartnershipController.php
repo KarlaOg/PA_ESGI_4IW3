@@ -22,43 +22,37 @@ class PartnershipController extends AbstractController
         //  $brand = $brandRepository->findOneBy(['user' => $user]);
         // $influencerId = $influencerRepository->findOneBy(['user' => $user ]);
 
-
-$brand = $brandRepository->findOneBy(['user' => $user])->getId(); 
-// $influencerId = $influencerRepository->findOneBy(['user' => $user])->getId();
-
-        // dump($influencerId);
- dump($brand);
-
+        $brand = $brandRepository->findOneBy(['user' => $user->getId()]);
+            
+        $influencer = $influencerRepository->findOneBy(['user' => $user->getId()]);
+        dump($influencer);
 
         $partnerships = array();
         $collaborators = array();
 
-
         if ($brand) {
-            $offers = $offerRepository->findby([
-                'brandId' => $user
+            $brandId = $brand->getId();
+            $offers = $offerRepository->findBy([
+                'brandId' => $brandId
             ]);
-            dump($offers);
             //on recupere toutes les applications en lien avec la marque
             foreach($offers as $offer) {
-                dump('in offer');
                 $applications = $offer->getApplication();
                 foreach($applications as $application) {
-                    dump('in application');
                     if (strcmp($application->getStatus(), "validated") == 0) {
-                        dump('validated');
                         //recuperer l'influenceur qui a postuler a l'offre
-                        $influencer = $influencerRepository->findOneby([
+                        $influencer = $influencerRepository->findOneBy([
                             'id' => $application->getInfluencerId()->toArray()[0]
                         ]);
                         array_push($partnerships, $offer);
                         array_push($collaborators, $influencer);
                     }
-                    else  dump('no validated');
                 }
             }
         }
         else {
+            $influencerId = $influencer->getId();
+            dump($influencerId);
             $offers = $offerRepository->findby([ ]);
             //on recupere toutes les applications en lien avec la marque
             foreach($offers as $offer) {
@@ -68,7 +62,7 @@ $brand = $brandRepository->findOneBy(['user' => $user])->getId();
                         'id' => $offer->getBrandId()
                     ]);
 
-                    if($application->getInfluencerId()->toArray()[0]->getId() == $influencerId->getId()){
+                    if($application->getInfluencerId()->toArray()[0]->getId() == $influencerId){
                         if (strcmp($application->getStatus(), "validated") == 0) {
                             array_push($partnerships, $offer);
                             array_push($collaborators, $brand);
