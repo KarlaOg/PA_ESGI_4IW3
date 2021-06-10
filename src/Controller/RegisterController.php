@@ -16,6 +16,10 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Security\LoginFormAuthenticator;
 
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
+
 
 /**
  * @Route("/register", name="register_")
@@ -35,7 +39,7 @@ class RegisterController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function createAction(Request $request, EntityManagerInterface $manager, LoginFormAuthenticator $login, GuardAuthenticatorHandler $guard)
+    public function createAction(Request $request, EntityManagerInterface $manager, NotifierInterface $notifier, LoginFormAuthenticator $login, GuardAuthenticatorHandler $guard)
     {
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
@@ -52,10 +56,9 @@ class RegisterController extends AbstractController
             if (array_search("ROLE_INFLUENCEUR", $user->getRoles()) !== false) {
                 $influencer = new Influencer();
                 $influencer->setUser($user);
-
-
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($influencer);
+
             } else if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
                 $brand = new Brand();
                 $brand->setUser($user);
@@ -63,6 +66,18 @@ class RegisterController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($brand);
             }
+           
+            $userEmail = $user->getEmail();
+            $notification = (new Notification('Confirmation d\'inscription', ['email']))
+                ->content('Bienvenue '. $user->getLastname() . ' chez LIKEY et Merci pour votre confiance.');
+
+            // user recoit le mail
+            $recipient = new Recipient(
+                $userEmail
+            );
+            // Send the notification to the recipient
+            $notifier->send($notification, $recipient);
+
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
