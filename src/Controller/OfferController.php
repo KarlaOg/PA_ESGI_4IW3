@@ -293,7 +293,6 @@ class OfferController extends AbstractController
 
                 //récuperer l'email de l'influenceur qui a postuler.
                 $influencerEmail = $application->getInfluencerId()[0]->getUser()->getEmail();
-                //dump($influencerEmail);
          
                 $notification = (new Notification('Nouveau Partenariat !', ['email']))
                     ->content('Bravo ! Vous avez un nouveau partenariat !');
@@ -346,25 +345,13 @@ class OfferController extends AbstractController
         $user = $this->getUser();
         $userEmail = $user->getEmail();
         
-        //récuperer l'email de l'influenceur qui a postuler.
-   // $influencerEmail = $application->getInfluencerId()[0]->getUser()->getEmail();
-        //dump($influencerEmail);
-
         $notificationBrand = (new Notification('Refuser le partenariat !', ['email']))
             ->content('Vous venez de refuser le partenariat ');
-
-        // $notificationInfluencer = (new Notification('Vous venez d\'être refuser pour le partenariat !', ['email']))
-        //     ->content('Vous venez d\'être refuser pour l\'offre que vous avez postulé.');
 
         // The receiver of the Notification
         $recipient = new Recipient(
             $userEmail
         );
-
-        // Envoie un mail à l'influenceur
-        // $recipient2 = new Recipient(
-        //     $influencerEmail
-        // );
 
         // Send the notification to the recipient
         $notifier->send($notificationBrand, $recipient);

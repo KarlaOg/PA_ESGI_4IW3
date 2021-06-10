@@ -19,13 +19,9 @@ class PartnershipController extends AbstractController
     public function my_partnership(OfferRepository $offerRepository, ApplicationRepository $applicationRepository, influencerRepository $influencerRepository, brandRepository $brandRepository)
     {
         $user = $this->getUser();
-        //  $brand = $brandRepository->findOneBy(['user' => $user]);
-        // $influencerId = $influencerRepository->findOneBy(['user' => $user ]);
-
         $brand = $brandRepository->findOneBy(['user' => $user->getId()]);
             
         $influencer = $influencerRepository->findOneBy(['user' => $user->getId()]);
-        dump($influencer);
 
         $partnerships = array();
         $collaborators = array();
@@ -52,7 +48,6 @@ class PartnershipController extends AbstractController
         }
         else {
             $influencerId = $influencer->getId();
-            dump($influencerId);
             $offers = $offerRepository->findby([ ]);
             //on recupere toutes les applications en lien avec la marque
             foreach($offers as $offer) {
