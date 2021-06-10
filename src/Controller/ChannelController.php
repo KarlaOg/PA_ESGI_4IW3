@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Entity\Channel;
 use App\Repository\ChannelRepository;
 use App\Repository\MessageRepository;
-use App\Services\Mercure\CookieJwtProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
