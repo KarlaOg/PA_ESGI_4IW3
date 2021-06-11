@@ -59,6 +59,9 @@
 							{% if offer.brandId.id == brand.id  %}
 								<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-success">Modifier l'offre</a>
 								<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>
+								{% if isPending == "pending" %}
+									<a href="{{ path('offer_show_applications', {'id': offer.id}) }}" class="btn btn-primary">Voir les candidatures</a>
+								{% endif %}
 							{% endif %}
 						{% endif %}
 					{% endfor %}

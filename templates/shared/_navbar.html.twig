@@ -49,6 +49,7 @@
 									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
 								{% endif %}
 							{% endfor %}
+							<a class="dropdown-item" href="{{ path('my_partnership') }}">Mes partenariats</a>
 							<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
 
 							<div class="dropdown-divider"></div>
@@ -70,6 +71,16 @@
 							<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
 						</div>
 					{% endif %}
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
+						{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
+							<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
+						{% endif %}
+						<a class="dropdown-item" href="{{ path('offer_index') }}">List des offres</a>
+						<a class="dropdown-item" href="{{ path('my_partnership') }}">Mes partenariats</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
+					</div>
 				</li>
 			</ul>
 		</li>

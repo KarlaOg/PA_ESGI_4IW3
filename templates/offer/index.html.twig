@@ -20,76 +20,79 @@
 				</div>
 				<div class="list">
 					{% for offer in offers  %}
-
-						{% if brand is not null and offer.brandId.id == brand.id %}
-							<div class="mb-3 card">
-								<div class="card-body">
-									<p class="name">Nom :
-										{{ offer.name|capitalize }}</p>
-									<p class="description">Description :
-										{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
-									</p>
-									<p class="field">Domaine :
-										{{ offer.field ? offer.field|join(', ') : null}}
-									</p>
-									<p>Dates de début:
-										{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
-									</p>
-									<p>Dates de fin:
-										{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
-									</p>
-									{% if brand.name is not null %}
-										<p class="brand">Créer par
-											{{brand.name}}</p>
-									{% endif %}
-									<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
-								</div>
-							</div>
-						{% endif %}
-						{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
-							{% if offer.dateEnd > datenow %}
+						{% if offer.id not in idsValidated %}
+							{% if brand is not null and offer.brandId.id == brand.id %}
 								<div class="mb-3 card">
-
 									<div class="card-body">
-										{% set newArray = [] %}
-										{% for app in offerApplied %}
-											{% if app.offer.id not in newArray %}
-												{% if app.offer.id  == offer.id %}
-													<div class="mb-3">
-														{% if app.status == "pending" %}
-															<div class="flex justify-end">
-																<svg class="w-6 h-6 mr-4 text-grey-400" x-description="Heroicon name: outline/clock" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-																	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-																</svg>
-															</div>
-														{% endif %}
-														<div class="mb-3">
-															<mark>Vous avez deja postuler a cette offre</mark>
-														</div>
-													</div>
-												{% endif %}
-												{% set newArray = newArray|merge([app.offer.id]) %}
-											{% endif %}
-										{% endfor %}
-										<p class="brand">Marque :
-											{{ offer.brandId.name|capitalize }}</p>
 										<p class="name">Nom :
 											{{ offer.name|capitalize }}</p>
 										<p class="description">Description :
 											{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
 										</p>
-
+										<p class="field">Domaine :
+											{{ offer.field ? offer.field|join(', ') : null}}
+										</p>
 										<p>Dates de début:
 											{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
 										</p>
 										<p>Dates de fin:
 											{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
 										</p>
-										<div class="card-action">
-											<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
-										</div>
+										{% if brand.name is not null %}
+											<p class="brand">Créer par
+												{{brand.name}}</p>
+										{% endif %}
+										<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
 									</div>
 								</div>
+							{% endif %}
+						{% endif %}
+						{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
+							{% if offer.id not in idsValidated %}
+								{% if offer.dateEnd > datenow %}
+									<div class="mb-3 card">
+
+										<div class="card-body">
+											{% set newArray = [] %}
+											{% for app in offerApplied %}
+												{% if app.offer.id not in newArray %}
+													{% if app.offer.id  == offer.id %}
+														<div class="mb-3">
+															{% if app.status == "pending" %}
+																<div class="flex justify-end">
+																	<svg class="w-6 h-6 mr-4 text-grey-400" x-description="Heroicon name: outline/clock" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+																		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+																	</svg>
+																</div>
+															{% endif %}
+															<div class="mb-3">
+																<mark>Vous avez déjà postulé à cette offre</mark>
+															</div>
+														</div>
+													{% endif %}
+													{% set newArray = newArray|merge([app.offer.id]) %}
+												{% endif %}
+											{% endfor %}
+											<p class="brand">Marque :
+												{{ offer.brandId.name|capitalize }}</p>
+											<p class="name">Nom :
+												{{ offer.name|capitalize }}</p>
+											<p class="description">Description :
+												{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+											</p>
+
+											<p>Dates de début:
+												{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+											</p>
+											<p>Dates de fin:
+												{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
+											</p>
+											<div class="card-action">
+												<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
+											</div>
+										</div>
+									</div>
+								{% endif %}
 							{% endif %}
 						{% endif %}
 					{% endfor %}
