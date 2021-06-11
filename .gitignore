@@ -9,6 +9,7 @@
 /vendor/
 /migrations/
 /symfony.lock
+/node_modules/.yarn-integrity
 ###< symfony/framework-bundle ###
 
 ###< VichUploadBundle ###
