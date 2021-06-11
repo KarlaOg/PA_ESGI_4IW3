@@ -45,14 +45,6 @@ class RegisterType extends AbstractType
             ->add('age', BirthdayType::class, [
                 'label' => 'Date de Naissance',
             ])
-            /*->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Vous êtes ?' => [
-                        'Influenceur' => 'ROLE_INFLUENCEUR',
-                        'Marque' => 'ROLE_MARQUE'
-                    ]
-                ]
-            ])*/
             ->add('roles', ChoiceType::class, [
                 'label' => 'Vous êtes',
                 'choices' => array(
