@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Entity\Brand;
 use App\Entity\Influencer;
 use App\Form\RegisterType;
+use App\Form\BrandType;
+use App\Form\InfluencerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,15 +44,21 @@ class RegisterController extends AbstractController
     public function createAction(Request $request, EntityManagerInterface $manager, NotifierInterface $notifier, LoginFormAuthenticator $login, GuardAuthenticatorHandler $guard)
     {
         $user = new User();
-        $form = $this->createForm(RegisterType::class, $user);
-        $form->handleRequest($request);
+        $brand = new Brand();
+        $influencer = new Influencer();
+        $formU = $this->createForm(RegisterType::class, $user);
+        $formB = $this->createForm(BrandType::class, $brand);
+        $formI = $this->createForm(InfluencerType::class, $influencer);
+        $formU->handleRequest($request);
+        $formB->handleRequest($request);
+        $formI->handleRequest($request);
         $userLogged = $this->getUser();
 
         if ($userLogged) {
             return $this->redirectToRoute('users_data');
         }
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($formU->isSubmitted() && $formU->isValid()) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
 
             if (array_search("ROLE_INFLUENCEUR", $user->getRoles()) !== false) {
@@ -84,13 +92,37 @@ class RegisterController extends AbstractController
             $em->flush();
 
             $this->addFlash("success", "Inscription réussie !");
-            //'main' is your main Firewall. You can check it in config/packages/security.yaml
-            return $guard->authenticateUserAndHandleSuccess($user, $request, $login, 'main');
+            return $this->redirectToRoute('app_login');
         }
-
         // afficher le formulaire s'il n'est pas déjà rempli
         return $this->render('register/index.html.twig', [
-            'form' => $form->createView()
+            'formUser' => $formU->createView(),
+            'formBrand' => $formB->createView(),
+            'formInfluencer' => $formI->createView()
         ]);
+    }
+    private function createInfluencerAction($request, $user)
+    {
+        $influencer = new Influencer();
+        $influencer->setUser($user);
+        $influencer->setName('testdespuislecontroller');
+        //--------------
+        $formI = $this->createForm(InfluencerType::class, $influencer);
+        $formI->handleRequest($request);
+        //--------------
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($influencer);
+    }
+    private function createBrandAction($request, $user)
+    {
+        $brand = new Brand();
+        $brand->setUser($user);
+        $brand->setName('testdespuislecontroller');
+        //--------------
+        $formB = $this->createForm(BrandType::class, $brand);
+        $formB->handleRequest($request);
+        //--------------
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($brand);
     }
 }
