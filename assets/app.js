@@ -37,6 +37,7 @@ import logoC3 from './images/categories/deco.jpg';
 import logoC4 from './images/categories/gaming.jpg';
 import logoC5 from './images/categories/instagramer.jpg';
 import logoC6 from './images/categories/musique.jpg';
+import logoC7 from './images/categories/maquillage.jpg';
 
 let htmlC1 = `<img src="${logoC1}" alt="logo categorie">`;
 let htmlC2 = `<img src="${logoC2}" alt="logo categorie">`;
@@ -44,6 +45,7 @@ let htmlC3 = `<img src="${logoC3}" alt="logo categorie">`;
 let htmlC4 = `<img src="${logoC4}" alt="logo categorie">`;
 let htmlC5 = `<img src="${logoC5}" alt="logo categorie">`;
 let htmlC6 = `<img src="${logoC6}" alt="logo categorie">`;
+let htmlC7 = `<img src="${logoC7}" alt="logo categorie">`;
 
 
 window.onload = () => {

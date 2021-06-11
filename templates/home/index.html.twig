@@ -5,35 +5,36 @@
 {% block body %}
 
 	{# <div id="offer-list-user">
-							<div class="mb-5">
-								<div class="relative mt-1 rounded-md">
-									<input placeholder="Rechercher une offre" type="search" class="block px-4 py-3 border-gray-300 rounded-md fuzzy-search form-input focus:ring-indigo-500 focus:border-indigo-500 pl-9 sm:text-sm" style='width:300px'>
-								</div>
-							</div>
-							<div class="list">
-								{% for offer in offers  %}
-									<div class="mb-3 card">
-										<div class="card-body">
-											<p class="name">Nom :
-												{{ offer.name|capitalize }}</p>
-											<p class="description">Description :
-												{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
-											</p>
-											<p class="field">Domaine :
-												{{ offer.field ? offer.field|join(', ') : null}}
-											</p>
-											<p>Dates de début:
-												{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
-											</p>
-											<p>Dates de fin:
-												{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
-											</p>
-											<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
-										</div>
-									</div>
-								{% endfor %}
-							</div>
-						</div> #}
+																												<div class="mb-5">
+																													<div class="relative mt-1 rounded-md">
+																														<input placeholder="Rechercher une offre" type="search" class="block px-4 py-3 border-gray-300 rounded-md fuzzy-search form-input focus:ring-indigo-500 focus:border-indigo-500 pl-9 sm:text-sm" style='width:300px'>
+																													</div>
+																												</div>
+																												<div class="list">
+																													{% for offer in offers  %}
+																														<div class="mb-3 card">
+																															<div class="card-body">
+																																<p class="name">Nom :
+																																	{{ offer.name|capitalize }}</p>
+																																<p class="description">Description :
+																																	{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+																																</p>
+																																<p class="field">Domaine :
+																																	{{ offer.field ? offer.field|join(', ') : null}}
+																																</p>
+																																<p>Dates de début:
+																																	{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+																																</p>
+																																<p>Dates de fin:
+																																	{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
+																																</p>
+																																<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
+																															</div>
+																														</div>
+																													{% endfor %}
+																												</div>
+																											</div> #}
+
 
 	<div style="background: url(https://i.postimg.cc/3N7wnb75/background.jpg)" class="jumbotron bg-cover text-white">
 		<div class="container py-5 text-center">
@@ -135,7 +136,7 @@
 
 		<!--Card 6-->
 		<div class="rounded overflow-hidden shadow-lg">
-			<img src="{{ asset('build/images/maquillage.jpg') }}" class="card-img-top" alt="logo beauty">
+			<img src="{{ asset('build/images/maquillage.jpg') }}" class="card-img-top" alt="logo maquillage">
 			<div class="px-6 py-4">
 				<div class="font-bold text-xl mb-2">Maquillage</div>
 				<p class="text-gray-700 text-base">
@@ -151,202 +152,83 @@
 	</div>
 
 	<h3 class="header-text-h3">Dernières offres publiées</h3>
+
 	<div class="flex items-center justify-center mt-4">
-		<div
-			class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
-			<!-- 1 card -->
-			<div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-				<div
-					class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-pink-500 left-4 -top-6">
-					<!-- svg  -->
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-						<i class="fab fa-amazon"></i>
-					</svg>
-				</div>
-				<div class="mt-8">
-					<p class="text-xl font-semibold my-2">App Development</p>
-					<div
-						class="flex space-x-2 text-gray-400 text-sm">
-						<!-- svg  -->
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-						</svg>
-						<p>Marketing Team</p>
-					</div>
-					<div
-						class="flex space-x-2 text-gray-400 text-sm my-3">
-						<!-- svg  -->
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-						</svg>
-						<p>1 Weeks Left</p>
-					</div>
-					<div class="border-t-2"></div>
+		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
 
-					<div class="flex justify-between">
-						<div class="my-2">
-							<p class="font-semibold text-base mb-2">Team Member</p>
-							<div class="flex space-x-2">
-								<img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="w-6 h-6 rounded-full"/>
-								<img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Woman_7.jpg" class="w-6 h-6 rounded-full"/>
-								<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxSqK0tVELGWDYAiUY1oRrfnGJCKSKv95OGUtm9eKG9HQLn769YDujQi1QFat32xl-BiY&usqp=CAU" class="w-6 h-6 rounded-full"/>
-							</div>
-						</div>
-						<div class="my-2">
-							<p class="font-semibold text-base mb-2">Progress</p>
-							<div class="text-base text-gray-400 font-semibold">
-								<p>34%</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<!-- 2 card -->
-			<div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-				<div
-					class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-green-500 left-4 -top-6">
-					<!-- svg  -->
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-					</svg>
-				</div>
-				<div class="mt-8">
-					<p class="text-xl font-semibold my-2">Web Design</p>
+			{% for offer in offers  %}
+				<!-- card -->
+				<div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
 					<div
-						class="flex space-x-2 text-gray-400 text-sm">
+						class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-blue-500 left-4 -top-6">
 						<!-- svg  -->
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
 						</svg>
-						<p>Core UI Team</p>
 					</div>
-					<div
-						class="flex space-x-2 text-gray-400 text-sm my-3">
-						<!-- svg  -->
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-						</svg>
-						<p>3 Weeks Left</p>
-					</div>
-					<div class="border-t-2 "></div>
+					<div class="mt-8">
+						<p class="text-xl font-semibold my-2">{{ offer.name|capitalize }}</p>
+						<div
+							class="flex space-x-2 text-gray-400 text-sm">
+							<!-- svg  -->
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+							</svg>
+							<p>{{ offer.field ? offer.field|join(', ') : null}}</p>
+						</div>
+						<div
+							class="flex space-x-2 text-gray-400 text-sm my-3">
+							<!-- svg  -->
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+							</svg>
+							<p>
+								Début
+								{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+							</p>
+						</div>
 
-					<div class="flex justify-between">
-						<div class="my-2">
-							<p class="font-semibold text-base mb-2">Team Member</p>
-							<div class="flex space-x-2">
-								<img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="w-6 h-6 rounded-full"/>
-							</div>
+						<div
+							class="flex space-x-2 text-gray-400 text-sm my-3">
+							<!-- svg  -->
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+							</svg>
+							<p>
+								Fin
+								{{ offer.dateStart ? offer.dateEnd|date('d/m/Y') : 'NC'}}
+							</p>
 						</div>
-						<div class="my-2">
-							<p class="font-semibold text-base mb-2">Progress</p>
-							<div class="text-base text-gray-400 font-semibold">
-								<p>76%</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<!-- 3 card -->
-			<div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-				<div
-					class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-blue-500 left-4 -top-6">
-					<!-- svg  -->
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-					</svg>
-				</div>
-				<div class="mt-8">
-					<p class="text-xl font-semibold my-2">Leading Page</p>
-					<div
-						class="flex space-x-2 text-gray-400 text-sm">
-						<!-- svg  -->
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-						</svg>
-						<p>Marketing Team</p>
-					</div>
-					<div
-						class="flex space-x-2 text-gray-400 text-sm my-3">
-						<!-- svg  -->
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-						</svg>
-						<p>2 Days Left</p>
-					</div>
-					<div class="border-t-2 "></div>
+						<div class="border-t-2 "></div>
 
-					<div class="flex justify-between">
-						<div class="my-2">
-							<p class="font-semibold text-base mb-2">Team Member</p>
-							<div class="flex space-x-2">
-								<img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="w-6 h-6 rounded-full"/>
-								<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxSqK0tVELGWDYAiUY1oRrfnGJCKSKv95OGUtm9eKG9HQLn769YDujQi1QFat32xl-BiY&usqp=CAU" class="w-6 h-6 rounded-full"/>
-								<img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Woman_7.jpg" class="w-6 h-6 rounded-full"/>
+						<div class="flex justify-between">
+							<div class="my-2">
+								<p class="font-semibold text-base mb-2">Description</p>
+								<div class="flex space-x-2">
+									<p>
+										{{ offer.description ? offer.description|slice(0, 80) : 'NC'}}
+										...
+									</p>
+								</div>
 							</div>
-						</div>
-						<div class="my-2">
-							<p class="font-semibold text-base mb-2">Progress</p>
-							<div class="text-base text-gray-400 font-semibold">
-								<p>4%</p>
-							</div>
+							{# <div class="my-2">
+																																																									<p class="font-semibold text-base mb-2">Progress</p>
+																																																									<div class="text-base text-gray-400 font-semibold">
+																																																										<p>4%</p>
+																																																									</div>
+																																																								</div> #}
 						</div>
 					</div>
-				</div>
-			</div>
 
-			<!-- 4 card -->
-			<div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-				<div
-					class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-yellow-500 left-4 -top-6">
-					<!-- svg  -->
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/>
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>
-					</svg>
-				</div>
-				<div class="mt-8">
-					<p class="text-xl font-semibold my-2">Business Compare</p>
-					<div
-						class="flex space-x-2 text-gray-400 text-sm">
-						<!-- svg  -->
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-						</svg>
-						<p>Marketing Team</p>
-					</div>
-					<div
-						class="flex space-x-2 text-gray-400 text-sm my-3">
-						<!-- svg  -->
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-						</svg>
-						<p>1 Month Left</p>
-					</div>
-					<div class="border-t-2 "></div>
+					{# <a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a> #}
 
-					<div class="flex justify-between">
-						<div class="my-2">
-							<p class="font-semibold text-base mb-2">Team Member</p>
-							<div class="flex space-x-2">
-								<img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="w-6 h-6 rounded-full"/>
-								<img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Woman_7.jpg" class="w-6 h-6 rounded-full"/>
-							</div>
-						</div>
-						<div class="my-2">
-							<p class="font-semibold text-base mb-2">Progress</p>
-							<div class="text-base text-gray-400 font-semibold">
-								<p>90%</p>
-							</div>
-						</div>
-					</div>
 				</div>
-			</div>
+
+			{% endfor %}
+
 		</div>
 	</div>
 
@@ -357,7 +239,7 @@
 				<div class="relative">
 					<a href="#" target="_blank">
 
-						<img src="{{ asset('build/images/tibo_inshape.jpeg') }}" alt="" class="rounded-2xl relative">
+						<img src="{{ asset('build/images/tibo_inshape.jpg') }}" alt="" class="rounded-2xl relative">
 						<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
 							<p>Tibo Inshape</p>
 						</div>
@@ -442,7 +324,7 @@
 				<div class="relative">
 					<a href="#" target="_blank">
 
-						<img src="{{ asset('build/images/mister-v.png') }}" alt="" class="rounded-2xl relative">
+						<img src="{{ asset('build/images/mister-v.jpg') }}" alt="" class="rounded-2xl relative">
 						<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
 							<p>Mister V</p>
 						</div>
@@ -468,7 +350,7 @@
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
 			<div class="col mb-4">
 				<div class="card">
-					<img src="{{ asset('build/images/beauty.jpg') }}" class="card-img-top" alt="logo gaming">
+					<img src="{{ asset('build/images/beauty.jpg') }}" class="card-img-top" alt="logo maquillage">
 					<div class="card-body">
 						<h5 class="card-title">Card title</h5>
 						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -495,7 +377,7 @@
 			</div>
 			<div class="col mb-4">
 				<div class="card">
-					<img src="{{ asset('build/images/alimentation.png') }}" class="card-img-top" alt="logo alimentation">
+					<img src="{{ asset('build/images/alimentation.jpg') }}" class="card-img-top" alt="logo alimentation">
 					<div class="card-body">
 						<h5 class="card-title">Card title</h5>
 						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -504,7 +386,7 @@
 			</div>
 			<div class="col mb-4">
 				<div class="card">
-					<img src="{{ asset('build/images/alimentation.png') }}" class="card-img-top" alt="logo formation">
+					<img src="{{ asset('build/images/alimentation.jpg') }}" class="card-img-top" alt="logo alimentation">
 					<div class="card-body">
 						<h5 class="card-title">Card title</h5>
 						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -522,7 +404,7 @@
 			</div>
 			<div class="col mb-4">
 				<div class="card">
-					<img src="{{ asset('build/images/music.jpg') }}" class="card-img-top" alt="logo formation">
+					<img src="{{ asset('build/images/musique.jpg') }}" class="card-img-top" alt="logo formation">
 					<div class="card-body">
 						<h5 class="card-title">Card title</h5>
 						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
