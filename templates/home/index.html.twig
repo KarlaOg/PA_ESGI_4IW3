@@ -4,38 +4,6 @@
 {% endblock %}
 {% block body %}
 
-	{# <div id="offer-list-user">
-																												<div class="mb-5">
-																													<div class="relative mt-1 rounded-md">
-																														<input placeholder="Rechercher une offre" type="search" class="block px-4 py-3 border-gray-300 rounded-md fuzzy-search form-input focus:ring-indigo-500 focus:border-indigo-500 pl-9 sm:text-sm" style='width:300px'>
-																													</div>
-																												</div>
-																												<div class="list">
-																													{% for offer in offers  %}
-																														<div class="mb-3 card">
-																															<div class="card-body">
-																																<p class="name">Nom :
-																																	{{ offer.name|capitalize }}</p>
-																																<p class="description">Description :
-																																	{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
-																																</p>
-																																<p class="field">Domaine :
-																																	{{ offer.field ? offer.field|join(', ') : null}}
-																																</p>
-																																<p>Dates de début:
-																																	{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
-																																</p>
-																																<p>Dates de fin:
-																																	{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
-																																</p>
-																																<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
-																															</div>
-																														</div>
-																													{% endfor %}
-																												</div>
-																											</div> #}
-
-
 	<div style="background: url(https://i.postimg.cc/3N7wnb75/background.jpg)" class="jumbotron bg-cover text-white">
 		<div class="container py-5 text-center">
 			<h1 class="display-4 font-weight-bold">Bienvenue sur
@@ -214,12 +182,6 @@
 									</p>
 								</div>
 							</div>
-							{# <div class="my-2">
-																																																									<p class="font-semibold text-base mb-2">Progress</p>
-																																																									<div class="text-base text-gray-400 font-semibold">
-																																																										<p>4%</p>
-																																																									</div>
-																																																								</div> #}
 						</div>
 					</div>
 
@@ -346,13 +308,13 @@
 
 		</div>
 
-		<h2>Galerie</h2>
+		<h2>Galerie des marques</h2>
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
 			<div class="col mb-4">
 				<div class="card">
 					<img src="{{ asset('build/images/beauty.jpg') }}" class="card-img-top" alt="logo maquillage">
 					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
+						<h5 class="card-title">Sephora</h5>
 						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 					</div>
 				</div>
@@ -361,7 +323,7 @@
 				<div class="card">
 					<img src="{{ asset('build/images/voyage.jpg') }}" class="card-img-top" alt="logo voyage">
 					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
+						<h5 class="card-title">Rhinoshield</h5>
 						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 					</div>
 				</div>
@@ -397,7 +359,7 @@
 				<div class="card">
 					<img src="{{ asset('build/images/deco.jpg') }}" class="card-img-top" alt="logo formation">
 					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
+						<h5 class="card-title">Maison du monde</h5>
 						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 					</div>
 				</div>
