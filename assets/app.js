@@ -26,9 +26,8 @@ let htmlInf7 = `<img src="${logoInf7}" alt="logo influenceur">`;
 let htmlInf8 = `<img src="${logoInf8}" alt="logo influenceur">`;
 
 
-
 /**
- * Catégories
+ * Catégories d'offres
 */
 
 import logoC1 from './images/categories/alimentation.jpg';
@@ -46,6 +45,21 @@ let htmlC4 = `<img src="${logoC4}" alt="logo categorie">`;
 let htmlC5 = `<img src="${logoC5}" alt="logo categorie">`;
 let htmlC6 = `<img src="${logoC6}" alt="logo categorie">`;
 let htmlC7 = `<img src="${logoC7}" alt="logo categorie">`;
+
+
+/**
+ * Catalogue Marques
+*/
+
+import logoCA1 from './images/catalogue/azus.png';
+import logoCA2 from './images/catalogue/canon.jpg';
+import logoCA3 from './images/catalogue/dior.png';
+
+let htmlCA1 = `<img src="${logoCA1}" alt="logo catalogue">`;
+let htmlCA2 = `<img src="${logoCA2}" alt="logo catalogue">`;
+let htmlCA3 = `<img src="${logoCA3}" alt="logo catalogue">`;
+
+
 
 
 window.onload = () => {

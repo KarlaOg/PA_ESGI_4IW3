@@ -8,6 +8,7 @@
   "build/images/cyprien.jpg": "/build/images/cyprien.4565dba5.jpg",
   "build/influenceurs/cyprien.jpg": "/build/influenceurs/cyprien.jpg",
   "build/categories/maquillage.jpg": "/build/categories/maquillage.jpg",
+  "build/images/maquillage.jpg": "/build/images/maquillage.17b7ae84.jpg",
   "build/images/inoxtag.jpg": "/build/images/inoxtag.ded0e7cb.jpg",
   "build/influenceurs/inoxtag.jpg": "/build/influenceurs/inoxtag.jpg",
   "build/images/natoo.jpg": "/build/images/natoo.11e23780.jpg",
@@ -32,5 +33,10 @@
   "build/images/squeezie.jpg": "/build/images/squeezie.6b42c59a.jpg",
   "build/influenceurs/mister-v.jpg": "/build/influenceurs/mister-v.jpg",
   "build/influenceurs/squeezie.jpg": "/build/influenceurs/squeezie.jpg",
-  "build/images/maquillage.jpg": "/build/images/maquillage.17b7ae84.jpg"
+  "build/catalogue/dior.png": "/build/catalogue/dior.png",
+  "build/catalogue/azus.png": "/build/catalogue/azus.png",
+  "build/images/azus.png": "/build/images/azus.b3787a01.png",
+  "build/catalogue/canon.jpg": "/build/catalogue/canon.jpg",
+  "build/images/canon.jpg": "/build/images/canon.11eb9378.jpg",
+  "build/images/dior.png": "/build/images/dior.bea1ad97.png"
 }
