@@ -9,378 +9,402 @@
 			<h1 class="display-4 font-weight-bold">Bienvenue sur
 				<i>LIKEY</i>
 			</h1>
-			<p class="font-italic mb-0">Using simple jumbotron-style component, create a nice Bootstrap 4 header with a background image.</p>
-			<p class="font-italic">Snippe by
-				<a href="https://bootstrapious.com" class="text-white">
-					<u>Bootstrapious</u>
-				</a>
+			<p class="font-italic mb-0">LIKEY met en relation des influenceurs et des marques dans le but de créer un partenariat.</p>
+			<p>Commencez déjà par vous inscrire pour voir les offres disponibles !</p>
+		</p>
+		<br>
+		<a href="{{path('register_index')}}" role="button" class="btn btn-primary px-5">Voir les ofrres</a>
+	</div>
+</div>
+<h3 class="header-text-h3">Catégorie des offres</h3>
+<div
+	class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+
+	<!--Card 1 : Instagram -->
+	<div class="rounded overflow-hidden shadow-lg">
+		<img src="{{ asset('build/images/instagramer.jpg') }}" class="card-img-top" alt="logo instagramers">
+		<div class="px-6 py-4">
+			<div class="font-bold text-xl mb-2">Instagram</div>
+			<p class="text-gray-700 text-base">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
 			</p>
-			<br>
-			<a href="#" role="button" class="btn btn-primary px-5">Voir les ofrres</a>
+		</div>
+		<div class="px-6 pt-4 pb-2">
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#insta</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#story</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photo</span>
 		</div>
 	</div>
-	<h3 class="header-text-h3">Catégorie des offres</h3>
-	<div
-		class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-
-		<!--Card 1 : Instagram -->
-		<div class="rounded overflow-hidden shadow-lg">
-			<img src="{{ asset('build/images/instagramer.jpg') }}" class="card-img-top" alt="logo instagramers">
-			<div class="px-6 py-4">
-				<div class="font-bold text-xl mb-2">Instagram</div>
-				<p class="text-gray-700 text-base">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-				</p>
-			</div>
-			<div class="px-6 pt-4 pb-2">
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#insta</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#story</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photo</span>
-			</div>
+	<!--Card 2 : Gaming -->
+	<div class="rounded overflow-hidden shadow-lg">
+		<img src="{{ asset('build/images/gaming.jpg') }}" class="card-img-top" alt="logo gaming">
+		<div class="px-6 py-4">
+			<div class="font-bold text-xl mb-2">Gaming</div>
+			<p class="text-gray-700 text-base">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+			</p>
 		</div>
-		<!--Card 2 : Gaming -->
-		<div class="rounded overflow-hidden shadow-lg">
-			<img src="{{ asset('build/images/gaming.jpg') }}" class="card-img-top" alt="logo gaming">
-			<div class="px-6 py-4">
-				<div class="font-bold text-xl mb-2">Gaming</div>
-				<p class="text-gray-700 text-base">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-				</p>
-			</div>
-			<div class="px-6 pt-4 pb-2">
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#summer</span>
-			</div>
+		<div class="px-6 pt-4 pb-2">
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#gaming</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#jeux-video</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#play</span>
 		</div>
+	</div>
 
-		<!--Card 3 : Décoration -->
-		<div class="rounded overflow-hidden shadow-lg">
-			<img src="{{ asset('build/images/deco.jpg') }}" class="card-img-top" alt="logo deco">
-			<div class="px-6 py-4">
-				<div class="font-bold text-xl mb-2">Déco</div>
-				<p class="text-gray-700 text-base">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-				</p>
-			</div>
-			<div class="px-6 pt-4 pb-2">
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#deco</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#home</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#meubles</span>
-			</div>
+	<!--Card 3 : Décoration -->
+	<div class="rounded overflow-hidden shadow-lg">
+		<img src="{{ asset('build/images/deco.jpg') }}" class="card-img-top" alt="logo deco">
+		<div class="px-6 py-4">
+			<div class="font-bold text-xl mb-2">Déco</div>
+			<p class="text-gray-700 text-base">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+			</p>
 		</div>
-
-
-		<!--Card 4-: Alimentation -->
-		<div class="rounded overflow-hidden shadow-lg">
-			<img src="{{ asset('build/images/alimentation.jpg') }}" class="card-img-top" alt="logo alimentation">
-			<div class="px-6 py-4">
-				<div class="font-bold text-xl mb-2">Alimentation</div>
-				<p class="text-gray-700 text-base">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-				</p>
-			</div>
-			<div class="px-6 pt-4 pb-2">
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#nourriture</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#alimentation</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#manger</span>
-			</div>
-		</div>
-		<!--Card 5 : Musique-->
-		<div class="rounded overflow-hidden shadow-lg">
-			<img src="{{ asset('build/images/musique.jpg') }}" class="card-img-top" alt="logo musique">
-			<div class="px-6 py-4">
-				<div class="font-bold text-xl mb-2">Musique</div>
-				<p class="text-gray-700 text-base">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-				</p>
-			</div>
-			<div class="px-6 pt-4 pb-2">
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#musique</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#chanson</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#music</span>
-			</div>
-		</div>
-
-		<!--Card 6 : Maquillage-->
-		<div class="rounded overflow-hidden shadow-lg">
-			<img src="{{ asset('build/images/maquillage.jpg') }}" class="card-img-top" alt="logo maquillage">
-			<div class="px-6 py-4">
-				<div class="font-bold text-xl mb-2">Maquillage</div>
-				<p class="text-gray-700 text-base">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-				</p>
-			</div>
-			<div class="px-6 pt-4 pb-2">
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#maquillage</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#coffrets</span>
-				<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#soins</span>
-			</div>
+		<div class="px-6 pt-4 pb-2">
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#deco</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#home</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#meubles</span>
 		</div>
 	</div>
 
 
-	<!-- card offres : 4 dernières offres affichées -->
-	<h3 class="header-text-h3">Dernières offres publiées</h3>
+	<!--Card 4-: Alimentation -->
+	<div class="rounded overflow-hidden shadow-lg">
+		<img src="{{ asset('build/images/alimentation.jpg') }}" class="card-img-top" alt="logo alimentation">
+		<div class="px-6 py-4">
+			<div class="font-bold text-xl mb-2">Alimentation</div>
+			<p class="text-gray-700 text-base">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+			</p>
+		</div>
+		<div class="px-6 pt-4 pb-2">
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#food</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#nourriture</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#alimentation</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#manger</span>
+		</div>
+	</div>
+	<!--Card 5 : Musique-->
+	<div class="rounded overflow-hidden shadow-lg">
+		<img src="{{ asset('build/images/musique.jpg') }}" class="card-img-top" alt="logo musique">
+		<div class="px-6 py-4">
+			<div class="font-bold text-xl mb-2">Musique</div>
+			<p class="text-gray-700 text-base">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+			</p>
+		</div>
+		<div class="px-6 pt-4 pb-2">
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#musique</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#chanson</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#music</span>
+		</div>
+	</div>
 
-	<div class="flex items-center justify-center mt-4">
-		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
-			{% for offer in offers  %}
-				<!-- card offert-->
-				<div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
+	<!--Card 6 : Maquillage-->
+	<div class="rounded overflow-hidden shadow-lg">
+		<img src="{{ asset('build/images/maquillage.jpg') }}" class="card-img-top" alt="logo maquillage">
+		<div class="px-6 py-4">
+			<div class="font-bold text-xl mb-2">Maquillage</div>
+			<p class="text-gray-700 text-base">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+			</p>
+		</div>
+		<div class="px-6 pt-4 pb-2">
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#makeup</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#maquillage</span>
+			<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#soins</span>
+		</div>
+	</div>
+</div>
+
+
+<!-- card offres : 4 dernières offres affichées -->
+<h3 class="header-text-h3">Dernières offres publiées</h3>
+
+<div class="flex items-center justify-center mt-4">
+	<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
+		{% for offer in offers  %}
+			<!-- card offert-->
+			<div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
+				<div
+					class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-blue-500 left-4 -top-6 mb-4">
+					<!-- svg  -->
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+					</svg>
+				</div>
+				<div class="mt-8 mb-4">
+					<p class="text-xl font-semibold my-2">{{ offer.name|capitalize }}</p>
 					<div
-						class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-blue-500 left-4 -top-6 mb-4">
+						class="flex space-x-2 text-gray-400 text-sm">
 						<!-- svg  -->
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
 						</svg>
+						<p>{{ offer.field ? offer.field|join(', ') : null}}</p>
 					</div>
-					<div class="mt-8 mb-4">
-						<p class="text-xl font-semibold my-2">{{ offer.name|capitalize }}</p>
-						<div
-							class="flex space-x-2 text-gray-400 text-sm">
-							<!-- svg  -->
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-							</svg>
-							<p>{{ offer.field ? offer.field|join(', ') : null}}</p>
-						</div>
-						<div
-							class="flex space-x-2 text-gray-400 text-sm my-3">
-							<!-- svg  -->
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-							</svg>
-							<p>
-								Début
-								{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
-							</p>
-						</div>
+					<div
+						class="flex space-x-2 text-gray-400 text-sm my-3">
+						<!-- svg  -->
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+						</svg>
+						<p>
+							Début
+							{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+						</p>
+					</div>
 
-						<div
-							class="flex space-x-2 text-gray-400 text-sm my-3">
-							<!-- svg  -->
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-							</svg>
-							<p>
-								Fin
-								{{ offer.dateStart ? offer.dateEnd|date('d/m/Y') : 'NC'}}
-							</p>
-						</div>
+					<div
+						class="flex space-x-2 text-gray-400 text-sm my-3">
+						<!-- svg  -->
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+						</svg>
+						<p>
+							Fin
+							{{ offer.dateStart ? offer.dateEnd|date('d/m/Y') : 'NC'}}
+						</p>
+					</div>
 
-						<div class="border-t-2 "></div>
+					<div class="border-t-2 "></div>
 
-						<div class="flex justify-between">
-							<div class="my-2">
-								<p class="font-semibold text-base mb-2">Description</p>
-								<div class="flex space-x-2">
-									<p>
-										{{ offer.description ? offer.description|slice(0, 80) : 'NC'}}
-										...
-									</p>
-								</div>
+					<div class="flex justify-between">
+						<div class="my-2">
+							<p class="font-semibold text-base mb-2">Description</p>
+							<div class="flex space-x-2">
+								<p>
+									{{ offer.description ? offer.description|slice(0, 80) : 'NC'}}
+									...
+								</p>
 							</div>
 						</div>
 					</div>
-
-					<div class="border-t-2 mb-2"></div>
-
-					<div>
-						<pclass="font-semiboldtext-basemb-2">Accéder à l'offre</p>
-						{% if not app.user %}
-							<a class="ml-3 btn btn-secondary" href="{{path('app_login')}}">
-								Se connecter
-							</a>
-						{% else %}
-							{% for role in app.user.roles %}
-								{% if role == "ROLE_INFLUENCEUR" %}
-									<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
-								{% endif %}
-							{% endfor %}
-						{% endif %}
-					</div>
 				</div>
-			{% endfor %}
+
+				<div class="border-t-2 mb-2"></div>
+
+				<div>
+					<pclass="font-semiboldtext-basemb-2">Accéder à l'offre</p>
+					{% if not app.user %}
+						<a class="ml-3 btn btn-secondary" href="{{path('app_login')}}">
+							Se connecter
+						</a>
+					{% else %}
+						{% for role in app.user.roles %}
+							{% if role == "ROLE_INFLUENCEUR" %}
+								<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<!-- Fake influenceurs présents sur le site-->
+<main class="w-full mt-4">
+	<h3 class="header-text-h3">Influenceurs présents sur Likey</h3>
+	<div class="grid grid-cols-4 p-8">
+		<div class="col-span-1 py-6">
+			<div class="relative">
+				<a href="#" target="_blank">
+
+					<img src="{{ asset('build/images/tibo_inshape.jpg') }}" alt="" class="rounded-2xl relative">
+					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+						<p>Tibo Inshape</p>
+					</div>
+
+				</a>
+			</div>
+		</div>
+		<div class="col-span-1 py-6">
+			<div class="relative">
+				<a href="#" target="_blank">
+
+					<img src="{{ asset('build/images/cyprien.jpg') }}" alt="" class="rounded-2xl relative">
+					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+						<p>Cyprien</p>
+					</div>
+
+				</a>
+			</div>
+		</div>
+		<div class="col-span-1 py-6">
+			<div class="relative">
+				<a href="#" target="_blank">
+
+					<img src="{{ asset('build/images/squeezie.jpg') }}" alt="" class="rounded-2xl relative">
+					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+						<p>Squeezie</p>
+					</div>
+
+				</a>
+			</div>
+		</div>
+		<div class="col-span-1 py-6">
+			<div class="relative">
+				<a href="#" target="_blank">
+
+					<img src="{{ asset('build/images/lena-situation.jpg') }}" alt="" class="rounded-2xl relative">
+					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+						<p>Léna situation</p>
+					</div>
+
+				</a>
+			</div>
+		</div>
+
+		<div class="col-span-1 py-6">
+			<div class="relative">
+				<a href="#" target="_blank">
+
+					<img src="{{ asset('build/images/inoxtag.jpg') }}" alt="" class="rounded-2xl relative">
+					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+						<p>Inoxtag</p>
+					</div>
+
+				</a>
+			</div>
+		</div>
+		<div class="col-span-1 py-6">
+			<div class="relative">
+				<a href="#" target="_blank">
+
+					<img src="{{ asset('build/images/natoo.jpg') }}" alt="" class="rounded-2xl relative">
+					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+						<p>Natoo</p>
+					</div>
+
+				</a>
+			</div>
+		</div>
+		<div class="col-span-1 py-6">
+			<div class="relative">
+				<a href="#" target="_blank">
+
+					<img src="{{ asset('build/images/enjoy-phoenix.jpg') }}" alt="" class="rounded-2xl relative">
+					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+						<p>EnjoyPhoenix</p>
+					</div>
+
+				</a>
+			</div>
+		</div>
+		<div class="col-span-1 py-6">
+			<div class="relative">
+				<a href="#" target="_blank">
+
+					<img src="{{ asset('build/images/mister-v.jpg') }}" alt="" class="rounded-2xl relative">
+					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+						<p>Mister V</p>
+					</div>
+
+				</a>
+			</div>
 		</div>
 	</div>
+</main>
 
-	<!-- Fake influenceurs présents sur le site-->
-	<main class="w-full mt-4">
-		<h3 class="header-text-h3">Influenceurs présents sur Likey</h3>
-		<div class="grid grid-cols-4 p-8">
-			<div class="col-span-1 py-6">
-				<div class="relative">
-					<a href="#" target="_blank">
+<!-- Part : catalogues des marques (en construction) -->
+<div class="container mt-3">
 
-						<img src="{{ asset('build/images/tibo_inshape.jpg') }}" alt="" class="rounded-2xl relative">
-						<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-							<p>Tibo Inshape</p>
-						</div>
+	<h2 class="header-text-h3">Notre catalogue</h2>
 
-					</a>
-				</div>
-			</div>
-			<div class="col-span-1 py-6">
-				<div class="relative">
-					<a href="#" target="_blank">
-
-						<img src="{{ asset('build/images/cyprien.jpg') }}" alt="" class="rounded-2xl relative">
-						<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-							<p>Cyprien</p>
-						</div>
-
-					</a>
-				</div>
-			</div>
-			<div class="col-span-1 py-6">
-				<div class="relative">
-					<a href="#" target="_blank">
-
-						<img src="{{ asset('build/images/squeezie.jpg') }}" alt="" class="rounded-2xl relative">
-						<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-							<p>Squeezie</p>
-						</div>
-
-					</a>
-				</div>
-			</div>
-			<div class="col-span-1 py-6">
-				<div class="relative">
-					<a href="#" target="_blank">
-
-						<img src="{{ asset('build/images/lena-situation.jpg') }}" alt="" class="rounded-2xl relative">
-						<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-							<p>Léna situation</p>
-						</div>
-
-					</a>
-				</div>
-			</div>
-
-			<div class="col-span-1 py-6">
-				<div class="relative">
-					<a href="#" target="_blank">
-
-						<img src="{{ asset('build/images/inoxtag.jpg') }}" alt="" class="rounded-2xl relative">
-						<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-							<p>Inoxtag</p>
-						</div>
-
-					</a>
-				</div>
-			</div>
-			<div class="col-span-1 py-6">
-				<div class="relative">
-					<a href="#" target="_blank">
-
-						<img src="{{ asset('build/images/natoo.jpg') }}" alt="" class="rounded-2xl relative">
-						<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-							<p>Natoo</p>
-						</div>
-
-					</a>
-				</div>
-			</div>
-			<div class="col-span-1 py-6">
-				<div class="relative">
-					<a href="#" target="_blank">
-
-						<img src="{{ asset('build/images/enjoy-phoenix.jpg') }}" alt="" class="rounded-2xl relative">
-						<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-							<p>EnjoyPhoenix</p>
-						</div>
-
-					</a>
-				</div>
-			</div>
-			<div class="col-span-1 py-6">
-				<div class="relative">
-					<a href="#" target="_blank">
-
-						<img src="{{ asset('build/images/mister-v.jpg') }}" alt="" class="rounded-2xl relative">
-						<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-							<p>Mister V</p>
-						</div>
-
-					</a>
-				</div>
-			</div>
-		</div>
-	</main>
-
-	<!-- Part : catalogues des marques (en construction) -->
-	<div class="container mt-3">
-
-		<h2 class="header-text-h3">Notre catalogue</h2>
-
-		<div class="text-header-form">
-			<p>Voici un échantillon de marque présentes sur l'Ikey, vous souhaitez voir plus en détail les marques présentes sur Likey, 
-																											rien de plus simple, inscriver vous en tant qu'influenceur, puis connecter vous pour voir le catalogue complet des marques.</p>
-			<p>Regarder nôtre catalogue complet directement depuis vôtre espace membre !</p>
-			<a class="link-form" href="{{path('app_login')}}">Accéder maintenant aux offres</a>
-
-		</div>
-
-		<h2>Galerie des marques</h2>
-		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
-			<div class="col mb-4">
-				<div class="card">
-					<img src="{{ asset('build/images/beauty.jpg') }}" class="card-img-top" alt="logo maquillage">
-					<div class="card-body">
-						<h5 class="card-title">Sephora</h5>
-						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-4">
-				<div class="card">
-					<img src="{{ asset('build/images/gaming.jpg') }}" class="card-img-top" alt="logo gaming">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-4">
-				<div class="card">
-					<img src="{{ asset('build/images/instagramer.jpg') }}" class="card-img-top" alt="logo instagramer">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-4">
-				<div class="card">
-					<img src="{{ asset('build/images/alimentation.jpg') }}" class="card-img-top" alt="logo alimentation">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-4">
-				<div class="card">
-					<img src="{{ asset('build/images/azus.png') }}" class="card-img-top" alt="logo alimentation">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-4">
-				<div class="card">
-					<img src="{{ asset('build/images/deco.jpg') }}" class="card-img-top" alt="logo formation">
-					<div class="card-body">
-						<h5 class="card-title">Maison du monde</h5>
-						<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="text-header-form">
+		<p>Voici un échantillon de marque présentes sur Likey, vous souhaitez voir plus en détail les marques présentes sur Likey, 
+																																																																																	rien de plus simple, inscriver vous en tant qu'influenceur, puis connecter vous pour voir le catalogue complet des marques.</p>
+		<p>Regarder nôtre catalogue complet directement depuis vôtre espace membre !</p>
+		<a class="link-form" href="{{path('app_login')}}">Accéder maintenant aux offres</a>
 
 	</div>
 
-{% endblock %}
+	<h2>Galerie des marques</h2>
+	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
+		<div class="col mb-4">
+			<div class="card">
+				<img src="{{ asset('build/images/sephora.jpg') }}" class="card-img-top" alt="logo maquillage">
+				<div class="card-body">
+					<h5 class="card-title">Sephora</h5>
+					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col mb-4">
+			<div class="card">
+				<img src="{{ asset('build/images/uber-eats.png') }}" class="card-img-top" alt="logo Uber Eats">
+				<div class="card-body">
+					<h5 class="card-title">
+						Uber Eats</h5>
+					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col mb-4">
+			<div class="card">
+				<img src="{{ asset('build/images/canon.jpg') }}" class="card-img-top" alt="logo canon">
+				<div class="card-body">
+					<h5 class="card-title">CANON</h5>
+					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col mb-4">
+			<div class="card">
+				<img src="{{ asset('build/images/mini.png') }}" class="card-img-top" alt="logo mini">
+				<div class="card-body">
+					<h5 class="card-title">MINI</h5>
+					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col mb-4">
+			<div class="card">
+				<img src="{{ asset('build/images/azus.png') }}" class="card-img-top" alt="logo azus">
+				<div class="card-body">
+					<h5 class="card-title">AZUS</h5>
+					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col mb-4">
+			<div class="card">
+				<img src="{{ asset('build/images/deco.jpg') }}" class="card-img-top" alt="logo formation">
+				<div class="card-body">
+					<h5 class="card-title">Maison du monde</h5>
+					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col mb-4">
+			<div class="card">
+				<img src="{{ asset('build/images/igraal.jpg') }}" class="card-img-top" alt="logo igraal">
+				<div class="card-body">
+					<h5 class="card-title">IGRAAL</h5>
+					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col mb-4">
+			<div class="card">
+				<img src="{{ asset('build/images/spotify.png') }}" class="card-img-top" alt="logo spotify">
+				<div class="card-body">
+					<h5 class="card-title">SPOTIFY</h5>
+					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col mb-4">
+			<div class="card">
+				<img src="{{ asset('build/images/netflix.jpg') }}" class="card-img-top" alt="logo netflix">
+				<div class="card-body">
+					<h5 class="card-title">NETFLIX</h5>
+					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>{% endblock %}

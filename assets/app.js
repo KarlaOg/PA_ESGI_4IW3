@@ -54,10 +54,24 @@ let htmlC7 = `<img src="${logoC7}" alt="logo categorie">`;
 import logoCA1 from './images/catalogue/azus.png';
 import logoCA2 from './images/catalogue/canon.jpg';
 import logoCA3 from './images/catalogue/dior.png';
+import logoCA4 from './images/catalogue/igraal.jpg';
+import logoCA5 from './images/catalogue/mini.png';
+import logoCA6 from './images/catalogue/uber-eats.png';
+import logoCA7 from './images/catalogue/sephora.jpg';
+import logoCA8 from './images/catalogue/spotify.png';
+import logoCA9 from './images/catalogue/netflix.jpg';
+
 
 let htmlCA1 = `<img src="${logoCA1}" alt="logo catalogue">`;
 let htmlCA2 = `<img src="${logoCA2}" alt="logo catalogue">`;
 let htmlCA3 = `<img src="${logoCA3}" alt="logo catalogue">`;
+let htmlCA4 = `<img src="${logoCA4}" alt="logo catalogue">`;
+let htmlCA5 = `<img src="${logoCA5}" alt="logo catalogue">`;
+let htmlCA6 = `<img src="${logoCA6}" alt="logo catalogue">`;
+let htmlCA7 = `<img src="${logoCA7}" alt="logo catalogue">`;
+let htmlCA8 = `<img src="${logoCA8}" alt="logo catalogue">`;
+let htmlCA9 = `<img src="${logoCA9}" alt="logo catalogue">`;
+
 
 
 
