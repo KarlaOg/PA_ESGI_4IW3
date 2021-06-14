@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\CallbackTransformer;
 
 class RegisterType extends AbstractType
 {
@@ -47,12 +48,13 @@ class RegisterType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'label' => 'Vous êtes',
                 'choices' => array(
+                    'Selectionnez votre profil' => "",
                     'Marque' => "ROLE_MARQUE",
                     'Influenceur' => 'ROLE_INFLUENCEUR',
                 ),
-                'multiple'  => true,
                 'required' => true,
-                'expanded' => true
+                'multiple' => false,
+                'expanded' => false
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
@@ -71,6 +73,18 @@ class RegisterType extends AbstractType
             ->add('isAdmin', HiddenType::class, [
                 'empty_data' => 0
             ]);
+
+            $builder->get('roles')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($rolesArray) {
+                     // transform the array to a string
+                     return count($rolesArray)? $rolesArray[0]: null;
+                },
+                function ($rolesString) {
+                     // transform the string back to an array
+                     return [$rolesString];
+                }
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
