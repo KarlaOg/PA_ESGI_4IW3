@@ -22,12 +22,20 @@ class HomeController extends AbstractController
         }
 
         $repository = $this->getDoctrine()->getRepository(Offer::class);
-        // $offers = $repository->findAll();
-
         $offers = $repository->findBy(array(), array('id' => 'desc'), 4, 0);
 
         return $this->render('home/index.html.twig', [
             'offers' => $offers,
+        ]);
+    }
+
+    /**
+     * @Route("/categoryOffer", name="categoryOffer")
+     */
+    public function offer(): Response
+    {
+        return $this->render('home/offer.html.twig', [
+            'controller_name' => 'BrandController',
         ]);
     }
 }

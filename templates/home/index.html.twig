@@ -4,7 +4,15 @@
 {% endblock %}
 {% block body %}
 
-	<div style="background: url(https://i.postimg.cc/3N7wnb75/background.jpg)" class="jumbotron bg-cover text-white">
+	<div class="container">
+		<div class="row">
+			<img src="https://images.unsplash.com/photo-1569390173732-5c735072c80f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="">
+			<img src="https://images.unsplash.com/photo-1582842195329-6a0baffd2a39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="">
+			<img src="https://images.unsplash.com/photo-1600722230999-22c256d38cb7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="">
+		</div>
+	</div>
+
+	<div class="jumbotron bg-cover">
 		<div class="container py-5 text-center">
 			<h1 class="display-4 font-weight-bold">Bienvenue sur
 				<i>LIKEY</i>
@@ -12,7 +20,6 @@
 			<p class="font-italic mb-0">LIKEY met en relation des influenceurs et des marques dans le but de créer un partenariat.</p>
 			<p>Commencez déjà par vous inscrire pour voir les offres disponibles !</p>
 		</p>
-		<br>
 		<a href="{{path('register_index')}}" role="button" class="btn btn-primary px-5">Voir les ofrres</a>
 	</div>
 </div>
@@ -210,99 +217,67 @@
 	<div class="grid grid-cols-4 p-8">
 		<div class="col-span-1 py-6">
 			<div class="relative">
-				<a href="#" target="_blank">
-
-					<img src="{{ asset('build/images/tibo_inshape.jpg') }}" alt="" class="rounded-2xl relative">
-					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-						<p>Tibo Inshape</p>
-					</div>
-
-				</a>
+				<img src="{{ asset('build/images/tibo_inshape.jpg') }}" alt="" class="rounded-2xl relative">
+				<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+					<p>Tibo Inshape</p>
+				</div>
 			</div>
 		</div>
 		<div class="col-span-1 py-6">
 			<div class="relative">
-				<a href="#" target="_blank">
-
-					<img src="{{ asset('build/images/cyprien.jpg') }}" alt="" class="rounded-2xl relative">
-					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-						<p>Cyprien</p>
-					</div>
-
-				</a>
+				<img src="{{ asset('build/images/cyprien.jpg') }}" alt="" class="rounded-2xl relative">
+				<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+					<p>Cyprien</p>
+				</div>
 			</div>
 		</div>
 		<div class="col-span-1 py-6">
 			<div class="relative">
-				<a href="#" target="_blank">
-
-					<img src="{{ asset('build/images/squeezie.jpg') }}" alt="" class="rounded-2xl relative">
-					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-						<p>Squeezie</p>
-					</div>
-
-				</a>
+				<img src="{{ asset('build/images/squeezie.jpg') }}" alt="" class="rounded-2xl relative">
+				<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+					<p>Squeezie</p>
+				</div>
 			</div>
 		</div>
 		<div class="col-span-1 py-6">
 			<div class="relative">
-				<a href="#" target="_blank">
-
-					<img src="{{ asset('build/images/lena-situation.jpg') }}" alt="" class="rounded-2xl relative">
-					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-						<p>Léna situation</p>
-					</div>
-
-				</a>
+				<img src="{{ asset('build/images/lena-situation.jpg') }}" alt="" class="rounded-2xl relative">
+				<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+					<p>Léna situation</p>
+				</div>
 			</div>
 		</div>
 
 		<div class="col-span-1 py-6">
 			<div class="relative">
-				<a href="#" target="_blank">
-
-					<img src="{{ asset('build/images/inoxtag.jpg') }}" alt="" class="rounded-2xl relative">
-					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-						<p>Inoxtag</p>
-					</div>
-
-				</a>
+				<img src="{{ asset('build/images/inoxtag.jpg') }}" alt="" class="rounded-2xl relative">
+				<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+					<p>Inoxtag</p>
+				</div>
 			</div>
 		</div>
 		<div class="col-span-1 py-6">
 			<div class="relative">
-				<a href="#" target="_blank">
-
-					<img src="{{ asset('build/images/natoo.jpg') }}" alt="" class="rounded-2xl relative">
-					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-						<p>Natoo</p>
-					</div>
-
-				</a>
+				<img src="{{ asset('build/images/natoo.jpg') }}" alt="" class="rounded-2xl relative">
+				<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+					<p>Natoo</p>
+				</div>
 			</div>
 		</div>
 		<div class="col-span-1 py-6">
 			<div class="relative">
-				<a href="#" target="_blank">
-
-					<img src="{{ asset('build/images/enjoy-phoenix.jpg') }}" alt="" class="rounded-2xl relative">
-					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-						<p>EnjoyPhoenix</p>
-					</div>
-
-				</a>
+				<img src="{{ asset('build/images/enjoy-phoenix.jpg') }}" alt="" class="rounded-2xl relative">
+				<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+					<p>EnjoyPhoenix</p>
+				</div>
 			</div>
 		</div>
 		<div class="col-span-1 py-6">
 			<div class="relative">
-				<a href="#" target="_blank">
-
-					<img src="{{ asset('build/images/mister-v.jpg') }}" alt="" class="rounded-2xl relative">
-					<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
-						<p>Mister V</p>
-					</div>
-
-				</a>
+				<img src="{{ asset('build/images/mister-v.jpg') }}" alt="" class="rounded-2xl relative">
+				<div class="absolute bottom-0 left-0 text-xl p-4 w-full text-white font-bold">
+					<p>Mister V</p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -315,7 +290,7 @@
 
 	<div class="text-header-form">
 		<p>Voici un échantillon de marque présentes sur Likey, vous souhaitez voir plus en détail les marques présentes sur Likey, 
-																																																																																	rien de plus simple, inscriver vous en tant qu'influenceur, puis connecter vous pour voir le catalogue complet des marques.</p>
+																																																																																																																																																												rien de plus simple, inscriver vous en tant qu'influenceur, puis connecter vous pour voir le catalogue complet des marques.</p>
 		<p>Regarder nôtre catalogue complet directement depuis vôtre espace membre !</p>
 		<a class="link-form" href="{{path('app_login')}}">Accéder maintenant aux offres</a>
 
