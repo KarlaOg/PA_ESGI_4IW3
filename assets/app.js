@@ -60,6 +60,7 @@ import logoCA6 from './images/catalogue/uber-eats.png';
 import logoCA7 from './images/catalogue/sephora.jpg';
 import logoCA8 from './images/catalogue/spotify.png';
 import logoCA9 from './images/catalogue/netflix.jpg';
+import logoCA10 from './images/catalogue/apple.jpg';
 
 
 let htmlCA1 = `<img src="${logoCA1}" alt="logo catalogue">`;
@@ -71,6 +72,8 @@ let htmlCA6 = `<img src="${logoCA6}" alt="logo catalogue">`;
 let htmlCA7 = `<img src="${logoCA7}" alt="logo catalogue">`;
 let htmlCA8 = `<img src="${logoCA8}" alt="logo catalogue">`;
 let htmlCA9 = `<img src="${logoCA9}" alt="logo catalogue">`;
+let htmlCA10 = `<img src="${logoCA10}" alt="logo catalogue">`;
+
 
 
 

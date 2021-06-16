@@ -30,19 +30,9 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/categoryOffer", name="categoryOffer")
+     * @Route("/marques", name="marques")
      */
-    public function category_offer(): Response
-    {
-        return $this->render('home/offer.html.twig', [
-            'controller_name' => 'BrandController',
-        ]);
-    }
-
-    /**
-     * @Route("/categoryBrand", name="categoryBrand")
-     */
-    public function category_brand(): Response
+    public function brand(): Response
     {
         return $this->render('home/brand.html.twig', [
             'controller_name' => 'BrandController',

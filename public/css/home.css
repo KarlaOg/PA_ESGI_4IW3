@@ -29,14 +29,9 @@
 }
 
 .header-text-h3 {
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-top: 5%;
+  margin-bottom: 5%;
   margin-left: 25%;
-  background: #00377e;
-  text-transform: uppercase;
-  text-align: center;
-  color: #EFEFEF;
-  max-width: 50%;
 }
 
 .text-header-form {
@@ -58,10 +53,10 @@
 }
 
 
-img {
-  width: 200px;
-  height: 200px;
-}
+/* img {
+  width: 400px;
+  height: 400px;
+} */
 
 .container:hover img {
   opacity:0.3;
@@ -71,4 +66,5 @@ img {
   transform:perspective(800px)       rotateY(0deg);
   opacity:1;
 }
+
 
