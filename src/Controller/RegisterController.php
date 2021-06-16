@@ -46,6 +46,7 @@ class RegisterController extends AbstractController
         $user = new User();
         $brand = new Brand();
         $influencer = new Influencer();
+        $influencer = new Influencer();
         $formU = $this->createForm(RegisterType::class, $user);
         $formB = $this->createForm(BrandType::class, $brand);
         $formI = $this->createForm(InfluencerType::class, $influencer);
@@ -60,24 +61,21 @@ class RegisterController extends AbstractController
 
         if ($formU->isSubmitted() && $formU->isValid()) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
-
+            $em = $this->getDoctrine()->getManager();
             if (array_search("ROLE_INFLUENCEUR", $user->getRoles()) !== false) {
-                $influencer = new Influencer();
                 $influencer->setUser($user);
-                $em = $this->getDoctrine()->getManager();
+                
                 $em->persist($influencer);
 
             } else if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
-                $brand = new Brand();
                 $brand->setUser($user);
 
-                $em = $this->getDoctrine()->getManager();
                 $em->persist($brand);
             }
            
             $userEmail = $user->getEmail();
             $notification = (new Notification('Confirmation d\'inscription', ['email']))
-                ->content('Bienvenue '. $user->getLastname() . ' chez LIKEY et Merci pour votre confiance.');
+                ->content('Bienvenue '. $user->getFirstname() .' '. $user->getLastname() . ' chez LIKEY et Merci pour votre confiance.');
 
             // user recoit le mail
             $recipient = new Recipient(
@@ -87,7 +85,6 @@ class RegisterController extends AbstractController
             $notifier->send($notification, $recipient);
 
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
