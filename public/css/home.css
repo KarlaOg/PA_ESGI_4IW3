@@ -1,5 +1,19 @@
 @import '~font-awesome';
 
+/* Text header effet  */
+
+.ml2 {
+  font-weight: 600;
+  font-size: 3em;
+}
+
+.ml2 .letter {
+  display: inline-block;
+  line-height: 1em;
+  margin-top: 10px;
+}
+
+
 /***** Home Page ****/
 
 
@@ -29,8 +43,7 @@
 }
 
 .header-text-h3 {
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 4%;
   margin-left: 25%;
 }
 
@@ -52,12 +65,6 @@
   color: #fff;
 }
 
-
-/* img {
-  width: 400px;
-  height: 400px;
-} */
-
 .container:hover img {
   opacity:0.3;
 }
@@ -66,5 +73,7 @@
   transform:perspective(800px)       rotateY(0deg);
   opacity:1;
 }
+
+
 
 

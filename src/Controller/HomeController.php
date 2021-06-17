@@ -28,14 +28,4 @@ class HomeController extends AbstractController
             'offers' => $offers,
         ]);
     }
-
-    /**
-     * @Route("/marques", name="marques")
-     */
-    public function brand(): Response
-    {
-        return $this->render('home/brand.html.twig', [
-            'controller_name' => 'BrandController',
-        ]);
-    }
 }

@@ -75,10 +75,6 @@ let htmlCA9 = `<img src="${logoCA9}" alt="logo catalogue">`;
 let htmlCA10 = `<img src="${logoCA10}" alt="logo catalogue">`;
 
 
-
-
-
-
 window.onload = () => {
   var options = {
     valueNames: ['lastname', 'firstname', 'email', 'name', 'role'],
