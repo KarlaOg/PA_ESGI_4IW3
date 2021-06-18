@@ -89,7 +89,8 @@ class RegisterController extends AbstractController
             $em->flush();
 
             $this->addFlash("success", "Inscription réussie !");
-            return $this->redirectToRoute('app_login');
+            //'main' is your main Firewall. You can check it in config/packages/security.yaml
+            return $guard->authenticateUserAndHandleSuccess($user, $request, $login, 'main');
         }
         // afficher le formulaire s'il n'est pas déjà rempli
         return $this->render('register/index.html.twig', [
