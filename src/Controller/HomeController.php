@@ -22,7 +22,8 @@ class HomeController extends AbstractController
         }
 
         $repository = $this->getDoctrine()->getRepository(Offer::class);
-        $offers = $repository->findAll();
+        $offers = $repository->findBy(array(), array('id' => 'desc'), 4, 0);
+
         return $this->render('home/index.html.twig', [
             'offers' => $offers,
         ]);

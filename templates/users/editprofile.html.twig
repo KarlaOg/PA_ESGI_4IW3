@@ -16,13 +16,14 @@
 		<div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9  bg-white">
 			<div class="shadow sm:rounded-md sm:overflow-hidden">
 				<div class="py-6 px-4 sm:p-6">
-					<h3>Gérer mon compte</h3>
+					<h3 class="mb-4">Modifier mes informations</h3>
 					{{ form_start(form) }}
 					{{ form_widget(form) }}
 					<button type="submit" class="btn btn-primary mt-3">Sauvegarder</button>
 					{{ form_end(form) }}
 				</div>
 				<div class="py-6 px-4 sm:p-6">
+					<h3 class="mb-4">Supprimer mon compte</h3>
 					{{ include('users/deleteProfile.html.twig') }}
 				</div>
 			</div>
