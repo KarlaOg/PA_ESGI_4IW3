@@ -46,22 +46,19 @@ class RegisterController extends AbstractController
         $user = new User();
         $brand = new Brand();
         $influencer = new Influencer();
-        $influencer = new Influencer();
-        $formU = $this->createForm(RegisterType::class, $user);
-        $formB = $this->createForm(BrandType::class, $brand);
-        $formI = $this->createForm(InfluencerType::class, $influencer);
-        $formU->handleRequest($request);
-        $formB->handleRequest($request);
-        $formI->handleRequest($request);
+        $form = $this->createForm(RegisterType::class, $user);
+        $form->handleRequest($request);
         $userLogged = $this->getUser();
 
         if ($userLogged) {
             return $this->redirectToRoute('users_data');
         }
 
-        if ($formU->isSubmitted() && $formU->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
             $em = $this->getDoctrine()->getManager();
+
             if (array_search("ROLE_INFLUENCEUR", $user->getRoles()) !== false) {
                 $influencer->setUser($user);
                 
@@ -92,11 +89,10 @@ class RegisterController extends AbstractController
             //'main' is your main Firewall. You can check it in config/packages/security.yaml
             return $guard->authenticateUserAndHandleSuccess($user, $request, $login, 'main');
         }
+        
         // afficher le formulaire s'il n'est pas déjà rempli
         return $this->render('register/index.html.twig', [
-            'formUser' => $formU->createView(),
-            'formBrand' => $formB->createView(),
-            'formInfluencer' => $formI->createView()
+            'form' => $form->createView(),
         ]);
     }
     private function createInfluencerAction($request, $user)
@@ -105,8 +101,8 @@ class RegisterController extends AbstractController
         $influencer->setUser($user);
         $influencer->setName('testdespuislecontroller');
         //--------------
-        $formI = $this->createForm(InfluencerType::class, $influencer);
-        $formI->handleRequest($request);
+        $form = $this->createForm(InfluencerType::class, $influencer);
+        $form->handleRequest($request);
         //--------------
         $em = $this->getDoctrine()->getManager();
         $em->persist($influencer);
@@ -117,8 +113,8 @@ class RegisterController extends AbstractController
         $brand->setUser($user);
         $brand->setName('testdespuislecontroller');
         //--------------
-        $formB = $this->createForm(BrandType::class, $brand);
-        $formB->handleRequest($request);
+        $form = $this->createForm(BrandType::class, $brand);
+        $form->handleRequest($request);
         //--------------
         $em = $this->getDoctrine()->getManager();
         $em->persist($brand);
