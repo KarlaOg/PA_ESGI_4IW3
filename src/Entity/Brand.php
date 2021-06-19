@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use App\Validator\ValidSiret;
+
 
 /**
  * @ORM\Entity(repositoryClass=BrandRepository::class)
@@ -90,12 +92,8 @@ class Brand
     private $offers;
 
     /**
-     * @ORM\Column(type="string", length=42, nullable=true)
-     * @Assert\Range(
-     *     min = 14,
-     *     max = 14,
-     *     notInRangeMessage = "Votre numéro de siret dois avoir 14 chiffres",
-     * )
+     * @ORM\Column(type="string", nullable=true, unique=true)
+     * @ValidSiret
      */
     private $siret;
 
