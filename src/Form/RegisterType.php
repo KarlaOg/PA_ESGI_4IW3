@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Brand;
+use App\Entity\Influencer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Regex;
@@ -19,6 +21,9 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\CallbackTransformer;
+
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class RegisterType extends AbstractType
 {
@@ -73,6 +78,18 @@ class RegisterType extends AbstractType
             ->add('isAdmin', HiddenType::class, [
                 'empty_data' => 0
             ]);
+
+            $builder->addEventListener(FormEvents::POST_SET_DATA , function (FormEvent $event) {
+                $user = $event->getData();
+                $form = $event->getForm();
+    
+                if ($user->getRoles() == "ROLE_MARQUE") {
+                    $builder->add('brand', BrandType::class);
+                }
+                else {
+                    $builder->add('influencer', InfluencerType::class);
+                }
+            });
 
             $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
