@@ -28,7 +28,7 @@
 		{% endfor %}
 		{% if app.user %}
 			<div style="min-height: 640px;">
-				<div x-data="{ open: false }" @keydown.window.escape="open = false" class="h-screen flex overflow-hidden bg-gray-100">
+				<div x-data="{ open: false }" @keydown.window.escape="open = false" class="flex h-screen overflow-hidden bg-gray-100">
 					{% include "shared/_bar_user.html.twig" %}
 					<div x-init="$el.focus()" class="flex-1 overflow-auto focus:outline-none" tabindex="0">
 						{% include "shared/_navbar_user.html.twig" %}

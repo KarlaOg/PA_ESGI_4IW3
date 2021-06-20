@@ -31,7 +31,7 @@
 			<div>
 				<form id="form" class="container row">
 					<input id="message" class="input-group-text col-sm-9" placeholder="Message" type="text"/>
-					<button id="submit" type="submit" class="btn btn-success col-sm-3">Send</button>
+					<button id="btnSend" type="submit" class="btn btn-success col-sm-3">Send</button>
 				</form>
 			</div>
 		</div>
@@ -40,7 +40,7 @@
 {% block javascripts %}
 	{{parent()}}
 	<script>
-		// Dans une balise <script>, et un block
+		window.onload = function () {
 let chatDiv = document.querySelector('.overflow-auto');
 chatDiv.scrollTop = chatDiv.scrollHeight; // On souhaite scroller toujours jusqu'au dernier message du chat
 
@@ -49,7 +49,8 @@ function handleForm(event) {
 event.preventDefault(); // Empêche la page de se rafraîchir après le submit du formulaire
 }form.addEventListener('submit', handleForm);
 
-const submit = document.querySelector('button');
+const submit = document.getElementById('btnSend');
+
 submit.onclick = e => { // On change le comportement du submit
 const message = document.getElementById('message'); // Récupération du message dans l'input correspondant
 const data = { // La variable data sera envoyée au controller
@@ -65,5 +66,6 @@ message.value = '';
 console.log(response);
 });
 }
+}();
 	</script>
 {% endblock %}
