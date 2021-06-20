@@ -46,6 +46,12 @@ Créer la db
 php bin/console doctrine:database:create
 ```
 
+Drop DB
+
+```
+php bin/console doctrine:schema:drop --full-database --force
+```
+
 Lancer le server sf
 
 ```
