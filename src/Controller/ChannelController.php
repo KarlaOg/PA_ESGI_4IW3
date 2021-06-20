@@ -29,6 +29,25 @@ class ChannelController extends AbstractController
     }
 
     /**
+     * @Route("/chancreate", name="channel_create")
+     */
+    public function createChannel(ChannelRepository $channelRepository): Response
+    {
+        $channel = new Channel();
+        $channel->setName('test');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($channel);
+        $em->flush();
+
+        $channels = $channelRepository->findAll();
+
+        return $this->render('channel/index.html.twig', [
+            'channels' => $channels ?? []
+        ]);
+    }
+
+    /**
      * @Route("/chat/{id}", name="channel_chat")
      */
     public function chat(
