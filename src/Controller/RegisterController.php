@@ -94,28 +94,4 @@ class RegisterController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    private function createInfluencerAction($request, $user)
-    {
-        $influencer = new Influencer();
-        $influencer->setUser($user);
-        $influencer->setName('testdespuislecontroller');
-        //--------------
-        $form = $this->createForm(InfluencerType::class, $influencer);
-        $form->handleRequest($request);
-        //--------------
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($influencer);
-    }
-    private function createBrandAction($request, $user)
-    {
-        $brand = new Brand();
-        $brand->setUser($user);
-        $brand->setName('testdespuislecontroller');
-        //--------------
-        $form = $this->createForm(BrandType::class, $brand);
-        $form->handleRequest($request);
-        //--------------
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($brand);
-    }
 }
