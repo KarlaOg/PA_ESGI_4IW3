@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Brand;
 use App\Entity\Influencer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Regex;
 
@@ -78,38 +79,16 @@ class RegisterType extends AbstractType
             ])
             ->add('isAdmin', HiddenType::class, [
                 'empty_data' => 0
-            ]) ;
+            ])
+
+            ->add('influencer', CollectionType::class, [
+                'entry_type' => InfluencerType::class,
+            ])
 
 
-            $formModifier = function (FormInterface $form, User $user = null) {
-                $roles = null === $user? [] : $user->getRoles();
-    
-                $form->add('brand', BrandType::class);
-                $form->add('influencer', InfluencerType::class);
-            };
-            
-            $builder->addEventListener(
-                FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($formModifier) {
-                    $data = $event->getData();
+        ;
 
-                    $formModifier($event->getForm(), $data->getBrand());
-     
-                }
-            );
 
-            $builder->get('roles')->addEventListener(
-                FormEvents::POST_SUBMIT,
-                function (FormEvent $event) use ($formModifier) {
-                    // It's important here to fetch $event->getForm()->getData(), as
-                    // $event->getData() will get you the client data (that is, the ID)
-                    $user = $event->getForm()->getData();
-    
-                    // since we've added the listener to the child, we'll have to pass on
-                    // the parent to the callback functions!
-                    $formModifier($event->getForm()->getParent(), $user);
-                }
-            );
 
             $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
@@ -122,6 +101,7 @@ class RegisterType extends AbstractType
                      return [$rolesString];
                 }
         ));
+
 
     }
 
