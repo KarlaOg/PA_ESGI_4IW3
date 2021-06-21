@@ -125,7 +125,7 @@
 					{{ partnership.description }}
 				</p>
 			</div>
-		{% elseif  app.user.roles[0] == "ROLE_MARQUE" %}
+		{% else %}
 			<div class="card mb-3">
 				<div class="card-body">
 					<p>Nom de l'influenceur :
@@ -134,6 +134,10 @@
 					</p>
 					<p>Nom de l'offre: {{ partnership.name }} </p>
 					<p>Description de l'offre: {{ partnership.description }} </p>
+
+					<button type="submit"  id="checkout-button"  class="btn btn-warning">Payer votre influenceur</button>
+
+
 					<button type="submit"  id="checkout-button"  class="btn btn-warning">Payer votre influenceur</button>
 				</div>
 			</div>
