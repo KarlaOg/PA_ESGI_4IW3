@@ -6,15 +6,17 @@
 
 
 {% block body %}
-	{{ form_start(form) }}
-	<h3>S'inscrire</h3>
-	<hr>
-	{{ form_widget(form) }}
-	<button type="submit" class="btn btn-primary">S'inscrire</button>
-	{{ form_end(form) }}
-	{% for label, messages in app.flashes %}
-		{% for message in messages %}
-			M.toast({html: '{{ message }}', classes: '{{ label }}rounded'});
+	<div class="container pb-5">
+		{{ form_start(form) }}
+		<h3>S'inscrire</h3>
+		<hr>
+		{{ form_widget(form) }}
+		<button type="submit" class="btn btn-primary">S'inscrire</button>
+		{{ form_end(form) }}
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				M.toast({html: '{{ message }}', classes: '{{ label }}rounded'});
+			{% endfor %}
 		{% endfor %}
-	{% endfor %}
+	</div>
 {% endblock %}

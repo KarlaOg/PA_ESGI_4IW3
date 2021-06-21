@@ -1,40 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Tous les influencers
+{% block title %}
+	Tous les influencers
 {% endblock %}
 
 {% block body %}
-<main class="hidden xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96">
-            <h2 class="text-lg font-medium text-gray-900">Annuaire</h2>
-          <!--  Liste  -->
-          <nav class="flex-1 min-h-0 relative overflow-y-auto" aria-label="Annuaire">
-            
+	<div class="container mt-5">
+		<h2 class="pb-5">Annuaire des influenceurs</h2>
+		<div id="list-influencer">
+			<div class="mb-5">
+				<div class="relative mt-1 rounded-md">
+					<input placeholder="Rechercher une marque" type="search" class="block px-4 py-3 border-gray-300 rounded-md fuzzy-search form-input focus:ring-indigo-500 focus:border-indigo-500 pl-9 sm:text-sm" style='width:300px'>
+				</div>
+			</div>
+			<navclass="relativeflex-1min-h-0overflow-y-auto"aria-label="Annuaire">
 
-              <ul class="relative z-0 divide-y divide-gray-200">
-                
-                {% for influencer in influencers %}
-                  <li>
-                    <div class="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                      <div class="flex-shrink-0">
-                        <img class="h-10 w-10 rounded-full" src={{ vich_uploader_asset(influencer, 'imageFile') ?  vich_uploader_asset(influencer, 'imageFile') : "https://images.unsplash.com/photo-1504703395950-b89145a5425b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"}} alt="">
-                      </div>
-                      <div class="flex-1 min-w-0">
-                        <a href="{{ path('influencer_show', {'name': influencer.name}) }}" class="focus:outline-none">
-                          <!-- Extend touch target to entire panel -->
-                          <span class="absolute inset-0" aria-hidden="true"></span>
-                          <p class="text-sm font-medium text-gray-900">
-                            {{influencer.name}}
-                          </p>
-                          <p class="text-sm text-gray-500 truncate">
-                            {{influencer.description}}
-                          </p>
-                        </a>
-                      </div>
-                    </div>
-                   </li>
-              {% endfor %}
-              </ul>   
 
-          </nav>
-        </main>
+				<ul class="relative z-0 divide-y divide-gray-200 list">
+
+					{% for influencer in influencers %}
+						<li class="bg-white">
+							<div class="relative flex items-center px-6 py-5 space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+								<div class="flex-shrink-0">
+									{% if influencer.profilePhoto %}
+										<img class="w-10 h-10 rounded-full" src={{ vich_uploader_asset(influencer, 'imageFile') }} alt="">
+									{% else %}
+										<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+											<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+												<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+											</svg>
+										</span>
+									{% endif %}
+								</div>
+								<div class="flex-1 min-w-0">
+									 <a
+										href="{{ path('influencer_show', {'username': influencer.username}) }}" class="focus:outline-none">
+									
+										<!-- Extend touch target to entire panel -->
+										<span class="absolute inset-0" aria-hidden="true"></span>
+										<p class="text-sm font-medium text-gray-900 name">
+											{{influencer.name}}
+										</p>
+										<p class="text-sm text-gray-900 username">
+											@{{influencer.username}}
+										</p>
+
+										<p class="text-sm text-gray-500 truncate description">
+											{{influencer.description}}
+										</p>
+									</a>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</nav>
+		</div>
+	</div>
 {% endblock %}

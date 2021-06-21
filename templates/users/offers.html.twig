@@ -1,25 +1,59 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if applications is empty  %}
-        <div class="alert alert-dismissible alert-primary">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4 class="alert-heading"> Vous avez postuler à aucune offre</h4>
-            <strong><p class="mb-0"><a  href="{{ path('offer_index') }}"> Voir plus d'offre !</a> </p></strong>
-        </div>
-    {% endif %}
 
-    {% for application in applications %}
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">{{ application.offer.name }}</h4>
-                <h6 class="card-subtitle mb-2 text-muted"> Offre n° {{ application.id }} </h6>
-                <p class="card-text">  {{ application.offer.description }} </p>
-                <a href="{{ path('offer_show', {"id": application.id}) }}" class="card-link">Voir l'offre</a>
-            </div>
-        </div>
+	<div class="container pt-5">
+		<h2 class="mb-5">Mes offres postulés</h2>
+		{% if applications is empty  %}
+			<div>
+				<p>
+					Vous avez postuler à aucune offre</p>
+				<p class="mb-0 ">
+					<a href="{{ path('offer_index') }}" class="btn btn-primary">
+						Afficher les offres</a>
+				</p>
+			</div>
+		{% endif %}
+		{% for offer in offers  %}
+			{% for app in offerApplied %}
+				{% set newArray = [] %}
+				{% if app.offer.id not in newArray %}
+					{% if app.offer.id  == offer.id %}
+						<div class="mb-3 card">
+							<div class="card-body">
+								<div class="mb-3">
+									{% if app.status == "pending" %}
+										<div class="flex justify-end">
+											<svg class="w-6 h-6 mr-4 text-grey-400" x-description="Heroicon name: outline/clock" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+											</svg>
+										</div>
+									{% endif %}
 
-    {% endfor %}
+								</div>
+								<p class="brand">Marque :
+									{{ offer.brandId.name|capitalize }}</p>
+								<p class="name">Nom :
+									{{ offer.name|capitalize }}</p>
+								<p class="description">Description :
+									{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+								</p>
 
-
+								<p>Dates de début:
+									{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+								</p>
+								<p>Dates de fin:
+									{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
+								</p>
+								<div class="card-action">
+									<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+					{% set newArray = newArray|merge([app.offer.id]) %}
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	</div>
 {% endblock %}

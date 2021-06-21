@@ -16,6 +16,8 @@ use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ApplicationRepository;
+use App\Repository\OfferRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +27,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
+
+
 class UsersController extends AbstractController
 {
 
@@ -32,19 +39,20 @@ class UsersController extends AbstractController
      * @Route("/home", name="users_data")
      */
 
-    //todo : change this
-    public function usersData(BrandRepository $brandRepository)
+    public function usersData(BrandRepository $brandRepository, ApplicationRepository $applicationRepository, InfluencerRepository $influencerRepository)
     {
-        $repository = $this->getDoctrine()->getRepository(Offer::class);
-        $offers = $repository->findAll();
-
         $user = $this->getUser();
 
-        $brand = $brandRepository->findOneBy(['UserId' => $user]);
+        $brand = $brandRepository->findOneBy(['user' => $user]);
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
+
+        $application = $applicationRepository->findApplicationAndInfluencer($influencer);
+
+        $countOfferInfluencer = count($application);
 
         return $this->render('users/data.html.twig', [
-            'offers' => $offers,
-            'brand' => $brand
+            'brand' => $brand,
+            'countOfferInfluencer' => $countOfferInfluencer,
         ]);
     }
 
@@ -54,15 +62,23 @@ class UsersController extends AbstractController
      * @IsGranted("ROLE_INFLUENCEUR", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
 
-    public function usersOffers(influencerRepository $influencerRepository)
+    public function usersOffers(influencerRepository $influencerRepository, ApplicationRepository $applicationRepository, OfferRepository $offerRepository, BrandRepository $brandRepository)
     {
         $user = $this->getUser();
-        $influencer = $influencerRepository->findOneBy(['userId' => $user]);
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
         // GET ALL APPLICATIONS AS DOCTRINE PERSISTENT COLLECTION
         $allApplications = $influencerRepository->find($influencer)->getApplications();
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
+
+        $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
+        $offers = $offerRepository->findBy([], ['dateCreation' => 'DESC']);
+        $brand = $brandRepository->findOneBy(['user' => $user]);
 
         return $this->render('users/offers.html.twig', [
-            "applications" => $allApplications
+            'applications' => $allApplications,
+            'offerApplied' => $offerApplied,
+            'offers' => $offers,
+            'brand' => $brand
 
         ]);
     }
@@ -98,10 +114,10 @@ class UsersController extends AbstractController
     public function complete(Request $request, EntityManagerInterface $em, InfluencerRepository $influencerRepository, BrandRepository $brandRepository)
     {
         $user = $this->getUser();
-        $influcerInfos = $influencerRepository->findOneBy(['UserId' => $user]);
-        $brandInfos = $brandRepository->findOneBy(['UserId' => $user]);
+        $influcerInfos = $influencerRepository->findOneBy(['user' => $user]);
+        $brandInfos = $brandRepository->findOneBy(['user' => $user]);
 
-        if ($user->getRoles() == ["ROLE_INFLUENCEUR"]) {
+        if ($user->getRoles() == ["ROLE_INFLUENCEUR"] ||   $user->getRoles()[0] == "ROLE_INFLUENCEUR") {
             $form = $this->createForm(InfluencerType::class, $influcerInfos);
             $form->handleRequest($request);
 

@@ -4,13 +4,7 @@
 	{% else %}
 		<a class="navbar-brand" href="{{path('home')}}">LIKEY</a>
 	{% endif %}
-	{% if  app.user %}
-		<form class="my-2 form-inline my-lg-0">
-			<input class="form-control mr-sm-2" type="text" placeholder="Rechercher">
-			<button class="btn btn-primary" type="submit">Rechercher</button>
-		</form>
 
-	{% endif %}
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -27,30 +21,63 @@
 			</a>
 
 		{% else %}
-
-			{% if app.user and app.user.roles[0] == "ROLE_INFLUENCEUR" %}
-
-				<a class="mr-3 text-muted" href=" {{path('offer_index')}} ">Liste des offres</a>
-				<a href="{{ path('all_brands') }}" class="btn btn-secondary" class="btn-floating btn-large waves-effect waves-light">
-					Annuaire marques
-				</a>
-			{% else %}
-				<a href="{{ path('all_influencers') }}" class="btn btn-secondary" class="btn-floating btn-large waves-effect waves-light">
-					Annuaire influenceurs
-				</a>
-				<a href="{{ path('offer_new') }}" class="ml-3 btn btn-primary" class="btn-floating btn-large waves-effect waves-light">
-					Créer une nouvelle offre
-				</a>
-			{% endif %}
+			{% for role in app.user.roles %}
+				{% if role == "ROLE_INFLUENCEUR" %}
+					<a class="mr-3 text-muted" href=" {{path('offer_index')}} ">Liste des offres</a>
+					<a href="{{ path('all_brands') }}" class="btn btn-secondary" class="btn-floating btn-large waves-effect waves-light">
+						Annuaire marques
+					</a>
+				{% elseif role == "ROLE_MARQUE" %}
+					<a href="{{ path('all_influencers') }}" class="btn btn-secondary" class="btn-floating btn-large waves-effect waves-light">
+						Annuaire influenceurs
+					</a>
+					<a href="{{ path('offer_new') }}" class="ml-3 btn btn-primary" class="btn-floating btn-large waves-effect waves-light">
+						Créer une nouvelle offre
+					</a>
+				{% endif %}
+			{% endfor %}
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon profil</a>
+					{% if is_granted('ROLE_ADMIN') %}
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{ path('dashbaord_admin_dashbaord') }}">
+								<mark>Dashboard ADMIN</mark>
+							</a>
+							{% for role in app.user.roles %}
+								{% if role ==  "ROLE_INFLUENCEUR" %}
+									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
+								{% endif %}
+							{% endfor %}
+							<a class="dropdown-item" href="{{ path('my_partnership') }}">Mes partenariats</a>
+							<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
+
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
+						</div>
+					{% else %}
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
+							{% for role in app.user.roles %}
+								{% if role ==  "ROLE_MARQUE" %}
+									<a class="dropdown-item" href="{{ path('offer_index') }}">Mes offres</a>
+								{% endif %}
+								<a class="dropdown-item" href="{{ path('offer_index') }}">Liste des offres</a>
+								{% if role ==  "ROLE_INFLUENCEUR" %}
+									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
+								{% endif %}
+							{% endfor %}
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
+						</div>
+					{% endif %}
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
 						{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
 							<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
 						{% endif %}
 						<a class="dropdown-item" href="{{ path('offer_index') }}">List des offres</a>
+						<a class="dropdown-item" href="{{ path('my_partnership') }}">Mes partenariats</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
 					</div>

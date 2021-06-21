@@ -61,42 +61,29 @@ class User implements UserInterface, \Serializable
     private $age;
 
     /**
-     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="UserId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Brand::class, mappedBy="user", orphanRemoval=true)
      */
-    private $brands;
+    private $brand;
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Payment::class, mappedBy="userId")
+     * @ORM\ManyToMany(targetEntity=Payment::class, mappedBy="user")
      */
     private $payments;
 
     /**
-     * @ORM\OneToMany(targetEntity=Influencer::class, mappedBy="UserId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Influencer::class, mappedBy="user", orphanRemoval=true)
      */
     private $influencer;
 
-
-
-
-
-    // Pour les test unitaire (pas complet)
-    public function isValid(): bool
-    {
-        return !empty($this->firstname)
-            && !empty($this->lastname)
-            && !empty($this->password)
-            && !empty($this->age)
-            && strlen($this->password) >= 3
-            && strlen($this->password) <= 50
-            && !empty($this->email)
-            && filter_var($this->email, FILTER_VALIDATE_EMAIL);
-        //&& Carbon::now()->subYears(10)->isAfter($this->age);
-    }
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAdmin;
 
     public function __construct()
     {
-        $this->brands = new ArrayCollection();
+        $this->brand = new ArrayCollection();
         $this->payments = new ArrayCollection();
         $this->influencer = new ArrayCollection();
     }
@@ -219,16 +206,16 @@ class User implements UserInterface, \Serializable
     /**
      * @return Collection|Brand[]
      */
-    public function getBrands(): Collection
+    public function getBrand(): Collection
     {
-        return $this->brands;
+        return $this->brand;
     }
 
     public function addBrand(Brand $brand): self
     {
-        if (!$this->brands->contains($brand)) {
-            $this->brands[] = $brand;
-            $brand->setUserId($this);
+        if (!$this->brand->contains($brand)) {
+            $this->brand[] = $brand;
+            $brand->setUser($this);
         }
 
         return $this;
@@ -236,10 +223,10 @@ class User implements UserInterface, \Serializable
 
     public function removeBrand(Brand $brand): self
     {
-        if ($this->brands->removeElement($brand)) {
+        if ($this->brand->removeElement($brand)) {
             // set the owning side to null (unless already changed)
-            if ($brand->getUserId() === $this) {
-                $brand->setUserId(null);
+            if ($brand->getUser() === $this) {
+                $brand->setUser(null);
             }
         }
 
@@ -258,7 +245,7 @@ class User implements UserInterface, \Serializable
     {
         if (!$this->payments->contains($payment)) {
             $this->payments[] = $payment;
-            $payment->addUserId($this);
+            $payment->addUser($this);
         }
 
         return $this;
@@ -267,7 +254,7 @@ class User implements UserInterface, \Serializable
     public function removePayment(Payment $payment): self
     {
         if ($this->payments->removeElement($payment)) {
-            $payment->removeUserId($this);
+            $payment->removeUser($this);
         }
 
         return $this;
@@ -309,7 +296,7 @@ class User implements UserInterface, \Serializable
     {
         if (!$this->influencer->contains($influencer)) {
             $this->influencer[] = $influencer;
-            $influencer->setUserId($this);
+            $influencer->setUser($this);
         }
 
         return $this;
@@ -319,10 +306,22 @@ class User implements UserInterface, \Serializable
     {
         if ($this->influencer->removeElement($influencer)) {
             // set the owning side to null (unless already changed)
-            if ($influencer->getUserId() === $this) {
-                $influencer->setUserId(null);
+            if ($influencer->getUser() === $this) {
+                $influencer->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsAdmin(): ?bool
+    {
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin(bool $isAdmin): self
+    {
+        $this->isAdmin = $isAdmin;
 
         return $this;
     }

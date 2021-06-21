@@ -31,6 +31,7 @@ class Application
 
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="application")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $offer;
 
@@ -92,5 +93,4 @@ class Application
 
         return $this;
     }
-
 }

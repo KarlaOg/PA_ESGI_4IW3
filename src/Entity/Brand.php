@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BrandRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,10 +28,10 @@ class Brand
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="brands")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="brand")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $UserId;
+    private $user;
 
 
     /**
@@ -65,7 +67,6 @@ class Brand
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Regex("/^[a-z0-9]+$/i", message="Vous ne pouvez pas mettre d'espace")
      */
     private $username;
 
@@ -91,20 +92,30 @@ class Brand
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="brandId", orphanRemoval=true)
+     */
+    private $offers;
+
+    public function __construct()
+    {
+        $this->offers = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->UserId;
+        return $this->user;
     }
 
-    public function setUserId(?User $UserId): self
+    public function setUser(?User $user): self
     {
-        $this->UserId = $UserId;
+        $this->user = $user;
 
         return $this;
     }
@@ -239,5 +250,35 @@ class Brand
             return 'NULL';
         }
         return $this->name;
+    }
+
+    /**
+     * @return Collection|Offer[]
+     */
+    public function getOffers(): Collection
+    {
+        return $this->offers;
+    }
+
+    public function addOffer(Offer $offer): self
+    {
+        if (!$this->offers->contains($offer)) {
+            $this->offers[] = $offer;
+            $offer->setBrandId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Offer $offer): self
+    {
+        if ($this->offers->removeElement($offer)) {
+            // set the owning side to null (unless already changed)
+            if ($offer->getBrandId() === $this) {
+                $offer->setBrandId(null);
+            }
+        }
+
+        return $this;
     }
 }

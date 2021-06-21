@@ -21,11 +21,14 @@ class BrandType extends AbstractType
                 'allow_delete' => true, //rajouter pr suprimer limage
                 'download_uri' => true, //rajouter un download
                 'image_uri' => true,
+                'label' => 'Photo',
             ])
             ->add('name', TextType::class, [
+                'label' => 'Nom',
                 'required' => false,
             ])
             ->add('username', TextType::class, [
+                'label' => 'Pseudo',
                 'required' => false,
                 'trim' => true,
             ])
@@ -62,7 +65,7 @@ class BrandType extends AbstractType
 
             ])
             ->add('website', TextType::class, [
-                'label' => 'Website',
+                'label' => 'Site web',
                 'property_path' => 'socialNetwork[Website]',
                 'required' => false,
             ])

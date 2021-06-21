@@ -3,7 +3,6 @@
 {% block title %}Se connecter
 {% endblock %}
 {% block body %}
-
 	<form action="{{ path('app_login') }}" method="post">
 		{% if error %}
 			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -22,4 +21,4 @@
 			Se connecter
 		</button>
 	</form>
-</div>{% endblock %}
+{% endblock %}

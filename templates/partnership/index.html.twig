@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+	Partenariats
+{% endblock %}
+
+
+{% block body %}
+<div class="container mt-5">
+	<h1>Mes partenariats</h1>
+	{% if partnerships is empty %}
+		<p>Il n'y a pas de partenariats pour le moment.</p>
+	</br>
+	<p>Veuillez d'abords valider des candidatures</p>
+</div>{% endif %}{% for partnership in partnerships %}
+{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
+	<div class="container mt-5">
+
+		<div class="mb-3 card">
+			<div class="card-body">
+				<p>Nom de la marque :
+					{{ collaborators[loop.index0].name }}
+				</p>
+				<p>Nom de l'offre:
+					{{ partnership.name }}
+				</p>
+				<p>Description de l'offre:
+					{{ partnership.description }}
+				</p>
+			</div>
+		</div>
+	{% else %}
+		<div class="mb-3 card">
+			<div class="card-body">
+				<p>Nom de l'influenceur :
+					<a href="{{ path('influencer_show', {'username': collaborators[loop.index0].name }) }}">{{ collaborators[loop.index0].name }}
+					</a>
+				</p>
+				<p>Nom de l'offre:
+					{{ partnership.name }}
+				</p>
+				<p>Description de l'offre:
+					{{ partnership.description }}
+				</p>
+			</div>
+		</div>
+	</div>
+
+{% endif %}{% endfor %}{% endblock %}
