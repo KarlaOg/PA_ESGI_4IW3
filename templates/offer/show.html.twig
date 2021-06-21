@@ -20,55 +20,60 @@
 							<div class="mb-3">
 								{% if app.status == "pending" %}
 									<div class="flex justify-end">
-										<svg class="w-6 h-6 mr-4 text-grey-400" x-description="Heroicon name: outline/clock" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-										</svg>
+										<div class="relative flex justify-center cursor-pointer group w-28">
+											<svg class="w-6 h-6 mr-4 text-grey-400" x-description="Heroicon name: outline/clock" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+											</svg>
+											<div class="absolute z-10 px-3 py-2 text-xs text-center text-white bg-black rounded-lg opacity-0 pointer-events-none w-28 group-hover:opacity-100 bottom-full -left-1/2 ml-14">
+												Offre en cours de traitement
+												<svg class="absolute left-0 w-full h-2 text-black top-full" x="0px" y="0px" viewbox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"/></svg>
+											</div>
+										</div>
 									</div>
 								{% endif %}
-							</div>
-						{% endif %}
-						{% set newArray = newArray|merge([app.offer.id]) %}
-					{% endif %}
-				{% endfor %}
-				<p>Nom :
-					{{ offer.name|capitalize }}</p>
-				<p>Description :
-					{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
-				</p>
-				<p>Dates de début :
-					{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
-				</p>
-				<p>Dates de fin :
-					{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
-				</p>
-				<div class="card-action">
-					{% for role in app.user.roles %}
-						{% if role == "ROLE_INFLUENCEUR"  %}
-							{% for app in offerApplied %}
-								{% if offer.id == app.offer.id %}
-									{% set var = app.offer.id %}
-								{% endif %}
-							{% endfor %}
-
-							{% if offer.id != var %}
-								<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-success ">Postuler</a>
 							{% endif %}
-
-						{% endif %}
-						{% if  role == "ROLE_MARQUE" %}
-							{% if offer.brandId.id == brand.id  %}
-								<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-success">Modifier l'offre</a>
-								<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>
-								{% if isPending == "pending" %}
-									<a href="{{ path('offer_show_applications', {'id': offer.id}) }}" class="btn btn-primary">Voir les candidatures</a>
-								{% endif %}
-							{% endif %}
+							{% set newArray = newArray|merge([app.offer.id]) %}
 						{% endif %}
 					{% endfor %}
+					<p>Nom :
+						{{ offer.name|capitalize }}</p>
+					<p>Description :
+						{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+					</p>
+					<p>Dates de début :
+						{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+					</p>
+					<p>Dates de fin :
+						{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
+					</p>
+					<div class="card-action">
+						{% for role in app.user.roles %}
+							{% if role == "ROLE_INFLUENCEUR"  %}
+								{% for app in offerApplied %}
+									{% if offer.id == app.offer.id %}
+										{% set var = app.offer.id %}
+									{% endif %}
+								{% endfor %}
+
+								{% if offer.id != var %}
+									<a href="{{ path('offer_apply', {'id': offer.id}) }}" class="btn btn-success ">Postuler</a>
+								{% endif %}
+
+							{% endif %}
+							{% if  role == "ROLE_MARQUE" %}
+								{% if offer.brandId.id == brand.id  %}
+									<a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-success">Modifier l'offre</a>
+									<a href="{{ path('offer_delete', {'id': offer.id, 'token': csrf_token('delete_offer' ~ offer.id)}) }}" class="btn btn-danger">Supprimer l'offre</a>
+									{% if isPending == "pending" %}
+										<a href="{{ path('offer_show_applications', {'id': offer.id}) }}" class="btn btn-primary">Voir les candidatures</a>
+									{% endif %}
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</div>
 				</div>
 			</div>
-		</div>
-		<a href="{{ path('offer_index') }}" class="btn btn-primary">Toutes les offres</a>
+			<a href="{{ path('offer_index') }}" class="btn btn-primary">Toutes les offres</a>
 
-	</div>
-{% endblock %}
+		</div>
+	{% endblock %}
