@@ -60,12 +60,14 @@ class ChannelController extends AbstractController
 
         $channel = new Channel();
         if($user2->getRoles[0] = "ROLE_MARQUE" ){
-            $name2 = $brandRepository->find($user2->getId());//->getName();
-            var_dump($user2->getId());die();
+            $name1 = $influencerRepository->findBy(['user' => $user1->getId()])[0]->getName();
+            $name2 = $brandRepository->findBy(['user' => $user2->getId()])[0]->getName();
         }else{
-            $name2 = $influencerRepository->find($user2->getId())->getName();
+            $name1 = $brandRepository->findBy(['user' => $user1->getId()])[0]->getName();
+            $name2 = $influencerRepository->findBy(['user' => $user2->getId()])[0]->getName();
         }
-        $channel->setName('hey you');
+
+        $channel->setName($name1.' - '.$name2);
         $channel->setUser1($user1);
         $channel->setUser2($user2);
 
