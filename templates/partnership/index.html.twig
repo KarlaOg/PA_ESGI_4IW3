@@ -48,9 +48,7 @@
 											<h3 class="text-lg font-medium leading-6 text-gray-900">
 												{{ collaborators[loop.index0].name }}
 											</h3>
-											<p
-												class="text-sm text-gray-500">
-												{# {% for u in collaborators %} #}
+											<p class="text-sm text-gray-500">
 												{% if  collaborators[loop.index0].offers is defined %}
 
 													<a href="{{ path('brand_show', {'username': collaborators[loop.index0].username }) }}">
@@ -60,15 +58,11 @@
 													<a href="{{ path('influencer_show', {'username': collaborators[loop.index0].username }) }}">
 														@{{ collaborators[loop.index0].username }}
 													</a>
-
 												{% endif %}
-
-												{# {% endfor %} #}
 											</p>
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 
@@ -105,5 +99,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
-{% endfor %}{% endblock %}
+	{% endfor %}
+{% endblock %}
