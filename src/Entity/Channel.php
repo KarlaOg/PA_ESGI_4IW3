@@ -22,6 +22,16 @@ class Channel
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private $user1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private $user2;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -50,6 +60,30 @@ class Channel
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getUser1(): ?User
+    {
+        return $this->user1;
+    }
+
+    public function setUser1(?User $user1): self
+    {
+        $this->user1 = $user1;
+
+        return $this;
+    }
+
+    public function getUser2(): ?User
+    {
+        return $this->user2;
+    }
+
+    public function setUser2(?User $user2): self
+    {
+        $this->user2 = $user2;
 
         return $this;
     }
