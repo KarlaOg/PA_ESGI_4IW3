@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class InfluencerController extends AbstractController
 {
     /**
-     * @Route("/influencer", name="influencer")
+     * @Route("/influenceur", name="influencer")
      */
     public function index(): Response
     {
@@ -23,7 +23,7 @@ class InfluencerController extends AbstractController
     }
 
     /**
-     * @Route("/all_influencers", name="all_influencers")
+     * @Route("/influenceurs", name="all_influencers")
      * @Security("is_granted('ROLE_MARQUE') or is_granted('ROLE_ADMIN')")
 
      */
@@ -35,7 +35,7 @@ class InfluencerController extends AbstractController
     }
 
     /**
-     * @Route("influencer/{username}", name="influencer_show", methods={"GET"})
+     * @Route("influenceur/{username}", name="influencer_show", methods={"GET"})
      * @Security("is_granted('ROLE_MARQUE') or is_granted('ROLE_ADMIN')")
      */
     public function show(Influencer $influencer): Response
