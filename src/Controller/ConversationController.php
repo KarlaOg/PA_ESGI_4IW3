@@ -116,7 +116,11 @@ class ConversationController extends AbstractController
 
         $hubUrl = $this->getParameter('mercure.default_hub');
 
-        $this->addLink($request, new Link('mercure', $hubUrl));
-        return $this->json($conversations);
+        return $this->render('conversation/index.html.twig', [
+            'conversations' => $conversations
+        ]);
+
+        // $this->addLink($request, new Link('mercure', $hubUrl));
+        // return $this->json($conversations);
     }
 }

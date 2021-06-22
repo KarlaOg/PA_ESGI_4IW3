@@ -70,7 +70,7 @@ class MessageController extends AbstractController
     {
         // can i view the conversation
 
-        $this->denyAccessUnlessGranted('view', $conversation);
+        // $this->denyAccessUnlessGranted('view', $conversation);
 
         $messages = $this->messageRepository->findMessageByConversationId(
             $conversation->getId()
@@ -102,6 +102,16 @@ class MessageController extends AbstractController
      */
     public function newMessage(Request $request, Conversation $conversation, SerializerInterface $serializer)
     {
+
+        // $message = new Message();
+        // $form = $this->createForm(MessageType::class, $message);
+        // $form->handleRequest($request);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $entityManager = $this->getDoctrine()->getManager();
+        //     $entityManager->persist($message);
+        //     $entityManager->flush();
+
         $user = $this->getUser();
 
         $recipient = $this->participantRepository->findParticipantByConverstionIdAndUserId(
@@ -109,7 +119,7 @@ class MessageController extends AbstractController
             $user->getId()
         );
 
-        $content = $request->get('content', null);
+        $content = $request->get('content', "quoi de neuf");
         $message = new Message();
         $message->setContent($content);
         $message->setUser($user);
@@ -128,18 +138,18 @@ class MessageController extends AbstractController
             throw $e;
         }
         $message->setMine(false);
-        $messageSerialized = $serializer->serialize($message, 'json', [
-            'attributes' => ['id', 'content', 'createdAt', 'mine', 'conversation' => ['id']]
-        ]);
+        // $messageSerialized = $serializer->serialize($message, 'json', [
+        //     'attributes' => ['id', 'content', 'createdAt', 'mine', 'conversation' => ['id']]
+        // ]);
         $update = new Update(
             [
                 sprintf("/conversations/%s", $conversation->getId()),
                 sprintf("/conversations/%s", $recipient->getUser()->getUsername()),
             ],
-            $messageSerialized,
-            [
-                sprintf("/%s", $recipient->getUser()->getUsername())
-            ]
+            // $messageSerialized,
+            // [
+            //     sprintf("/%s", $recipient->getUser()->getUsername())
+            // ]
         );
 
         $this->publisher->__invoke($update);
