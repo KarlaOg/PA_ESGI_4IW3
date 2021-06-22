@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Channel;
+use App\Entity\User;
 use App\Repository\ChannelRepository;
+use App\Repository\InfluencerRepository;
+use App\Repository\BrandRepository;
 use App\Repository\MessageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -45,6 +48,37 @@ class ChannelController extends AbstractController
         return $this->render('channel/index.html.twig', [
             'channels' => $channels ?? []
         ]);
+    }
+
+    /**
+     * @Route("/chancreate2/{id}", name="channel_create2")
+     */
+    public function createChannel2(User $user, ChannelRepository $channelRepository, BrandRepository $brandRepository, InfluencerRepository $influencerRepository ): Response
+    {
+        $user1 = $this->getUser();
+        $user2 = $user;
+
+        $channel = new Channel();
+        if($user2->getRoles[0] = "ROLE_MARQUE" ){
+            $name2 = $brandRepository->find($user2->getId());//->getName();
+            var_dump($user2->getId());die();
+        }else{
+            $name2 = $influencerRepository->find($user2->getId())->getName();
+        }
+        $channel->setName('hey you');
+        $channel->setUser1($user1);
+        $channel->setUser2($user2);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($channel);
+        $em->flush();
+
+        return $this->redirectToRoute('channel_chat', ['id' => $channel->getId()]);
+        //$channels = $channelRepository->findAll();
+
+        /*return $this->render('channel/index.html.twig', [
+            'channels' => $channels ?? []
+        ]);*/
     }
 
     /**
