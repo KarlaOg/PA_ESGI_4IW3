@@ -36,7 +36,7 @@ class UsersController extends AbstractController
 {
 
     /**
-     * @Route("/home", name="users_data")
+     * @Route("/accueil", name="users_data")
      */
 
     public function usersData(BrandRepository $brandRepository, ApplicationRepository $applicationRepository, InfluencerRepository $influencerRepository)
@@ -58,7 +58,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/offers", name="users_offers")
+     * @Route("/offres", name="users_offers")
      * @IsGranted("ROLE_INFLUENCEUR", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
 
@@ -85,7 +85,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("profile/edit", name="users_edit")
+     * @Route("profil/editer", name="users_edit")
      */
     public function edit(Request $request)
     {
@@ -109,7 +109,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("profile/complete", name="users_complete")
+     * @Route("profil/infos", name="users_complete")
      */
     public function complete(Request $request, EntityManagerInterface $em, InfluencerRepository $influencerRepository, BrandRepository $brandRepository)
     {
@@ -151,7 +151,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("profile/change-password", name="users_pass_modifier")
+     * @Route("profil/mot-de-passe", name="users_pass_modifier")
      */
     public function editPass(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -190,8 +190,6 @@ class UsersController extends AbstractController
             $session = new Session();
             $session->invalidate();
         }
-
-        // return $this->redirectToRoute('home');
 
         return $this->redirectToRoute('app_logout');
     }
