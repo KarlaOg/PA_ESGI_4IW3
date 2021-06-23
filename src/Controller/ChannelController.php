@@ -55,9 +55,15 @@ class ChannelController extends AbstractController
      */
     public function createChannel2(User $user, ChannelRepository $channelRepository, BrandRepository $brandRepository, InfluencerRepository $influencerRepository ): Response
     {
+        // TODO dans le cas ou le channel existe déja, il faut redirect sans creer de nouveau
         $user1 = $this->getUser();
         $user2 = $user;
 
+        /*$findChannel = $channelRepository->findBy([
+            'user1' => $user1,
+            'user2' => $user2
+        ]);
+        die();*/
         $channel = new Channel();
         if($user2->getRoles[0] = "ROLE_MARQUE" ){
             $name1 = $influencerRepository->findBy(['user' => $user1->getId()])[0]->getName();
@@ -76,11 +82,7 @@ class ChannelController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('channel_chat', ['id' => $channel->getId()]);
-        //$channels = $channelRepository->findAll();
-
-        /*return $this->render('channel/index.html.twig', [
-            'channels' => $channels ?? []
-        ]);*/
+        
     }
 
     /**
