@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "c1be490054486a493d86f1e57545e735",
+=======
+    "content-hash": "5ab4db79933788018cfa8934c1836918",
+>>>>>>> b6e2faf (chat)
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2830,6 +2834,7 @@
             "time": "2020-09-30T13:25:17+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "symfony/apache-pack",
             "version": "v1.0.1",
             "source": {
@@ -2844,16 +2849,84 @@
                 "shasum": ""
             },
             "type": "symfony-pack",
+=======
+            "name": "symfony/amqp-messenger",
+            "version": "v5.1.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/amqp-messenger.git",
+                "reference": "0b7d730db61b4d51dbf27a38b36290e53aa7cd3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/amqp-messenger/zipball/0b7d730db61b4d51dbf27a38b36290e53aa7cd3a",
+                "reference": "0b7d730db61b4d51dbf27a38b36290e53aa7cd3a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1",
+                "symfony/messenger": "^5.1"
+            },
+            "require-dev": {
+                "symfony/event-dispatcher": "^4.4|^5.0",
+                "symfony/process": "^4.4|^5.0",
+                "symfony/property-access": "^4.4|^5.0",
+                "symfony/serializer": "^4.4|^5.0"
+            },
+            "type": "symfony-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Messenger\\Bridge\\Amqp\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+>>>>>>> b6e2faf (chat)
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
+<<<<<<< HEAD
             "description": "A pack for Apache support in Symfony",
             "support": {
                 "issues": "https://github.com/symfony/apache-pack/issues",
                 "source": "https://github.com/symfony/apache-pack/tree/master"
             },
             "time": "2017-12-12T01:46:35+00:00"
+=======
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony AMQP extension Messenger Bridge",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/amqp-messenger/tree/v5.1.11"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-01-27T11:17:55+00:00"
+>>>>>>> b6e2faf (chat)
         },
         {
             "name": "symfony/asset",
