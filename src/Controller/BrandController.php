@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class BrandController extends AbstractController
 {
     /**
-     * @Route("/brand", name="brand")
+     * @Route("/marque", name="brand")
      */
     public function index(): Response
     {
@@ -26,7 +26,7 @@ class BrandController extends AbstractController
     }
 
     /**
-     * @Route("/all_brands", name="all_brands")
+     * @Route("/marques", name="all_brands")
      * @Security("is_granted('ROLE_INFLUENCEUR') or is_granted('ROLE_ADMIN')")
      */
     public function brands_list(BrandRepository $brandRepository): Response
@@ -37,7 +37,7 @@ class BrandController extends AbstractController
     }
 
     /**
-     * @Route("brand/{username}", name="brand_show", methods={"GET"})
+     * @Route("marque/{username}", name="brand_show", methods={"GET"})
      * @Security("is_granted('ROLE_INFLUENCEUR') or is_granted('ROLE_ADMIN')")
      */
     public function show(Brand $brand, OfferRepository $offerRepository, BrandRepository $brandRepository, influencerRepository $influencerRepository, applicationRepository $applicationRepository): Response
