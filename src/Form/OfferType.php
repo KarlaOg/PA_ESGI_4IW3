@@ -64,13 +64,13 @@ class OfferType extends AbstractType
             ->add('dateStart', DateType::class, array(
                 'label' => "Date de commencement",
                 'widget' => 'choice',
-                'data' => new \DateTime()
+                'data' => new \DateTime('now +1 day')
             ))
 
             ->add('dateEnd', DateType::class, array(
                 'label' => "Date de fin",
                 'widget' => 'choice',
-                'data' => new \DateTime()
+                'data' => new \DateTime('now +2 day')
             ));
     }
 
