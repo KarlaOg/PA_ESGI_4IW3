@@ -20,31 +20,68 @@
 				</div>
 				<div class="list">
 					{% for offer in offers  %}
-						{% if offer.id not in idsValidated %}
-							{% if brand is not null and offer.brandId.id == brand.id %}
-								<div class="mb-3 card">
-									<div class="card-body">
-										<p class="name">Nom :
-											{{ offer.name|capitalize }}</p>
-										<p class="description">Description :
-											{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
-										</p>
-										<p class="field">Domaine :
-											{{ offer.field ? offer.field|join(', ') : null}}
-										</p>
-										<p>Dates de début:
-											{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
-										</p>
-										<p>Dates de fin:
-											{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
-										</p>
-										{% if brand.name is not null %}
-											<p class="brand">Créer par
-												{{brand.name}}</p>
-										{% endif %}
-										<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
+						{% if app.user.roles[0] == "ROLE_MARQUE"  %}
+
+							{% if offer.id not in idsValidated %}
+								{% if brand is not null and offer.brandId.id == brand.id %}
+									<H4 class="mb-3">OFFRES EN COURS</H4>
+									<div class="mb-3 card">
+										<div class="card-body">
+											<p class="name">Nom :
+												{{ offer.name|capitalize }}</p>
+											<p class="description">Description :
+												{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+											</p>
+											<p class="field">Domaine :
+												{{ offer.field ? offer.field|join(', ') : null}}
+											</p>
+											<p>Dates de début:
+												{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+											</p>
+											<p>Dates de fin:
+												{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
+											</p>
+											{% if brand.name is not null %}
+												<p class="brand">Créer par
+													{{brand.name}}</p>
+											{% endif %}
+											<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
+										</div>
 									</div>
-								</div>
+								{% endif %}
+
+							{% endif %}
+							{% if  offer.id in idsValidated  %}
+								<br>
+								<hr/>
+								<br>
+								<h4 class="mb-3">
+									<i>OFFRE EXPIREE</i>
+								</h4>
+								{% if brand is not null and offer.brandId.id == brand.id %}
+									<div class="mb-3 card">
+										<div class="card-body">
+											<p class="name">Nom :
+												{{ offer.name|capitalize }}</p>
+											<p class="description">Description :
+												{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+											</p>
+											<p class="field">Domaine :
+												{{ offer.field ? offer.field|join(', ') : null}}
+											</p>
+											<p>Dates de début:
+												{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+											</p>
+											<p>Dates de fin:
+												{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
+											</p>
+											{% if brand.name is not null %}
+												<p class="brand">Créer par
+													{{brand.name}}</p>
+											{% endif %}
+										</div>
+									</div>
+								{% endif %}
 							{% endif %}
 						{% endif %}
 						{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
