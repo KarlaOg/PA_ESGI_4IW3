@@ -5,11 +5,12 @@ namespace App\Form;
 use App\Entity\Influencer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class InfluencerType extends AbstractType
 {
@@ -36,7 +37,7 @@ class InfluencerType extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => true,
             ])
-            ->add('siret', TextType::class, [
+            ->add('siret', NumberType::class, [
                 'required' => false,
             ])
             ->add('type', ChoiceType::class, [
