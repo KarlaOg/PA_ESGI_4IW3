@@ -13,14 +13,14 @@
 				{% for message in messages %}
 					{% if app.user == message.author %}
 						<div class="float-right row w-75">
-							<b>{{ message.author.email }}</b>
+							<b>{{ message.createdAt|date('d-m-Y H:i') }}</b>
 							<p class="alert alert-info w-100">
 								{{ message.content }}
 							</p>
 						</div>
 					{% else %}
 						<div class="float-left row w-75">
-							<b>{{ message.author.email }}</b>
+							<b>{{ message.createdAt|date('d-m-Y H:i') }}</b>
 							<p class="alert alert-success w-100">
 								{{ message.content }}
 							</p>
@@ -41,31 +41,33 @@
 	{{parent()}}
 	<script>
 		window.onload = function () {
-let chatDiv = document.querySelector('.overflow-auto');
-chatDiv.scrollTop = chatDiv.scrollHeight; // On souhaite scroller toujours jusqu'au dernier message du chat
+			let chatDiv = document.querySelector('.overflow-auto');
+			chatDiv.scrollTop = chatDiv.scrollHeight; // On souhaite scroller toujours jusqu'au dernier message du chat
 
-let form = document.getElementById('form');
-function handleForm(event) {
-event.preventDefault(); // Empêche la page de se rafraîchir après le submit du formulaire
-}form.addEventListener('submit', handleForm);
+			let form = document.getElementById('form');
+			function handleForm(event) {
+				event.preventDefault(); // Empêche la page de se rafraîchir après le submit du formulaire
+			}form.addEventListener('submit', handleForm);
 
-const submit = document.getElementById('btnSend');
+			const submit = document.getElementById('btnSend');
 
-submit.onclick = e => { // On change le comportement du submit
-const message = document.getElementById('message'); // Récupération du message dans l'input correspondant
-const data = { // La variable data sera envoyée au controller
-'content': message.value, // On transmet le message...
-'channel': {{ channel.id }} // ... Et le canal correspondant
-}
-console.log(data); // Pour vérifier vos informations
-fetch('/message', { // On envoie avec un post nos datas sur le endpoint /message de notre application
-method: 'POST',
-body: JSON.stringify(data) // On envoie les data sous format JSON
-}).then((response) => {
-message.value = '';
-console.log(response);
-});
-}
-}();
+			submit.onclick = e => { // On change le comportement du submit
+				const message = document.getElementById('message'); // Récupération du message dans l'input correspondant
+				const data = { // La variable data sera envoyée au controller
+					'content': message.value, // On transmet le message...
+					'channel': {{ channel.id }} // ... Et le canal correspondant
+				}
+
+				console.log(data); // Pour vérifier vos informations
+				fetch('/message', { // On envoie avec un post nos datas sur le endpoint /message de notre application
+					method: 'POST',
+					body: JSON.stringify(data) // On envoie les data sous format JSON
+				}).then((response) => {
+					message.value = '';
+					console.log(response);
+					setTimeout(document.location.reload(), 1000);
+				});
+			}
+		}();
 	</script>
 {% endblock %}
