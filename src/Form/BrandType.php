@@ -25,15 +25,15 @@ class BrandType extends AbstractType
             ])
             ->add('name', TextType::class, [
                 'label' => 'Nom',
-                'required' => false,
+                'required' => true,
             ])
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
-                'required' => false,
+                'required' => true,
                 'trim' => true,
             ])
             ->add('description', TextareaType::class, [
-                'required' => false,
+                'required' => true,
             ])
             ->add('siret', TextType::class, [
                 'required' => false,
@@ -60,9 +60,8 @@ class BrandType extends AbstractType
                     'Transports - Logistique' => 'Transports - Logistique',
                 ),
                 'multiple'  => true,
-                'required' => false,
-                'expanded' => true
-
+                'required' => true,
+                'expanded' => true,
             ])
             ->add('website', TextType::class, [
                 'label' => 'Site web',

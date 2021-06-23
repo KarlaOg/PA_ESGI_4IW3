@@ -26,15 +26,15 @@ class InfluencerType extends AbstractType
             ])
             ->add('name', TextType::class, [
                 'label' => 'Nom',
-                'required' => false,
+                'required' => true,
             ])
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
                 'trim' => true,
-                'required' => false,
+                'required' => true,
             ])
             ->add('description', TextareaType::class, [
-                'required' => false,
+                'required' => true,
             ])
             ->add('siret', TextType::class, [
                 'required' => false,
@@ -52,7 +52,7 @@ class InfluencerType extends AbstractType
                     'Humour' => 'Humour',
                 ),
                 'multiple'  => true,
-                'required' => false,
+                'required' => true,
                 'expanded' => true
 
             ])

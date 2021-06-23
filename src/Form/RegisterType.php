@@ -52,7 +52,6 @@ class RegisterType extends AbstractType
                 ),
                 'multiple'  => true,
                 'required' => true,
-                'expanded' => true
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
