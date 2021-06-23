@@ -5,11 +5,12 @@ namespace App\Form;
 use App\Entity\Brand;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BrandType extends AbstractType
 {
@@ -25,17 +26,17 @@ class BrandType extends AbstractType
             ])
             ->add('name', TextType::class, [
                 'label' => 'Nom',
-                'required' => false,
+                'required' => true,
             ])
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
-                'required' => false,
+                'required' => true,
                 'trim' => true,
             ])
             ->add('description', TextareaType::class, [
-                'required' => false,
+                'required' => true,
             ])
-            ->add('siret', TextType::class, [
+            ->add('siret', NumberType::class, [
                 'required' => false,
             ])
             ->add('field', ChoiceType::class, [
@@ -60,9 +61,8 @@ class BrandType extends AbstractType
                     'Transports - Logistique' => 'Transports - Logistique',
                 ),
                 'multiple'  => true,
-                'required' => false,
-                'expanded' => true
-
+                'required' => true,
+                'expanded' => true,
             ])
             ->add('website', TextType::class, [
                 'label' => 'Site web',

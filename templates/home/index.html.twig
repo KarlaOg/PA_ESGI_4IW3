@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-no-user.html.twig' %}
 
 {% block title %}Bienvenu sur LIKEY !
 {% endblock %}
@@ -6,7 +6,7 @@
 
 	<main class="w-full mt-4 mb-4">
 		<div class="max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
-			<div class="relative px-6 py-10 overflow-hidden shadow-xl rounded-2xl bg-indigo-500 sm:px-12 sm:py-20">
+			<div class="relative px-6 py-10 overflow-hidden bg-indigo-500 shadow-xl rounded-2xl sm:px-12 sm:py-20">
 				<div aria-hidden="true" class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0">
 					<svg class="absolute inset-0 w-full h-full" preserveaspectratio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 1463 360">
 						<path class="text-rose-400 text-opacity-40" fill="currentColor" d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z"></path>
@@ -25,7 +25,7 @@
 							<i>LIKEY</i>
 							met en relation des influenceurs et des marques dans le but de créer un partenariat. Connectez-vous pour voir les offres disponibles !
 						</p>
-						<a href="{{path('app_login')}}" role="button" class="btn btn-primary px-5">Se connecter</a>
+						<a href="{{path('app_login')}}" role="button" class="px-5 btn btn-primary">Se connecter</a>
 					</div>
 
 				</div>
@@ -40,29 +40,29 @@
 			<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
 				{% for offer in offers  %}
 					<!-- card offert-->
-					<div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
+					<div class="relative w-64 px-6 py-6 my-4 bg-white shadow-xl rounded-3xl">
 						<div
-							class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-blue-500 left-4 -top-6 mb-4">
+							class="absolute flex items-center px-4 py-4 mb-4 text-white bg-blue-500 rounded-full shadow-xl left-4 -top-6">
 							<!-- svg  -->
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
 							</svg>
 						</div>
 						<div class="mt-8">
-							<p class="text-xl font-semibold my-2 p-2">{{ offer.name|capitalize }}</p>
+							<p class="p-2 my-2 text-xl font-semibold">{{ offer.name|capitalize }}</p>
 							<div
-								class="flex space-x-2 text-gray-400 text-sm">
+								class="flex space-x-2 text-sm text-gray-400">
 								<!-- svg  -->
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+								<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
 								</svg>
 								<p>{{ offer.field ? offer.field|join(', ') : null}}</p>
 							</div>
 							<div
-								class="flex space-x-2 text-gray-400 text-sm my-3">
+								class="flex my-3 space-x-2 text-sm text-gray-400">
 								<!-- svg  -->
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+								<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
 								</svg>
 								<p>
@@ -72,9 +72,9 @@
 							</div>
 
 							<div
-								class="flex space-x-2 text-gray-400 text-sm my-3">
+								class="flex my-3 space-x-2 text-sm text-gray-400">
 								<!-- svg  -->
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+								<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
 								</svg>
 								<p>
@@ -87,7 +87,7 @@
 
 							<div class="flex justify-between">
 								<div class="my-2">
-									<p class="font-semibold text-base mb-2">Description</p>
+									<p class="mb-2 text-base font-semibold">Description</p>
 									<div class="flex space-x-2">
 										<p>
 											{{ offer.description ? offer.description|slice(0, 80) : 'NC'}}
@@ -106,48 +106,48 @@
 
 		<h3 class="header-text-h3">Influenceurs présents sur Likey</h3>
 
-		<div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-5">
-			<div class="rounded overflow-hidden shadow-lg">
+		<div class="grid grid-cols-1 gap-5 p-10 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+			<div class="overflow-hidden rounded shadow-lg">
 				<img src="{{ asset('build/images/tibo_inshape.jpg') }}" alt="" class="card-img-top">
 			</div>
-			<div class="rounded overflow-hidden shadow-lg">
+			<div class="overflow-hidden rounded shadow-lg">
 				<img src="{{ asset('build/images/cyprien.jpg') }}" alt="" class="card-img-top">
 			</div>
-			<div class="rounded overflow-hidden shadow-lg">
+			<div class="overflow-hidden rounded shadow-lg">
 				<img src="{{ asset('build/images/squeezie.jpg') }}" alt="" class="card-img-top">
 			</div>
-			<div class="rounded overflow-hidden shadow-lg">
+			<div class="overflow-hidden rounded shadow-lg">
 				<img src="{{ asset('build/images/lena-situation.jpg') }}" alt="" class="card-img-top">
 			</div>
-			<div class="rounded overflow-hidden shadow-lg">
+			<div class="overflow-hidden rounded shadow-lg">
 				<img src="{{ asset('build/images/inoxtag.jpg') }}" alt="" class="card-img-top">
 			</div>
-			<div class="rounded overflow-hidden shadow-lg">
+			<div class="overflow-hidden rounded shadow-lg">
 				<img src="{{ asset('build/images/natoo.jpg') }}" alt="" class="card-img-top">
 			</div>
-			<div class="rounded overflow-hidden shadow-lg">
+			<div class="overflow-hidden rounded shadow-lg">
 				<img src="{{ asset('build/images/enjoy-phoenix.jpg') }}" alt="" class="card-img-top">
 			</div>
-			<div class="rounded overflow-hidden shadow-lg">
+			<div class="overflow-hidden rounded shadow-lg">
 				<img src="{{ asset('build/images/mister-v.jpg') }}" alt="" class="card-img-top">
 			</div>
 		</div>
 
-		<div class="container mt-2 mb-2 p-10">
+		<div class="container p-10 mt-2 mb-2">
 			<div class="pb-16 bg-indigo-600 lg:pb-0 lg:z-10 lg:relative">
 				<div class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-8">
 					<div class="relative lg:-my-8">
-						<div aria-hidden="true" class="absolute inset-x-0 top-0 h-1/2 bg-white lg:hidden"></div>
-						<div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:p-0 lg:h-full">
-							<div class="aspect-w-10 aspect-h-6 rounded-xl shadow-xl overflow-hidden sm:aspect-w-16 sm:aspect-h-7 lg:aspect-none lg:h-full">
+						<div aria-hidden="true" class="absolute inset-x-0 top-0 bg-white h-1/2 lg:hidden"></div>
+						<div class="max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:p-0 lg:h-full">
+							<div class="overflow-hidden shadow-xl aspect-w-10 aspect-h-6 rounded-xl sm:aspect-w-16 sm:aspect-h-7 lg:aspect-none lg:h-full">
 								<img class="object-cover lg:h-full lg:w-full" src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2102&amp;q=80" alt="">
 							</div>
 						</div>
 					</div>
 					<div class="mt-12 lg:m-0 lg:col-span-2 lg:pl-8">
-						<div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:py-20 lg:max-w-none">
+						<div class="max-w-md px-4 mx-auto sm:max-w-2xl sm:px-6 lg:px-0 lg:py-20 lg:max-w-none">
 							<div>
-								<svg class="h-12 w-12 text-white opacity-25" fill="currentColor" viewbox="0 0 32 32" aria-hidden="true">
+								<svg class="w-12 h-12 text-white opacity-25" fill="currentColor" viewbox="0 0 32 32" aria-hidden="true">
 									<path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
 								</svg>
 								<p class="mt-6 text-2xl font-medium text-white">
@@ -155,7 +155,7 @@
 								</p>
 							</div>
 							<div class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-								<a href="{{path('app_login')}}" role="button" class="btn btn-primary px-5">Voir les marques</a>
+								<a href="{{path('app_login')}}" role="button" class="px-5 btn btn-primary">Voir les marques</a>
 							</div>
 						</div>
 					</div>
@@ -163,58 +163,58 @@
 			</div>
 		</div>
 
-		<h3 class="header-text-h3 mb-2">Notre catalogue</h3>
+		<h3 class="mb-2 header-text-h3">Notre catalogue</h3>
 
 		<!-- Part : catalogues des marques -->
 		<div class="container mb-4">
-			<div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-5">
+			<div class="grid grid-cols-1 gap-5 p-10 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
 
-				<div class="rounded overflow-hidden shadow-lg">
+				<div class="overflow-hidden rounded shadow-lg">
 					<img src="{{ asset('build/images/sephora.jpg') }}" class="card-img-top" alt="logo maquillage">
 					<div class="px-6 py-4">
-						<div class="font-bold text-xl mb-2">Sephora</div>
+						<div class="mb-2 text-xl font-bold">Sephora</div>
 					</div>
 				</div>
-				<div class="rounded overflow-hidden shadow-lg">
+				<div class="overflow-hidden rounded shadow-lg">
 					<img src="{{ asset('build/images/canon.jpg') }}" class="card-img-top" alt="logo canon">
 					<div class="px-6 py-4">
-						<div class="font-bold text-xl mb-2">Canon</div>
+						<div class="mb-2 text-xl font-bold">Canon</div>
 					</div>
 				</div>
-				<div class="rounded overflow-hidden shadow-lg">
+				<div class="overflow-hidden rounded shadow-lg">
 					<img src="{{ asset('build/images/uber-eats.png') }}" class="card-img-top" alt="logo Uber Eats">
 					<div class="px-6 py-4">
-						<div class="font-bold text-xl mb-2">Uber Eats</div>
+						<div class="mb-2 text-xl font-bold">Uber Eats</div>
 					</div>
 				</div>
-				<div class="rounded overflow-hidden shadow-lg">
+				<div class="overflow-hidden rounded shadow-lg">
 					<img src="{{ asset('build/images/apple.jpg') }}" class="card-img-top" alt="logo apple">
 					<div class="px-6 py-4">
-						<div class="font-bold text-xl mb-2">Apple</div>
+						<div class="mb-2 text-xl font-bold">Apple</div>
 					</div>
 				</div>
-				<div class="rounded overflow-hidden shadow-lg">
+				<div class="overflow-hidden rounded shadow-lg">
 					<img src="{{ asset('build/images/spotify.png') }}" class="card-img-top" alt="logo spotify">
 					<div class="px-6 py-4">
-						<div class="font-bold text-xl mb-2">spotify</div>
+						<div class="mb-2 text-xl font-bold">spotify</div>
 					</div>
 				</div>
-				<div class="rounded overflow-hidden shadow-lg">
+				<div class="overflow-hidden rounded shadow-lg">
 					<img src="{{ asset('build/images/igraal.jpg') }}" class="card-img-top" alt="logo igraal">
 					<div class="px-6 py-4">
-						<div class="font-bold text-xl mb-2">Igraal</div>
+						<div class="mb-2 text-xl font-bold">Igraal</div>
 					</div>
 				</div>
-				<div class="rounded overflow-hidden shadow-lg">
+				<div class="overflow-hidden rounded shadow-lg">
 					<img src="{{ asset('build/images/azus.png') }}" class="card-img-top" alt="logo azus">
 					<div class="px-6 py-4">
-						<div class="font-bold text-xl mb-2">Azus</div>
+						<div class="mb-2 text-xl font-bold">Azus</div>
 					</div>
 				</div>
-				<div class="rounded overflow-hidden shadow-lg">
+				<div class="overflow-hidden rounded shadow-lg">
 					<img src="{{ asset('build/images/netflix.jpg') }}" class="card-img-top" alt="logo netflix">
 					<div class="px-6 py-4">
-						<div class="font-bold text-xl mt-2 mb-2">Netflix</div>
+						<div class="mt-2 mb-2 text-xl font-bold">Netflix</div>
 					</div>
 				</div>
 			</div>

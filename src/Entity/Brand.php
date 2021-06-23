@@ -36,10 +36,7 @@ class Brand
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Type(
-     *     type="integer",
-     *     message="Vous ne pouvez pas mettre de lettre, mettez des chiffres"
-     * )
+     * @Assert\Type(type="integer")
      */
     private $siret;
 
