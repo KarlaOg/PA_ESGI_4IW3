@@ -18,7 +18,7 @@ class UsersController extends AbstractController
 {
 
     /**
-     * @Route("/admin/list/users", name="users_admin_list")
+     * @Route("/admin/liste/utilisateurs", name="users_admin_list")
      */
     public function list(UserRepository $userRepository)
     {
@@ -30,7 +30,7 @@ class UsersController extends AbstractController
         ]);
     }
     /**
-     * @Route("/admin/edit/user/{id}", name="users_admin_edit")
+     * @Route("/admin/editer/utilisateur/{id}", name="users_admin_edit")
      */
     public function editUser(UserRepository $userRepository, Request $request, $id,  EntityManagerInterface $em)
     {
@@ -64,7 +64,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/admin/edit/brand/{id}", name="users_admin_edit_brand")
+     * @Route("/admin/editer/marque/{id}", name="users_admin_edit_brand")
      */
     public function editBrand(BrandRepository $brandRepository, Request $request, $id,  EntityManagerInterface $em)
     {
@@ -88,7 +88,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/admin/edit/influencer/{id}", name="users_admin_edit_influencer")
+     * @Route("/admin/editer/influenceur/{id}", name="users_admin_edit_influencer")
      */
     public function editInfluencer(Request $request, $id,  EntityManagerInterface $em, InfluencerRepository $influencerRepository)
     {
@@ -115,7 +115,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("admin/user/{id}", name="users_admin_delete")
+     * @Route("admin/utilisateur/{id}", name="users_admin_delete")
      */
     public function delete($id)
     {

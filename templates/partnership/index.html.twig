@@ -1,41 +1,103 @@
 {% extends 'base.html.twig' %}
 
-
 {% block title %}
 	Partenariats
 {% endblock %}
 
-
 {% block body %}
-	<h1>Mes partenariats</h1>
-	{% if partnerships is empty %}
-		<p>Il n'y a pas de partenariats pour le moment. </br> Veuillez d'abords valider des candidatures</p>
-	{% endif %}
-	{% for partnership in partnerships %}
-		{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
-			<div class="card mb-3">
-				<div class="card-body">
-					<p>Nom de la marque : 
-						{{ collaborators[loop.index0].name }}
-					</p>
-					<p>Nom de l'offre: {{ partnership.name }} </p>
-					<p>Description de l'offre: {{ partnership.description }} </p>
-				</div>
-			</div>
-		{% else %}
-			<div class="card mb-3">
-				<div class="card-body">
-					<p>Nom de l'influenceur : 
-						<a href="{{ path('influencer_show', {'username': collaborators[loop.index0].name }) }}" >{{ collaborators[loop.index0].name }}
-						</a>
-					</p>
-					<p>Nom de l'offre: {{ partnership.name }} </p>
-					<p>Description de l'offre: {{ partnership.description }} </p>
-				</div>
-			</div>
+	<div class="container mt-5">
+		<h2 class="pb-2">Mes partenariats
+			{% if app.user.roles[0] ==  "ROLE_MARQUE" %}
+				influenceur(s)
+			{% else %}
+				marque(s)
+			{% endif %}
+		</h2>
+		{% if partnerships is empty %}
+			<p>Il n'y a pas de partenariats pour le moment.</p>
+		</br>
+		{% if app.user.roles[0] ==  "ROLE_MARQUE" %}
+			<p>Veuillez d'abords valider des candidatures</p>
 		{% endif %}
 
+	{% endif %}
+</div>
+{% for partnership in partnerships %}
+	<div>
+		<div class="bg-gray-100">
+			<div class="py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+				<div class="mx-auto max-w-none">
+					<div class="overflow-hidden bg-white sm:rounded-lg sm:shadow">
 
-		
+						<div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
+							<div class="flex flex-wrap items-center justify-between -mt-4 -ml-4 sm:flex-nowrap">
+								<div class="mt-4 ml-4">
+									<div class="flex items-center">
+										<div class="flex-shrink-0">
+											{% if collaborators[loop.index0].profilePhoto %}
+												<img class="w-12 h-12 rounded-full" src={{ vich_uploader_asset(collaborators[loop.index0], 'imageFile') }} alt="">
+											{% else %}
+												<span class="inline-block w-12 h-12 overflow-hidden bg-gray-100 rounded-full">
+													<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+														<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+													</svg>
+												</span>
+											{% endif %}
+										</div>
+										<div class="ml-4">
+											<h3 class="text-lg font-medium leading-6 text-gray-900">
+												{{ collaborators[loop.index0].name }}
+											</h3>
+											<p class="text-sm text-gray-500">
+												{% if  collaborators[loop.index0].offers is defined %}
+
+													<a href="{{ path('brand_show', {'username': collaborators[loop.index0].username }) }}">
+														@{{ collaborators[loop.index0].username }}
+													</a>
+												{% elseif  u.offers is not defined %}
+													<a href="{{ path('influencer_show', {'username': collaborators[loop.index0].username }) }}">
+														@{{ collaborators[loop.index0].username }}
+													</a>
+												{% endif %}
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<ul class="divide-y divide-gray-200 " aria-disabled="true">
+							<li>
+								<div class="px-4 py-4 sm:px-6">
+									<div class="flex items-center justify-between">
+										<div class="text-sm font-medium truncate text-grey-600">
+											Offre:
+											{{ partnership.name }}
+										</div>
+
+									</div>
+									<div class="flex justify-between mt-2">
+										<div class="sm:flex">
+											<div class="flex items-center text-sm text-gray-500">
+												Description:
+												{{ partnership.description }}
+											</div>
+										</div>
+									</div>
+									<div class="flex justify-between mt-2">
+										<div class="sm:flex">
+											<div class="flex items-center text-sm text-gray-500">
+												Commence le
+												{{ partnership.dateStart |date("d/m/Y", "Europe/Paris") }}
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 	{% endfor %}
 {% endblock %}

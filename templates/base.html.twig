@@ -10,41 +10,43 @@
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 			<link href="https://bootswatch.com/4/lux/bootstrap.min.css" rel="stylesheet">
+			<link rel="stylesheet" href="{{ asset('css/home.css') }}"/>
+
 
 		{% endblock %}
 	</head>
 
 	<body class="d-flex flex-column justify-content-between" style="min-height: 100%;">
-		{% for label,messages in app.flashes %}
-			<div class="toast" style="position: absolute;z-index:1; right:0;" data-delay="2000">
-				<div class=" alert alert-{{ label }}" style="margin-bottom:unset">
-					{% for message in messages %}
-						<p>{{ message }}</p>
-					{% endfor %}
-				</div>
-			</div>
-		{% endfor %}
 		{% if app.user %}
 			<div style="min-height: 640px;">
-				<div x-data="{ open: false }" @keydown.window.escape="open = false" class="h-screen flex overflow-hidden bg-gray-100">
+				<div x-data="{ open: false }" @keydown.window.escape="open = false" class="flex h-screen overflow-hidden bg-gray-100">
 					{% include "shared/_bar_user.html.twig" %}
 					<div x-init="$el.focus()" class="flex-1 overflow-auto focus:outline-none" tabindex="0">
 						{% include "shared/_navbar_user.html.twig" %}
-						<main class="relative z-0 flex-1 pb-8"> {% block body %}{% endblock %}
-							</main>
-						</div>
+						<main class="relative z-0 flex-1 pb-8">
+							{% for label,messages in app.flashes %}
+								<div class="toast" style="position: absolute;z-index:1; right:0;" data-delay="3000">
+									<div class=" alert alert-{{ label }}" style="margin-bottom:unset">
+										{% for message in messages %}
+											<p>{{ message }}</p>
+										{% endfor %}
+									</div>
+								</div>
+							{% endfor %}
+							{% block body %}{% endblock %}
+						</main>
 					</div>
 				</div>
-			{% else %}
-				{% include "shared/_navbar.html.twig" %}
+			</div>
+		{% else %}
+			{% include "shared/_navbar.html.twig" %}
+			<div class="container pt-5" style="min-height: calc(100vh - 70px);">
+				{{ block('body') }}
+			</div>
+			{% include "shared/_footer.html.twig" %}
+		{% endif %}
+	</body>
 
-				<div class="container pt-5" style="min-height: calc(100vh - 70px);">
-					{{ block('body') }}
-				</div>
-				{% include "shared/_footer.html.twig" %}
-			{% endif %}
-		</body>
-	</html>
 	{% block javascripts %}
 		{{ encore_entry_script_tags('app') }}
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -22,7 +22,7 @@ use Symfony\Component\Notifier\Recipient\Recipient;
 
 
 /**
- * @Route("/register", name="register_")
+ * @Route("/inscription", name="register_")
  */
 class RegisterController extends AbstractController
 {
@@ -58,7 +58,6 @@ class RegisterController extends AbstractController
                 $influencer->setUser($user);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($influencer);
-
             } else if (array_search("ROLE_MARQUE", $user->getRoles()) !== false) {
                 $brand = new Brand();
                 $brand->setUser($user);
@@ -66,10 +65,10 @@ class RegisterController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($brand);
             }
-           
+
             $userEmail = $user->getEmail();
             $notification = (new Notification('Confirmation d\'inscription', ['email']))
-                ->content('Bienvenue '. $user->getLastname() . ' chez LIKEY et Merci pour votre confiance.');
+                ->content('Bienvenue ' . $user->getLastname() . ' chez LIKEY et Merci pour votre confiance.');
 
             // user recoit le mail
             $recipient = new Recipient(

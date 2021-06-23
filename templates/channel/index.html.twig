@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		{% if channels %}
+			<h2>Which chan do you want to join ?</h2>
+			<table class="table table-striped">
+				<tbody>
+					{% for channel in channels %}
+						<tr class="">
+							<th>
+								<span>{{ channel.name }}</span>
+								<a class="float-right btn btn-primary" href="{{ path('channel_chat', {id: channel.id}) }}">Go chat !</a>
+							</th>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<div>
+				<div class="text-center alert alert-danger">No Channels found.</div>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
