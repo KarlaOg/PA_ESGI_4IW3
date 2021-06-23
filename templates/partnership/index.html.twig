@@ -5,6 +5,18 @@
 {% endblock %}
 
 {% block body %}
+<div class="container mt-5">
+	<h1>Mes partenariats</h1>
+	{% if partnerships is empty %}
+		<p>Il n'y a pas de partenariats pour le moment.</p>
+	</br>
+	<p>Veuillez d'abords valider des candidatures</p>
+</div>
+	{% endif %}
+
+{% for partnership in partnerships %}
+{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
+	<div class="container mt-5">
 	<div class="container mt-5">
 		<h2 class="pb-2">Mes partenariats
 			{% if app.user.roles[0] ==  "ROLE_MARQUE" %}
@@ -113,7 +125,7 @@
 					{{ partnership.description }}
 				</p>
 			</div>
-		{% else %}
+		{% elseif  app.user.roles[0] == "ROLE_MARQUE" %}
 			<div class="card mb-3">
 				<div class="card-body">
 					<p>Nom de l'influenceur :
@@ -122,16 +134,13 @@
 					</p>
 					<p>Nom de l'offre: {{ partnership.name }} </p>
 					<p>Description de l'offre: {{ partnership.description }} </p>
-
 					<button type="submit"  id="checkout-button"  class="btn btn-warning">Payer votre influenceur</button>
-
-
 				</div>
 			</div>
 		</div>
 	</div>
 
-
+		{% endif %}
 	{% endfor %}
 
 
