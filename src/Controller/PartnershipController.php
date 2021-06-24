@@ -11,6 +11,9 @@ use App\Repository\ApplicationRepository;
 use App\Repository\InfluencerRepository;
 use App\Repository\BrandRepository;
 
+use App\Form\PaiementBrandType;
+use Symfony\Component\HttpFoundation\Request;
+
 class PartnershipController extends AbstractController
 {
     /**
@@ -67,9 +70,13 @@ class PartnershipController extends AbstractController
             // recuperer toutes les applications qui ont comme id notre id d'influenceur et qui ont été validé
             // renvoyer partnerships et brands
         }
+        $form = $this->createForm(PaiementBrandType::class);
+        $form->handleRequest($request);
+
         return $this->render('partnership/index.html.twig', [
             'partnerships' => $partnerships,
-            'collaborators' => $collaborators
+            'collaborators' => $collaborators,
+            'form' => $form->createView()
         ]);
     }
 }
