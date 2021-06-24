@@ -97,9 +97,15 @@ class Brand
      */
     private $offers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="brandId", orphanRemoval=true)
+     */
+    private $transactions;
+
     public function __construct()
     {
         $this->offers = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
     }
 
 
@@ -276,6 +282,36 @@ class Brand
             // set the owning side to null (unless already changed)
             if ($offer->getBrandId() === $this) {
                 $offer->setBrandId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transaction[]
+     */
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transaction): self
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions[] = $transaction;
+            $transaction->setBrandId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transaction $transaction): self
+    {
+        if ($this->transactions->removeElement($transaction)) {
+            // set the owning side to null (unless already changed)
+            if ($transaction->getBrandId() === $this) {
+                $transaction->setBrandId(null);
             }
         }
 

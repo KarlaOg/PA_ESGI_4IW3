@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Transaction;
+use App\Entity\Offer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +27,19 @@ class PaiementController extends AbstractController
      */
     public function success(): Response
     {
+        $price = 1000;
+
+        //$go = $this->getDoctrine()->getRepository(Offer::class)->find($id);
+
+        // $transaction = New Transaction();
+        // $transaction->setPrice($price);
+        // $transaction->setOfferId(42);
+        // $transaction->setBrandId("3");
+        // $transaction->setInfluencerId("3");
+
+        // $em = $this->getDoctrine()->getManager();
+        // $em->persist($transaction);
+        // $em->flush();
         return $this->render('paiement/success.html.twig');
     }
 
@@ -43,6 +58,7 @@ class PaiementController extends AbstractController
     */
     public function checkout()
     {
+        $price = 1000;
         \Stripe\Stripe::setApiKey('sk_test_51J4s40JmgFZZr5aDf6rWz1NB9FAJ25UTSXRVVpCv4T3TGEbZRyF20oacl8pB6dp6PH2gqteqyQhlnRbcxNaBZXbj00sBZCIiG1');
         $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
@@ -52,7 +68,7 @@ class PaiementController extends AbstractController
                 'product_data' => [
                 'name' => 'Partnership',
                 ],
-                'unit_amount' => 10000,
+                'unit_amount' => $price,
             ],
             'quantity' => 1,
             ]],
