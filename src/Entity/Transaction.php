@@ -24,19 +24,19 @@ class Transaction
 
     /**
      * @ORM\OneToOne(targetEntity=Offer::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $offerId;
 
     /**
      * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="transactions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $brandId;
 
     /**
      * @ORM\ManyToOne(targetEntity=Influencer::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $influencerId;
 

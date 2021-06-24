@@ -40,8 +40,9 @@
 					</p>
 					<p>Nom de l'offre: {{ partnership.name }} </p>
 					<p>Description de l'offre: {{ partnership.description }} </p>
-					<button type="submit"  id="checkout-button"  class="btn btn-warning">Payer votre influenceur</button>
- 			
+					{{ form_start(form) }}
+						<button type="submit"  id="checkout-button"  class="btn btn-warning">Payer votre influenceur</button>
+					{{ form_end(form) }}
 				</div>
 			</div>
 

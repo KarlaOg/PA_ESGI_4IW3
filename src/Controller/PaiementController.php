@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Transaction;
 use App\Entity\Offer;
+
+use App\Form\PaiementBrandType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -56,8 +58,23 @@ class PaiementController extends AbstractController
     /**
      * @Route("/create-checkout-session", name="checkout") 
     */
-    public function checkout()
+    public function checkout(Request $request)
     {
+        $price = new Transaction();
+        $form = $this->createForm(PaiementBrandType::class, $price);
+        $form->handleRequest($request);
+        dump("coco");
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($price);
+            $em->flush();
+            dump("coco");
+            $this->addFlash('info', 'Modification effectué');
+          
+        }
+        dump("coco");
+
+
         $price = 1000;
         \Stripe\Stripe::setApiKey('sk_test_51J4s40JmgFZZr5aDf6rWz1NB9FAJ25UTSXRVVpCv4T3TGEbZRyF20oacl8pB6dp6PH2gqteqyQhlnRbcxNaBZXbj00sBZCIiG1');
         $session = \Stripe\Checkout\Session::create([
