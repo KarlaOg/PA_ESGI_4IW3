@@ -39,20 +39,55 @@ class UsersController extends AbstractController
      * @Route("/accueil", name="users_data")
      */
 
-    public function usersData(BrandRepository $brandRepository, ApplicationRepository $applicationRepository, InfluencerRepository $influencerRepository)
+    public function usersData(OfferRepository $offerRepository, BrandRepository $brandRepository, ApplicationRepository $applicationRepository, InfluencerRepository $influencerRepository)
     {
         $user = $this->getUser();
 
         $brand = $brandRepository->findOneBy(['user' => $user]);
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
+        $validatedApps = array();
+        $partnerships = array();
+
         $application = $applicationRepository->findApplicationAndInfluencer($influencer);
 
+        // Recherche de partenariat pour un influenceur 
+        foreach($application as $app){
+            if( $app->getStatus() === "validated"){
+                array_push($validatedApps, $app);
+            }
+        }
+
+            if($brand){
+                $brandId = $brand->getId();
+                $offers = $offerRepository->findBy([
+                    'brandId' => $brandId
+                ]);
+                //on recupere toutes les applications en lien avec la marque
+                foreach ($offers as $offer) {
+                    $allApps = $offer->getApplication();
+
+                    foreach ($allApps as $app) {
+                        if ($app->getStatus() === "validated") {
+                            //recuperer l'influenceur qui a postulé l'offre
+                            $influencer = $influencerRepository->findOneBy([
+                                'id' => $app->getInfluencerId()->toArray()[0]
+                            ]);
+                            array_push($partnerships, $offer);
+                        }
+                    }
+                }
+            }
+            
         $countOfferInfluencer = count($application);
+        $countValidatedApps = count($validatedApps); // Influenceur
+        $countPartnerships = count($partnerships); // Marque
 
         return $this->render('users/data.html.twig', [
             'brand' => $brand,
             'countOfferInfluencer' => $countOfferInfluencer,
+            'countValidatedApps' => $countValidatedApps,
+            'countPartnerships' => $countPartnerships,
         ]);
     }
 
@@ -68,7 +103,6 @@ class UsersController extends AbstractController
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
         // GET ALL APPLICATIONS AS DOCTRINE PERSISTENT COLLECTION
         $allApplications = $influencerRepository->find($influencer)->getApplications();
-        $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
         $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
         $offers = $offerRepository->findBy([], ['dateCreation' => 'DESC']);
