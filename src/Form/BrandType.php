@@ -36,7 +36,7 @@ class BrandType extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => true,
             ])
-            ->add('siret', NumberType::class, [
+            ->add('siret', TextType::class, [
                 'required' => false,
             ])
             ->add('field', ChoiceType::class, [
