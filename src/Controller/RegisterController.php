@@ -107,40 +107,53 @@ class RegisterController extends AbstractController
     {
         $user = $this->getUser();
 
-
         $influcerInfos = $influencerRepository->findOneBy(['user' => $user]);
         $brandInfos = $brandRepository->findOneBy(['user' => $user]);
-        if ($user->getRoles() == ["ROLE_INFLUENCEUR"] ||   $user->getRoles()[0] == "ROLE_INFLUENCEUR") {
-            $form = $this->createForm(InfluencerType::class, $influcerInfos);
-            $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em->flush();
 
+        if ($influcerInfos) {
+            if ($influcerInfos->getName() !== null) {
                 return $this->redirectToRoute('users_data');
             }
-
-            $formView = $form->createView();
-
-            return $this->render('register/complete_influencer.html.twig', [
-                'formView' => $formView,
-            ]);
-        } else {
-            $form = $this->createForm(BrandType::class, $brandInfos);
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em->flush();
-
-                return $this->redirectToRoute('users_data');
-            }
-            $formView = $form->createView();
-
-            return $this->render('register/complete_brand.html.twig', [
-                'formView' => $formView,
-            ]);
         }
+        if ($brandInfos) {
+            if ($brandInfos->getName() !== null) {
+                return $this->redirectToRoute('users_data');
+            }
+        }
+        if ($user !== null) {
+            if ($user->getRoles() == ["ROLE_INFLUENCEUR"] ||   $user->getRoles()[0] == "ROLE_INFLUENCEUR") {
+                $form = $this->createForm(InfluencerType::class, $influcerInfos);
+                $form->handleRequest($request);
 
-        return $this->redirectToRoute('users_data');
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $em->flush();
+
+                    return $this->redirectToRoute('users_data');
+                }
+
+                $formView = $form->createView();
+
+                return $this->render('register/complete_influencer.html.twig', [
+                    'formView' => $formView,
+                ]);
+            } else {
+                $form = $this->createForm(BrandType::class, $brandInfos);
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $em->flush();
+
+                    return $this->redirectToRoute('users_data');
+                }
+                $formView = $form->createView();
+
+                return $this->render('register/complete_brand.html.twig', [
+                    'formView' => $formView,
+                ]);
+            }
+
+            return $this->redirectToRoute('users_data');
+        }
     }
 }

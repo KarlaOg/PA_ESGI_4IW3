@@ -10,8 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
-use App\Validator\ValidSiret;
-
 
 /**
  * @ORM\Entity(repositoryClass=BrandRepository::class)
@@ -36,6 +34,11 @@ class Brand
     private $user;
 
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(type="integer")
+     */
+    private $siret;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -91,12 +94,6 @@ class Brand
      */
     private $offers;
 
-    /**
-     * @ORM\Column(type="string", nullable=true, unique=true)
-     * @ValidSiret
-     */
-    private $siret;
-
     public function __construct()
     {
         $this->offers = new ArrayCollection();
@@ -120,6 +117,18 @@ class Brand
         return $this;
     }
 
+
+    public function getSiret(): ?int
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(int $siret): self
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
 
     public function getName(): ?string
     {
@@ -266,18 +275,6 @@ class Brand
                 $offer->setBrandId(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getSiret(): ?string
-    {
-        return $this->siret;
-    }
-
-    public function setSiret(?string $siret): self
-    {
-        $this->siret = $siret;
 
         return $this;
     }

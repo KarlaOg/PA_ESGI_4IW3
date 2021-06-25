@@ -41,7 +41,11 @@ class Influencer
         'Twitch' => ''
     ];
 
-
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(type="integer")
+     */
+    private $siret;
 
     /**
      * @ORM\ManyToMany(targetEntity=Application::class, mappedBy="influencerId")
@@ -96,16 +100,6 @@ class Influencer
      */
     private $user;
 
-    /**
-     * @ORM\Column(type="string", length=42, nullable=true)
-     * @Assert\Range(
-     *     min = 14,
-     *     max = 14,
-     *     notInRangeMessage = "Votre numéro de siret dois avoir 14 chiffres",
-     * )
-     */
-    private $siret;
-
     public function __construct()
     {
         $this->applications = new ArrayCollection();
@@ -144,6 +138,17 @@ class Influencer
         return $this;
     }
 
+    public function getSiret(): ?int
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?int $siret): self
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
 
     /**
      * @return Collection|Application[]
@@ -302,18 +307,6 @@ class Influencer
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function getSiret(): ?string
-    {
-        return $this->siret;
-    }
-
-    public function setSiret(?string $siret): self
-    {
-        $this->siret = $siret;
 
         return $this;
     }
