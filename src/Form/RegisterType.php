@@ -3,10 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Entity\Brand;
-use App\Entity\Influencer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Regex;
 
@@ -21,11 +18,6 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\CallbackTransformer;
-
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
 
 class RegisterType extends AbstractType
 {
@@ -55,13 +47,11 @@ class RegisterType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'label' => 'Vous êtes',
                 'choices' => array(
-                    'Selectionnez votre profil' => "",
                     'Marque' => "ROLE_MARQUE",
                     'Influenceur' => 'ROLE_INFLUENCEUR',
                 ),
+                'multiple'  => true,
                 'required' => true,
-                'multiple' => false,
-                'expanded' => false
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
@@ -79,30 +69,7 @@ class RegisterType extends AbstractType
             ])
             ->add('isAdmin', HiddenType::class, [
                 'empty_data' => 0
-            ])
-
-            ->add('influencer', CollectionType::class, [
-                'entry_type' => InfluencerType::class,
-            ])
-
-
-        ;
-
-
-
-            $builder->get('roles')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                     // transform the array to a string
-                     return count($rolesArray)? $rolesArray[0]: null;
-                },
-                function ($rolesString) {
-                     // transform the string back to an array
-                     return [$rolesString];
-                }
-        ));
-
-
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
