@@ -34,7 +34,7 @@
 		{% elseif  app.user.roles[0] == "ROLE_MARQUE" %}
 			<div class="card mb-3">
 				<div class="card-body">
-					<p>Nom de l'influenceur : 
+					<p>Nom de l'influenceur :
 						<a href="{{ path('influencer_show', {'username': collaborators[loop.index0].name }) }}" >{{ collaborators[loop.index0].name }}
 						</a>
 					</p>
@@ -47,7 +47,7 @@
 			</div>
 
 
-		{% endif %}	
+		{% endif %}
 	{% endfor %}
 {% endblock %}
 

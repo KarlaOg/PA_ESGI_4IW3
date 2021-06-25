@@ -6,11 +6,14 @@ use App\Entity\Transaction;
 use App\Entity\Offer;
 
 use App\Form\PaiementBrandType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PaiementController extends AbstractController
 {
@@ -60,20 +63,7 @@ class PaiementController extends AbstractController
     */
     public function checkout(Request $request)
     {
-        $price = new Transaction();
-        $form = $this->createForm(PaiementBrandType::class, $price);
-        $form->handleRequest($request);
-        dump("coco");
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($price);
-            $em->flush();
-            dump("coco");
-            $this->addFlash('info', 'Modification effectué');
-          
-        }
-        dump("coco");
-
+        // il va falloir get le prix du paiement pour lo'ffre en questionn
 
         $price = 1000;
         \Stripe\Stripe::setApiKey('sk_test_51J4s40JmgFZZr5aDf6rWz1NB9FAJ25UTSXRVVpCv4T3TGEbZRyF20oacl8pB6dp6PH2gqteqyQhlnRbcxNaBZXbj00sBZCIiG1');

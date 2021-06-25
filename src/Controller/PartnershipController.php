@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\OfferRepository;
 use App\Entity\Application;
+use App\Entity\Transaction;
 use App\Repository\ApplicationRepository;
 use App\Repository\InfluencerRepository;
 use App\Repository\BrandRepository;
@@ -77,6 +78,25 @@ class PartnershipController extends AbstractController
         return $this->render('partnership/index.html.twig', [
             'partnerships' => $partnerships,
             'collaborators' => $collaborators,
+            'form' => $form->createView()
+        ]);
+    }
+    /**
+     * @Route("/detail-paiment", name="detail_paiement")
+     */
+    public function setPriceForPayment(Request $request){
+        $price = new Transaction();
+        $form = $this->createForm(PaiementBrandType::class, $price);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($price);
+            $em->flush();
+            $this->addFlash('info', 'Modification effectué');
+
+        }
+        return $this->render('partnership/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }
