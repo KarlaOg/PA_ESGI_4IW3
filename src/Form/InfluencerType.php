@@ -4,16 +4,11 @@ namespace App\Form;
 
 use App\Entity\Influencer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\Regex;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class InfluencerType extends AbstractType
@@ -31,18 +26,17 @@ class InfluencerType extends AbstractType
             ])
             ->add('name', TextType::class, [
                 'label' => 'Nom',
-                'required' => false,
+                'required' => true,
             ])
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
                 'trim' => true,
-                'required' => false,
+                'required' => true,
             ])
             ->add('description', TextareaType::class, [
-                'required' => false,
-
+                'required' => true,
             ])
-            ->add('siret', IntegerType::class, [
+            ->add('siret', TextType::class, [
                 'required' => false,
             ])
             ->add('type', ChoiceType::class, [
@@ -58,43 +52,43 @@ class InfluencerType extends AbstractType
                     'Humour' => 'Humour',
                 ),
                 'multiple'  => true,
-                'required' => false,
+                'required' => true,
                 'expanded' => true
 
             ])
-            ->add('website', UrlType::class, [
+            ->add('website', TextType::class, [
                 'label' => 'Site web',
                 'property_path' => 'socialNetwork[Website]',
                 'required' => false,
             ])
-            ->add('instagram', UrlType::class, [
+            ->add('instagram', TextType::class, [
                 'label' => 'Instagram',
                 'property_path' => 'socialNetwork[Instagram]',
                 'required' => false,
             ])
-            ->add('tiktok', UrlType::class, [
+            ->add('tiktok', TextType::class, [
                 'label' => 'Tiktok',
                 'property_path' => 'socialNetwork[Tiktok]',
                 'required' => false,
             ])
-            ->add('facebook', UrlType::class, [
+            ->add('facebook', TextType::class, [
                 'label' => 'Facebook',
                 'property_path' => 'socialNetwork[Facebook]',
                 'required' => false,
             ])
-            ->add('youtube', UrlType::class, [
+            ->add('youtube', TextType::class, [
                 'label' => 'Youtube',
                 'property_path' => 'socialNetwork[Youtube]',
                 'required' => false,
 
             ])
-            ->add('twitter', UrlType::class, [
+            ->add('twitter', TextType::class, [
                 'label' => 'Twitter',
                 'property_path' => 'socialNetwork[Twitter]',
                 'required' => false,
 
             ])
-            ->add('twitch', UrlType::class, [
+            ->add('twitch', TextType::class, [
                 'label' => 'Twitch',
                 'property_path' => 'socialNetwork[Twitch]',
                 'required' => false,
