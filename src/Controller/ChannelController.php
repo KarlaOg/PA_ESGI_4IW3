@@ -55,7 +55,6 @@ class ChannelController extends AbstractController
      */
     public function createChannel2(User $user, ChannelRepository $channelRepository, BrandRepository $brandRepository, InfluencerRepository $influencerRepository ): Response
     {
-        // TODO dans le cas ou le channel existe déja, il faut redirect sans creer de nouveau
         $user1 = $this->getUser();
         $user2 = $user;
 
