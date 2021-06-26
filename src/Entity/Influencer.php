@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use App\Validator\ValidSiret;
 
 /**
  * @ORM\Entity(repositoryClass=InfluencerRepository::class)
@@ -42,8 +43,8 @@ class Influencer
     ];
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Type(type="integer")
+     * @ORM\Column(type="string", nullable=true, unique=true)
+     * @ValidSiret
      */
     private $siret;
 
@@ -143,7 +144,7 @@ class Influencer
         return $this->siret;
     }
 
-    public function setSiret(?int $siret): self
+    public function setSiret(?string $siret): self
     {
         $this->siret = $siret;
 
