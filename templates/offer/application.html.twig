@@ -7,25 +7,29 @@
 
 
 {% block body %}
-	<h1>Candidatures</h1>
-	{% if influencers is empty %}
-		<p>Il n'y a pas de candidature pour le moment. </br> Laissez le temps aux influenceurs de voir votre offre.</p>
+	<div class="container pt-5">
+		<h2 class="pb-5">Candidatures</h2>
+		{% if influencers is empty %}
+			<p>Il n'y a pas de candidature pour le moment.</p>
+		</br>
+		<p>Laissez le temps aux influenceurs de voir votre offre.</p>
 	{% endif %}
 	{% for influencer in influencers %}
 		{% if applications[loop.index0].status == "pending" %}
-		<div class="card mb-3">
-			<div class="card-body">
-				<p>Nom : {{ influencer.username|capitalize }}</p>
-				</p>
-				<a href="{{ path('influencer_show', {'username': influencer.username}) }}">Voir le profil</a>
-				
+			<div class="mb-3 card">
+				<div class="card-body">
+					<p>Nom :
+						{{ influencer.username|capitalize }}</p>
+					<div class="pb-5 underline">
+						<a href="{{ path('influencer_show', {'username': influencer.username}) }}">Voir le profil</a>
+					</div>
+
 					<div class="card-action">
-						<a href="{{ path('offer_validated_partnership', {'id': applications[loop.index0].offer.id, 'application': applications[loop.index0].id }) }}" class="btn btn-success">Valider le partenariat</a>
+						<a href="{{ path('offer_validated_partnership', {'id': applications[loop.index0].offer.id, 'application': applications[loop.index0].id }) }}" class="mr-5 btn btn-success">Valider le partenariat</a>
 						<a href="{{ path('offer_refuse_partnership', {'id': applications[loop.index0].offer.id, 'application': applications[loop.index0].id }) }}" class="btn btn-danger">Refuser le partenariat</a>
 					</div>
+				</div>
 			</div>
-		</div>
 		{% endif %}
 	{% endfor %}
-
-{% endblock %}
+</div>{% endblock %}
