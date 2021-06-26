@@ -20,12 +20,24 @@ use Symfony\Component\WebLink\Link;
 class ChannelController extends AbstractController
 {
     /**
-     * @Route("/chan", name="channel_home")
+     * @Route("/chan/{id}", name="channel_home")
      */
-    public function getChannels(ChannelRepository $channelRepository): Response
+    public function getChannels(User $user, ChannelRepository $channelRepository): Response
     {
-        $channels = $channelRepository->findAll();
+        if($this->getUser() != $user){
+            return $this->render('channel/index.html.twig', [
+                'channels' =>  "Security"
+            ]);
+        }
 
+        $channels = $channelRepository->findBy([
+            'user1' => $user
+        ]);
+        if ($channels == null){
+            $channels = $channelRepository->findBy([
+                'user2' => $user
+            ]);
+        }
         return $this->render('channel/index.html.twig', [
             'channels' => $channels ?? []
         ]);

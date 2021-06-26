@@ -7,7 +7,7 @@
 
 	<div class="container">
 
-		{% if channels %}
+		{% if channels and channels != "Security"%}
 			<h2>Which chan do you want to join ?</h2>
 			<table class="table table-striped">
 				<tbody>
@@ -21,6 +21,10 @@
 					{% endfor %}
 				</tbody>
 			</table>
+		{% elseif channels == "Security" %}
+			<div>
+				<div class="text-center alert alert-danger">Prohibited action.</div>
+			</div>
 		{% else %}
 			<div>
 				<div class="text-center alert alert-danger">No Channels found.</div>
