@@ -13,6 +13,19 @@ Encore
   //quel est le fichier ou on va recuperer les elements
   .setPublicPath('/build')
 
+  .copyFiles({
+    from: './assets/images',
+
+    // optional target path, relative to the output dir
+    //to: 'images/[path][name].[ext]',
+
+    // if versioning is enabled, add the file hash too
+    //to: 'images/[path][name].[hash:8].[ext]',
+
+    // only copy files matching this pattern
+    //pattern: /\.(png|jpg|jpeg)$/
+  })
+
   /*
    * ENTRY CONFIG
    *
@@ -47,7 +60,7 @@ if (Encore.isProduction()) {
     new PurgeCssPlugin({
       paths: glob.sync([path.join(__dirname, 'templates/**/*.html.twig')]),
       defaultExtractor: (content) => {
-        return content.match(/[\w-/:]+(?<!:)/g) || [];
+        return content.match(/[\w-/:]+(?<!:)/g) || []
       },
     })
   );
