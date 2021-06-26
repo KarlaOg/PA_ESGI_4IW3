@@ -78,6 +78,11 @@ class UsersController extends AbstractController
                     }
                 }
             }
+           
+        $lastOffers = $offerRepository->findBy([], array('id' => 'desc'), 4, 0);
+        $lastInfluencer = $influencerRepository->findBy([], array('id' => 'desc'), 4, 0);
+
+
             
         $countOfferInfluencer = count($application);
         $countValidatedApps = count($validatedApps); // Influenceur
@@ -88,6 +93,8 @@ class UsersController extends AbstractController
             'countOfferInfluencer' => $countOfferInfluencer,
             'countValidatedApps' => $countValidatedApps,
             'countPartnerships' => $countPartnerships,
+            'lastOffers'=> $lastOffers,
+            'lastInfluencer'=> $lastInfluencer
         ]);
     }
 

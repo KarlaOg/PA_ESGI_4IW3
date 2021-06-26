@@ -7,11 +7,13 @@
 	{% set var = [] %}
 	{% set newArray = [] %}
 	<div class="container pt-5">
-		<h1>{{ offer.name|capitalize }}</h1>
+		<a href="{{ path('offer_index') }}" > / Toutes les offres </a>
+<hr>
+		<h2>{{ offer.name|capitalize }}</h2>
 		<h2>Marque :
 			{{ offer.brandId.name}}
 		</h2>
-		<div class="mb-3 card">
+		<div class="mb-3 card rounded">
 
 			<div class="card-body">
 				{% for app in offerApplied %}
@@ -74,7 +76,6 @@
 				</div>
 			</div>
 		</div>
-		<a href="{{ path('offer_index') }}" class="btn btn-primary">Toutes les offres</a>
 
 	</div>
 {% endblock %}
