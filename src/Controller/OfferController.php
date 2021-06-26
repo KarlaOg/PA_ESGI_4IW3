@@ -27,7 +27,7 @@ use Symfony\Component\Notifier\Recipient\Recipient;
  * Class OfferController
  * @package App\Controller
  *
- * @Route("/offer", name="offer_")
+ * @Route("/offre", name="offer_")
  */
 
 class OfferController extends AbstractController
@@ -70,7 +70,7 @@ class OfferController extends AbstractController
         ]);
     }
     /**
-     * @Route("/new", name="new", methods={"GET", "POST"})
+     * @Route("/nouveau", name="new", methods={"GET", "POST"})
      * @IsGranted("ROLE_MARQUE", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
 
@@ -114,7 +114,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="show", methods={"GET"})
+     * @Route("/liste/{id}", name="show", methods={"GET"})
      */
     public function show($id, Offer $offer, BrandRepository $brandRepository, ApplicationRepository $applicationRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository)
     {
@@ -157,7 +157,7 @@ class OfferController extends AbstractController
 
 
     /**
-     * @Route("/edit/{id}", name="edit", methods={"GET", "POST"})
+     * @Route("/editer/{id}", name="edit", methods={"GET", "POST"})
      */
     public function edit($id, Offer $offer, Request $request, OfferRepository $offerRepository)
     {
@@ -185,7 +185,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/apply/{id}/", name="apply", methods={ "GET", "POST"})
+     * @Route("/postuler/{id}/", name="apply", methods={ "GET", "POST"})
      */
     public function apply(Offer $offer, Request $request,  NotifierInterface $notifier, influencerRepository $influencerRepository, applicationRepository $applicationRepository)
     {
@@ -246,7 +246,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/show_applications/{id}", name="show_applications")
+     * @Route("/applications/{id}", name="show_applications")
      */
     public function show_applications($id, OfferRepository $offerRepository)
     {
@@ -268,7 +268,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/validated_partnership/{id}", name="validated_partnership")
+     * @Route("/partenariat-valider/{id}", name="validated_partnership")
      */
     public function validated_partnership($id, Request $request, influencerRepository $influencerRepository, NotifierInterface $notifier, ApplicationRepository $applicationRepository, OfferRepository $offerRepository)
     {
@@ -322,7 +322,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/refuse_partnership/{id}", name="refuse_partnership")
+     * @Route("/partenariat-refuser/{id}", name="refuse_partnership")
      */
     public function refuse_partnership($id, Request $request, NotifierInterface $notifier, ApplicationRepository $applicationRepository, OfferRepository $offerRepository)
     {
@@ -359,7 +359,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}/{token}", name="delete", methods={"GET"})
+     * @Route("/suppression:qq/{id}/{token}", name="delete", methods={"GET"})
      * @IsGranted("ROLE_MARQUE", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
     public function delete($id, Offer $offer, $token, OfferRepository $offerRepository)
