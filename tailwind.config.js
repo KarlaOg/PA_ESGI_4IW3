@@ -1,9 +1,8 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  future: {
-  },
-  purge: [],
+  future: {},
+  purge: ['./src/**/*.html', './src/**/*.vue', './src/**/*.jsx'],
   theme: {
     extend: {},
   },
