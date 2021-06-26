@@ -59,11 +59,21 @@ class ChannelController extends AbstractController
         $user1 = $this->getUser();
         $user2 = $user;
 
-        /*$findChannel = $channelRepository->findBy([
+        $findChannel = $channelRepository->findBy([
             'user1' => $user1,
             'user2' => $user2
         ]);
-        die();*/
+        if($findChannel != null){
+            return $this->redirectToRoute('channel_chat', ['id' => $findChannel[0]->getId()]);
+        }else{
+            $findChannel = $channelRepository->findBy([
+                'user1' => $user2,
+                'user2' => $user1
+            ]);
+            if($findChannel != null)
+                return $this->redirectToRoute('channel_chat', ['id' => $findChannel[0]->getId()]);
+        }
+
         $channel = new Channel();
         if($user2->getRoles[0] = "ROLE_MARQUE" ){
             $name1 = $influencerRepository->findBy(['user' => $user1->getId()])[0]->getName();
