@@ -22,7 +22,7 @@ use Symfony\Component\Notifier\Recipient\Recipient;
 
 
 /**
- * @Route("/inscription", name="register_")
+ * @Route("/register", name="register_")
  */
 class RegisterController extends AbstractController
 {

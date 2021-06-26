@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DashbaordController extends AbstractController
 {
     /**
-     * @Route("/admin/accueil", name="dashbaord_admin_dashbaord")
+     * @Route("/admin/dashbaord", name="dashbaord_admin_dashbaord")
      */
     public function index(UserRepository $userRepository, ApplicationRepository $applicationRepository, OfferRepository $offerRepository)
     {

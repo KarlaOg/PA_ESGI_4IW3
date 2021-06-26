@@ -14,7 +14,7 @@ class OffersController extends AbstractController
 {
 
     /**
-     * @Route("/admin/liste/offres", name="offers_admin_list")
+     * @Route("/admin/list/offers", name="offers_admin_list")
      */
     public function list(OfferRepository $offerRepository, BrandRepository $brandRepository)
     {
@@ -26,7 +26,7 @@ class OffersController extends AbstractController
     }
 
     /**
-     * @Route("admin/offre/editer/{id}", name="offers_admin_edit")
+     * @Route("admin/offer/edit/{id}", name="offers_admin_edit")
      */
     public function edit($id, Offer $offer, Request $request, OfferRepository $offerRepository)
     {
@@ -52,7 +52,7 @@ class OffersController extends AbstractController
 
 
     /**
-     * @Route("admin/offre/{id}", name="offer_admin_delete")
+     * @Route("admin/offer/{id}", name="offer_admin_delete")
      */
     public function delete($id)
     {

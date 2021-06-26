@@ -14,7 +14,7 @@ use App\Repository\BrandRepository;
 class PartnershipController extends AbstractController
 {
     /**
-     * @Route("/mes-partenariats", name="my_partnership")
+     * @Route("/my_partnership", name="my_partnership")
      */
     public function my_partnership(OfferRepository $offerRepository, ApplicationRepository $applicationRepository, influencerRepository $influencerRepository, brandRepository $brandRepository)
     {

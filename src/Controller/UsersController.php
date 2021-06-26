@@ -36,7 +36,7 @@ class UsersController extends AbstractController
 {
 
     /**
-     * @Route("/accueil", name="users_data")
+     * @Route("/home", name="users_data")
      */
 
     public function usersData(OfferRepository $offerRepository, BrandRepository $brandRepository, ApplicationRepository $applicationRepository, InfluencerRepository $influencerRepository)
@@ -93,7 +93,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/offres", name="users_offers")
+     * @Route("/offers", name="users_offers")
      * @IsGranted("ROLE_INFLUENCEUR", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
 
@@ -119,7 +119,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("profil/editer", name="users_edit")
+     * @Route("profile/edit", name="users_edit")
      */
     public function edit(Request $request)
     {
@@ -143,7 +143,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("profil/infos", name="users_complete")
+     * @Route("profile/complete", name="users_complete")
      */
     public function complete(Request $request, EntityManagerInterface $em, InfluencerRepository $influencerRepository, BrandRepository $brandRepository)
     {
@@ -185,7 +185,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("profil/mot-de-passe", name="users_pass_modifier")
+     * @Route("profile/change-password", name="users_pass_modifier")
      */
     public function editPass(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
