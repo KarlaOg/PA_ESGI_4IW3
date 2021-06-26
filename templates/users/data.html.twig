@@ -80,6 +80,35 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="overflow-hidden bg-white rounded-lg shadow">
+					<div class="p-5">
+						<div class="flex items-center">
+							<div class="flex-shrink-0">
+
+								<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+								</svg>
+							</div>
+							<div class="flex-1 w-0 ml-5">
+								<dl>
+									<dt class="text-sm font-medium text-gray-500 truncate">
+										Nombre de partenariat(s)
+									</dt>
+									<dd>
+										<div class="text-lg font-medium text-gray-900">{{countValidatedApps}}</div>
+									</dd>
+								</dl>
+							</div>
+						</div>
+					</div>
+					<div class="px-5 py-3 bg-gray-50">
+						<div class="text-sm">
+							<a href="{{ path('my_partnership') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+								Voir
+							</a>
+						</div>
+					</div>
 			{% elseif app.user.roles[0] == "ROLE_MARQUE" %}
 				<div class="overflow-hidden bg-white rounded-lg shadow">
 					<div class="p-5">
@@ -93,7 +122,7 @@
 							<div class="flex-1 w-0 ml-5">
 								<dl>
 									<dt class="text-sm font-medium text-gray-500 truncate">
-										Nombre d'offres créers
+										Nombre d'offres créées
 									</dt>
 									<dd>
 										<div class="text-lg font-medium text-gray-900">{{brand.offers|length}}</div>
@@ -109,7 +138,38 @@
 							</a>
 						</div>
 					</div>
+				</div>
 
+				<div class="overflow-hidden bg-white rounded-lg shadow">
+					<div class="p-5">
+						<div class="flex items-center">
+							<div class="flex-shrink-0">
+
+								<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+								</svg>
+							</div>
+							<div class="flex-1 w-0 ml-5">
+								<dl>
+									<dt class="text-sm font-medium text-gray-500 truncate">
+										Nombre de partenariat(s)
+									</dt>
+									<dd>
+										<div class="text-lg font-medium text-gray-900">{{countPartnerships}}</div>
+
+									</dd>
+								</dl>
+							</div>
+						</div>
+					</div>
+					<div class="px-5 py-3 bg-gray-50">
+						<div class="text-sm">
+							<a href="{{ path('my_partnership') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+								Voir
+							</a>
+						</div>
+					</div>
+				</div>
 				{% endif %}
 			</div>
 		</div>
