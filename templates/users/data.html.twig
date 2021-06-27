@@ -3,71 +3,128 @@
 {% endblock %}
 {% block body %}
 
-	<div class="bg-white shadow">
-		<div class="px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
-			<div class="py-6 md:flex md:items-center md:justify-between lg:border-t lg:border-gray-200">
-				<div
-					class="flex-1 min-w-0">
-					<!-- Profile -->
-					<div class="flex items-center">
-						<div>
-							<div class="flex items-center">
-								<h1 class="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-									Bonjour,
-									{{app.user.firstname}}
-								</h1>
-							</div>
-							<dl class="flex flex-col mt-6 sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
-								<dt class="sr-only">Company</dt>
-								<dd class="flex items-center text-sm font-medium text-gray-500 capitalize sm:mr-6">
-									{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
-										<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full role">
-											Influenceur
-										</span>
-									{% elseif app.user.roles[0] == "ROLE_MARQUE" %}
-										<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full role">
-											Marque
-										</span>
+<div class="bg-white shadow">
+	<div class="px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
+		<div class="py-6 md:flex md:items-center md:justify-between lg:border-t lg:border-gray-200">
+			<div
+				class="flex-1 min-w-0">
+				<!-- Profile -->
+				<div class="flex items-center">
+					<div>
+						<div class="flex items-center">
+							<h1 class="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
+								Bonjour,
+								{{app.user.firstname}}
+							</h1>
+						</div>
+						<dl class="flex flex-col mt-6 sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
+							<dt class="sr-only">Company</dt>
+							<dd class="flex items-center text-sm font-medium text-gray-500 capitalize sm:mr-6">
+								{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
+									<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full role">
+										Influenceur
+									</span>
+								{% elseif app.user.roles[0] == "ROLE_MARQUE" %}
+									<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full role">
+										Marque
+									</span>
 
-									{% endif %}
-								</dd>
+								{% endif %}
 							</dd>
-						</dl>
-					</div>
+						</dd>
+					</dl>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</div></div><div class="mt-8">
+<div class="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
 
-<div class="mt-8">
-	<div class="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
+	<div
+		class="grid grid-cols-1 gap-5 mt-2 sm:grid-cols-2 lg:grid-cols-2" x-max="1">
+		<!-- Card -->
+		<h2 class="text-lg font-medium leading-6 text-gray-900">Votre aperçu</h2>
+		<hr>
+		{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
+			<div class="overflow-hidden bg-white rounded-lg shadow">
+				<div class="p-5">
+					<div class="flex items-center">
+						<div class="flex-shrink-0">
 
-		<div
-			class="grid grid-cols-1 gap-5 mt-2 sm:grid-cols-2 lg:grid-cols-2" x-max="1">
-			<!-- Card -->
-			<h2 class="text-lg font-medium leading-6 text-gray-900">Votre aperçu</h2>
-			<hr>
-			{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
+							<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+							</svg>
+						</div>
+						<div class="flex-1 w-0 ml-5">
+							<dl>
+								<dt class="text-sm font-medium text-gray-500 truncate">
+									Nombre d'offres postulés
+								</dt>
+								<dd>
+									<div class="text-lg font-medium text-gray-900">
+										{{countOfferInfluencer}}
+
+									</div>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+				<div class="px-5 py-3 bg-gray-50">
+					<div class="text-sm">
+						<a href="{{ path('users_offers') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+							Voir
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="overflow-hidden bg-white rounded-lg shadow">
+				<div class="p-5">
+					<div class="flex items-center">
+						<div class="flex-shrink-0">
+
+							<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+							</svg>
+						</div>
+						<div class="flex-1 w-0 ml-5">
+							<dl>
+								<dt class="text-sm font-medium text-gray-500 truncate">
+									Nombre de partenariat(s)
+								</dt>
+								<dd>
+									<div class="text-lg font-medium text-gray-900">{{countValidatedApps}}</div>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+				<div class="px-5 py-3 bg-gray-50">
+					<div class="text-sm">
+						<a href="{{ path('my_partnership') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+							Voir
+						</a>
+					</div>
+				</div>
+
+			{% elseif app.user.roles[0] == "ROLE_MARQUE" %}
 				<div class="overflow-hidden bg-white rounded-lg shadow">
 					<div class="p-5">
 						<div class="flex items-center">
 							<div class="flex-shrink-0">
 
 								<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-									<pathço stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
 								</svg>
 							</div>
 							<div class="flex-1 w-0 ml-5">
 								<dl>
 									<dt class="text-sm font-medium text-gray-500 truncate">
-										Nombre d'offres postulés
+										Nombre d'offres créées
 									</dt>
 									<dd>
-										<div class="text-lg font-medium text-gray-900">
-											{{countOfferInfluencer}}
-
-										</div>
+										<div class="text-lg font-medium text-gray-900">{{brand.offers|length}}</div>
 									</dd>
 								</dl>
 							</div>
@@ -75,7 +132,7 @@
 					</div>
 					<div class="px-5 py-3 bg-gray-50">
 						<div class="text-sm">
-							<a href="{{ path('users_offers') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+							<a href="{{ path('offer_index') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
 								Voir
 							</a>
 						</div>
@@ -97,7 +154,8 @@
 										Nombre de partenariat(s)
 									</dt>
 									<dd>
-										<div class="text-lg font-medium text-gray-900">{{countValidatedApps}}</div>
+										<div class="text-lg font-medium text-gray-900">{{countPartnerships}}</div>
+
 									</dd>
 								</dl>
 							</div>
@@ -110,194 +168,135 @@
 							</a>
 						</div>
 					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+<br>
+<div class="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
 
-				{% elseif app.user.roles[0] == "ROLE_MARQUE" %}
-					<div class="overflow-hidden bg-white rounded-lg shadow">
-						<div class="p-5">
-							<div class="flex items-center">
-								<div class="flex-shrink-0">
+	<div
+		class="grid grid-cols-1 gap-5 mt-2 sm:grid-cols-2 lg:grid-cols-2" x-max="1">
+		<!-- Card -->
+		{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
+			<h2 class="text-lg font-medium leading-6 text-gray-900">Les dernières offres</h2>
+			<hr>
 
-									<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-									</svg>
-								</div>
-								<div class="flex-1 w-0 ml-5">
-									<dl>
-										<dt class="text-sm font-medium text-gray-500 truncate">
-											Nombre d'offres créées
-										</dt>
-										<dd>
-											<div class="text-lg font-medium text-gray-900">{{brand.offers|length}}</div>
-										</dd>
-									</dl>
-								</div>
+			{% for oneOffer in lastOffers  %}
+
+				<div class="overflow-hidden bg-white rounded-lg shadow">
+					<div class="p-5">
+						<div class="flex items-center">
+							<div class="flex-shrink-0">
+
+								<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+								</svg>
 							</div>
-						</div>
-						<div class="px-5 py-3 bg-gray-50">
-							<div class="text-sm">
-								<a href="{{ path('offer_index') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
-									Voir
-								</a>
-							</div>
-						</div>
-					</div>
+							<div class="flex-1 w-0 ml-5">
+								<dl>
+									<dt class="text-sm font-medium text-gray-500 truncate">
+										{{ oneOffer.name }}
+									</dt>
+									<dd>
+										<div class="text-lg font-medium text-gray-900">
+											<p>
+												{{ oneOffer.description |slice(0, 50)}}...</p>
+										</div>
+										<div>
+											{{ oneOffer.dateStart ? oneOffer.dateStart|date('d/m/Y') : 'NC'}}
+											-
 
-					<div class="overflow-hidden bg-white rounded-lg shadow">
-						<div class="p-5">
-							<div class="flex items-center">
-								<div class="flex-shrink-0">
+											{{ oneOffer.dateStart ? oneOffer.dateEnd|date('d/m/Y') : 'NC'}}</div>
+										<div>
+											<br>
+											{% for onefield in oneOffer.field  %}
+												<span class="inline-flex px-2 text-xs font-semibold leading-5 text-pink-800 bg-pink-100 rounded-full role">
+													{{ onefield}}
+												</span>
+											{% endfor %}
+										</div>
 
-									<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-									</svg>
-								</div>
-								<div class="flex-1 w-0 ml-5">
-									<dl>
-										<dt class="text-sm font-medium text-gray-500 truncate">
-											Nombre de partenariat(s)
-										</dt>
-										<dd>
-											<div class="text-lg font-medium text-gray-900">{{countPartnerships}}</div>
-
-										</dd>
-									</dl>
-								</div>
-							</div>
-						</div>
-						<div class="px-5 py-3 bg-gray-50">
-							<div class="text-sm">
-								<a href="{{ path('my_partnership') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
-									Voir
-								</a>
+									</dd>
+								</dl>
 							</div>
 						</div>
 					</div>
-				{% endif %}
+					<div class="px-5 py-3 bg-gray-50">
+						<div class="text-sm">
+							<a href="{{ path('offer_show', {'id': oneOffer.id}) }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+								Voir l'offre</a>
+
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+
+
+		{% if app.user.roles[0] == "ROLE_MARQUE" %}
+			<h2 class="text-lg font-medium leading-6 text-gray-900">Les derniers Influenceurs</h2>
+			<hr>
+			{% for oneInfluencer in lastInfluencer %}
+
+				<div class="overflow-hidden bg-white rounded-lg shadow">
+					<div class="p-5">
+						<div class="flex items-center">
+							<div class="flex-shrink-0">
+								{% if oneInfluencer.profilePhoto is empty %}
+									<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+										<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+											<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+										</svg>
+									</span>
+								{% else %}
+									<img src="{{ asset('uploads/image_user/' ~ oneInfluencer.profilePhoto) }}" alt="photos de profile"/>
+								{% endif %}
+							</div>
+							<div class="flex-1 w-0 ml-5">
+								<dl>
+
+									<div class="text-lg font-medium text-gray-900">
+										<p>
+											{{ oneInfluencer.name }}
+
+										</p>
+										<p>
+											{{ oneInfluencer.username }}
+
+										</p>
+									</div>
+
+									<dd>
+										<div class="text-lg font-medium text-gray-900"></div>
+									</dd>
+									<dt class="text-sm font-medium text-gray-500 truncate">
+										{{ oneInfluencer.description |slice(0, 50)}}...</dt>
+								</p>
+							</dd>
+						</dt>
+
+						<div>
+							<br>
+							{% for onefield in oneInfluencer.type  %}
+								<span class="inline-flex px-2 text-xs font-semibold leading-5 text-pink-800 bg-pink-100 rounded-full role">
+									{{ onefield}}
+								</span>
+							{% endfor %}
+						</div>
+						<div></div>
+					</dd>
+				</dl>
 			</div>
 		</div>
 	</div>
-	<br>
-	<div class="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
-
-		<div
-			class="grid grid-cols-1 gap-5 mt-2 sm:grid-cols-2 lg:grid-cols-2" x-max="1">
-			<!-- Card -->
-			{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
-				<h2 class="text-lg font-medium leading-6 text-gray-900">Les dernières offres</h2>
-				<hr>
-
-				{% for oneOffer in lastOffers  %}
-
-					<div class="overflow-hidden bg-white rounded-lg shadow">
-						<div class="p-5">
-							<div class="flex items-center">
-								<div class="flex-shrink-0">
-
-									<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-									</svg>
-								</div>
-								<div class="flex-1 w-0 ml-5">
-									<dl>
-										<dt class="text-sm font-medium text-gray-500 truncate">
-											{{ oneOffer.name }}
-										</dt>
-										<dd>
-											<div class="text-lg font-medium text-gray-900">
-												<p>
-													{{ oneOffer.description |slice(0, 50)}}...</p>
-											</div>
-											<div>
-												{{ oneOffer.dateStart ? oneOffer.dateStart|date('d/m/Y') : 'NC'}}
-												-
-
-												{{ oneOffer.dateStart ? oneOffer.dateEnd|date('d/m/Y') : 'NC'}}</div>
-											<div>
-												<br>
-												{% for onefield in oneOffer.field  %}
-													<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full role">
-														{{ onefield}}
-													</span>
-												{% endfor %}
-											</div>
-
-										</dd>
-									</dl>
-								</div>
-							</div>
-						</div>
-						<div class="px-5 py-3 bg-gray-50">
-							<div class="text-sm">
-								<a href="{{ path('offer_show', {'id': oneOffer.id}) }}" class="font-medium text-cyan-700 hover:text-cyan-900">
-									Voir l'offre</a>
-
-							</div>
-						</div>
-					</div>
-				{% endfor %}
-			{% endif %}
-
-
-			{% if app.user.roles[0] == "ROLE_MARQUE" %}
-				<h2 class="text-lg font-medium leading-6 text-gray-900">Les derniers Influenceurs</h2>
-				<hr>
-				{% for oneInfluencer in lastInfluencer %}
-
-					<div class="overflow-hidden bg-white rounded-lg shadow">
-						<div class="p-5">
-							<div class="flex items-center">
-								<div class="flex-shrink-0">
-
-									<img src="{{ asset('uploads/image_user/' ~ oneInfluencer.profilePhoto) }}" alt=""/>
-								</div>
-								<div class="flex-1 w-0 ml-5">
-									<dl>
-
-										<div class="text-lg font-medium text-gray-900">
-											<p>
-												{{ oneInfluencer.name }}
-
-											</p>
-											<p>
-												{{ oneInfluencer.username }}
-
-											</p>
-										</div>
-
-										<dd>
-											<div class="text-lg font-medium text-gray-900">
-
-												<dt class="text-sm font-medium text-gray-500 truncate">
-													{{ oneInfluencer.description |slice(0, 50)}}...</dt>
-											</p>
-										</dd>
-									</dt>
-							
-											<div>
-										<br>
-										{% for onefield in oneInfluencer.type  %}
-											<span class="inline-flex px-2 text-xs font-semibold leading-5 text-pink-800 bg-pink-100 rounded-full role">
-												{{ onefield}}
-											</span>
-										{% endfor %}
-									</div>
-								<div>
+	<div class="px-5 py-3 bg-gray-50">
+		<div class="text-sm">
+			<a href="{{ path('influencer_show', {'username': oneInfluencer.username}) }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+				Voir l'influenceur</a>
+		</div>
 	</div>
-								</dd>
-							</dl>
-						</div>
-					</div>
-				</div>
-				<div class="px-5 py-3 bg-gray-50">
-					<div class="text-sm">
-						<a href="{{ path('influencer_show', {'username': oneInfluencer.username}) }}" class="font-medium text-cyan-700 hover:text-cyan-900">
-							Voir l'influenceur</a>
-
-					</div>
-				</div>
-			</div>
-		{% endfor %}
-	{% endif %}
-
-
+</div>{% endfor %}
+{% endif %}
 </div></div></div></div>{% endblock %}

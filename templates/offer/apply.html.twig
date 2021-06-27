@@ -7,14 +7,22 @@
 
 
 {% block body %}
-	<div class="container pt-5">
-		<h1>Validation pour postuler à l'offre</h1>
+	<div class="d-flex justify-content-center align-items-center">
+	<div> 
+	<h1>Validation de votre candidature à l'offre</h1>
 		<br>
 		{{ form_start(form) }}
 		{{ form_widget(form) }}
-		<button type="submit" class="btn btn-success">Sauvegarder</button>
-		<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn btn-primary">Retour</a>
+		<div> 
+	
+	
+	</div>
+		
+			<button type="submit" class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded-full shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none waves-effect">Validez</button>
+		<a href="{{ path('offer_show', {'id': offer.id}) }}" class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-black rounded-full shadow ripple waves-light hover:shadow-lg focus:outline-none hover:bg-black waves-effect">Retour</a>
 		{{ form_end(form) }}
+		</div>
+	
 
 	</div>
 {% endblock %}

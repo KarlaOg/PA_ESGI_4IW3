@@ -6,26 +6,28 @@
 
 {% block body %}
 	<div class="container pt-5">
-		<h2 class="pb-5">
+		<h2 class=" text-grey-800">
 			Liste des offres
 		</h2>
+<br>
 		{% if app.user.roles[0] == "ROLE_MARQUE" and brand.offers|length <= 0 %}
 			<p>Vous n'avez pas d'offre de créer pour le moment.</p>
 		{% else %}
 			<div id="offer-list-user">
-				<div class="mb-5">
+				<div>
 					<div class="relative mt-1 rounded-md">
 						<input placeholder="Rechercher une offre" type="search" class="block px-4 py-3 border-gray-300 rounded-md fuzzy-search form-input focus:ring-indigo-500 focus:border-indigo-500 pl-9 sm:text-sm" style='width:300px'>
 					</div>
 				</div>
+								<hr>
 				<div class="list">
 					{% for offer in offers  %}
 						{% if app.user.roles[0] == "ROLE_MARQUE"  %}
 
 							{% if offer.id not in idsValidated %}
 								{% if brand is not null and offer.brandId.id == brand.id %}
-									<H4 class="mb-3">OFFRES EN COURS</H4>
-									<div class="mb-3 card roundedç">
+									<H4 class="mb-3">OFFRE(S) EN COURS</H4>
+									<div class="mb-3 card rounded">
 										<div class="card-body">
 											<p class="name">Nom :
 												{{ offer.name|capitalize }}</p>
@@ -45,7 +47,7 @@
 												<p class="brand">Créer par
 													{{brand.name}}</p>
 											{% endif %}
-											<a href="{{ path('offer_show', {'id': offer.id}) }}" class="waves-effect waves-light btn btn-primary">Voir l'offre</a>
+											<a href="{{ path('offer_show', {'id': offer.id}) }}" class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-indigo-500 rounded shadow ripple hover:shadow-lg hover:bg-indigo-600 focus:outline-none waves-effect">Voir l'offre</a>
 										</div>
 									</div>
 								{% endif %}
@@ -53,15 +55,15 @@
 							{% endif %}
 							{% if  offer.id in idsValidated  %}
 								<br>
-								<hr/>
+								<hr>
 								<br>
 								<h4 class="mb-3">
-									<i>OFFRE EXPIREE</i>
+									OFFRE(S) EXPIREE
 								</h4>
 								{% if brand is not null and offer.brandId.id == brand.id %}
-									<div class="mb-3 card">
+									<div class="mb-3 card rounded">
 										<div class="card-body">
-											<p class="name">Nom :
+											<p class="name text-2xl font-medium">
 												{{ offer.name|capitalize }}</p>
 											<p class="description">Description :
 												{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
@@ -87,7 +89,7 @@
 						{% if app.user.roles[0] == "ROLE_INFLUENCEUR"  %}
 							{% if offer.id not in idsValidated %}
 								{% if offer.dateEnd > datenow %}
-									<div class="mb-3 card">
+									<div class="mb-3 card rounded">
 
 										<div class="card-body">
 											{% set newArray = [] %}
@@ -116,10 +118,12 @@
 													{% set newArray = newArray|merge([app.offer.id]) %}
 												{% endif %}
 											{% endfor %}
-											<p class="brand">Marque :
+										 
+											<p class="brand text-2xl font-medium	">
 												{{ offer.brandId.name|capitalize }}</p>
-											<p class="name">Nom :
+											<p class="name text-xl font-medium	">
 												{{ offer.name|capitalize }}</p>
+								
 											<p class="description">Description :
 												{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
 											</p>
@@ -131,7 +135,7 @@
 												{{ offer.dateEnd ? offer.dateEnd|date('d/m/Y') : 'NC'}}
 											</p>
 											<div class="card-action">
-												<a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn-primary btn">Voir l'offre</a>
+												<a href="{{ path('offer_show', {'id': offer.id}) }}" class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-indigo-500 rounded shadow ripple hover:shadow-lg hover:bg-indigo-600 focus:outline-none waves-effect">Voir l'offre</a>
 											</div>
 										</div>
 									</div>
