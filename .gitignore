@@ -8,6 +8,8 @@
 /var/
 /vendor/
 /symfony.lock
+/node_modules/.yarn-integrity
+/node_modules/
 ###< symfony/framework-bundle ###
 
 ###< VichUploadBundle ###

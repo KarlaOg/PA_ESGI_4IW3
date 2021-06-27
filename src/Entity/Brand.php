@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use App\Validator\ValidSiret;
 
 /**
  * @ORM\Entity(repositoryClass=BrandRepository::class)
@@ -35,11 +36,8 @@ class Brand
 
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Type(
-     *     type="integer",
-     *     message="Vous ne pouvez pas mettre de lettre, mettez des chiffres"
-     * )
+     * @ORM\Column(type="string", nullable=true, unique=true)
+     * @ValidSiret
      */
     private $siret;
 
@@ -121,12 +119,12 @@ class Brand
     }
 
 
-    public function getSiret(): ?int
+    public function getSiret(): ?string
     {
         return $this->siret;
     }
 
-    public function setSiret(int $siret): self
+    public function setSiret(string $siret): self
     {
         $this->siret = $siret;
 
