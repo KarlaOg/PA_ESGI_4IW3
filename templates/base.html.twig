@@ -25,7 +25,7 @@
 					<main class="relative z-0 flex-1 pb-8">
 						{% for label,messages in app.flashes %}
 							<div class="toast" style="position: absolute;z-index:1; right:0;margin-right:30px; margin-top:10px" data-delay="3000">
-								<div class="pr-5 alert alert-{{ label }}" style="margin-bottom:unset">
+								<div class="alert alert-{{ label }}" style="margin-bottom:unset">
 									{% for message in messages %}
 										<p>{{ message }}</p>
 									{% endfor %}
