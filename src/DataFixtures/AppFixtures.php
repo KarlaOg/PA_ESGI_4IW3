@@ -89,12 +89,12 @@ class AppFixtures extends Fixture
                 ->setType(["Gamer", "Instagramer", "Blogueur"])
                 ->setSocialNetwork([
                     'Website' => 'https://' . $username . '.com',
-                    'Instagram' => 'https://instagram.com/' .  $username,
-                    'Tiktok' => 'https://tiktok/' .  $username,
-                    'Facebook' => 'https://facebook/' .  $username,
-                    'Youtube' => 'https://youtube.com/' .  $username . 'com',
-                    'Twitter' => 'https://twitter/' .  $username,
-                    'Twitch' => 'https://twitch/' .  $username
+                    'Instagram' => 'https://instagram/' .  $username . '.com',
+                    'Tiktok' => 'https://tiktok/' .  $username . '.com',
+                    'Facebook' => 'https://facebook/' .  $username . '.com',
+                    'Youtube' => 'https://youtube/' .  $username . 'com',
+                    'Twitter' => 'https://twitter/' .  $username . '.com',
+                    'Twitch' => 'https://twitch/' .  $username . '.com',
                 ])
                 ->setUpdatedAt($faker->dateTime());
             $influcers[] = $influencer;
@@ -138,13 +138,13 @@ class AppFixtures extends Fixture
                     "Transports - Logistique"
                 ])
                 ->setSocialNetwork([
-                    'Website' => 'https://' .  $username . '.com',
-                    'Instagram' => 'https://instagram.com/' .  $username,
-                    'Tiktok' => 'https://tiktok/' .  $username,
-                    'Facebook' => 'https://facebook/' .  $username,
-                    'Youtube' => 'https://youtube.com/' .  $username . 'com',
-                    'Twitter' => 'https://twitter/' .  $username,
-                    'Twitch' => 'https://twitch/' .  $username
+                    'Website' => 'https://' . $username . '.com',
+                    'Instagram' => 'https://instagram/' .  $username . '.com',
+                    'Tiktok' => 'https://tiktok/' .  $username . '.com',
+                    'Facebook' => 'https://facebook/' .  $username . '.com',
+                    'Youtube' => 'https://youtube/' .  $username . 'com',
+                    'Twitter' => 'https://twitter/' .  $username . '.com',
+                    'Twitch' => 'https://twitch/' .  $username . '.com',
                 ])
 
                 ->setUpdatedAt($faker->dateTime());
