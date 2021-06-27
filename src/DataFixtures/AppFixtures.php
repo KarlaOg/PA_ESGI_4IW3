@@ -41,20 +41,24 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
 
         $influencer = new Influencer();
+        $username = $faker->userName();
+        $exp = "/[0-9]/";
+        $name = preg_replace($exp, "", $username);
+        $resName = str_replace(".", " ", $name);
         $influencer->setUser($admin)
             ->setDescription($faker->realText())
-            ->setUsername($faker->userName())
+            ->setUsername($username)
             ->setSiret($faker->numberBetween(10, 2000))
-            ->setName($faker->userName())
+            ->setName($resName)
             ->setType(["Gamer", "Instagramer", "Blogueur"])
             ->setSocialNetwork([
-                'Website' => 'https://admin.com',
-                'Instagram' => 'https://instagram.com/admin',
-                'Tiktok' => 'https://tiktok/admin',
-                'Facebook' => 'https://facebook/admin',
-                'Youtube' => 'https://youtube.com/admin',
-                'Twitter' => 'https://twitter/admin',
-                'Twitch' => 'https://twitch/admin'
+                'Website' => 'https://' . $username . '.com',
+                'Instagram' => 'https://instagram/' .  $username . '.com',
+                'Tiktok' => 'https://tiktok/' .  $username . '.com',
+                'Facebook' => 'https://facebook/' .  $username . '.com',
+                'Youtube' => 'https://youtube/' .  $username . 'com',
+                'Twitter' => 'https://twitter/' .  $username . '.com',
+                'Twitch' => 'https://twitch/' .  $username . '.com',
             ])
             ->setUpdatedAt($faker->dateTime());
         $influcers[] = $influencer;
@@ -89,12 +93,12 @@ class AppFixtures extends Fixture
                 ->setType(["Gamer", "Instagramer", "Blogueur"])
                 ->setSocialNetwork([
                     'Website' => 'https://' . $username . '.com',
-                    'Instagram' => 'https://instagram.com/' .  $username,
-                    'Tiktok' => 'https://tiktok/' .  $username,
-                    'Facebook' => 'https://facebook/' .  $username,
-                    'Youtube' => 'https://youtube.com/' .  $username . 'com',
-                    'Twitter' => 'https://twitter/' .  $username,
-                    'Twitch' => 'https://twitch/' .  $username
+                    'Instagram' => 'https://instagram/' .  $username . '.com',
+                    'Tiktok' => 'https://tiktok/' .  $username . '.com',
+                    'Facebook' => 'https://facebook/' .  $username . '.com',
+                    'Youtube' => 'https://youtube/' .  $username . 'com',
+                    'Twitter' => 'https://twitter/' .  $username . '.com',
+                    'Twitch' => 'https://twitch/' .  $username . '.com',
                 ])
                 ->setUpdatedAt($faker->dateTime());
             $influcers[] = $influencer;
@@ -138,13 +142,13 @@ class AppFixtures extends Fixture
                     "Transports - Logistique"
                 ])
                 ->setSocialNetwork([
-                    'Website' => 'https://' .  $username . '.com',
-                    'Instagram' => 'https://instagram.com/' .  $username,
-                    'Tiktok' => 'https://tiktok/' .  $username,
-                    'Facebook' => 'https://facebook/' .  $username,
-                    'Youtube' => 'https://youtube.com/' .  $username . 'com',
-                    'Twitter' => 'https://twitter/' .  $username,
-                    'Twitch' => 'https://twitch/' .  $username
+                    'Website' => 'https://' . $username . '.com',
+                    'Instagram' => 'https://instagram/' .  $username . '.com',
+                    'Tiktok' => 'https://tiktok/' .  $username . '.com',
+                    'Facebook' => 'https://facebook/' .  $username . '.com',
+                    'Youtube' => 'https://youtube/' .  $username . 'com',
+                    'Twitter' => 'https://twitter/' .  $username . '.com',
+                    'Twitch' => 'https://twitch/' .  $username . '.com',
                 ])
 
                 ->setUpdatedAt($faker->dateTime());
