@@ -1,5 +1,6 @@
 <form method="post" x-data x-ref="form" action="{{ path('user_delete', {'id': app.user.id}) }}">
 	<input type="hidden" name="_method" value="DELETE">
 	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
-	<button type="button" class="btn btn-danger" x-on:click.prevent="if (confirm('Vous êtes certains de vouloir supprimer vôtre compte ?')) $refs.form.submit()">Supprimer mon compte</button>
+	<button type="button" class="inline-block text-xs font-medium leading-6 text-red-700 underline uppercase transition bg-transparent rounded ripple hover:text-red-900 focus:outline-none waves-effect" x-on:click.prevent="if (confirm('Vous êtes certains de vouloir supprimer vôtre compte ?')) $refs.form.submit()">Supprimer mon compte</button>
+
 </form>
