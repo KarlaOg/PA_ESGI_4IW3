@@ -77,20 +77,24 @@ class AppFixtures extends Fixture
             $manager->persist($user);
 
             $influencer = new Influencer();
+            $username = $faker->userName();
+            $exp = "/[0-9]/";
+            $name = preg_replace($exp, "", $username);
+            $resName = str_replace(".", " ", $name);
             $influencer->setUser($faker->unique()->randomElement($users))
                 ->setDescription($faker->realText())
-                ->setUsername($faker->userName())
+                ->setUsername($username)
                 ->setSiret($faker->numberBetween(10, 2000))
-                ->setName($faker->userName())
+                ->setName($resName)
                 ->setType(["Gamer", "Instagramer", "Blogueur"])
                 ->setSocialNetwork([
-                    'Website' => 'https://' . $u . '.com',
-                    'Instagram' => 'https://instagram.com/' . $u,
-                    'Tiktok' => 'https://tiktok/' . $u,
-                    'Facebook' => 'https://facebook/' . $u,
-                    'Youtube' => 'https://youtube.com/' . $u . 'com',
-                    'Twitter' => 'https://twitter/' . $u,
-                    'Twitch' => 'https://twitch/' . $u
+                    'Website' => 'https://' . $username . '.com',
+                    'Instagram' => 'https://instagram.com/' .  $username,
+                    'Tiktok' => 'https://tiktok/' .  $username,
+                    'Facebook' => 'https://facebook/' .  $username,
+                    'Youtube' => 'https://youtube.com/' .  $username . 'com',
+                    'Twitter' => 'https://twitter/' .  $username,
+                    'Twitch' => 'https://twitch/' .  $username
                 ])
                 ->setUpdatedAt($faker->dateTime());
             $influcers[] = $influencer;
@@ -100,6 +104,8 @@ class AppFixtures extends Fixture
 
 
         //BRAND USER
+
+
         for ($u = 0; $u < 5; $u++) {
             $user = new User();
             $hash = $this->encoder->encodePassword($user, "password");
@@ -115,11 +121,15 @@ class AppFixtures extends Fixture
             $manager->persist($user);
 
             $brand = new Brand();
+            $username = $faker->userName();
+            $exp = "/[0-9]/";
+            $name = preg_replace($exp, "", $username);
+            $resName = str_replace(".", " ", $name);
             $brand->setUser($faker->unique()->randomElement($users))
                 ->setDescription($faker->realText())
-                ->setUsername($faker->userName())
+                ->setUsername($username)
                 ->setSiret($faker->numberBetween(10, 2000))
-                ->setName($faker->userName())
+                ->setName($resName)
                 ->setField([
                     "Agroalimentaire",
                     "Bois - Papier - Carton - Imprimerie",
@@ -128,13 +138,13 @@ class AppFixtures extends Fixture
                     "Transports - Logistique"
                 ])
                 ->setSocialNetwork([
-                    'Website' => 'https://' . $u . '.com',
-                    'Instagram' => 'https://instagram.com/' . $u,
-                    'Tiktok' => 'https://tiktok/' . $u,
-                    'Facebook' => 'https://facebook/' . $u,
-                    'Youtube' => 'https://youtube.com/' . $u . 'com',
-                    'Twitter' => 'https://twitter/' . $u,
-                    'Twitch' => 'https://twitch/' . $u
+                    'Website' => 'https://' .  $username . '.com',
+                    'Instagram' => 'https://instagram.com/' .  $username,
+                    'Tiktok' => 'https://tiktok/' .  $username,
+                    'Facebook' => 'https://facebook/' .  $username,
+                    'Youtube' => 'https://youtube.com/' .  $username . 'com',
+                    'Twitter' => 'https://twitter/' .  $username,
+                    'Twitch' => 'https://twitch/' .  $username
                 ])
 
                 ->setUpdatedAt($faker->dateTime());
