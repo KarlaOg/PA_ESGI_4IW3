@@ -72,32 +72,18 @@ class PartnershipController extends AbstractController
             // recuperer toutes les applications qui ont comme id notre id d'influenceur et qui ont été validé
             // renvoyer partnerships et brands
         }
-        $form = $this->createForm(PaiementBrandType::class);
-        $form->handleRequest($request);
 
         return $this->render('partnership/index.html.twig', [
             'partnerships' => $partnerships,
             'collaborators' => $collaborators,
-            'form' => $form->createView()
         ]);
+       // return $this->render('paiement/checkout-page.html.twig');
     }
     /**
      * @Route("/detail-paiment", name="detail_paiement")
      */
     public function setPriceForPayment(Request $request){
-        $price = new Transaction();
-        $form = $this->createForm(PaiementBrandType::class, $price);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($price);
-            $em->flush();
-            $this->addFlash('info', 'Modification effectué');
-
-        }
-        return $this->render('partnership/edit.html.twig', [
-            'form' => $form->createView()
-        ]);
+        return $this->render('paiement/checkout-page.html.twig');
     }
 }

@@ -63,19 +63,20 @@ class PaiementController extends AbstractController
     */
     public function checkout(Request $request)
     {
-        // il va falloir get le prix du paiement pour lo'ffre en questionn
 
-        $price = 1000;
+        $params = json_decode($request->getContent());
+
         \Stripe\Stripe::setApiKey('sk_test_51J4s40JmgFZZr5aDf6rWz1NB9FAJ25UTSXRVVpCv4T3TGEbZRyF20oacl8pB6dp6PH2gqteqyQhlnRbcxNaBZXbj00sBZCIiG1');
         $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
+            'submit_type' => 'donate',
             'line_items' => [[
             'price_data' => [
                 'currency' => 'eur',
                 'product_data' => [
                 'name' => 'Partnership',
                 ],
-                'unit_amount' => $price,
+                'unit_amount' => $params->checkoutCustomSum,
             ],
             'quantity' => 1,
             ]],
