@@ -62,53 +62,33 @@ class PaiementController extends AbstractController
         return $this->render('paiement/errorcheckout.html.twig');
     }
 
-
-    // public function edit(){
-    //     $getprice = $this->getUser();
-    //     $price = new Transaction();
-    //     $form = $this->createForm(PaiementBrandType::class, $getprice);
-    //     $form->handleRequest($request);
-    //     dump("coco");
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $em = $this->getDoctrine()->getManager();
-    //         $em->persist($getprice);
-    //         $em->flush();
-    //         dump("coco");
-    //         $this->addFlash('info', 'Modification effectué');
-          
-    //     }
-    //     dump("coco");
-    //     return null;
-    // }
-  
-
-
-
     /**
      * @Route("/create-checkout-session", name="checkout") 
     */
     public function checkout(Request $request) : Response
     {
 
-        $price = $request->get('price');
+        $params = json_decode($request->getContent());
 
-        \Stripe\Stripe::setApiKey('sk_test_51J4s40JmgFZZr5aDf6rWz1NB9FAJ25UTSXRVVpCv4T3TGEbZRyF20oacl8pB6dp6PH2gqteqyQhlnRbcxNaBZXbj00sBZCIiG1');
-        $session = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'eur',
-                    'unit_amount' => 10000,
-                    'product_data' => [
-                    'name' => 'Partnership',
-                    ],
-                ],
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => $this->generateUrl('success', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            'cancel_url' => $this->generateUrl('errorcheckout', [], UrlGeneratorInterface::ABSOLUTE_URL),
-        ]);
+    \Stripe\Stripe::setApiKey('sk_test_51J4s40JmgFZZr5aDf6rWz1NB9FAJ25UTSXRVVpCv4T3TGEbZRyF20oacl8pB6dp6PH2gqteqyQhlnRbcxNaBZXbj00sBZCIiG1');
+    $session = \Stripe\Checkout\Session::create([
+        'payment_method_types' => ['card'],
+        'submit_type' => 'donate',
+        'line_items' => [[
+            'price_data' => [
+            'currency' => 'eur',
+            'product_data' => [
+                'name' => 'Partnership',
+            ],
+            'unit_amount' => $params->checkoutCustomSum,
+        ],
+        'quantity' => 1,
+        ]],
+        'mode' => 'payment',
+        'success_url' => $this->generateUrl('success', [], UrlGeneratorInterface::ABSOLUTE_URL),
+        'cancel_url' => $this->generateUrl('errorcheckout', [], UrlGeneratorInterface::ABSOLUTE_URL),
+    ]);
+
 
         return new JsonResponse(['id' => $session->id]) ;
     }

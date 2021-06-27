@@ -70,13 +70,18 @@ class PartnershipController extends AbstractController
             // recuperer toutes les applications qui ont comme id notre id d'influenceur et qui ont été validé
             // renvoyer partnerships et brands
         }
-        $form = $this->createForm(PaiementBrandType::class);
-        $form->handleRequest($request);
 
         return $this->render('partnership/index.html.twig', [
             'partnerships' => $partnerships,
             'collaborators' => $collaborators,
-            'form' => $form->createView()
         ]);
+       // return $this->render('paiement/checkout-page.html.twig');
+    }
+    /**
+     * @Route("/detail-paiment", name="detail_paiement")
+     */
+    public function setPriceForPayment(Request $request){
+
+        return $this->render('paiement/checkout-page.html.twig');
     }
 }
