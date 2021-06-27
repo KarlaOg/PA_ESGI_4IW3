@@ -9,7 +9,7 @@
 	<main>
 		<!-- Profile header -->
 		<div>
-			<div class="bg-dark" style="height:200px; width: auto; max-width:100%; position:relative; z-index:-1;"></div>
+			<div style="height:200px; width: auto; max-width:100%; position:relative; z-index:-1; background-color:#7a859038"></div>
 			<div class="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
 				<div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
 					<div class="flex">
@@ -71,7 +71,7 @@
 							<p>Nom :
 								{{ offer.name|capitalize }}</p>
 							<p>Description :
-								{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
+								{{ offer.description ? offer.description : 'NC'}}
 							</p>
 							<p>Dates :
 								{{ offer.dateStart ? offer.dateStart|date('m/d/Y') : 'NC'}}
