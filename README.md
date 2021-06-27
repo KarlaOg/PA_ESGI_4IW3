@@ -46,6 +46,11 @@ Créer la db
 php bin/console doctrine:database:create
 ```
 
+Drop db
+
+```
+php bin/console doctrine:database:drop --force
+```
 Lancer le server sf
 
 ```
@@ -55,6 +60,7 @@ symfony serve
 Lancer les migrations
 
 ```
+php bin/console doctrine:schema:update --force
 php bin/console make:migration
 php bin/console doctrine:migrations:migrate --no-interaction
 ```
