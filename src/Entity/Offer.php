@@ -77,9 +77,15 @@ class Offer
      */
     private $application;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="annonces", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->application = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -201,6 +207,36 @@ class Offer
             // set the owning side to null (unless already changed)
             if ($application->getOffer() === $this) {
                 $application->setOffer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comments[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getOffer() === $this) {
+                $comment->setOffer(null);
             }
         }
 
