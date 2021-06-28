@@ -32,9 +32,9 @@ Votre Paiement
                 headers:{
                    'Content-Type': 'application/json',
                 },
-                 body: JSON.stringify({
+                body: JSON.stringify({
                     checkoutCustomSum: parseInt(checkoutCustomSum.value * 100, 10),
-                    }),
+                }),
             })
                 .then(function(response) {
                     return response.json();

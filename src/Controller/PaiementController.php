@@ -32,8 +32,8 @@ class PaiementController extends AbstractController
     {
         //$price = 1000;
         $price = $request->get('price');
-        $idInfluencer = $request->get('idInfluencer');
-        $idOffer = $request->get('idOffer');
+        //$idInfluencer = $request->get('idInfluencer');
+       // $idOffer = $request->get('idOffer');
         $idBrand = $this->getUser();
         //$go = $this->getDoctrine()->getRepository(Offer::class)->find($id);
 
@@ -41,6 +41,7 @@ class PaiementController extends AbstractController
         $transaction->setPrice(" . $price . ");
 
        // $transaction->setOfferId("43");
+        dump($idBrand);
 
         $transaction->setBrandId($idBrand);
         $transaction->setInfluencerId($idInfluencer);
@@ -70,24 +71,24 @@ class PaiementController extends AbstractController
 
         $params = json_decode($request->getContent());
 
-    \Stripe\Stripe::setApiKey('sk_test_51J4s40JmgFZZr5aDf6rWz1NB9FAJ25UTSXRVVpCv4T3TGEbZRyF20oacl8pB6dp6PH2gqteqyQhlnRbcxNaBZXbj00sBZCIiG1');
-    $session = \Stripe\Checkout\Session::create([
-        'payment_method_types' => ['card'],
-        'submit_type' => 'donate',
-        'line_items' => [[
-            'price_data' => [
-            'currency' => 'eur',
-            'product_data' => [
-                'name' => 'Partnership',
+        \Stripe\Stripe::setApiKey('sk_test_51J4s40JmgFZZr5aDf6rWz1NB9FAJ25UTSXRVVpCv4T3TGEbZRyF20oacl8pB6dp6PH2gqteqyQhlnRbcxNaBZXbj00sBZCIiG1');
+        $session = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'submit_type' => 'donate',
+            'line_items' => [[
+                'price_data' => [
+                'currency' => 'eur',
+                'product_data' => [
+                    'name' => 'Partnership',
+                ],
+                'unit_amount' => $params->checkoutCustomSum,
             ],
-            'unit_amount' => $params->checkoutCustomSum,
-        ],
-        'quantity' => 1,
-        ]],
-        'mode' => 'payment',
-        'success_url' => $this->generateUrl('success', [], UrlGeneratorInterface::ABSOLUTE_URL),
-        'cancel_url' => $this->generateUrl('errorcheckout', [], UrlGeneratorInterface::ABSOLUTE_URL),
-    ]);
+            'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => $this->generateUrl('success', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'cancel_url' => $this->generateUrl('errorcheckout', [], UrlGeneratorInterface::ABSOLUTE_URL),
+        ]);
 
 
         return new JsonResponse(['id' => $session->id]) ;
