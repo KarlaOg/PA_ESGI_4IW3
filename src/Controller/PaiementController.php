@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class PaiementController extends AbstractController
 {
@@ -27,21 +28,28 @@ class PaiementController extends AbstractController
     /**
      * @Route("/success", name="success")
      */
-    public function success(): Response
+    public function success(Request $request)
     {
-        $price = 1000;
-
+        //$price = 1000;
+        $price = $request->get('price');
+        $idInfluencer = $request->get('idInfluencer');
+        $idOffer = $request->get('idOffer');
+        $idBrand = $this->getUser();
         //$go = $this->getDoctrine()->getRepository(Offer::class)->find($id);
 
-        // $transaction = New Transaction();
-        // $transaction->setPrice($price);
-        // $transaction->setOfferId(42);
-        // $transaction->setBrandId("3");
-        // $transaction->setInfluencerId("3");
+        $transaction = New Transaction();
+        $transaction->setPrice(" . $price . ");
 
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($transaction);
-        // $em->flush();
+       // $transaction->setOfferId("43");
+
+        $transaction->setBrandId($idBrand);
+        $transaction->setInfluencerId($idInfluencer);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($transaction);
+        $em->flush();
+
+        dump($price);
         return $this->render('paiement/success.html.twig');
     }
 
@@ -55,47 +63,54 @@ class PaiementController extends AbstractController
     }
 
 
+    // public function edit(){
+    //     $getprice = $this->getUser();
+    //     $price = new Transaction();
+    //     $form = $this->createForm(PaiementBrandType::class, $getprice);
+    //     $form->handleRequest($request);
+    //     dump("coco");
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $em = $this->getDoctrine()->getManager();
+    //         $em->persist($getprice);
+    //         $em->flush();
+    //         dump("coco");
+    //         $this->addFlash('info', 'Modification effectué');
+          
+    //     }
+    //     dump("coco");
+    //     return null;
+    // }
+  
+
+
+
     /**
      * @Route("/create-checkout-session", name="checkout") 
     */
-    public function checkout(Request $request)
+    public function checkout(Request $request) : Response
     {
-        $price = new Transaction();
-        $form = $this->createForm(PaiementBrandType::class, $price);
-        $form->handleRequest($request);
-        dump("coco");
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($price);
-            $em->flush();
-            dump("coco");
-            $this->addFlash('info', 'Modification effectué');
-          
-        }
-        dump("coco");
 
+        $price = $request->get('price');
 
-        $price = 1000;
         \Stripe\Stripe::setApiKey('sk_test_51J4s40JmgFZZr5aDf6rWz1NB9FAJ25UTSXRVVpCv4T3TGEbZRyF20oacl8pB6dp6PH2gqteqyQhlnRbcxNaBZXbj00sBZCIiG1');
         $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [[
-            'price_data' => [
-                'currency' => 'eur',
-                'product_data' => [
-                'name' => 'Partnership',
+                'price_data' => [
+                    'currency' => 'eur',
+                    'unit_amount' => 10000,
+                    'product_data' => [
+                    'name' => 'Partnership',
+                    ],
                 ],
-                'unit_amount' => $price,
-            ],
-            'quantity' => 1,
+                'quantity' => 1,
             ]],
             'mode' => 'payment',
             'success_url' => $this->generateUrl('success', [], UrlGeneratorInterface::ABSOLUTE_URL),
             'cancel_url' => $this->generateUrl('errorcheckout', [], UrlGeneratorInterface::ABSOLUTE_URL),
         ]);
-        
-    return new JsonResponse(['id' => $session->id]) ;
 
+        return new JsonResponse(['id' => $session->id]) ;
     }
 
 }
