@@ -14,6 +14,7 @@
 						<div class="flex items-center">
 							<h1 class="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
 								Bonjour,
+								if
 								{{app.user.firstname}}
 							</h1>
 						</div>
@@ -183,120 +184,136 @@
 			<h2 class="text-lg font-medium leading-6 text-gray-900">Les dernières offres</h2>
 			<hr>
 
-			{% for oneOffer in lastOffers  %}
 
-				<div class="overflow-hidden bg-white rounded-lg shadow">
-					<div class="p-5">
-						<div class="flex items-center">
-							<div class="flex-shrink-0">
+			{% if lastOffers is not empty %}
+				{% for oneOffer in lastOffers  %}
 
-								<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-								</svg>
+					<div class="overflow-hidden bg-white rounded-lg shadow">
+						<div class="p-5">
+							<div class="flex items-center">
+								<div class="flex-shrink-0">
+
+									<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+									</svg>
+								</div>
+								<div class="flex-1 w-0 ml-5">
+									<dl>
+										<dt class="text-sm font-medium text-gray-500 truncate">
+											{{ oneOffer.name }}
+										</dt>
+										<dd>
+											<div class="text-lg font-medium text-gray-900">
+												<p>
+													{{ oneOffer.description |slice(0, 50)}}...</p>
+											</div>
+											<div>
+												{{ oneOffer.dateStart ? oneOffer.dateStart|date('d/m/Y') : 'NC'}}
+												-
+
+												{{ oneOffer.dateStart ? oneOffer.dateEnd|date('d/m/Y') : 'NC'}}</div>
+											<div>
+												<br>
+												{% for onefield in oneOffer.field  %}
+													<span class="inline-flex px-2 text-xs font-semibold leading-5 text-pink-800 bg-pink-100 rounded-full role">
+														{{ onefield}}
+													</span>
+												{% endfor %}
+											</div>
+
+										</dd>
+									</dl>
+								</div>
 							</div>
-							<div class="flex-1 w-0 ml-5">
-								<dl>
-									<dt class="text-sm font-medium text-gray-500 truncate">
-										{{ oneOffer.name }}
-									</dt>
-									<dd>
-										<div class="text-lg font-medium text-gray-900">
-											<p>
-												{{ oneOffer.description |slice(0, 50)}}...</p>
-										</div>
-										<div>
-											{{ oneOffer.dateStart ? oneOffer.dateStart|date('d/m/Y') : 'NC'}}
-											-
+						</div>
+						<div class="px-5 py-3 bg-gray-50">
+							<div class="text-sm">
+								<a href="{{ path('offer_show', {'id': oneOffer.id}) }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+									Voir l'offre</a>
 
-											{{ oneOffer.dateStart ? oneOffer.dateEnd|date('d/m/Y') : 'NC'}}</div>
-										<div>
-											<br>
-											{% for onefield in oneOffer.field  %}
-												<span class="inline-flex px-2 text-xs font-semibold leading-5 text-pink-800 bg-pink-100 rounded-full role">
-													{{ onefield}}
-												</span>
-											{% endfor %}
-										</div>
-
-									</dd>
-								</dl>
 							</div>
 						</div>
 					</div>
-					<div class="px-5 py-3 bg-gray-50">
-						<div class="text-sm">
-							<a href="{{ path('offer_show', {'id': oneOffer.id}) }}" class="font-medium text-cyan-700 hover:text-cyan-900">
-								Voir l'offre</a>
+				{% endfor %}
+			{% else   %}
+				<p>
+					Il n'y a pas d'offre pour le moment !
+				</p>
 
-						</div>
-					</div>
-				</div>
-			{% endfor %}
+			{% endif %}
+
 		{% endif %}
 
 
 		{% if app.user.roles[0] == "ROLE_MARQUE" %}
 			<h2 class="text-lg font-medium leading-6 text-gray-900">Les derniers Influenceurs</h2>
+
 			<hr>
-			{% for oneInfluencer in lastInfluencer %}
 
-				<div class="overflow-hidden bg-white rounded-lg shadow">
-					<div class="p-5">
-						<div class="flex items-center">
-							<div class="flex-shrink-0">
-								{% if oneInfluencer.profilePhoto is empty %}
-									<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
-										<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
-											<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
-										</svg>
+			{% if lastInfluencer is not empty%}
+
+				{% for oneInfluencer in lastInfluencer %}
+					<div class="overflow-hidden bg-white rounded-lg shadow">
+						<div class="p-5">
+							<div class="flex items-center">
+								<div class="flex-shrink-0">
+									{% if oneInfluencer.profilePhoto is empty %}
+										<span class="inline-block w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+											<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+												<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+											</svg>
+										</span>
+									{% else %}
+										<img src="{{ asset('uploads/image_user/' ~ oneInfluencer.profilePhoto) }}" alt="photos de profile"/>
+									{% endif %}
+								</div>
+								<div class="flex-1 w-0 ml-5">
+									<dl>
+
+										<div class="text-lg font-medium text-gray-900">
+											<p>
+												{{ oneInfluencer.name }}
+
+											</p>
+											<p>
+												{{ oneInfluencer.username }}
+
+											</p>
+										</div>
+
+										<dd>
+											<div class="text-lg font-medium text-gray-900"></div>
+										</dd>
+										<dt class="text-sm font-medium text-gray-500 truncate">
+											{{ oneInfluencer.description |slice(0, 50)}}...</dt>
+									</p>
+								</dd>
+							</dt>
+
+							<div>
+								<br>
+								{% for onefield in oneInfluencer.type  %}
+									<span class="inline-flex px-2 text-xs font-semibold leading-5 text-pink-800 bg-pink-100 rounded-full role">
+										{{ onefield}}
 									</span>
-								{% else %}
-									<img src="{{ asset('uploads/image_user/' ~ oneInfluencer.profilePhoto) }}" alt="photos de profile"/>
-								{% endif %}
+								{% endfor %}
 							</div>
-							<div class="flex-1 w-0 ml-5">
-								<dl>
-
-									<div class="text-lg font-medium text-gray-900">
-										<p>
-											{{ oneInfluencer.name }}
-
-										</p>
-										<p>
-											{{ oneInfluencer.username }}
-
-										</p>
-									</div>
-
-									<dd>
-										<div class="text-lg font-medium text-gray-900"></div>
-									</dd>
-									<dt class="text-sm font-medium text-gray-500 truncate">
-										{{ oneInfluencer.description |slice(0, 50)}}...</dt>
-								</p>
-							</dd>
-						</dt>
-
-						<div>
-							<br>
-							{% for onefield in oneInfluencer.type  %}
-								<span class="inline-flex px-2 text-xs font-semibold leading-5 text-pink-800 bg-pink-100 rounded-full role">
-									{{ onefield}}
-								</span>
-							{% endfor %}
-						</div>
-						<div></div>
-					</dd>
-				</dl>
+							<div>
+							</div>
+						</dd>
+					</dl>
+				</div>
 			</div>
 		</div>
+						<div class="px-5 py-3 bg-gray-50">
+							<div class="text-sm">
+								<a href="{{ path('influencer_show', {'username': oneInfluencer.username}) }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+									Voir l'influenceur</a>
+							</div>
+						</div>
 	</div>
-	<div class="px-5 py-3 bg-gray-50">
-		<div class="text-sm">
-			<a href="{{ path('influencer_show', {'username': oneInfluencer.username}) }}" class="font-medium text-cyan-700 hover:text-cyan-900">
-				Voir l'influenceur</a>
-		</div>
-	</div>
-</div>{% endfor %}
-{% endif %}
-</div></div></div></div>{% endblock %}
+			{% endfor %}
+
+{% else %}
+<p>
+	Il n'y a pas d'influencer inscrit pour le moment !</p>{% endif %}{% endif %}</div></div></div></div>{% endblock %}
