@@ -19,7 +19,7 @@ class PartnershipController extends AbstractController
     /**
      * @Route("/mes-partenariats", name="my_partnership")
      */
-    public function my_partnership(OfferRepository $offerRepository, ApplicationRepository $applicationRepository, influencerRepository $influencerRepository, brandRepository $brandRepository)
+    public function my_partnership(Request $request, OfferRepository $offerRepository, ApplicationRepository $applicationRepository, influencerRepository $influencerRepository, brandRepository $brandRepository)
     {
         $user = $this->getUser();
         $brand = $brandRepository->findOneBy(['user' => $user->getId()]);
@@ -75,12 +75,12 @@ class PartnershipController extends AbstractController
             'partnerships' => $partnerships,
             'collaborators' => $collaborators,
         ]);
-       // return $this->render('paiement/checkout-page.html.twig');
     }
     /**
      * @Route("/detail-paiment", name="detail_paiement")
      */
-    public function setPriceForPayment(Request $request){
+    public function setPriceForPayment(Request $request)
+    {
 
         return $this->render('paiement/checkout-page.html.twig');
     }

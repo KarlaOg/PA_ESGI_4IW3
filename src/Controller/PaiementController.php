@@ -20,9 +20,7 @@ class PaiementController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('paiement/index.html.twig', [
-            
-        ]);
+        return $this->render('paiement/index.html.twig', []);
     }
 
     /**
@@ -30,18 +28,12 @@ class PaiementController extends AbstractController
      */
     public function success(Request $request)
     {
-        //$price = 1000;
-        $price = $request->get('price');
-        //$idInfluencer = $request->get('idInfluencer');
-       // $idOffer = $request->get('idOffer');
+        $price = $request->get('price');;
         $idBrand = $this->getUser();
-        //$go = $this->getDoctrine()->getRepository(Offer::class)->find($id);
 
-        $transaction = New Transaction();
+        $transaction = new Transaction();
         $transaction->setPrice(" . $price . ");
 
-       // $transaction->setOfferId("43");
-        dump($idBrand);
 
         $transaction->setBrandId($idBrand);
         $transaction->setInfluencerId($idInfluencer);
@@ -64,9 +56,9 @@ class PaiementController extends AbstractController
     }
 
     /**
-     * @Route("/create-checkout-session", name="checkout") 
-    */
-    public function checkout(Request $request) : Response
+     * @Route("/create-checkout-session", name="checkout")
+     */
+    public function checkout(Request $request): Response
     {
 
         $params = json_decode($request->getContent());
@@ -77,13 +69,13 @@ class PaiementController extends AbstractController
             'submit_type' => 'donate',
             'line_items' => [[
                 'price_data' => [
-                'currency' => 'eur',
-                'product_data' => [
-                    'name' => 'Partnership',
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => 'Partnership',
+                    ],
+                    'unit_amount' => $params->checkoutCustomSum,
                 ],
-                'unit_amount' => $params->checkoutCustomSum,
-            ],
-            'quantity' => 1,
+                'quantity' => 1,
             ]],
             'mode' => 'payment',
             'success_url' => $this->generateUrl('success', [], UrlGeneratorInterface::ABSOLUTE_URL),
@@ -91,7 +83,6 @@ class PaiementController extends AbstractController
         ]);
 
 
-        return new JsonResponse(['id' => $session->id]) ;
+        return new JsonResponse(['id' => $session->id]);
     }
-
 }
