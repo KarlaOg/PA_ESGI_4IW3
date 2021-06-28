@@ -30,14 +30,14 @@ class ChannelController extends AbstractController
             ]);
         }
 
-        $channels = $channelRepository->findBy([
+        $channels1 = $channelRepository->findBy([
             'user1' => $user
         ]);
-        if ($channels == null){
-            $channels = $channelRepository->findBy([
-                'user2' => $user
-            ]);
-        }
+        $channels2 = $channelRepository->findBy([
+            'user2' => $user
+        ]);
+        $channels = array_merge($channels1, $channels2);
+        
         return $this->render('channel/index.html.twig', [
             'channels' => $channels ?? []
         ]);
