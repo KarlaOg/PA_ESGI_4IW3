@@ -69,7 +69,7 @@ class ChannelController extends AbstractController
     {
         $user1 = $this->getUser();
         $user2 = $user;
-
+        
         $findChannel = $channelRepository->findBy([
             'user1' => $user1,
             'user2' => $user2
@@ -86,12 +86,14 @@ class ChannelController extends AbstractController
         }
 
         $channel = new Channel();
-        if($user2->getRoles[0] = "ROLE_MARQUE" ){
-            $name1 = $influencerRepository->findBy(['user' => $user1->getId()])[0]->getName();
-            $name2 = $brandRepository->findBy(['user' => $user2->getId()])[0]->getName();
-        }else{
+        if($user1->getRoles()[0] == "ROLE_MARQUE" ){
+            //var_dump("clique sur une marque");die();
             $name1 = $brandRepository->findBy(['user' => $user1->getId()])[0]->getName();
             $name2 = $influencerRepository->findBy(['user' => $user2->getId()])[0]->getName();
+        }elseif ($user1->getRoles()[0] == "ROLE_INFLUENCEUR" ) {
+            //var_dump("clique sur influ");die();
+            $name1 = $influencerRepository->findBy(['user' => $user1->getId()])[0]->getName();
+            $name2 = $brandRepository->findBy(['user' => $user2->getId()])[0]->getName();
         }
 
         $channel->setName($name1.' - '.$name2);
