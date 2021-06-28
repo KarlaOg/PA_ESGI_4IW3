@@ -44,30 +44,10 @@ class ChannelController extends AbstractController
     }
 
     /**
-     * @Route("/chancreate", name="channel_create")
-     */
-    public function createChannel(ChannelRepository $channelRepository): Response
-    {
-        $channel = new Channel();
-        $channel->setName('test');
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($channel);
-        $em->flush();
-
-        $channels = $channelRepository->findAll();
-
-        return $this->render('channel/index.html.twig', [
-            'channels' => $channels ?? []
-        ]);
-    }
-
-    /**
      * @Route("/chancreate2/{id}", name="channel_create2")
      */
     public function createChannel2(User $user, ChannelRepository $channelRepository, BrandRepository $brandRepository, InfluencerRepository $influencerRepository ): Response
     {
-        // TODO dans le cas ou le channel existe déja, il faut redirect sans creer de nouveau
         $user1 = $this->getUser();
         $user2 = $user;
         
@@ -85,19 +65,13 @@ class ChannelController extends AbstractController
             if($findChannel != null)
                 return $this->redirectToRoute('channel_chat', ['id' => $findChannel[0]->getId()]);
         }
-
-        /*$findChannel = $channelRepository->findBy([
-            'user1' => $user1,
-            'user2' => $user2
-        ]);
-        die();*/
+        
         $channel = new Channel();
         if($user1->getRoles()[0] == "ROLE_MARQUE" ){
-            //var_dump("clique sur une marque");die();
             $name1 = $brandRepository->findBy(['user' => $user1->getId()])[0]->getName();
             $name2 = $influencerRepository->findBy(['user' => $user2->getId()])[0]->getName();
-        }elseif ($user1->getRoles()[0] == "ROLE_INFLUENCEUR" ) {
-            //var_dump("clique sur influ");die();
+        }
+        elseif ($user1->getRoles()[0] == "ROLE_INFLUENCEUR" ) {
             $name1 = $influencerRepository->findBy(['user' => $user1->getId()])[0]->getName();
             $name2 = $brandRepository->findBy(['user' => $user2->getId()])[0]->getName();
         }
@@ -117,15 +91,34 @@ class ChannelController extends AbstractController
     /**
      * @Route("/chat/{id}", name="channel_chat")
      */
-    public function chat(
-        Channel $channel,
-        MessageRepository $messageRepository
-    ): Response {
+    public function chat(Channel $channel, MessageRepository $messageRepository, ChannelRepository $channelRepository): Response 
+    {
+        $user = $this->getUser();
+        $chennelId = $channel->getId();
+
+        $findChannel1 = $channelRepository->findBy([
+            'id' => $chennelId,
+            'user1' => $user
+        ]);
+
+        $findChannel2 = $channelRepository->findBy([
+            'id' => $chennelId,
+            'user2' => $user
+        ]);
+        
+        if ($findChannel1 == null && $findChannel2 == null) {
+            return $this->render('channel/chat.html.twig', [
+                'autorisation' => "refus",
+                'channel' => $channel,
+                'messages' => ""
+            ]);
+        }
         $messages = $messageRepository->findBy([
             'channel' => $channel
         ], ['createdAt' => 'ASC']);
 
         return $this->render('channel/chat.html.twig', [
+            'autorisation' => "acces",
             'channel' => $channel,
             'messages' => $messages
         ]);
