@@ -23,5 +23,4 @@ class PaiementBrandType extends AbstractType
             // Configure your form options here
         ]);
     }
-
 }

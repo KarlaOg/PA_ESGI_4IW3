@@ -6,12 +6,14 @@ use App\Entity\Transaction;
 use App\Entity\Offer;
 
 use App\Form\PaiementBrandType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PaiementController extends AbstractController
 {
@@ -26,23 +28,21 @@ class PaiementController extends AbstractController
     /**
      * @Route("/success", name="success")
      */
-    public function success(Request $request)
+    public function success(): Response
     {
-        $price = $request->get('price');;
-        $idBrand = $this->getUser();
+        $price = 1000;
 
-        $transaction = new Transaction();
-        $transaction->setPrice(" . $price . ");
+        //$go = $this->getDoctrine()->getRepository(Offer::class)->find($id);
 
+        // $transaction = New Transaction();
+        // $transaction->setPrice($price);
+        // $transaction->setOfferId(42);
+        // $transaction->setBrandId("3");
+        // $transaction->setInfluencerId("3");
 
-        $transaction->setBrandId($idBrand);
-        $transaction->setInfluencerId($idInfluencer);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($transaction);
-        $em->flush();
-
-        dump($price);
+        // $em = $this->getDoctrine()->getManager();
+        // $em->persist($transaction);
+        // $em->flush();
         return $this->render('paiement/success.html.twig');
     }
 
@@ -55,10 +55,11 @@ class PaiementController extends AbstractController
         return $this->render('paiement/errorcheckout.html.twig');
     }
 
+
     /**
      * @Route("/create-checkout-session", name="checkout")
      */
-    public function checkout(Request $request): Response
+    public function checkout(Request $request)
     {
 
         $params = json_decode($request->getContent());
@@ -81,7 +82,6 @@ class PaiementController extends AbstractController
             'success_url' => $this->generateUrl('success', [], UrlGeneratorInterface::ABSOLUTE_URL),
             'cancel_url' => $this->generateUrl('errorcheckout', [], UrlGeneratorInterface::ABSOLUTE_URL),
         ]);
-
 
         return new JsonResponse(['id' => $session->id]);
     }
