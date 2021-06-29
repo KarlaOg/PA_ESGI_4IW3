@@ -19,15 +19,15 @@
 						<input placeholder="Rechercher une offre" type="search" class="block px-4 py-3 border-gray-300 rounded-md fuzzy-search form-input focus:ring-indigo-500 focus:border-indigo-500 pl-9 sm:text-sm" style='width:300px'>
 					</div>
 				</div>
-								<hr>
+				<hr>
 				<div class="list">
 					{% for offer in offers  %}
 						{% if app.user.roles[0] == "ROLE_MARQUE"  %}
 
 							{% if offer.id not in idsValidated %}
 								{% if brand is not null and offer.brandId.id == brand.id %}
-									<H4 class="mb-3">OFFRE(S) EN COURS</H4>
-									<div class="mb-3 card rounded">
+									<H4 class="mb-3">OFFRE EN COURS</H4>
+									<div class="mb-3 rounded card">
 										<div class="card-body">
 											<p class="name">Nom :
 												{{ offer.name|capitalize }}</p>
