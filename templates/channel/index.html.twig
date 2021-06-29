@@ -7,8 +7,8 @@
 
 	<div class="container">
 
-		{% if channels %}
-			<h2>Which chan do you want to join ?</h2>
+		{% if channels and channels != "Security"%}
+			<h2>QUELLE DISCUSSION VOULEZ-VOUS REJOINDRE ?</h2>
 			<table class="table table-striped">
 				<tbody>
 					{% for channel in channels %}
@@ -21,9 +21,13 @@
 					{% endfor %}
 				</tbody>
 			</table>
+		{% elseif channels == "Security" %}
+			<div>
+				<div class="text-center alert alert-danger">Accés interdit.</div>
+			</div>
 		{% else %}
-			<div class="pt-5">
-				<div class="text-center alert alert-info">Pas de message pour le moment</div>
+			<div>
+				<div class="text-center alert alert-danger">Aucune discussion créée pour l'instant.</div>
 			</div>
 		{% endif %}
 	</div>
