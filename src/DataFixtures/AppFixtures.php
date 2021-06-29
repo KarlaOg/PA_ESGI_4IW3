@@ -139,13 +139,13 @@ class AppFixtures extends Fixture
                     "Transports - Logistique"
                 ])
                 ->setSocialNetwork([
-                    'Website' => 'https://' . $username . '.com',
-                    'Instagram' => 'https://instagram/' .  $username . '.com',
-                    'Tiktok' => 'https://tiktok/' .  $username . '.com',
-                    'Facebook' => 'https://facebook/' .  $username . '.com',
-                    'Youtube' => 'https://youtube/' .  $username . 'com',
-                    'Twitter' => 'https://twitter/' .  $username . '.com',
-                    'Twitch' => 'https://twitch/' .  $username . '.com',
+                    'Website' => 'https://' . $name . '.com',
+                    'Instagram' => 'https://instagram/' .  $name . '.com',
+                    'Tiktok' => 'https://tiktok/' .  $name . '.com',
+                    'Facebook' => 'https://facebook/' .  $name . '.com',
+                    'Youtube' => 'https://youtube/' .  $name . 'com',
+                    'Twitter' => 'https://twitter/' .  $name . '.com',
+                    'Twitch' => 'https://twitch/' .  $name . '.com',
                 ])
 
                 ->setUpdatedAt($faker->dateTime());
