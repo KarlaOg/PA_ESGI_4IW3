@@ -51,15 +51,35 @@ class MessageController extends AbstractController
         $message->setChannel($channel);
         $message->setAuthor($user); // On lui attribue comme auteur l'utilisateur courant
 
-        $userEmail = $user->getEmail();
-        $notification = (new Notification('Confirmation d\'envoi du message'))
-            ->content('Mr/Mme ' . $user->getLastname() . ' votre message a bien été envoyé !');
+        $userEmail_send_msg = $user->getEmail();
 
-        // user recoit le mail
+        if ($user == $channel->getUser1()) {
+            $user_received_msg = $channel->getUser2();
+        } else {
+            $user_received_msg = $channel->getUser1();
+        }
+
+        $userEmail_received_msg = $user_received_msg->getEmail();
+
+        $notification = (new Notification('Vos avez reçu un nouveau message'))
+            ->content('Bonjour ' . $user_received_msg->getLastname() . ', \n vous venez de recevoir un nouveau message de ' . $user->getLastname());
+
+        // utilisateur qui envoi le message recoit une confirmation par mail
         $recipient = new Recipient(
-            $userEmail
+            $userEmail_received_msg
         );
-        // Send the notification to the recipient
+
+        $notifier->send($notification, $recipient);
+
+
+        $notification = (new Notification('Confirmation d\'envoi du message'))
+            ->content('Bonjour ' . $user->getLastname() . ', votre message a bien été envoyé ! à ' . $user_received_msg->getLastname());
+
+        // utilisateur qui recoit le message, recoit une notification par mail
+        $recipient = new Recipient(
+            $userEmail_send_msg
+        );
+
         $notifier->send($notification, $recipient);
 
         $em->persist($message);
