@@ -30,19 +30,6 @@ class PaiementController extends AbstractController
      */
     public function success(): Response
     {
-        $price = 1000;
-
-        //$go = $this->getDoctrine()->getRepository(Offer::class)->find($id);
-
-        // $transaction = New Transaction();
-        // $transaction->setPrice($price);
-        // $transaction->setOfferId(42);
-        // $transaction->setBrandId("3");
-        // $transaction->setInfluencerId("3");
-
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($transaction);
-        // $em->flush();
         return $this->render('paiement/success.html.twig');
     }
 

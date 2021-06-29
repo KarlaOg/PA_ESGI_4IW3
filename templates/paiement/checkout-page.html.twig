@@ -7,13 +7,16 @@ Votre Paiement
 
 
 {% block body %}
+<div class="container pt-5">
     <label for="amount"> Votre Montant </label>
-    <input type="number" id="amount">
-    <button type="submit"  id="checkout-button"  class="btn btn-warning"> Valider votre somme </button>
+    <input type="number" id="amount">€ <br>
+    <button type="submit"  id="checkout-button"  class="mt-4 btn btn-warning"> Valider votre somme </button>
+</div>
 
 
 {% endblock %}
 {% block javascripts %}
+{{parent()}}
     <script type="text/javascript">
         // Create an instance of the Stripe object with your publishable API key
         var stripe = Stripe('pk_test_51J4s40JmgFZZr5aDe3augCEZqrQkDNNOpOtr0lZBjgKpZ4EBKI7mw52mYP1jH7nu9taby3Rs7Ln1ajezYm4O6Mjt00Y9BFFlcj');
