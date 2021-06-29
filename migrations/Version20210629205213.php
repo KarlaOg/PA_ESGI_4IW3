@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210629201713 extends AbstractMigration
+final class Version20210629205213 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -32,6 +32,7 @@ final class Version20210629201713 extends AbstractMigration
         $this->addSql('CREATE TABLE offer (id INT AUTO_INCREMENT NOT NULL, brand_id_id INT NOT NULL, name VARCHAR(255) NOT NULL, description TEXT NOT NULL, date_creation DATETIME NOT NULL, date_start DATETIME NOT NULL, date_end DATETIME NOT NULL, field JSON NOT NULL, INDEX IDX_29D6873E24BD5740 (brand_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE payment (id INT AUTO_INCREMENT NOT NULL, offer_id_id INT DEFAULT NULL, payment_ref INT DEFAULT NULL, date_creation DATETIME NOT NULL, UNIQUE INDEX UNIQ_6D28840DFC69E3BE (offer_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE payment_user (payment_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_AC10413D4C3A3BB (payment_id), INDEX IDX_AC10413DA76ED395 (user_id), PRIMARY KEY(payment_id, user_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE transaction (id INT AUTO_INCREMENT NOT NULL, offer_id_id INT DEFAULT NULL, brand_id_id INT DEFAULT NULL, influencer_id_id INT DEFAULT NULL, price VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_723705D1FC69E3BE (offer_id_id), INDEX IDX_723705D124BD5740 (brand_id_id), INDEX IDX_723705D1D772CB29 (influencer_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, age DATETIME NOT NULL, is_admin TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE application ADD CONSTRAINT FK_A45BDDC153C674EE FOREIGN KEY (offer_id) REFERENCES offer (id)');
         $this->addSql('ALTER TABLE application_influencer ADD CONSTRAINT FK_4A1CBD4F3E030ACD FOREIGN KEY (application_id) REFERENCES application (id) ON DELETE CASCADE');
@@ -49,6 +50,9 @@ final class Version20210629201713 extends AbstractMigration
         $this->addSql('ALTER TABLE payment ADD CONSTRAINT FK_6D28840DFC69E3BE FOREIGN KEY (offer_id_id) REFERENCES offer (id)');
         $this->addSql('ALTER TABLE payment_user ADD CONSTRAINT FK_AC10413D4C3A3BB FOREIGN KEY (payment_id) REFERENCES payment (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE payment_user ADD CONSTRAINT FK_AC10413DA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE transaction ADD CONSTRAINT FK_723705D1FC69E3BE FOREIGN KEY (offer_id_id) REFERENCES offer (id)');
+        $this->addSql('ALTER TABLE transaction ADD CONSTRAINT FK_723705D124BD5740 FOREIGN KEY (brand_id_id) REFERENCES brand (id)');
+        $this->addSql('ALTER TABLE transaction ADD CONSTRAINT FK_723705D1D772CB29 FOREIGN KEY (influencer_id_id) REFERENCES influencer (id)');
     }
 
     public function down(Schema $schema): void
@@ -56,12 +60,15 @@ final class Version20210629201713 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE application_influencer DROP FOREIGN KEY FK_4A1CBD4F3E030ACD');
         $this->addSql('ALTER TABLE offer DROP FOREIGN KEY FK_29D6873E24BD5740');
+        $this->addSql('ALTER TABLE transaction DROP FOREIGN KEY FK_723705D124BD5740');
         $this->addSql('ALTER TABLE chat DROP FOREIGN KEY FK_659DF2AA72F5A1AA');
         $this->addSql('ALTER TABLE message DROP FOREIGN KEY FK_B6BD307F72F5A1AA');
         $this->addSql('ALTER TABLE application_influencer DROP FOREIGN KEY FK_4A1CBD4F4AF97FA6');
         $this->addSql('ALTER TABLE contract DROP FOREIGN KEY FK_E98F2859D772CB29');
+        $this->addSql('ALTER TABLE transaction DROP FOREIGN KEY FK_723705D1D772CB29');
         $this->addSql('ALTER TABLE application DROP FOREIGN KEY FK_A45BDDC153C674EE');
         $this->addSql('ALTER TABLE payment DROP FOREIGN KEY FK_6D28840DFC69E3BE');
+        $this->addSql('ALTER TABLE transaction DROP FOREIGN KEY FK_723705D1FC69E3BE');
         $this->addSql('ALTER TABLE payment_user DROP FOREIGN KEY FK_AC10413D4C3A3BB');
         $this->addSql('ALTER TABLE brand DROP FOREIGN KEY FK_1C52F958A76ED395');
         $this->addSql('ALTER TABLE channel DROP FOREIGN KEY FK_A2F98E4756AE248B');
@@ -82,6 +89,7 @@ final class Version20210629201713 extends AbstractMigration
         $this->addSql('DROP TABLE offer');
         $this->addSql('DROP TABLE payment');
         $this->addSql('DROP TABLE payment_user');
+        $this->addSql('DROP TABLE transaction');
         $this->addSql('DROP TABLE user');
     }
 }
