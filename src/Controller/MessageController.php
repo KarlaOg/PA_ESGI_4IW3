@@ -15,6 +15,10 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
+
 class MessageController extends AbstractController
 {
     /**
@@ -24,8 +28,10 @@ class MessageController extends AbstractController
         Request $request,
         ChannelRepository $channelRepository,
         SerializerInterface $serializer,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        NotifierInterface $notifier
     ): JsonResponse {
+
         $data = \json_decode($request->getContent(), true); // On récupère les data postées et on les déserialize
         if (empty($content = $data['content'])) {
             throw new AccessDeniedHttpException('No data sent');
@@ -38,10 +44,43 @@ class MessageController extends AbstractController
             throw new AccessDeniedHttpException('Message have to be sent on a specific channel');
         }
 
+        $user = $this->getUser();
+
         $message = new Message(); // Après validation, on crée le nouveau message
         $message->setContent($content);
         $message->setChannel($channel);
-        $message->setAuthor($this->getUser()); // On lui attribue comme auteur l'utilisateur courant
+        $message->setAuthor($user); // On lui attribue comme auteur l'utilisateur courant
+
+        $userEmail_send_msg = $user->getEmail();
+
+        if ($user == $channel->getUser1()) {
+            $user_received_msg = $channel->getUser2();
+        } else {
+            $user_received_msg = $channel->getUser1();
+        }
+
+        $userEmail_received_msg = $user_received_msg->getEmail();
+
+        $notification = (new Notification('Vos avez reçu un nouveau message'))
+            ->content('Bonjour ' . $user_received_msg->getLastname() . ', \n vous venez de recevoir un nouveau message de ' . $user->getLastname());
+
+        // utilisateur qui envoi le message recoit une confirmation par mail
+        $recipient = new Recipient(
+            $userEmail_received_msg
+        );
+
+        $notifier->send($notification, $recipient);
+
+
+        $notification = (new Notification('Confirmation d\'envoi du message'))
+            ->content('Bonjour ' . $user->getLastname() . ', votre message a bien été envoyé ! à ' . $user_received_msg->getLastname());
+
+        // utilisateur qui recoit le message, recoit une notification par mail
+        $recipient = new Recipient(
+            $userEmail_send_msg
+        );
+
+        $notifier->send($notification, $recipient);
 
         $em->persist($message);
         $em->flush(); // Sauvegarde du nouvel objet en DB
