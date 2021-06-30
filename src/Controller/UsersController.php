@@ -53,39 +53,39 @@ class UsersController extends AbstractController
 
         $application = $applicationRepository->findApplicationAndInfluencer($influencer);
 
-        // Recherche de partenariat pour un influenceur 
-        foreach($application as $app){
-            if( $app->getStatus() === "validated"){
+        // Recherche de partenariat pour un influenceur
+        foreach ($application as $app) {
+            if ($app->getStatus() === "validated") {
                 array_push($validatedApps, $app);
             }
         }
 
-            if($brand){
-                $brandId = $brand->getId();
-                $offers = $offerRepository->findBy([
-                    'brandId' => $brandId
-                ]);
-                //on recupere toutes les applications en lien avec la marque
-                foreach ($offers as $offer) {
-                    $allApps = $offer->getApplication();
+        if ($brand) {
+            $brandId = $brand->getId();
+            $offers = $offerRepository->findBy([
+                'brandId' => $brandId
+            ]);
+            //on recupere toutes les applications en lien avec la marque
+            foreach ($offers as $offer) {
+                $allApps = $offer->getApplication();
 
-                    foreach ($allApps as $app) {
-                        if ($app->getStatus() === "validated") {
-                            //recuperer l'influenceur qui a postulé l'offre
-                            $influencer = $influencerRepository->findOneBy([
-                                'id' => $app->getInfluencerId()->toArray()[0]
-                            ]);
-                            array_push($partnerships, $offer);
-                        }
+                foreach ($allApps as $app) {
+                    if ($app->getStatus() === "validated") {
+                        //recuperer l'influenceur qui a postulé l'offre
+                        $influencer = $influencerRepository->findOneBy([
+                            'id' => $app->getInfluencerId()->toArray()[0]
+                        ]);
+                        array_push($partnerships, $offer);
                     }
                 }
             }
-           
+        }
+
         $lastOffers = $offerRepository->findBy([], array('id' => 'desc'), 4, 0);
         $lastInfluencer = $influencerRepository->findBy([], array('id' => 'desc'), 4, 0);
 
 
-            
+
         $countOfferInfluencer = count($application);
         $countValidatedApps = count($validatedApps); // Influenceur
         $countPartnerships = count($partnerships); // Marque
@@ -95,8 +95,8 @@ class UsersController extends AbstractController
             'countOfferInfluencer' => $countOfferInfluencer,
             'countValidatedApps' => $countValidatedApps,
             'countPartnerships' => $countPartnerships,
-            'lastOffers'=> $lastOffers,
-            'lastInfluencer'=> $lastInfluencer
+            'lastOffers' => $lastOffers,
+            'lastInfluencer' => $lastInfluencer
         ]);
     }
 

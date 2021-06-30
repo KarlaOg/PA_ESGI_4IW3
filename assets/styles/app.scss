@@ -43,7 +43,7 @@ img.preview_image {
   margin-top: 10px;
 }
 
-.underline{
+.underline {
   text-decoration: underline rgba(225, 29, 72, var(--tw-bg-opacity));
 }
 
@@ -54,6 +54,22 @@ img.preview_image {
   .xs {
     color: red;
     font-weight: bold;
+  }
+
+  .btn-nav-form {
+    margin-left: 5px;
+    margin-top: 10px;
+  }
+  .btn-nav-form1 {
+    margin-top: 10px;
+  }
+}
+@media (min-width: 768px) {
+  .form-login {
+    width: 500px;
+  }
+  .form-register {
+    width: 800px;
   }
 }
 
@@ -86,6 +102,11 @@ img.preview_image {
   .xl {
     color: red;
     font-weight: bold;
+  }
+}
+@media (min-width: 1023px) {
+  .btn-nav-form {
+    margin-left: 20px;
   }
 }
 
