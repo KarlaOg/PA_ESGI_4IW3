@@ -25,7 +25,7 @@
 										Influenceur
 									</span>
 								{% elseif app.user.roles[0] == "ROLE_MARQUE" %}
-									<span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full role">
+									<span class="inline-flex px-2 text-xs font-semibold leading-5 text-purple-800 bg-purple-100 rounded-full role">
 										Marque
 									</span>
 
@@ -72,7 +72,7 @@
 				</div>
 				<div class="px-5 py-3 bg-gray-50">
 					<div class="text-sm">
-						<a href="{{ path('users_offers') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+						<a href="{{ path('users_offers') }}" class="font-semibold text-current hover:underline hover:text-rose-900">
 							Voir
 						</a>
 					</div>
@@ -102,7 +102,7 @@
 				</div>
 				<div class="px-5 py-3 bg-gray-50">
 					<div class="text-sm">
-						<a href="{{ path('my_partnership') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+						<a href="{{ path('my_partnership') }}" class="font-semibold text-current hover:underline hover:text-rose-900">
 							Voir
 						</a>
 					</div>
@@ -132,7 +132,7 @@
 					</div>
 					<div class="px-5 py-3 bg-gray-50">
 						<div class="text-sm">
-							<a href="{{ path('offer_index') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+							<a href="{{ path('offer_index') }}" class="font-semibold text-current hover:underline hover:text-rose-900">
 								Voir
 							</a>
 						</div>
@@ -163,7 +163,7 @@
 					</div>
 					<div class="px-5 py-3 bg-gray-50">
 						<div class="text-sm">
-							<a href="{{ path('my_partnership') }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+							<a href="{{ path('my_partnership') }}" class="font-semibold text-current hover:underline hover:text-rose-900">
 								Voir
 							</a>
 						</div>
@@ -198,13 +198,13 @@
 								</div>
 								<div class="flex-1 w-0 ml-5">
 									<dl>
-										<dt class="text-sm font-medium text-gray-500 truncate">
-											{{ oneOffer.name }}
+										<dt class="text-xl font-medium text-gray-800 truncate">
+											{{ oneOffer.name}}
 										</dt>
 										<dd>
-											<div class="text-lg font-medium text-gray-900">
+											<div class="text-sm font-medium text-gray-500 truncate">
 												<p>
-													{{ oneOffer.description |slice(0, 50)}}...</p>
+													{{ oneOffer.description |slice(0, 30)}}...</p>
 											</div>
 											<div>
 												{{ oneOffer.dateStart ? oneOffer.dateStart|date('d/m/Y') : 'NC'}}
@@ -227,7 +227,7 @@
 						</div>
 						<div class="px-5 py-3 bg-gray-50">
 							<div class="text-sm">
-								<a href="{{ path('offer_show', {'id': oneOffer.id}) }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+								<a href="{{ path('offer_show', {'id': oneOffer.id}) }}" class="font-semibold text-current hover:underline hover:text-rose-900">
 									Voir l'offre</a>
 
 							</div>
@@ -284,7 +284,7 @@
 											<div class="text-lg font-medium text-gray-900"></div>
 										</dd>
 										<dt class="text-sm font-medium text-gray-500 truncate">
-											{{ oneInfluencer.description |slice(0, 50)}}...</dt>
+											{{ oneInfluencer.description |slice(0, 30)}}...</dt>
 									</p>
 								</dd>
 							</dt>
@@ -306,7 +306,7 @@
 		</div>
 						<div class="px-5 py-3 bg-gray-50">
 							<div class="text-sm">
-								<a href="{{ path('influencer_show', {'username': oneInfluencer.username}) }}" class="font-medium text-cyan-700 hover:text-cyan-900">
+								<a href="{{ path('influencer_show', {'username': oneInfluencer.username}) }}" class="font-semibold text-current hover:underline hover:font-semibold hover:text-rose-900">
 									Voir l'influenceur</a>
 							</div>
 						</div>
@@ -315,4 +315,4 @@
 
 {% else %}
 <p>
-	Il n'y a pas d'influencer inscrit pour le moment !</p>{% endif %}{% endif %}</div></div></div></div>{% endblock %}
+	Il n'y a pas d'influenceur inscrit pour le moment !</p>{% endif %}{% endif %}</div></div></div></div>{% endblock %}
