@@ -12,24 +12,25 @@ use App\Entity\Application;
 use App\Form\InfluencerType;
 use App\Form\ApplicationType;
 use App\Form\EditProfileType;
+use App\Repository\UserRepository;
 use App\Repository\BrandRepository;
+use App\Repository\OfferRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ApplicationRepository;
-use App\Repository\OfferRepository;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Notifier\Notification\Notification;
+
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
-
-use Symfony\Component\Notifier\Notification\Notification;
-use Symfony\Component\Notifier\NotifierInterface;
-use Symfony\Component\Notifier\Recipient\Recipient;
 
 
 class UsersController extends AbstractController
@@ -37,6 +38,7 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/accueil", name="users_data")
+     * @Security("is_granted('ROLE_MARQUE') or is_granted('ROLE_INFLUENCEUR')")
      */
 
     public function usersData(OfferRepository $offerRepository, BrandRepository $brandRepository, ApplicationRepository $applicationRepository, InfluencerRepository $influencerRepository)

@@ -269,14 +269,12 @@
 								<div class="flex-1 w-0 ml-5">
 									<dl>
 
-										<div class="text-lg font-medium text-gray-900">
-											<p>
+										<div class="font-medium text-gray-900 ">
+											<p class="text-lg">
 												{{ oneInfluencer.name }}
-
 											</p>
-											<p>
-												{{ oneInfluencer.username }}
-
+											<p class="text-md">
+												@{{ oneInfluencer.username }}
 											</p>
 										</div>
 
@@ -297,22 +295,19 @@
 									</span>
 								{% endfor %}
 							</div>
-							<div>
-							</div>
+							<div></div>
 						</dd>
 					</dl>
 				</div>
 			</div>
 		</div>
-						<div class="px-5 py-3 bg-gray-50">
-							<div class="text-sm">
-								<a href="{{ path('influencer_show', {'username': oneInfluencer.username}) }}" class="font-semibold text-current hover:underline hover:font-semibold hover:text-rose-900">
-									Voir l'influenceur</a>
-							</div>
-						</div>
+		<div class="px-5 py-3 bg-gray-50">
+			<div class="text-sm">
+				<a href="{{ path('influencer_show', {'username': oneInfluencer.username}) }}" class="font-semibold text-current hover:underline hover:font-semibold hover:text-rose-900">
+					Voir l'influenceur</a>
+			</div>
+		</div>
 	</div>
-			{% endfor %}
-
-{% else %}
+{% endfor %}{% else %}
 <p>
 	Il n'y a pas d'influenceur inscrit pour le moment !</p>{% endif %}{% endif %}</div></div></div></div>{% endblock %}
