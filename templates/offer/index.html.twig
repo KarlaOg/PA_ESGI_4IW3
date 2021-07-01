@@ -10,7 +10,13 @@
 			Liste des offres
 		</h2>
 		{% if app.user.roles[0] == "ROLE_MARQUE" and brand.offers|length <= 0 %}
-			<p>Vous n'avez pas d'offre de créer pour le moment.</p>
+
+			<div class="alert alert-info" role="alert">
+				Vous n'avez pas d'offre de créer pour le moment. Veuillez créer une offre pour qu'elle s'ajoute à vôtre liste des offres !
+			</div>
+			<a href="/offre/nouveau" class="flex items-center justify-center rounded-tl-lg	 rounded-br-lg text-center	 px-2 py-2 -sm font-semibold leading-6  text-white  border-transparent shadow-sm bg-rose-500 hover:bg-rose-600 focus:outline-none ">
+				Créer une offre
+			</a>
 		{% else %}
 			<div id="offer-list-user">
 				<div class="mb-5">
