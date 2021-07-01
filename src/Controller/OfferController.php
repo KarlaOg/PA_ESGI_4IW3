@@ -118,7 +118,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/liste/{id}", name="show", methods={"GET"})
+     * @Route("/liste/{id}", name="show", methods={"GET", "POST"})
      */
     public function show($id, Offer $offer, BrandRepository $brandRepository, Request $request, ApplicationRepository $applicationRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository)
     {
@@ -179,7 +179,7 @@ class OfferController extends AbstractController
             $em->flush();
 
             $this->addFlash('message', 'Votre commentaire a bien été envoyé');
-            return $this->redirectToRoute('offer_show', ['id' => $offerId]);
+            return $this->redirectToRoute('offer_show', ['id' => $offer->getId()]);
         }
 
         return $this->render('offer/show.html.twig', [

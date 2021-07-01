@@ -77,7 +77,7 @@ class Offer
     private $application;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="annonces", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="offer", orphanRemoval=true)
      */
     private $comments;
 

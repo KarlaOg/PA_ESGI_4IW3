@@ -20,7 +20,7 @@ class Comments
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $content;
 
@@ -43,11 +43,6 @@ class Comments
      * @ORM\Column(type="datetime")
      */
     private $created_at;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $rgpd = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="comments")
@@ -131,18 +126,6 @@ class Comments
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getRgpd(): ?bool
-    {
-        return $this->rgpd;
-    }
-
-    public function setRgpd(bool $rgpd): self
-    {
-        $this->rgpd = $rgpd;
 
         return $this;
     }
