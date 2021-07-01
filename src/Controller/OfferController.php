@@ -359,7 +359,7 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/suppression:qq/{id}/{token}", name="delete", methods={"GET"})
+     * @Route("/suppression/{id}/{token}", name="delete", methods={"GET"})
      * @IsGranted("ROLE_MARQUE", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
     public function delete($id, Offer $offer, $token, OfferRepository $offerRepository)

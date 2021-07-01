@@ -5,25 +5,29 @@
 
 {% block body %}
 
-	<div class="container">
+	<div class="container pt-5">
 
-		{% if channels %}
-			<h2>Which chan do you want to join ?</h2>
-			<table class="table table-striped">
+		{% if channels and channels != "Security"%}
+			<h2>Quelle discussion voulez-vous rejoindre ?</h2>
+			<table class="table mt-5 table-striped">
 				<tbody>
 					{% for channel in channels %}
 						<tr class="">
 							<th>
 								<span>{{ channel.name }}</span>
-								<a class="float-right btn btn-primary" href="{{ path('channel_chat', {id: channel.id}) }}">Go chat !</a>
+								<a class="float-right btn btn-primary" href="{{ path('channel_chat', {id: channel.id}) }}">Rejoindre</a>
 							</th>
 						</tr>
 					{% endfor %}
 				</tbody>
 			</table>
+		{% elseif channels == "Security" %}
+			<div class="container pt-5">
+				<div class="text-center alert alert-danger">Accés interdit.</div>
+			</div>
 		{% else %}
-			<div>
-				<div class="text-center alert alert-danger">No Channels found.</div>
+			<div class="container pt-5">
+				<div class="text-center alert alert-danger">Aucune discussion créée pour l'instant.</div>
 			</div>
 		{% endif %}
 	</div>

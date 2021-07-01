@@ -5,36 +5,49 @@
 
 
 {% block body %}
-	<div class="container">
-		<h1>Channel
-			{{ channel.name }}</h1>
-		<div class="container" style="height: 600px">
-			<div class="container overflow-auto bg-light h-75">
-				{% for message in messages %}
-					{% if app.user == message.author %}
-						<div class="float-right row w-75">
-							<b>{{ message.author.email }}</b>
-							<p class="alert alert-info w-100">
-								{{ message.content }}
-							</p>
-						</div>
-					{% else %}
-						<div class="float-left row w-75">
-							<b>{{ message.author.email }}</b>
-							<p class="alert alert-success w-100">
-								{{ message.content }}
-							</p>
-						</div>
-					{% endif %}
-				{% endfor %}
+	<div class="container pt-5">
+		{% if autorisation == "acces" %}
+			<h2>Conversation avec
+				{{ channel.name }}</h2>
+			<div class="justify-end mt-2 mb-3 mr-2 d-flex">
+				<button id="refresh">
+					<svg class="w-6 h-6 mb-3" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+					</svg>
+				</button>
 			</div>
+			<div class="container" style="height: 600px">
+				<div class="container overflow-auto bg-light h-75">
+					{% for message in messages %}
+						{% if app.user == message.author %}
+							<div class="float-right row w-75">
+								<b>{{ message.createdAt|date('d-m-Y H:i') }}</b>
+								<p class="alert alert-info w-100">
+									{{ message.content }}
+								</p>
+							</div>
+						{% else %}
+							<div class="float-left row w-75">
+								<b>{{ message.createdAt|date('d-m-Y H:i') }}</b>
+								<p class="alert alert-success w-100">
+									{{ message.content }}
+								</p>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div>
+					<form id="form" class="container row">
+						<input id="message" class="input-group-text col-sm-9" placeholder="Rédigez votre message..." type="text"/>
+						<button id="btnSend" type="submit" class="btn btn-success col-sm-3">Envoyer</button>
+					</form>
+				</div>
+			</div>
+		{% else %}
 			<div>
-				<form id="form" class="container row">
-					<input id="message" class="input-group-text col-sm-9" placeholder="Message" type="text"/>
-					<button id="btnSend" type="submit" class="btn btn-success col-sm-3">Send</button>
-				</form>
+				<div class="text-center alert alert-danger">Accés interdit.</div>
 			</div>
-		</div>
+		{% endif %}
 	</div>
 {% endblock %}
 {% block javascripts %}
@@ -50,20 +63,23 @@ event.preventDefault(); // Empêche la page de se rafraîchir après le submit d
 }form.addEventListener('submit', handleForm);
 
 const submit = document.getElementById('btnSend');
+const refresh = document.getElementById('refresh');
 
-submit.onclick = e => { // On change le comportement du submit
+refresh.onclick = e => {
+document.location.reload();
+} submit.onclick = e => { // On change le comportement du submit
 const message = document.getElementById('message'); // Récupération du message dans l'input correspondant
 const data = { // La variable data sera envoyée au controller
 'content': message.value, // On transmet le message...
 'channel': {{ channel.id }} // ... Et le canal correspondant
 }
-console.log(data); // Pour vérifier vos informations
+
 fetch('/message', { // On envoie avec un post nos datas sur le endpoint /message de notre application
 method: 'POST',
 body: JSON.stringify(data) // On envoie les data sous format JSON
 }).then((response) => {
 message.value = '';
-console.log(response);
+setTimeout(document.location.reload(), 1000);
 });
 }
 }();

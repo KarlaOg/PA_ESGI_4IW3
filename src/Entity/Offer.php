@@ -42,7 +42,6 @@ class Offer
 
     /**
      * @ORM\Column(type="datetimetz")
-     *@Assert\GreaterThanOrEqual("tomorrow", message="Une offre peut commencer qu'à partir de demain.")
      *@Assert\GreaterThan(propertyPath="dateCreation", message="Une offre ne peut pas être inférieure à la date de publication.")
      *@Assert\LessThanOrEqual(propertyPath="dateEnd", message="La date de commencement doit être inférieure à la date de fin.")
      */

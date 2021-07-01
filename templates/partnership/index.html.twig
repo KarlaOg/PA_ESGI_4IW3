@@ -95,6 +95,9 @@
 								</div>
 							</li>
 						</ul>
+                        {% if app.user.roles[0] ==  "ROLE_MARQUE" %}
+					        <a href="{{ path('detail_paiement') }}"  class="mb-5 ml-5 btn btn-warning">Payer votre influenceur </a>
+			            {% endif %}
 					</div>
 				</div>
 			</div>

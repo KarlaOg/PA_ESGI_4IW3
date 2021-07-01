@@ -12,24 +12,25 @@ use App\Entity\Application;
 use App\Form\InfluencerType;
 use App\Form\ApplicationType;
 use App\Form\EditProfileType;
+use App\Repository\UserRepository;
 use App\Repository\BrandRepository;
+use App\Repository\OfferRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ApplicationRepository;
-use App\Repository\OfferRepository;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Notifier\Notification\Notification;
+
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
-
-use Symfony\Component\Notifier\Notification\Notification;
-use Symfony\Component\Notifier\NotifierInterface;
-use Symfony\Component\Notifier\Recipient\Recipient;
 
 
 class UsersController extends AbstractController
@@ -37,6 +38,7 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/accueil", name="users_data")
+     * @Security("is_granted('ROLE_MARQUE') or is_granted('ROLE_INFLUENCEUR')")
      */
 
     public function usersData(OfferRepository $offerRepository, BrandRepository $brandRepository, ApplicationRepository $applicationRepository, InfluencerRepository $influencerRepository)
@@ -51,34 +53,39 @@ class UsersController extends AbstractController
 
         $application = $applicationRepository->findApplicationAndInfluencer($influencer);
 
-        // Recherche de partenariat pour un influenceur 
-        foreach($application as $app){
-            if( $app->getStatus() === "validated"){
+        // Recherche de partenariat pour un influenceur
+        foreach ($application as $app) {
+            if ($app->getStatus() === "validated") {
                 array_push($validatedApps, $app);
             }
         }
 
-            if($brand){
-                $brandId = $brand->getId();
-                $offers = $offerRepository->findBy([
-                    'brandId' => $brandId
-                ]);
-                //on recupere toutes les applications en lien avec la marque
-                foreach ($offers as $offer) {
-                    $allApps = $offer->getApplication();
+        if ($brand) {
+            $brandId = $brand->getId();
+            $offers = $offerRepository->findBy([
+                'brandId' => $brandId
+            ]);
+            //on recupere toutes les applications en lien avec la marque
+            foreach ($offers as $offer) {
+                $allApps = $offer->getApplication();
 
-                    foreach ($allApps as $app) {
-                        if ($app->getStatus() === "validated") {
-                            //recuperer l'influenceur qui a postulé l'offre
-                            $influencer = $influencerRepository->findOneBy([
-                                'id' => $app->getInfluencerId()->toArray()[0]
-                            ]);
-                            array_push($partnerships, $offer);
-                        }
+                foreach ($allApps as $app) {
+                    if ($app->getStatus() === "validated") {
+                        //recuperer l'influenceur qui a postulé l'offre
+                        $influencer = $influencerRepository->findOneBy([
+                            'id' => $app->getInfluencerId()->toArray()[0]
+                        ]);
+                        array_push($partnerships, $offer);
                     }
                 }
             }
-            
+        }
+
+        $lastOffers = $offerRepository->findBy([], array('id' => 'desc'), 4, 0);
+        $lastInfluencer = $influencerRepository->findBy([], array('id' => 'desc'), 4, 0);
+
+
+
         $countOfferInfluencer = count($application);
         $countValidatedApps = count($validatedApps); // Influenceur
         $countPartnerships = count($partnerships); // Marque
@@ -88,6 +95,8 @@ class UsersController extends AbstractController
             'countOfferInfluencer' => $countOfferInfluencer,
             'countValidatedApps' => $countValidatedApps,
             'countPartnerships' => $countPartnerships,
+            'lastOffers' => $lastOffers,
+            'lastInfluencer' => $lastInfluencer
         ]);
     }
 

@@ -108,8 +108,6 @@ class AppFixtures extends Fixture
 
 
         //BRAND USER
-
-
         for ($u = 0; $u < 5; $u++) {
             $user = new User();
             $hash = $this->encoder->encodePassword($user, "password");
@@ -125,13 +123,12 @@ class AppFixtures extends Fixture
             $manager->persist($user);
 
             $brand = new Brand();
-            $username = $faker->userName();
-            $exp = "/[0-9]/";
-            $name = preg_replace($exp, "", $username);
-            $resName = str_replace(".", " ", $name);
+            $username = $faker->company();
+            $name = str_replace(" ", "-", $username);
+            $resName = str_replace("-", " ", $name);
             $brand->setUser($faker->unique()->randomElement($users))
                 ->setDescription($faker->realText())
-                ->setUsername($username)
+                ->setUsername($name)
                 ->setSiret($faker->numberBetween(10, 2000))
                 ->setName($resName)
                 ->setField([
@@ -142,13 +139,13 @@ class AppFixtures extends Fixture
                     "Transports - Logistique"
                 ])
                 ->setSocialNetwork([
-                    'Website' => 'https://' . $username . '.com',
-                    'Instagram' => 'https://instagram/' .  $username . '.com',
-                    'Tiktok' => 'https://tiktok/' .  $username . '.com',
-                    'Facebook' => 'https://facebook/' .  $username . '.com',
-                    'Youtube' => 'https://youtube/' .  $username . 'com',
-                    'Twitter' => 'https://twitter/' .  $username . '.com',
-                    'Twitch' => 'https://twitch/' .  $username . '.com',
+                    'Website' => 'https://' . $name . '.com',
+                    'Instagram' => 'https://instagram/' .  $name . '.com',
+                    'Tiktok' => 'https://tiktok/' .  $name . '.com',
+                    'Facebook' => 'https://facebook/' .  $name . '.com',
+                    'Youtube' => 'https://youtube/' .  $name . 'com',
+                    'Twitter' => 'https://twitter/' .  $name . '.com',
+                    'Twitch' => 'https://twitch/' .  $name . '.com',
                 ])
 
                 ->setUpdatedAt($faker->dateTime());
@@ -161,7 +158,7 @@ class AppFixtures extends Fixture
         for ($u = 0; $u < 5; $u++) {
             $offer = new Offer();
             $offer->setBrandId($faker->randomElement($brands))
-                ->setDescription($faker->realText())
+                ->setDescription($faker->text($maxNbChars = 200))
                 ->setName($faker->jobTitle())
                 ->setDateStart($faker->dateTimeBetween('+1 days', '+10 days'))
                 ->setDateEnd($faker->dateTimeBetween('+11 days', '+2 years'))
