@@ -17,6 +17,11 @@
 			<a href="/offre/nouveau" class="flex items-center justify-center rounded-tl-lg	 rounded-br-lg text-center	 px-2 py-2 -sm font-semibold leading-6  text-white  border-transparent shadow-sm bg-rose-500 hover:bg-rose-600 focus:outline-none ">
 				Créer une offre
 			</a>
+		{% endif %}
+		{% if app.user.roles[0] == "ROLE_INFLUENCEUR" and offers|length <= 0 %}
+			<div class="alert alert-warning" role="alert">
+				Aucune offre existe actuellement !
+			</div>
 		{% else %}
 			<div id="offer-list-user">
 				<div class="mb-5">

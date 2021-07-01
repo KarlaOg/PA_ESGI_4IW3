@@ -10,15 +10,16 @@
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 			<link href="https://bootswatch.com/4/lux/bootstrap.min.css" rel="stylesheet">
-			<link rel="stylesheet" href="{{ asset('css/home.css') }}"/>
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 		{% endblock %}
 	</head>
 
 	<body class="d-flex flex-column justify-content-between" style="min-height: 100%;">
 		{% include "shared/_navbar.html.twig" %}
-		<div class="container pt-5" style="min-height: calc(100vh - 70px);">
-			{{ block('body') }}
-		</div>
+		{# <div class="container pt-5" style="min-height: calc(100vh - 70px);"> #}
+		{{ block('body') }}
+		{# </div> #}
 		{% include "shared/_footer.html.twig" %}
 
 	</body>
@@ -32,5 +33,8 @@
 $('.toast').toast('show');
 });
 		</script>
+
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	{% endblock %}
 </html>
