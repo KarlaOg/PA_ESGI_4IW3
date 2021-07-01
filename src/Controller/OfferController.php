@@ -5,10 +5,14 @@ namespace App\Controller;
 use App\Entity\Application;
 use App\Entity\Influencer;
 use App\Entity\Offer;
+use App\Entity\Comments;
+use DateTime;
 
 use App\Entity\User;
 use App\Form\OfferType;
 use App\Form\ApplicationType;
+use App\Form\CommentsType;
+
 use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use App\Repository\ApplicationRepository;
@@ -116,7 +120,7 @@ class OfferController extends AbstractController
     /**
      * @Route("/liste/{id}", name="show", methods={"GET"})
      */
-    public function show($id, Offer $offer, BrandRepository $brandRepository, ApplicationRepository $applicationRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository)
+    public function show($id, Offer $offer, BrandRepository $brandRepository, Request $request, ApplicationRepository $applicationRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository)
     {
         $offerId = $offerRepository->find($id);
 
@@ -144,6 +148,40 @@ class OfferController extends AbstractController
             'status' => 'pending'
         ]);
 
+        // Partie commentaires
+        // On crée le commentaire "vierge"
+        $comment = new Comments;
+
+        // On génère le formulaire
+        $commentForm = $this->createForm(CommentsType::class, $comment);
+
+        $commentForm->handleRequest($request);
+
+        // Traitement du formulaire
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setCreatedAt(new DateTime());
+            $comment->setOffer($offer);
+
+            // On récupère le contenu du champ parentid
+            $parentid = $commentForm->get("parentid")->getData();
+
+            // On va chercher le commentaire correspondant
+            $em = $this->getDoctrine()->getManager();
+
+            if ($parentid != null) {
+                $parent = $em->getRepository(Comments::class)->find($parentid);
+            }
+
+            // On définit le parent
+            $comment->setParent($parent ?? null);
+
+            $em->persist($comment);
+            $em->flush();
+
+            $this->addFlash('message', 'Votre commentaire a bien été envoyé');
+            return $this->redirectToRoute('offer_show', ['id' => $offerId]);
+        }
+
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,
             'brand' => $brand,
@@ -151,7 +189,8 @@ class OfferController extends AbstractController
             'offerApplied' => $offerApplied,
             'apply' => $apply,
             'application' => $application,
-            'isPending' => $pending ? true : false
+            'isPending' => $pending ? true : false,
+            'commentForm' => $commentForm->createView()
         ]);
     }
 
@@ -380,5 +419,50 @@ class OfferController extends AbstractController
         $this->addFlash('info', 'Suppression réussie');
 
         return $this->redirectToRoute('offer_index');
+    }
+
+    /**
+     * @Route("/commenter/{id}/", name="comment", methods={ "GET", "POST"})
+     */
+    public function comment(Offer $offer, Request $request,  NotifierInterface $notifier, influencerRepository $influencerRepository)
+    {
+
+        $user = $this->getUser();
+        $offerId = $offer->getId();
+        $influencer = $influencerRepository->findOneBy(['user' => $user]);
+
+        // Partie commentaires
+        // On crée le commentaire "vierge"
+        $comment = new Comments;
+
+        // On génère le formulaire
+        $commentForm = $this->createForm(CommentsType::class, $comment);
+
+        $commentForm->handleRequest($request);
+
+        // Traitement du formulaire
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setCreatedAt(new DateTime());
+            $comment->setOffer($offer);
+
+            // On récupère le contenu du champ parentid
+            $parentid = $commentForm->get("parentid")->getData();
+
+            // On va chercher le commentaire correspondant
+            $em = $this->getDoctrine()->getManager();
+
+            if ($parentid != null) {
+                $parent = $em->getRepository(Comments::class)->find($parentid);
+            }
+
+            // On définit le parent
+            $comment->setParent($parent ?? null);
+
+            $em->persist($comment);
+            $em->flush();
+
+            $this->addFlash('message', 'Votre commentaire a bien été envoyé');
+            return $this->redirectToRoute('annonces_details', ['offer_id' => $offerId]);
+        }
     }
 }
