@@ -76,14 +76,12 @@
 											<div class="profile-header-cover"></div>
 											<!-- END profile-header-cover -->
 											<!-- BEGIN profile-header-content -->
-											<div class="profile-header-content">
-												<!-- BEGIN profile-header-img -->
-												{# <div class="profile-header-img">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						<img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<!-- END profile-header-img --> #}
+											<div
+												class="profile-header-content">
+
 												<!-- BEGIN profile-header-info -->
-													<div class="profile-header-info"> <h4 class="text-gray-700">
+												<div class="profile-header-info">
+													<h4 class="text-gray-700">
 														Commentaires sur l'offre
 													</h4>
 													<p class="m-b-10">Vous pouvez envoyer ou répondre à un commentaire sur cette offre</p>
@@ -95,8 +93,8 @@
 									</div>
 									<!-- end profile -->
 
-									<div class="container pt-5">
-										<div class="col-xs2 col-sm3" id="ajout-commentaire">
+									<div class="container pt-5" id="ajout-commentaire">
+										<div class="col-xs2 col-sm3">
 											<h4 class="text-gray-700 mb-4">
 												Ajouter / Répondre à un commentaire
 											</h4>
@@ -127,10 +125,7 @@
 
 												<ul class="timeline">
 													{% for comment in offer.comments|reverse %}
-
 														{% if comment.parent == null %}
-
-
 															<li>
 																<!-- begin timeline-time -->
 																<div class="timeline-time">
@@ -140,11 +135,13 @@
 																		{{comment.createdAt|date("H:i") }}</span>
 																</div>
 																<!-- end timeline-time -->
+
 																<!-- begin timeline-icon -->
 																<div class="timeline-icon">
 																	<a href="javascript:;">&nbsp;</a>
 																</div>
 																<!-- end timeline-icon -->
+
 																<!-- begin timeline-body -->
 																<div class="timeline-body">
 																	<div class="timeline-header">
@@ -186,27 +183,17 @@
 																						{{reply.user.firstname}}
 																						{{reply.user.lastname}}</a>
 																				</span>
-																				<span class="pull-right text-muted">{{reply.createdAt|date("d/m/Y H:i") }}</span>
+																				<span class="pull-right text-muted">Le
+																					{{reply.createdAt|date("d/m/Y") }}
+																					à
+																					{{reply.createdAt|date("H:i") }}</span>
 																			</p>
 																			<div class="container pt-2">{{reply.content|raw}}</div>
 																		</div>
 																	</div>
 																{% endfor %}
-
 															</li>
-
-
-															{# <h3>Commentaire de
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													{{comment.user.firstname}}
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</h3>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<p>Publié le
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													{{comment.createdAt|date("d/m/Y H:i") }}</p>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<div>{{comment.content|raw}}</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<p>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													<a href="#ajout-commentaire" data-reply data-id="{{comment.id}}" class="btn primary press">Répondre</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</p> #}
 														{% endif %}
-
 													{% endfor %}
 												</ul>
 												<!-- end timeline -->
@@ -236,39 +223,150 @@
 					{% endif %}
 
 
-					<div class="col-xs2 col-sm3" id="ajout-commentaire">
-						<h2>Répondre à un commentaire</h2>
-						{{ form_start(commentForm) }}
-						{{ form_row(commentForm.content) }}
-						<div id="editor"></div>
-						{{ form_end(commentForm) }}
+					<div class="container pt-5">
+						<div class="row">
+							<div class="col-md-12">
+								<div
+									id="content" class="content content-full-width">
+									<!-- begin profile -->
+									<div class="profile">
+										<div
+											class="profile-header">
+											<!-- BEGIN profile-header-cover -->
+											<div class="profile-header-cover"></div>
+											<!-- END profile-header-cover -->
+											<!-- BEGIN profile-header-content -->
+											<div
+												class="profile-header-content">
+
+												<!-- BEGIN profile-header-info -->
+												<div class="profile-header-info">
+													<h4 class="text-gray-700">
+														Commentaires sur l'offre
+													</h4>
+													<p class="m-b-10">Répondre à un commentaire sur cette offre</p>
+												</div>
+												<!-- END profile-header-info -->
+											</div>
+											<!-- END profile-header-content -->
+										</div>
+									</div>
+									<!-- end profile -->
+
+									<div class="container pt-5" id="ajout-commentaire">
+										<div class="col-xs2 col-sm3">
+											<h4 class="text-gray-700 mb-4">
+												Répondre à un commentaire
+											</h4>
+											{{ form_start(commentForm) }}
+											{{ form_row(commentForm.content) }}
+											<div id="editor"></div>
+											<button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-indigo-500 rounded-full shadow ripple hover:shadow-lg hover:bg-indigo-600 focus:outline-none waves-effect">
+												Valider
+											</button>
+											{{ form_end(commentForm) }}
+										</div>
+									</div>
+
+									<!-- begin profile-content -->
+									<div
+										class="profile-content">
+										<!-- begin tab-content -->
+										<div
+											class="tab-content p-0">
+											<!-- begin #profile-post tab -->
+											<div
+												class="tab-pane fade active show" id="profile-post">
+												<!-- begin timeline -->
+
+												<h4 class="text-gray-700 mb-4">
+													Liste des commentaires
+												</h4>
+
+												<ul class="timeline">
+													{% for comment in offer.comments|reverse %}
+														{% if comment.parent == null %}
+															<li>
+																<!-- begin timeline-time -->
+																<div class="timeline-time">
+																	<span class="date">Le
+																		{{comment.createdAt|date("d/m/Y") }}</span>
+																	<span class="time">à
+																		{{comment.createdAt|date("H:i") }}</span>
+																</div>
+																<!-- end timeline-time -->
+
+																<!-- begin timeline-icon -->
+																<div class="timeline-icon">
+																	<a href="javascript:;">&nbsp;</a>
+																</div>
+																<!-- end timeline-icon -->
+
+																<!-- begin timeline-body -->
+																<div class="timeline-body">
+																	<div class="timeline-header">
+																		<span class="userimage">
+																			<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+																				<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+																			</svg>
+																		</span>
+																		<span class="username">
+																			<a href="javascript:;">Commentaire de
+																				{{comment.user.firstname}}
+																				{{comment.user.lastname}}</a>
+																			<small></small>
+																		</span>
+																		<span class="pull-right text-muted">{{ comment.replies|length}}
+																			réponse(s)</span>
+																	</div>
+																	<div class="container pt-2">
+																		<p>{{comment.content|raw}}</p>
+																	</div>
+
+																	<div class="timeline-footer">
+																		<a href="#ajout-commentaire" data-reply data-id="{{comment.id}}" class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-pink-500 rounded shadow ripple hover:shadow-lg hover:bg-pink-600 focus:outline-none waves-effect">
+																			Répondre
+																		</a>
+																	</div>
+
+																	{# On affiche les réponses #}
+																	{% for reply in comment.replies %}
+																		<div class="timeline-footer">
+																			<div class="timeline-header">
+																				<span class="userimage">
+																					<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+																						<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+																					</svg>
+																				</span>
+																				<span class="username">
+																					<a href="javascript:;">Réponse publié par
+																						{{reply.user.firstname}}
+																						{{reply.user.lastname}}</a>
+																				</span>
+																				<span class="pull-right text-muted">Le
+																					{{reply.createdAt|date("d/m/Y") }}
+																					à
+																					{{reply.createdAt|date("H:i") }}</span>
+																			</p>
+																			<div class="container pt-2">{{reply.content|raw}}</div>
+																		</div>
+																	</div>
+																{% endfor %}
+															</li>
+														{% endif %}
+													{% endfor %}
+												</ul>
+												<!-- end timeline -->
+											</div>
+											<!-- end #profile-post tab -->
+										</div>
+										<!-- end tab-content -->
+									</div>
+									<!-- end profile-content -->
+								</div>
+							</div>
+						</div>
 					</div>
-
-					{% for comment in offer.comments|reverse %}
-
-						{% if comment.parent == null %}
-							<h3>Commentaire de
-								{{comment.user.firstname}}
-							</h3>
-							<p>Publié le
-								{{comment.createdAt|date("d/m/Y H:i") }}</p>
-							<div>{{comment.content|raw}}</div>
-							<p>
-								<a href="#ajout-commentaire" data-reply data-id="{{comment.id}}" class="btn primary press">Répondre</a>
-							</p>
-
-							{# On affiche les réponses #}
-							{% for reply in comment.replies %}
-								<p>Réponse publiée par
-									{{reply.user.firstname}}
-									{{reply.user.lastname}}
-									le
-									{{reply.createdAt|date("d/m/Y H:i") }}</p>
-								<div>{{reply.content|raw}}</div>
-							{% endfor %}
-
-						{% endif %}
-					{% endfor %}
 				{% endif %}
 			{% endfor %}<hr></div><link rel="stylesheet" href="{{ asset('css/comments.css') }}"/><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"></div>
 {% endblock %}
