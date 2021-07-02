@@ -6,6 +6,7 @@ use App\Entity\Application;
 use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Brand;
+use App\Entity\Comments;
 use App\Entity\Offer;
 use App\Entity\Influencer;
 use Doctrine\Persistence\ObjectManager;
@@ -27,6 +28,7 @@ class AppFixtures extends Fixture
         $influcers = [];
         $brands = [];
         $applications = [];
+        $comments = [];
 
         //ADMIN
         $admin = new User;
@@ -180,6 +182,18 @@ class AppFixtures extends Fixture
             $applications[] = $application;
 
             $manager->persist($application);
+        }
+
+        //CREATION  APPLICATION OFFER
+        for ($u = 1; $u < 6; $u++) {
+            $comments = new Comments();
+            $comments->setOffer($faker->randomElement($offers))
+                ->setContent("Bonjour, c'est possible d'avoir plus de renseignement sur l'offre")
+                ->setParent(NULL)
+                ->setActive(0)
+                ->setCreatedAt(new \DateTime('2021-07-03 12:15:00'))
+                ->setUser($faker->randomElement($user->getId($u)));
+            $manager->persist($comments);
         }
 
         $manager->flush();
