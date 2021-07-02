@@ -161,6 +161,7 @@ class OfferController extends AbstractController
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $comment->setCreatedAt(new DateTime());
             $comment->setOffer($offer);
+            $comment->setUser($user);
 
             // On récupère le contenu du champ parentid
             $parentid = $commentForm->get("parentid")->getData();

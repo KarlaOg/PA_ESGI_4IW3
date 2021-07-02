@@ -19,23 +19,10 @@ class CommentsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, [
-                'label' => 'Votre e-mail',
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
-            ->add('nickname', TextType::class, [
-                'label' => 'Votre pseudo',
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
-            ->add('content', TextareaType::class)
+            ->add('content', TextareaType::class, ['label' => 'Votre commentaire'])
             ->add('parentid', HiddenType::class, [
                 'mapped' => false
-            ])
-            ->add('envoyer', SubmitType::class);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
