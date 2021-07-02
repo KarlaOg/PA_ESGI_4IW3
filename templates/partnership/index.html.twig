@@ -96,11 +96,18 @@
 							</li>
 						</ul>
                         {% if app.user.roles[0] ==  "ROLE_MARQUE" %}
-					        <a href="{{ path('detail_paiement') }}"  class="mb-5 ml-5 btn btn-warning">Payer votre influenceur </a>
+					        <a href="{{ path('detail_paiement') }}" id="btnPay" class="mb-5 ml-5 btn btn-warning">Payer votre influenceur </a>
 			            {% endif %}
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<script type="text/javascript">
+		document.getElementById("btnPay").addEventListener('click', function() {
+			sessionStorage.setItem('influencerUsername', "{{collaborators[loop.index0].username}}");
+			sessionStorage.setItem('offerId', "{{ partnership.id }}");
+		});
+		</script>
 	{% endfor %}
 {% endblock %}

@@ -18,12 +18,15 @@ Votre Paiement
 {% block javascripts %}
 {{parent()}}
     <script type="text/javascript">
+        console.log(sessionStorage);
         // Create an instance of the Stripe object with your publishable API key
         var stripe = Stripe('pk_test_51J4s40JmgFZZr5aDe3augCEZqrQkDNNOpOtr0lZBjgKpZ4EBKI7mw52mYP1jH7nu9taby3Rs7Ln1ajezYm4O6Mjt00Y9BFFlcj');
         var checkoutButton = document.getElementById('checkout-button');
         var checkoutCustomSum = document.getElementById('amount');
-        console.log((checkoutCustomSum).value);
+
         checkoutButton.addEventListener('click', function() {
+            sessionStorage.setItem('price', checkoutCustomSum.value);
+
             // Create a new Checkout Session using the server-side endpoint you
             // created in step 3.
             fetch('/create-checkout-session', {
@@ -31,27 +34,25 @@ Votre Paiement
                 headers:{
                    'Content-Type': 'application/json',
                 },
-                 body: JSON.stringify({
-                    checkoutCustomSum: parseInt(checkoutCustomSum.value * 100, 10),
-                    }),
+                 body: JSON.stringify({checkoutCustomSum: parseInt(checkoutCustomSum.value * 100, 10), sessionStorage : sessionStorage}),
             })
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(session) {
-                    return stripe.redirectToCheckout({ sessionId: session.id });
-                })
-                .then(function(result) {
-                    // If `redirectToCheckout` fails due to a browser or network
-                    // error, you should display the localized error message to your
-                    // customer using `error.message`.
-                    if (result.error) {
-                        alert(result.error.message);
-                    }
-                })
-                .catch(function(error) {
-                    console.error('Error:', error);
-                });
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(session) {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function(result) {
+                // If `redirectToCheckout` fails due to a browser or network
+                // error, you should display the localized error message to your
+                // customer using `error.message`.
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
         });
     </script>
 {% endblock %}
