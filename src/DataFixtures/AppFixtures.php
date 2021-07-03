@@ -184,15 +184,18 @@ class AppFixtures extends Fixture
             $manager->persist($application);
         }
 
+        $commentaires = ["Bonjour, c'est possible d'avoir plus de renseignement sur l'offre", "Combien c'est rémunérer s'il vous plait", "On peux négocier les prix", "Combien de personnes sont prisent pour le partenariat ?"];
+        $dates = [new \DateTime(), new \DateTime('-1 days'), new \DateTime('-2 days'), new \DateTime('+1 days')];
+
         //CREATION  APPLICATION OFFER
         for ($u = 1; $u < 6; $u++) {
             $comments = new Comments();
             $comments->setOffer($faker->randomElement($offers))
-                ->setContent("Bonjour, c'est possible d'avoir plus de renseignement sur l'offre")
+                ->setContent($faker->randomElement($commentaires))
                 ->setParent(NULL)
                 ->setActive(0)
-                ->setCreatedAt(new \DateTime('2021-07-03 12:15:00'))
-                ->setUser($faker->randomElement($user->getId($u)));
+                ->setCreatedAt($faker->randomElement($dates))
+                ->setUser($faker->randomElement($faker->randomElement($user)));
             $manager->persist($comments);
         }
 

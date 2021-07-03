@@ -331,12 +331,16 @@
 																					<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
 																				</svg>
 																			</span>
-																			<span class="username">
-																				<a href="javascript:;">Commentaire de
-																					{{comment.user.firstname}}
-																					{{comment.user.lastname}}</a>
-																				<small></small>
-																			</span>
+
+																			{% if (comment.user is not null)  %}
+																				<span class="username">
+																					<a href="javascript:;">Commentaire de
+																						{{comment.user.firstname}}
+																						{{comment.user.lastname}}</a>
+																					<small></small>
+																				</span>
+
+																			{% endif %}
 																			<span class="pull-right text-muted">{{ comment.replies|length}}
 																				réponse(s)</span>
 																		</div>
