@@ -5,9 +5,13 @@ namespace App\Form;
 use App\Entity\Comments;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Length;
 
 
 class CommentsType extends AbstractType
@@ -15,7 +19,13 @@ class CommentsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', TextareaType::class, ['label' => 'Votre commentaire'])
+            ->add('content', TextareaType::class, [
+                'label' => 'Votre commentaire',
+                'constraints' => [
+                    new Length(['min' => 4]),
+                    new Regex('/^[\w\s]+/i')
+                ]
+            ])
             ->add('parentid', HiddenType::class, [
                 'mapped' => false
             ]);

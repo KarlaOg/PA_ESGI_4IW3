@@ -160,7 +160,7 @@ class OfferController extends AbstractController
         // On crée le commentaire "vierge"
         $comment = new Comments;
 
-        // On génère le formulaire
+        // On génère le formulaire pour le commentaire
         $commentForm = $this->createForm(CommentsType::class, $comment);
 
         $commentForm->handleRequest($request);
@@ -170,6 +170,8 @@ class OfferController extends AbstractController
             $comment->setCreatedAt(new DateTime());
             $comment->setOffer($offer);
             $comment->setUser($user);
+            $data_content = $commentForm->getData()->getContent();
+            $comment->setContent(htmlspecialchars($data_content));
 
             // On récupère le contenu du champ parentid
             $parentid = $commentForm->get("parentid")->getData();
