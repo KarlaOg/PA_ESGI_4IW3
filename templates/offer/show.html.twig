@@ -123,79 +123,88 @@
 													Liste des commentaires
 												</h4>
 
-												<ul class="timeline">
-													{% for comment in offer.comments|reverse %}
-														{% if comment.parent == null %}
-															<li>
-																<!-- begin timeline-time -->
-																<div class="timeline-time">
-																	<span class="date">Le
-																		{{comment.createdAt|date("d/m/Y") }}</span>
-																	<span class="time">à
-																		{{comment.createdAt|date("H:i") }}</span>
-																</div>
-																<!-- end timeline-time -->
+												{% if (offer.comments is defined) and (offer.comments is not null) %}
 
-																<!-- begin timeline-icon -->
-																<div class="timeline-icon">
-																	<a href="javascript:;">&nbsp;</a>
-																</div>
-																<!-- end timeline-icon -->
 
-																<!-- begin timeline-body -->
-																<div class="timeline-body">
-																	<div class="timeline-header">
-																		<span class="userimage">
-																			<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
-																				<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
-																			</svg>
-																		</span>
-																		<span class="username">
-																			<a href="javascript:;">Commentaire de
-																				{{comment.user.firstname}}
-																				{{comment.user.lastname}}</a>
-																			<small></small>
-																		</span>
-																		<span class="pull-right text-muted">{{ comment.replies|length}}
-																			réponse(s)</span>
+													<ul class="timeline">
+														{% for comment in offer.comments|reverse %}
+															{% if comment.parent == null %}
+																<li>
+																	<!-- begin timeline-time -->
+																	<div class="timeline-time">
+																		<span class="date">Le
+																			{{comment.createdAt|date("d/m/Y") }}</span>
+																		<span class="time">à
+																			{{comment.createdAt|date("H:i") }}</span>
 																	</div>
-																	<div class="container pt-2">
-																		<p>{{comment.content|raw}}</p>
-																	</div>
+																	<!-- end timeline-time -->
 
-																	<div class="timeline-footer">
-																		<a href="#ajout-commentaire" data-reply data-id="{{comment.id}}" class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-pink-500 rounded shadow ripple hover:shadow-lg hover:bg-pink-600 focus:outline-none waves-effect">
-																			Répondre
-																		</a>
+																	<!-- begin timeline-icon -->
+																	<div class="timeline-icon">
+																		<a href="javascript:;">&nbsp;</a>
 																	</div>
+																	<!-- end timeline-icon -->
 
-																	{# On affiche les réponses #}
-																	{% for reply in comment.replies %}
-																		<div class="timeline-footer">
-																			<div class="timeline-header">
-																				<span class="userimage">
-																					<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
-																						<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
-																					</svg>
-																				</span>
-																				<span class="username">
-																					<a href="javascript:;">Réponse publié par
-																						{{reply.user.firstname}}
-																						{{reply.user.lastname}}</a>
-																				</span>
-																				<span class="pull-right text-muted">Le
-																					{{reply.createdAt|date("d/m/Y") }}
-																					à
-																					{{reply.createdAt|date("H:i") }}</span>
-																			</p>
-																			<div class="container pt-2">{{reply.content|raw}}</div>
+																	<!-- begin timeline-body -->
+																	<div class="timeline-body">
+																		<div class="timeline-header">
+																			<span class="userimage">
+																				<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+																					<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+																				</svg>
+																			</span>
+																			<span class="username">
+																				<a href="javascript:;">Commentaire de
+																					{{comment.user.firstname}}
+																					{{comment.user.lastname}}</a>
+																				<small></small>
+																			</span>
+																			<span class="pull-right text-muted">{{ comment.replies|length}}
+																				réponse(s)</span>
 																		</div>
-																	</div>
-																{% endfor %}
-															</li>
-														{% endif %}
-													{% endfor %}
-												</ul>
+																		<div class="container pt-2">
+																			<p>{{comment.content|raw}}</p>
+																		</div>
+
+																		<div class="timeline-footer">
+																			<a href="#ajout-commentaire" data-reply data-id="{{comment.id}}" class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-pink-500 rounded shadow ripple hover:shadow-lg hover:bg-pink-600 focus:outline-none waves-effect">
+																				Répondre
+																			</a>
+																		</div>
+
+																		{# On affiche les réponses #}
+																		{% for reply in comment.replies %}
+																			<div class="timeline-footer">
+																				<div class="timeline-header">
+																					<span class="userimage">
+																						<svg class="w-full h-full text-gray-300" fill="currentColor" viewbox="0 0 24 24">
+																							<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+																						</svg>
+																					</span>
+																					<span class="username">
+																						<a href="javascript:;">Réponse publié par
+																							{{reply.user.firstname}}
+																							{{reply.user.lastname}}</a>
+																					</span>
+																					<span class="pull-right text-muted">Le
+																						{{reply.createdAt|date("d/m/Y") }}
+																						à
+																						{{reply.createdAt|date("H:i") }}</span>
+																				</p>
+																				<div class="container pt-2">{{reply.content|raw}}</div>
+																			</div>
+																		</div>
+																	{% endfor %}
+																</li>
+															{% endif %}
+														{% endfor %}
+													</ul>
+
+												{% else %}
+
+													<p>Pas de commentaire !</p>
+
+												{% endif %}
 												<!-- end timeline -->
 											</div>
 											<!-- end #profile-post tab -->
