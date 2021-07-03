@@ -19,10 +19,12 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
+
 class RegisterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('firstname', TextType::class, [
                 'label' => 'Nom',
@@ -45,12 +47,13 @@ class RegisterType extends AbstractType
                 'label' => 'Date de Naissance',
             ])
             ->add('roles', ChoiceType::class, [
-                'label' => 'Vous êtes (au choix):',
+                'label' => 'Vous êtes :',
                 'choices' => array(
+                    'Veulliez séléctionner votre rôle' => null,
                     'Marque' => "ROLE_MARQUE",
                     'Influenceur' => 'ROLE_INFLUENCEUR',
                 ),
-                'multiple'  => true,
+                'multiple' => false,
                 'required' => true,
             ])
             ->add('email', EmailType::class, [
