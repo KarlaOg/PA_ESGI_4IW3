@@ -50,7 +50,7 @@ class MessageController extends AbstractController
         $message->setContent(htmlspecialchars($content));
         $message->setChannel($channel);
         $message->setAuthor($user); // On lui attribue comme auteur l'utilisateur courant
-
+        
         $userEmail_send_msg = $user->getEmail();
 
         if ($user == $channel->getUser1()) {
