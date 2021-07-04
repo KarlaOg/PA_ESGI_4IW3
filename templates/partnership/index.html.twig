@@ -6,11 +6,11 @@
 
 {% block body %}
 	<div class="container mt-5">
-		<h2 class="pb-2">Mes partenariats
+		<h2 class="pb-2">Mes partenariats avec
 			{% if app.user.roles[0] ==  "ROLE_MARQUE" %}
-				influenceur(s)
+				influenceurs
 			{% else %}
-				marque(s)
+				marques
 			{% endif %}
 		</h2>
 		{% if partnerships is empty %}
