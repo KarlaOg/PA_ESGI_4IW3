@@ -47,10 +47,10 @@ class MessageController extends AbstractController
         $user = $this->getUser();
 
         $message = new Message(); // Après validation, on crée le nouveau message
-        $message->setContent($content);
+        $message->setContent(htmlspecialchars($content));
         $message->setChannel($channel);
         $message->setAuthor($user); // On lui attribue comme auteur l'utilisateur courant
-
+        
         $userEmail_send_msg = $user->getEmail();
 
         if ($user == $channel->getUser1()) {
