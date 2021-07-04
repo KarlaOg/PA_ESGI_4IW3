@@ -4,6 +4,7 @@
 {% endblock %}
 {% block body %}
 
+
 	<main class="w-full mt-4 mb-4">
 		<div class="max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
 			<div class="relative px-6 py-10 overflow-hidden bg-indigo-500 shadow-xl rounded-2xl sm:px-12 sm:py-20">
@@ -33,75 +34,85 @@
 		</div>
 
 		<!-- card offres : 4 dernières offres affichées -->
-		<h3 class="header-text-h3">
+		<h3 class="header-text-h3 pt-5">
 			Dernières offres publiées</h3>
 
-		<div class="flex items-center justify-center p-4 mt-4">
-			<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
-				{% for offer in offers  %}
-					<!-- card offert-->
-					<div class="relative w-64 px-6 py-6 my-4 bg-white shadow-xl rounded-3xl">
-						<div
-							class="absolute flex items-center px-4 py-4 mb-4 text-white bg-blue-500 rounded-full shadow-xl left-4 -top-6">
-							<!-- svg  -->
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-							</svg>
-						</div>
-						<div class="mt-8">
-							<p class="p-2 my-2 text-xl font-semibold">{{ offer.name|capitalize }}</p>
-							<div
-								class="flex space-x-2 text-sm text-gray-400">
-								<!-- svg  -->
-								<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-								</svg>
-								<p>{{ offer.field ? offer.field|join(', ') : null}}</p>
-							</div>
-							<div
-								class="flex my-3 space-x-2 text-sm text-gray-400">
-								<!-- svg  -->
-								<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-								</svg>
-								<p>
-									Début
-									{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
-								</p>
-							</div>
+		{% if offers is empty %}
+			<div class="container pt-3 mb-4">
+				<div class="alert alert-warning" role="alert">
+					Aucune offres n'a été publiée pour le moment !
+				</div>
 
+			</div>
+
+		{% else %}
+
+			<div class="flex items-center justify-center p-4 mt-4">
+				<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
+					{% for offer in offers  %}
+						<!-- card offert-->
+						<div class="relative w-64 px-6 py-6 my-4 bg-white shadow-xl rounded-3xl">
 							<div
-								class="flex my-3 space-x-2 text-sm text-gray-400">
+								class="absolute flex items-center px-4 py-4 mb-4 text-white bg-blue-500 rounded-full shadow-xl left-4 -top-6">
 								<!-- svg  -->
-								<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+								<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
 								</svg>
-								<p>
-									Fin
-									{{ offer.dateStart ? offer.dateEnd|date('d/m/Y') : 'NC'}}
-								</p>
 							</div>
+							<div class="mt-8">
+								<p class="p-2 my-2 text-xl font-semibold">{{ offer.name|capitalize }}</p>
+								<div
+									class="flex space-x-2 text-sm text-gray-400">
+									<!-- svg  -->
+									<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+									</svg>
+									<p>{{ offer.field ? offer.field|join(', ') : null}}</p>
+								</div>
+								<div
+									class="flex my-3 space-x-2 text-sm text-gray-400">
+									<!-- svg  -->
+									<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+									</svg>
+									<p>
+										Début
+										{{ offer.dateStart ? offer.dateStart|date('d/m/Y') : 'NC'}}
+									</p>
+								</div>
 
-							<div class="border-t-2 "></div>
+								<div
+									class="flex my-3 space-x-2 text-sm text-gray-400">
+									<!-- svg  -->
+									<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+									</svg>
+									<p>
+										Fin
+										{{ offer.dateStart ? offer.dateEnd|date('d/m/Y') : 'NC'}}
+									</p>
+								</div>
 
-							<div class="flex justify-between">
-								<div class="my-2">
-									<p class="mb-2 text-base font-semibold">Description</p>
-									<div class="flex space-x-2">
-										<p>
-											{{ offer.description ? offer.description|slice(0, 80) : 'NC'}}
-											...
-										</p>
+								<div class="border-t-2 "></div>
+
+								<div class="flex justify-between">
+									<div class="my-2">
+										<p class="mb-2 text-base font-semibold">Description</p>
+										<div class="flex space-x-2">
+											<p>
+												{{ offer.description ? offer.description|slice(0, 80) : 'NC'}}
+												...
+											</p>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				{% endfor %}
+					{% endfor %}
+				</div>
 			</div>
-		</div>
-
+		{% endif %}
 		<!-- Fake influenceurs présents sur le site-->
 
 		<h3 class="header-text-h3">Influenceurs présents sur Likkey</h3>
@@ -220,34 +231,6 @@
 			</div>
 		</div>
 	</main>
-{% endblock %}
 
-
-{% block javascripts %}
-	{{parent()}}
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
-	<script>
-		var textWrapper = document.querySelector('.ml2');
-textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
-anime.timeline({loop: true}).add({
-targets: '.ml2 .letter',
-scale: [
-4, 1
-],
-opacity: [
-0, 1
-],
-translateZ: 0,
-easing: "easeOutExpo",
-duration: 950,
-delay: (el, i) => 70 *i
-}).add({
-targets: '.ml2',
-opacity: 0,
-duration: 1000,
-easing: "easeOutExpo",
-delay: 1000
-});
-	</script>
 
 {% endblock %}

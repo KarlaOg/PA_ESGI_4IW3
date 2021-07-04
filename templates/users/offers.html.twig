@@ -4,14 +4,14 @@
 
 	<div class="container pt-5">
 		<h2 class="mb-5">Mes offres postulés</h2>
-		{% if applications is empty  %}
-			<div>
-				<p>
-					Vous avez postuler à aucune offre</p>
-				<p class="mb-0 ">
-					<a href="{{ path('offer_index') }}" class="btn btn-primary">
-						Afficher les offres</a>
-				</p>
+		{% if applications is empty or offers is empty %}
+
+			<div class="alert alert-warning" role="alert">
+				Vous avez postulé à aucune offre. Veuillez d'abord postuler à une offre !
+			</div>
+			<div class="container pt-3 mb-4">
+				<a href="{{ path('offer_index') }}" class="btn btn-primary">
+					Afficher les offres</a>
 			</div>
 		{% endif %}
 		{% for offer in offers  %}
@@ -40,7 +40,7 @@
 								<p class="brand text-2xl font-medium">
 									{{ offer.brandId.name|capitalize }}</p>
 								<p class="name text-xl font-medium	">
-												{{ offer.name|capitalize }}</p>
+									{{ offer.name|capitalize }}</p>
 								<p class="description">Descriptif de l'offre :
 									{{ offer.description ? offer.description|slice(0, 50) : 'NC'}}
 								</p>
@@ -62,6 +62,4 @@
 			{% endfor %}
 		{% endfor %}
 	</div>
-
-
 {% endblock %}

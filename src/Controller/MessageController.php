@@ -61,8 +61,8 @@ class MessageController extends AbstractController
 
         $userEmail_received_msg = $user_received_msg->getEmail();
 
-        $notification = (new Notification('Vos avez reçu un nouveau message'))
-            ->content('Bonjour ' . $user_received_msg->getLastname() . ', \n vous venez de recevoir un nouveau message de ' . $user->getLastname());
+        $notification = (new Notification('Vous avez reçu un nouveau message'))
+            ->content('Bonjour ' . $user_received_msg->getFirstname() . $user_received_msg->getLastname() . ', vous venez de recevoir un nouveau message de ' . $user->getFirstname() . $user->getLastname());
 
         // utilisateur qui envoi le message recoit une confirmation par mail
         $recipient = new Recipient(
@@ -73,7 +73,7 @@ class MessageController extends AbstractController
 
 
         $notification = (new Notification('Confirmation d\'envoi du message'))
-            ->content('Bonjour ' . $user->getLastname() . ', votre message a bien été envoyé ! à ' . $user_received_msg->getLastname());
+            ->content('Bonjour ' . $user->getFirstname() . $user->getLastname() . ', votre message a bien été envoyé à ' . $user_received_msg->getFirstname() . $user_received_msg->getLastname());
 
         // utilisateur qui recoit le message, recoit une notification par mail
         $recipient = new Recipient(
