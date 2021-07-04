@@ -120,8 +120,7 @@ class OfferController extends AbstractController
     {
         $offerId = $offerRepository->find($id);
 
-        // J'ai commenté cette ligne, car sinon impoossible de postuler à l'ofrre
-        //$this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
+        $this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
 
         $user = $this->getUser();
         $brand = $brandRepository->findOneBy(['user' => $user]);
@@ -249,7 +248,11 @@ class OfferController extends AbstractController
      * @Route("/applications/{id}", name="show_applications")
      */
     public function show_applications($id, OfferRepository $offerRepository)
+
     {
+        $offerId = $offerRepository->find($id);
+
+        $this->denyAccessUnlessGranted('CAN_EDIT', $offerId, "Vous n'avez pas acces");
         //recupere tt les applications de l'offre en question
         $applications = $offerRepository->findOneby([
             'id' => $id
@@ -272,6 +275,10 @@ class OfferController extends AbstractController
      */
     public function validated_partnership($id, Request $request, influencerRepository $influencerRepository, NotifierInterface $notifier, ApplicationRepository $applicationRepository, OfferRepository $offerRepository)
     {
+        $offerId = $offerRepository->find($id);
+
+        $this->denyAccessUnlessGranted('CAN_EDIT', $offerId, "Vous n'avez pas acces");
+
         $applicationId = $request->get('application');
 
         $user = $this->getUser();
@@ -326,6 +333,10 @@ class OfferController extends AbstractController
      */
     public function refuse_partnership($id, Request $request, NotifierInterface $notifier, ApplicationRepository $applicationRepository, OfferRepository $offerRepository)
     {
+        $offerId = $offerRepository->find($id);
+
+        $this->denyAccessUnlessGranted('CAN_EDIT', $offerId, "Vous n'avez pas acces");
+
         $applicationId = $request->get('application');
 
         $application = $applicationRepository->findOneby([
@@ -364,6 +375,7 @@ class OfferController extends AbstractController
      */
     public function delete($id, Offer $offer, $token, OfferRepository $offerRepository)
     {
+
         $offerId = $offerRepository->find($id);
         $this->denyAccessUnlessGranted('CAN_DELETE', $offerId, "Vous n'avez pas accès");
 
