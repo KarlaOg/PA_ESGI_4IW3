@@ -48,7 +48,7 @@ class AppFixtures extends Fixture
         $influencer->setUser($admin)
             ->setDescription($faker->realText())
             ->setUsername($username)
-            ->setSiret("75152319200027")
+            ->setSiret(75152319200027)
             ->setName($resName)
             ->setType(["Gamer", "Instagramer", "Blogueur"])
             ->setSocialNetwork([
@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
             $influencer->setUser($faker->unique()->randomElement($users))
                 ->setDescription($faker->realText())
                 ->setUsername($username)
-                ->setSiret("75152319200027")
+                ->setSiret(75152319200027)
                 ->setName($resName)
                 ->setType(["Gamer", "Instagramer", "Blogueur"])
                 ->setSocialNetwork([
@@ -129,7 +129,7 @@ class AppFixtures extends Fixture
             $brand->setUser($faker->unique()->randomElement($users))
                 ->setDescription($faker->realText())
                 ->setUsername($name)
-                ->setSiret("75152319200027")
+                ->setSiret(75152319200027)
                 ->setName($resName)
                 ->setField([
                     "Agroalimentaire",
