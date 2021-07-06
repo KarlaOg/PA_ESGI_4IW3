@@ -4,6 +4,10 @@
 {% endblock %}
 
 {% block body %}
+
+	<link rel="stylesheet" href="{{ asset('css/comments.css') }}"/>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
 	{% set var = [] %}
 	{% set newArray = [] %}
 	<div class="container pt-5">
@@ -395,13 +399,13 @@
 						</div>
 					</div>
 				{% endif %}
-			{% endfor %}<hr></div><link rel="stylesheet" href="{{ asset('css/comments.css') }}"/><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"></div>
-{% endblock %}
-{% block javascripts %}
-	<script src="{{ asset('ckeditor5/ckeditor.js') }}"></script>
-	<script src="{{ asset('js/ckeditor.js') }}"></script>
-	<script>
-		window.onload = () => { // On met un écouteur d'évènements sur tous les boutons répondre
+			{% endfor %}
+		{% endblock %}
+		{% block javascripts %}
+			<script src="{{ asset('ckeditor5/ckeditor.js') }}"></script>
+			<script src="{{ asset('js/ckeditor.js') }}"></script>
+			<script>
+				window.onload = () => { // On met un écouteur d'évènements sur tous les boutons répondre
 document.querySelectorAll("[data-reply]").forEach(element => {
 element.addEventListener("click", function () {
 document.querySelector("#comments_parentid").value = this.dataset.id;
@@ -410,5 +414,5 @@ document.querySelector("#comments_parentid").value = this.dataset.id;
 }
 let caroulix = new Caroulix('#carousel');
 let modal = new Modal('#modale-contact');
-	</script>
-{% endblock %}
+			</script>
+		{% endblock %}

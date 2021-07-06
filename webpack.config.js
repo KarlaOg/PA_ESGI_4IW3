@@ -35,6 +35,7 @@ Encore
   //la possibiliter de creer des especes denvironnement et on peux creer autant quon veux en appeler les fichiers js
   //splitEntryChunks permet de decouper les fichiers
   .addEntry('app', './assets/app.js')
+  .addStyleEntry('comments', './assets/styles/comments.css')
   .enableSassLoader()
   .splitEntryChunks()
   .enableSingleRuntimeChunk()

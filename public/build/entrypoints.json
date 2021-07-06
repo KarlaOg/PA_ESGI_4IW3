@@ -7,7 +7,16 @@
         "/build/app.js"
       ],
       "css": [
+        "/build/assets_styles_comments_css.css",
         "/build/app.css"
+      ]
+    },
+    "comments": {
+      "js": [
+        "/build/runtime.js"
+      ],
+      "css": [
+        "/build/assets_styles_comments_css.css"
       ]
     }
   }
