@@ -19,6 +19,8 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
+use Symfony\Component\Form\CallbackTransformer;
+
 
 class RegisterType extends AbstractType
 {
@@ -27,7 +29,7 @@ class RegisterType extends AbstractType
 
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom *',
                 'required' => true,
                 'constraints' => [
                     new Length(['min' => 3]),
@@ -36,7 +38,7 @@ class RegisterType extends AbstractType
                 ]
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Prénom',
+                'label' => 'Prénom *',
                 'required' => true,
                 'constraints' => [
                     new Length(['min' => 2]),
@@ -47,32 +49,45 @@ class RegisterType extends AbstractType
                 'label' => 'Date de Naissance',
             ])
             ->add('roles', ChoiceType::class, [
-                'label' => 'Vous êtes :',
+                'label' => 'Vous êtes *',
                 'choices' => array(
-                    'Veulliez séléctionner votre rôle' => null,
-                    'Marque' => "ROLE_MARQUE",
-                    'Influenceur' => 'ROLE_INFLUENCEUR',
+                    'Veulliez séléctionner votre rôle' => [
+                        'Marque' => "ROLE_MARQUE",
+                        'Influenceur' => 'ROLE_INFLUENCEUR'
+                    ]
                 ),
                 'multiple' => false,
                 'required' => true,
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'Email *',
                 'attr' => [
                     'class' => 'h-full-width',
                 ],
-                'label' => "Email",
             ])
             ->add('password', RepeatedType::class, [
                 'label' => 'Mot de passe',
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmer mot de passe'],
+                'first_options'  => ['label' => 'Mot de passe *'],
+                'second_options' => ['label' => 'Confirmer mot de passe *'],
                 'constraints' => [new Length(['min' => 8])]
             ])
             ->add('isAdmin', HiddenType::class, [
                 'empty_data' => 0
             ]);
+
+        // Data transformer
+        $builder->get('roles')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($rolesArray) {
+                    // transform the array to a string
+                    return count($rolesArray) ? $rolesArray[0] : null;
+                },
+                function ($rolesString) {
+                    // transform the string back to an array
+                    return [$rolesString];
+                }
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -9,7 +9,6 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BrandType extends AbstractType
@@ -25,23 +24,23 @@ class BrandType extends AbstractType
                 'label' => 'Photo',
             ])
             ->add('name', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom *',
                 'required' => true,
             ])
             ->add('username', TextType::class, [
-                'label' => 'Pseudo',
+                'label' => 'Pseudo *',
                 'required' => true,
                 'trim' => true,
             ])
             ->add('description', TextareaType::class, [
+                'label' => 'Description *',
                 'required' => true,
             ])
             ->add('siret', TextType::class, [
                 'required' => false,
             ])
             ->add('field', ChoiceType::class, [
-                'label' => 'Selectionner votre domaine d\'activité',
-                'required' => false,
+                'label' => 'Selectionner votre domaine d\'activité *',
                 'choices' => array(
                     'Agroalimentaire' => 'Agroalimentaire',
                     'Banque - Assurance' => 'Banque - Assurance',
