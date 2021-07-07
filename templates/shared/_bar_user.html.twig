@@ -30,6 +30,13 @@
 				<nav class="flex-shrink-0 h-full mt-5 overflow-y-auto divide-y  divide-white" aria-label="Sidebar">
 					<div class="px-2 space-y-1">
 
+						{% if app.user.roles[0] == "ROLE_MARQUE" %}
+
+					<a href="{{ path('offer_new') }}" class="flex items-center justify-center rounded-tl-lg	 rounded-br-lg text-center	 px-2 py-2 -sm font-semibold leading-6  text-white  border-transparent shadow-sm bg-rose-500 hover:bg-rose-600 focus:outline-none ">
+						Créer une offre
+					</a>
+				{% endif %}
+
 						<a href="{{path('users_data')}}" class="flex hover:items-center px-2 py-2 -base font-medium rounded-md  group text-white  hover:bg-rose-500  " x-state-description="undefined: &quot; bg-gray-800">
 							<svg class="w-6 h-6 mr-4 -" x-description="Heroicon name: outline/home" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -54,7 +61,6 @@
 
 							</a>
 						{% endif %}
-
 						{% if app.user.roles[0] ==  "ROLE_MARQUE" %}
 							<a href="{{ path('all_influencers') }}" class="flex items-center px-2 py-2 -base font-medium rounded-md group text-white  hover:bg-rose-500  " x-state-description="undefined: &quot;bg-cyan-800 -white&quot;, undefined: &quot;-  &quot;">
 								<svg class="w-6 h-6 mr-4 -" x-description="Heroicon name: outline/user-group" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -64,6 +70,7 @@
 
 							</a>
 						{% endif %}
+						
 						{% if app.user.roles[0] ==  "ROLE_INFLUENCEUR"  %}
 							<a href="{{ path('all_brands') }}" class="flex items-center px-2 py-2 -base font-medium rounded-md  group text-white  hover:bg-rose-500  "  x-state-description="undefined: &quot;bg-cyan-800 -white&quot;, undefined: &quot;-  &quot;">
 								<svg class="w-6 h-6 mr-4 -" x-description="Heroicon name: outline/user-group" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true">

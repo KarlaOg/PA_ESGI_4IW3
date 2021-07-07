@@ -46,7 +46,7 @@
 		<h2 class="text-lg font-medium leading-6 text-gray-900">Votre aperçu</h2>
 		<hr>
 		{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
-			<div class="overflow-hidden bg-white rounded-lg shadow">
+			<div class="fixed-card overflow-hidden bg-white rounded-lg shadow">
 				<div class="p-5">
 					<div class="flex items-center">
 						<div class="flex-shrink-0">
@@ -211,7 +211,7 @@
 												-
 
 												{{ oneOffer.dateStart ? oneOffer.dateEnd|date('d/m/Y') : 'NC'}}</div>
-											<div>
+											<div style="min-height:63px">
 												<br>
 												{% for onefield in oneOffer.field  %}
 													<span class="inline-flex px-2 text-xs font-semibold leading-5 text-pink-800 bg-pink-100 rounded-full role">
@@ -263,7 +263,9 @@
 											</svg>
 										</span>
 									{% else %}
-										<img src="{{ asset('uploads/image_user/' ~ oneInfluencer.profilePhoto) }}" alt="photos de profile"/>
+									<span class=" inline-block overflow-hidden bg-gray-100 rounded-full">
+										<img class="w-24 h-24" src="{{ asset('uploads/image_user/' ~ oneInfluencer.profilePhoto) }}" alt="photos de profile"/>
+									</span>	
 									{% endif %}
 								</div>
 								<div class="flex-1 w-0 ml-5">
@@ -287,7 +289,7 @@
 								</dd>
 							</dt>
 
-							<div>
+							<div style="min-height:63px">
 								<br>
 								{% for onefield in oneInfluencer.type  %}
 									<span class="inline-flex px-2 text-xs font-semibold leading-5 text-pink-800 bg-pink-100 rounded-full role">
@@ -301,8 +303,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="px-5 py-3 bg-gray-50">
-			<div class="text-sm">
+		<div class="px-4 py-3 bg-gray-50">
+			<div class="text-sm  ">
 				<a href="{{ path('influencer_show', {'username': oneInfluencer.username}) }}" class="font-semibold text-current hover:underline hover:font-semibold hover:text-rose-900">
 					Voir l'influenceur</a>
 			</div>
