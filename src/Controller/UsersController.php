@@ -12,53 +12,97 @@ use App\Entity\Application;
 use App\Form\InfluencerType;
 use App\Form\ApplicationType;
 use App\Form\EditProfileType;
+use App\Repository\UserRepository;
 use App\Repository\BrandRepository;
+use App\Repository\OfferRepository;
 use App\Repository\InfluencerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ApplicationRepository;
-use App\Repository\OfferRepository;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Notifier\Notification\Notification;
+
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
-
-use Symfony\Component\Notifier\Notification\Notification;
-use Symfony\Component\Notifier\NotifierInterface;
-use Symfony\Component\Notifier\Recipient\Recipient;
 
 
 class UsersController extends AbstractController
 {
 
     /**
-     * @Route("/home", name="users_data")
+     * @Route("/accueil", name="users_data")
+     * @Security("is_granted('ROLE_MARQUE') or is_granted('ROLE_INFLUENCEUR')")
      */
 
-    public function usersData(BrandRepository $brandRepository, ApplicationRepository $applicationRepository, InfluencerRepository $influencerRepository)
+    public function usersData(OfferRepository $offerRepository, BrandRepository $brandRepository, ApplicationRepository $applicationRepository, InfluencerRepository $influencerRepository)
     {
         $user = $this->getUser();
 
         $brand = $brandRepository->findOneBy(['user' => $user]);
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
+        $validatedApps = array();
+        $partnerships = array();
+
         $application = $applicationRepository->findApplicationAndInfluencer($influencer);
 
+        // Recherche de partenariat pour un influenceur
+        foreach ($application as $app) {
+            if ($app->getStatus() === "validated") {
+                array_push($validatedApps, $app);
+            }
+        }
+
+        if ($brand) {
+            $brandId = $brand->getId();
+            $offers = $offerRepository->findBy([
+                'brandId' => $brandId
+            ]);
+            //on recupere toutes les applications en lien avec la marque
+            foreach ($offers as $offer) {
+                $allApps = $offer->getApplication();
+
+                foreach ($allApps as $app) {
+                    if ($app->getStatus() === "validated") {
+                        //recuperer l'influenceur qui a postulé l'offre
+                        $influencer = $influencerRepository->findOneBy([
+                            'id' => $app->getInfluencerId()->toArray()[0]
+                        ]);
+                        array_push($partnerships, $offer);
+                    }
+                }
+            }
+        }
+
+        $lastOffers = $offerRepository->findBy([], array('id' => 'desc'), 4, 0);
+        $lastInfluencer = $influencerRepository->findBy([], array('id' => 'desc'), 4, 0);
+
+
+
         $countOfferInfluencer = count($application);
+        $countValidatedApps = count($validatedApps); // Influenceur
+        $countPartnerships = count($partnerships); // Marque
 
         return $this->render('users/data.html.twig', [
             'brand' => $brand,
             'countOfferInfluencer' => $countOfferInfluencer,
+            'countValidatedApps' => $countValidatedApps,
+            'countPartnerships' => $countPartnerships,
+            'lastOffers' => $lastOffers,
+            'lastInfluencer' => $lastInfluencer
         ]);
     }
 
 
     /**
-     * @Route("/offers", name="users_offers")
+     * @Route("/offres", name="users_offers")
      * @IsGranted("ROLE_INFLUENCEUR", statusCode=404, message="Vous n'avez pas accès à cette page!")
      */
 
@@ -68,7 +112,6 @@ class UsersController extends AbstractController
         $influencer = $influencerRepository->findOneBy(['user' => $user]);
         // GET ALL APPLICATIONS AS DOCTRINE PERSISTENT COLLECTION
         $allApplications = $influencerRepository->find($influencer)->getApplications();
-        $influencer = $influencerRepository->findOneBy(['user' => $user]);
 
         $offerApplied = $applicationRepository->findApplicationAndInfluencer($influencer);
         $offers = $offerRepository->findBy([], ['dateCreation' => 'DESC']);
@@ -85,7 +128,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("profile/edit", name="users_edit")
+     * @Route("profil/editer", name="users_edit")
      */
     public function edit(Request $request)
     {
@@ -109,7 +152,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("profile/complete", name="users_complete")
+     * @Route("profil/infos", name="users_complete")
      */
     public function complete(Request $request, EntityManagerInterface $em, InfluencerRepository $influencerRepository, BrandRepository $brandRepository)
     {
@@ -151,7 +194,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("profile/change-password", name="users_pass_modifier")
+     * @Route("profil/mot-de-passe", name="users_pass_modifier")
      */
     public function editPass(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -190,8 +233,6 @@ class UsersController extends AbstractController
             $session = new Session();
             $session->invalidate();
         }
-
-        // return $this->redirectToRoute('home');
 
         return $this->redirectToRoute('app_logout');
     }

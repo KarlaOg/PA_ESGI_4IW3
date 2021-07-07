@@ -1,9 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	{% if app.user %}
-		<a class="navbar-brand" href="{{path('users_data')}}">LIKEY</a>
-	{% else %}
-		<a class="navbar-brand" href="{{path('home')}}">LIKEY</a>
-	{% endif %}
+<nav class="bg-gray-800 navbar navbar-expand-lg navbar-dark">
+
+
+	<a class="navbar-brand" href="{{path('home')}}">LIKKEY</a>
 
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,78 +9,16 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarColor03">
+
 		<ul class="mr-auto navbar-nav"></ul>
-		{% if not app.user %}
-			<a class="btn btn-primary" href="{{path('register_index')}}">
-				Inscription
-			</a>
-			<a class="ml-3 btn btn-secondary" href="{{path('app_login')}}">
-				Connexion
-			</a>
 
-		{% else %}
-			{% for role in app.user.roles %}
-				{% if role == "ROLE_INFLUENCEUR" %}
-					<a class="mr-3 text-muted" href=" {{path('offer_index')}} ">Liste des offres</a>
-					<a href="{{ path('all_brands') }}" class="btn btn-secondary" class="btn-floating btn-large waves-effect waves-light">
-						Annuaire marques
-					</a>
-				{% elseif role == "ROLE_MARQUE" %}
-					<a href="{{ path('all_influencers') }}" class="btn btn-secondary" class="btn-floating btn-large waves-effect waves-light">
-						Annuaire influenceurs
-					</a>
-					<a href="{{ path('offer_new') }}" class="ml-3 btn btn-primary" class="btn-floating btn-large waves-effect waves-light">
-						Créer une nouvelle offre
-					</a>
-				{% endif %}
-			{% endfor %}
-			<ul class="navbar-nav">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mon profil</a>
-					{% if is_granted('ROLE_ADMIN') %}
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ path('dashbaord_admin_dashbaord') }}">
-								<mark>Dashboard ADMIN</mark>
-							</a>
-							{% for role in app.user.roles %}
-								{% if role ==  "ROLE_INFLUENCEUR" %}
-									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
-								{% endif %}
-							{% endfor %}
-							<a class="dropdown-item" href="{{ path('my_partnership') }}">Mes partenariats</a>
-							<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
+		<a class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-indigo-500 rounded shadow ripple hover:shadow-lg hover:bg-indigo-600 focus:outline-none waves-effect btn-nav-form1 " href="{{path('register_index')}}">
+			Inscription
+		</a>
+		<a class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center uppercase transition rounded shadow text-grey-600 bg-grey-200 btn-nav-form ripple hover:shadow-lg hover:bg-grey-300 focus:outline-none waves-effect" href="{{path('app_login')}}">
+			Connexion
+		</a>
 
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
-						</div>
-					{% else %}
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
-							{% for role in app.user.roles %}
-								{% if role ==  "ROLE_MARQUE" %}
-									<a class="dropdown-item" href="{{ path('offer_index') }}">Mes offres</a>
-								{% endif %}
-								<a class="dropdown-item" href="{{ path('offer_index') }}">Liste des offres</a>
-								{% if role ==  "ROLE_INFLUENCEUR" %}
-									<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
-								{% endif %}
-							{% endfor %}
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
-						</div>
-					{% endif %}
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="{{ path('users_complete') }}">Mon compte</a>
-						{% if app.user.roles[0] == "ROLE_INFLUENCEUR" %}
-							<a class="dropdown-item" href="{{ path('users_offers') }}">Mes offres postulés</a>
-						{% endif %}
-						<a class="dropdown-item" href="{{ path('offer_index') }}">List des offres</a>
-						<a class="dropdown-item" href="{{ path('my_partnership') }}">Mes partenariats</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
-					</div>
-				</li>
-			</ul>
-		</li>
-	{% endif %}
-</div></nav>
+
+	</div>
+</nav>

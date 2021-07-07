@@ -60,7 +60,7 @@ if (Encore.isProduction()) {
     new PurgeCssPlugin({
       paths: glob.sync([path.join(__dirname, 'templates/**/*.html.twig')]),
       defaultExtractor: (content) => {
-        return content.match(/[\w-/:](?<!:)/g) || [];
+        return content.match(/[\w-/:]+(?<!:)/g) || []
       },
     })
   );

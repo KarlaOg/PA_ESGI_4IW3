@@ -1,22 +1,46 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-no-user.html.twig' %}
 
 {% block title %}
-	Likey - Inscription
+	Likkey - Inscription
 {% endblock %}
 
 
 {% block body %}
-	<div class="container pb-5">
+	<div class="bg-white"></div>
+	<div class="pb-10 mx-auto">
+		<nav class="flex items-center justify-center" aria-label="Progress">
+			<p class="text-sm font-medium">Étape 1 sur 2</p>
+			<ol class="flex items-center ml-8 space-x-5">
+
+
+				<li>
+
+					<a href="#" class="relative flex items-center justify-center" aria-current="step">
+						<span class="absolute flex w-5 h-5 p-px" aria-hidden="true">
+							<span class="w-full h-full bg-indigo-200 rounded-full"></span>
+						</span>
+						<span class="relative block w-2.5 h-2.5 bg-indigo-600 rounded-full" aria-hidden="true"></span>
+						<span class="sr-only">Step 1</span>
+					</a>
+				</li>
+
+				<li>
+
+					<a href="#" class="block w-2.5 h-2.5 bg-gray-200 rounded-full hover:bg-gray-400">
+
+						<span class="sr-only">Step 2</span>
+					</a>
+				</li>
+			</ol>
+		</nav>
+	</div>
+	<div class="p-5 mx-auto mb-5 rounded shadow card form-register">
 		{{ form_start(form) }}
-		<h3>S'inscrire</h3>
-		<hr>
+		<h3 class="mb-4">S'inscrire</h3>
+
 		{{ form_widget(form) }}
-		<button type="submit" class="btn btn-primary">S'inscrire</button>
+		<button type="submit" class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-indigo-500 rounded shadow ripple hover:shadow-lg hover:bg-indigo-600 focus:outline-none waves-effect">Suivant</button>
 		{{ form_end(form) }}
-		{% for label, messages in app.flashes %}
-			{% for message in messages %}
-				M.toast({html: '{{ message }}', classes: '{{ label }}rounded'});
-			{% endfor %}
-		{% endfor %}
+
 	</div>
 {% endblock %}

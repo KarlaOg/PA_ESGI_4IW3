@@ -45,14 +45,13 @@ class RegisterType extends AbstractType
                 'label' => 'Date de Naissance',
             ])
             ->add('roles', ChoiceType::class, [
-                'label' => 'Vous êtes',
+                'label' => 'Vous êtes (au choix):',
                 'choices' => array(
                     'Marque' => "ROLE_MARQUE",
                     'Influenceur' => 'ROLE_INFLUENCEUR',
                 ),
                 'multiple'  => true,
                 'required' => true,
-                'expanded' => true
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',

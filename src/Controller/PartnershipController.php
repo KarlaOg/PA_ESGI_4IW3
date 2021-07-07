@@ -11,16 +11,19 @@ use App\Repository\ApplicationRepository;
 use App\Repository\InfluencerRepository;
 use App\Repository\BrandRepository;
 
+use App\Form\PaiementBrandType;
+use Symfony\Component\HttpFoundation\Request;
+
 class PartnershipController extends AbstractController
 {
     /**
-     * @Route("/my_partnership", name="my_partnership") 
-    */
-    public function my_partnership(OfferRepository $offerRepository, ApplicationRepository $applicationRepository, influencerRepository $influencerRepository, brandRepository $brandRepository)
+     * @Route("/mes-partenariats", name="my_partnership")
+     */
+    public function my_partnership(Request $request, OfferRepository $offerRepository, ApplicationRepository $applicationRepository, influencerRepository $influencerRepository, brandRepository $brandRepository)
     {
         $user = $this->getUser();
         $brand = $brandRepository->findOneBy(['user' => $user->getId()]);
-            
+
         $influencer = $influencerRepository->findOneBy(['user' => $user->getId()]);
 
         $partnerships = array();
@@ -32,9 +35,9 @@ class PartnershipController extends AbstractController
                 'brandId' => $brandId
             ]);
             //on recupere toutes les applications en lien avec la marque
-            foreach($offers as $offer) {
+            foreach ($offers as $offer) {
                 $applications = $offer->getApplication();
-                foreach($applications as $application) {
+                foreach ($applications as $application) {
                     if (strcmp($application->getStatus(), "validated") == 0) {
                         //recuperer l'influenceur qui a postuler a l'offre
                         $influencer = $influencerRepository->findOneBy([
@@ -45,19 +48,18 @@ class PartnershipController extends AbstractController
                     }
                 }
             }
-        }
-        else {
+        } else {
             $influencerId = $influencer->getId();
-            $offers = $offerRepository->findby([ ]);
+            $offers = $offerRepository->findby([]);
             //on recupere toutes les applications en lien avec la marque
-            foreach($offers as $offer) {
+            foreach ($offers as $offer) {
                 $applications = $offer->getApplication();
-                foreach($applications as $application) {
+                foreach ($applications as $application) {
                     $brand = $brandRepository->findOneby([
                         'id' => $offer->getBrandId()
                     ]);
 
-                    if($application->getInfluencerId()->toArray()[0]->getId() == $influencerId){
+                    if ($application->getInfluencerId()->toArray()[0]->getId() == $influencerId) {
                         if (strcmp($application->getStatus(), "validated") == 0) {
                             array_push($partnerships, $offer);
                             array_push($collaborators, $brand);
@@ -68,9 +70,18 @@ class PartnershipController extends AbstractController
             // recuperer toutes les applications qui ont comme id notre id d'influenceur et qui ont été validé
             // renvoyer partnerships et brands
         }
+
         return $this->render('partnership/index.html.twig', [
             'partnerships' => $partnerships,
-            'collaborators' => $collaborators
+            'collaborators' => $collaborators,
         ]);
+    }
+    /**
+     * @Route("/detail-paiment", name="detail_paiement")
+     */
+    public function setPriceForPayment(Request $request)
+    {
+
+        return $this->render('paiement/checkout-page.html.twig');
     }
 }

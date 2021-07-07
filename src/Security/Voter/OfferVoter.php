@@ -34,7 +34,7 @@ class OfferVoter extends Voter
             return false;
         }
 
-        //(check conditions and return true to grant permission) 
+        //(check conditions and return true to grant permission)
         $id = $subject->getBrandId()->getUser();
 
         switch ($attribute) {

@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -24,6 +25,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("message")
      */
     private $id;
 
@@ -31,6 +33,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email()
      * @Assert\NotBlank(message="email.validate.bd")
+     * @Groups("message")
      */
     private $email;
 

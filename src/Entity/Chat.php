@@ -18,14 +18,14 @@ class Chat
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Channel::class)
      */
-    private $senderId;
+    private $channel;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=User::class)
      */
-    private $receiverId;
+    private $sender;
 
     /**
      * @ORM\Column(type="datetimetz")
@@ -42,26 +42,26 @@ class Chat
         return $this->id;
     }
 
-    public function getSenderId(): ?int
+    public function getChannel(): ?Channel
     {
-        return $this->senderId;
+        return $this->channel;
     }
 
-    public function setSenderId(int $senderId): self
+    public function setChannel(?Channel $channel): self
     {
-        $this->senderId = $senderId;
+        $this->channel = $channel;
 
         return $this;
     }
 
-    public function getReceiverId(): ?int
+    public function getSender(): ?User
     {
-        return $this->receiverId;
+        return $this->sender;
     }
 
-    public function setReceiverId(int $receiverId): self
+    public function setSender(?User $sender): self
     {
-        $this->receiverId = $receiverId;
+        $this->sender = $sender;
 
         return $this;
     }
