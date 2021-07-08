@@ -37,11 +37,13 @@ class Comments
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete="CASCADE") 
      */
     private $offer;
 
     /**
      * @ORM\ManyToOne(targetEntity=Comments::class, inversedBy="replies")
+     * @ORM\JoinColumn(onDelete="CASCADE") 
      */
     private $parent;
 
