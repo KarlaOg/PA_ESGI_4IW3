@@ -5,10 +5,14 @@ namespace App\Controller;
 use App\Entity\Application;
 use App\Entity\Influencer;
 use App\Entity\Offer;
+use App\Entity\Comments;
+use DateTime;
 
 use App\Entity\User;
 use App\Form\OfferType;
 use App\Form\ApplicationType;
+use App\Form\CommentsType;
+
 use App\Repository\BrandRepository;
 use App\Repository\InfluencerRepository;
 use App\Repository\ApplicationRepository;
@@ -114,10 +118,18 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @Route("/liste/{id}", name="show", methods={"GET"})
+     * @Route("/liste/{id}", name="show", methods={"GET", "POST"})
      */
-    public function show($id, Offer $offer, BrandRepository $brandRepository, ApplicationRepository $applicationRepository, OfferRepository $offerRepository, influencerRepository $influencerRepository)
-    {
+    public function show(
+        $id,
+        Offer $offer,
+        BrandRepository $brandRepository,
+        Request $request,
+        ApplicationRepository $applicationRepository,
+        OfferRepository $offerRepository,
+        influencerRepository $influencerRepository,
+        NotifierInterface $notifier
+    ) {
         $offerId = $offerRepository->find($id);
 
         $this->denyAccessUnlessGranted('CAN_SHOW', $offerId, "Vous n'avez pas acces");
@@ -143,6 +155,58 @@ class OfferController extends AbstractController
             'status' => 'pending'
         ]);
 
+        // Partie commentaires
+        // On crée le commentaire "vierge"
+        $comment = new Comments;
+
+        // On génère le formulaire pour le commentaire
+        $commentForm = $this->createForm(CommentsType::class, $comment);
+
+        $commentForm->handleRequest($request);
+
+        // Traitement du formulaire
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setCreatedAt(new DateTime());
+            $comment->setOffer($offer);
+            $comment->setUser($user);
+            $data_content = $commentForm->getData()->getContent();
+            $comment->setContent(htmlspecialchars($data_content));
+
+            // On récupère le contenu du champ parentid
+            $parentid = $commentForm->get("parentid")->getData();
+
+            // On va chercher le commentaire correspondant
+            $em = $this->getDoctrine()->getManager();
+
+            if ($parentid != null) {
+                $parent = $em->getRepository(Comments::class)->find($parentid);
+            }
+
+            // On définit le parent
+            $comment->setParent($parent ?? null);
+
+            $em->persist($comment);
+            $em->flush();
+
+            // Utilisateur (marque) qui reçoit le commentaire
+            $user_received_comment = $offerId->getBrandId()->getUser();
+            $userEmail_received_comment = $user_received_comment->getEmail();
+
+            $notification = (new Notification('Vos avez reçu un nouveau commentaire'))
+                ->content('Bonjour ' . $user_received_comment->getFirstname() . ' ' . $user_received_comment->getLastname() .
+                    ', vous venez de recevoir un nouveau commentaire  de ' . $user->getLastname() . ' ' . $user->getLastname() . ' sur l\'offre ' . $offerId->getName());
+
+            $recipient = new Recipient(
+                $userEmail_received_comment
+            );
+
+            // Envoi notification par mail
+            $notifier->send($notification, $recipient);
+
+            $this->addFlash('message', 'Votre commentaire a bien été envoyé');
+            return $this->redirectToRoute('offer_show', ['id' => $offer->getId()]);
+        }
+
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,
             'brand' => $brand,
@@ -150,7 +214,8 @@ class OfferController extends AbstractController
             'offerApplied' => $offerApplied,
             'apply' => $apply,
             'application' => $application,
-            'isPending' => $pending ? true : false
+            'isPending' => $pending ? true : false,
+            'commentForm' => $commentForm->createView()
         ]);
     }
 

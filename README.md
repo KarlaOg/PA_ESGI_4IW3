@@ -46,6 +46,19 @@ Créer la db
 php bin/console doctrine:database:create
 ```
 
+Purge bd
+
+```
+php bin/console doctrine:database:drop --force
+```
+
+Schema:Update
+
+```
+php bin/console doctrine:schema:update --dump-sql
+php bin/console doctrine:schema:update --force
+```
+
 Lancer le server sf
 
 ```
