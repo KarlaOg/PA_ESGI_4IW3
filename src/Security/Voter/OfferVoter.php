@@ -43,7 +43,10 @@ class OfferVoter extends Voter
                 return $id  === $user;
                 break;
             case 'CAN_SHOW':
-                return $id  === $user || $user->getRoles() === ["ROLE_INFLUENCEUR"];
+                return $id  === $user || $user->getRoles() === ["ROLE_INFLUENCEUR"] || $user->getRoles() === [
+                    "ROLE_INFLUENCEUR",
+                    "ROLE_ADMIN"
+                ];
                 break;
         }
 
