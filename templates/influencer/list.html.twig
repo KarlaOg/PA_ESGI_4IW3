@@ -10,7 +10,7 @@
 		<div id="list-influencer">
 			<div class="mb-5">
 				<div class="relative mt-1 rounded-md">
-					<input placeholder="Rechercher une marque" type="search" class="block px-4 py-3 border-gray-300 rounded-md fuzzy-search form-input focus:ring-indigo-500 focus:border-indigo-500 pl-9 sm:text-sm" style='width:300px'>
+					<input placeholder="Rechercher un influenceur " type="search" class="block px-4 py-3 border-gray-300 rounded-md fuzzy-search form-input focus:ring-indigo-500 focus:border-indigo-500 pl-9 sm:text-sm" style='width:300px'>
 				</div>
 			</div>
 			<navclass="relativeflex-1min-h-0overflow-y-auto"aria-label="Annuaire">
@@ -33,9 +33,9 @@
 									{% endif %}
 								</div>
 								<div class="flex-1 min-w-0">
-									 <a
+									<a
 										href="{{ path('influencer_show', {'username': influencer.username}) }}" class="focus:outline-none">
-									
+
 										<!-- Extend touch target to entire panel -->
 										<span class="absolute inset-0" aria-hidden="true"></span>
 										<p class="text-sm font-medium text-gray-900 name">
